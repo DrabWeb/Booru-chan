@@ -1,0 +1,516 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5D1DEDA31BE6555F00749AA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1DEDA21BE6555F00749AA9 /* AppDelegate.swift */; };
+		5D1DEDA51BE6555F00749AA9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1DEDA41BE6555F00749AA9 /* ViewController.swift */; };
+		5D1DEDA71BE6555F00749AA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D1DEDA61BE6555F00749AA9 /* Assets.xcassets */; };
+		5D1DEDAA1BE6555F00749AA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D1DEDA81BE6555F00749AA9 /* Main.storyboard */; };
+		5D1DEDB51BE6555F00749AA9 /* Booru_chanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1DEDB41BE6555F00749AA9 /* Booru_chanTests.swift */; };
+		5D1DEDC01BE6555F00749AA9 /* Booru_chanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1DEDBF1BE6555F00749AA9 /* Booru_chanUITests.swift */; };
+		5D1DEDD11BE6565D00749AA9 /* SidebarDoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1DEDD01BE6565D00749AA9 /* SidebarDoc.swift */; settings = {ASSET_TAGS = (); }; };
+		5D383D661BE954390079D1A5 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D383D651BE954390079D1A5 /* PreferenceViewController.swift */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5D1DEDB11BE6555F00749AA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D1DED971BE6555F00749AA9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D1DED9E1BE6555F00749AA9;
+			remoteInfo = "Booru-chan";
+		};
+		5D1DEDBC1BE6555F00749AA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D1DED971BE6555F00749AA9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D1DED9E1BE6555F00749AA9;
+			remoteInfo = "Booru-chan";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5D1DED9F1BE6555F00749AA9 /* Booru-chan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Booru-chan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D1DEDA21BE6555F00749AA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5D1DEDA41BE6555F00749AA9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5D1DEDA61BE6555F00749AA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5D1DEDA91BE6555F00749AA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5D1DEDAB1BE6555F00749AA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D1DEDB01BE6555F00749AA9 /* Booru-chanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Booru-chanTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D1DEDB41BE6555F00749AA9 /* Booru_chanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booru_chanTests.swift; sourceTree = "<group>"; };
+		5D1DEDB61BE6555F00749AA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D1DEDBB1BE6555F00749AA9 /* Booru-chanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Booru-chanUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D1DEDBF1BE6555F00749AA9 /* Booru_chanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booru_chanUITests.swift; sourceTree = "<group>"; };
+		5D1DEDC11BE6555F00749AA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D1DEDD01BE6565D00749AA9 /* SidebarDoc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarDoc.swift; sourceTree = "<group>"; };
+		5D383D651BE954390079D1A5 /* PreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5D1DED9C1BE6555F00749AA9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D1DEDAD1BE6555F00749AA9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D1DEDB81BE6555F00749AA9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5D1DED961BE6555F00749AA9 = {
+			isa = PBXGroup;
+			children = (
+				5D1DEDA11BE6555F00749AA9 /* Booru-chan */,
+				5D1DEDB31BE6555F00749AA9 /* Booru-chanTests */,
+				5D1DEDBE1BE6555F00749AA9 /* Booru-chanUITests */,
+				5D1DEDA01BE6555F00749AA9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5D1DEDA01BE6555F00749AA9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5D1DED9F1BE6555F00749AA9 /* Booru-chan.app */,
+				5D1DEDB01BE6555F00749AA9 /* Booru-chanTests.xctest */,
+				5D1DEDBB1BE6555F00749AA9 /* Booru-chanUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5D1DEDA11BE6555F00749AA9 /* Booru-chan */ = {
+			isa = PBXGroup;
+			children = (
+				5D1DEDA21BE6555F00749AA9 /* AppDelegate.swift */,
+				5D1DEDA41BE6555F00749AA9 /* ViewController.swift */,
+				5D383D651BE954390079D1A5 /* PreferenceViewController.swift */,
+				5D1DEDCD1BE655DB00749AA9 /* Models */,
+				5D1DEDA61BE6555F00749AA9 /* Assets.xcassets */,
+				5D1DEDA81BE6555F00749AA9 /* Main.storyboard */,
+				5D1DEDAB1BE6555F00749AA9 /* Info.plist */,
+			);
+			path = "Booru-chan";
+			sourceTree = "<group>";
+		};
+		5D1DEDB31BE6555F00749AA9 /* Booru-chanTests */ = {
+			isa = PBXGroup;
+			children = (
+				5D1DEDB41BE6555F00749AA9 /* Booru_chanTests.swift */,
+				5D1DEDB61BE6555F00749AA9 /* Info.plist */,
+			);
+			path = "Booru-chanTests";
+			sourceTree = "<group>";
+		};
+		5D1DEDBE1BE6555F00749AA9 /* Booru-chanUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5D1DEDBF1BE6555F00749AA9 /* Booru_chanUITests.swift */,
+				5D1DEDC11BE6555F00749AA9 /* Info.plist */,
+			);
+			path = "Booru-chanUITests";
+			sourceTree = "<group>";
+		};
+		5D1DEDCD1BE655DB00749AA9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5D1DEDD01BE6565D00749AA9 /* SidebarDoc.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5D1DED9E1BE6555F00749AA9 /* Booru-chan */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D1DEDC41BE6555F00749AA9 /* Build configuration list for PBXNativeTarget "Booru-chan" */;
+			buildPhases = (
+				5D1DED9B1BE6555F00749AA9 /* Sources */,
+				5D1DED9C1BE6555F00749AA9 /* Frameworks */,
+				5D1DED9D1BE6555F00749AA9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Booru-chan";
+			productName = "Booru-chan";
+			productReference = 5D1DED9F1BE6555F00749AA9 /* Booru-chan.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5D1DEDAF1BE6555F00749AA9 /* Booru-chanTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D1DEDC71BE6555F00749AA9 /* Build configuration list for PBXNativeTarget "Booru-chanTests" */;
+			buildPhases = (
+				5D1DEDAC1BE6555F00749AA9 /* Sources */,
+				5D1DEDAD1BE6555F00749AA9 /* Frameworks */,
+				5D1DEDAE1BE6555F00749AA9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5D1DEDB21BE6555F00749AA9 /* PBXTargetDependency */,
+			);
+			name = "Booru-chanTests";
+			productName = "Booru-chanTests";
+			productReference = 5D1DEDB01BE6555F00749AA9 /* Booru-chanTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5D1DEDBA1BE6555F00749AA9 /* Booru-chanUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D1DEDCA1BE6555F00749AA9 /* Build configuration list for PBXNativeTarget "Booru-chanUITests" */;
+			buildPhases = (
+				5D1DEDB71BE6555F00749AA9 /* Sources */,
+				5D1DEDB81BE6555F00749AA9 /* Frameworks */,
+				5D1DEDB91BE6555F00749AA9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5D1DEDBD1BE6555F00749AA9 /* PBXTargetDependency */,
+			);
+			name = "Booru-chanUITests";
+			productName = "Booru-chanUITests";
+			productReference = 5D1DEDBB1BE6555F00749AA9 /* Booru-chanUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5D1DED971BE6555F00749AA9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = DrabWeb;
+				TargetAttributes = {
+					5D1DED9E1BE6555F00749AA9 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					5D1DEDAF1BE6555F00749AA9 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 5D1DED9E1BE6555F00749AA9;
+					};
+					5D1DEDBA1BE6555F00749AA9 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 5D1DED9E1BE6555F00749AA9;
+					};
+				};
+			};
+			buildConfigurationList = 5D1DED9A1BE6555F00749AA9 /* Build configuration list for PBXProject "Booru-chan" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5D1DED961BE6555F00749AA9;
+			productRefGroup = 5D1DEDA01BE6555F00749AA9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5D1DED9E1BE6555F00749AA9 /* Booru-chan */,
+				5D1DEDAF1BE6555F00749AA9 /* Booru-chanTests */,
+				5D1DEDBA1BE6555F00749AA9 /* Booru-chanUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5D1DED9D1BE6555F00749AA9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D1DEDA71BE6555F00749AA9 /* Assets.xcassets in Resources */,
+				5D1DEDAA1BE6555F00749AA9 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D1DEDAE1BE6555F00749AA9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D1DEDB91BE6555F00749AA9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5D1DED9B1BE6555F00749AA9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D1DEDA51BE6555F00749AA9 /* ViewController.swift in Sources */,
+				5D1DEDA31BE6555F00749AA9 /* AppDelegate.swift in Sources */,
+				5D1DEDD11BE6565D00749AA9 /* SidebarDoc.swift in Sources */,
+				5D383D661BE954390079D1A5 /* PreferenceViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D1DEDAC1BE6555F00749AA9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D1DEDB51BE6555F00749AA9 /* Booru_chanTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D1DEDB71BE6555F00749AA9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D1DEDC01BE6555F00749AA9 /* Booru_chanUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5D1DEDB21BE6555F00749AA9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5D1DED9E1BE6555F00749AA9 /* Booru-chan */;
+			targetProxy = 5D1DEDB11BE6555F00749AA9 /* PBXContainerItemProxy */;
+		};
+		5D1DEDBD1BE6555F00749AA9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5D1DED9E1BE6555F00749AA9 /* Booru-chan */;
+			targetProxy = 5D1DEDBC1BE6555F00749AA9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5D1DEDA81BE6555F00749AA9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5D1DEDA91BE6555F00749AA9 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5D1DEDC21BE6555F00749AA9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5D1DEDC31BE6555F00749AA9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		5D1DEDC51BE6555F00749AA9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Booru-chan/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Booru-chan";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5D1DEDC61BE6555F00749AA9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Booru-chan/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Booru-chan";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		5D1DEDC81BE6555F00749AA9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Booru-chanTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Booru-chanTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Booru-chan.app/Contents/MacOS/Booru-chan";
+			};
+			name = Debug;
+		};
+		5D1DEDC91BE6555F00749AA9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Booru-chanTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Booru-chanTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Booru-chan.app/Contents/MacOS/Booru-chan";
+			};
+			name = Release;
+		};
+		5D1DEDCB1BE6555F00749AA9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Booru-chanUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Booru-chanUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Booru-chan";
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		5D1DEDCC1BE6555F00749AA9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Booru-chanUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Booru-chanUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Booru-chan";
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5D1DED9A1BE6555F00749AA9 /* Build configuration list for PBXProject "Booru-chan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D1DEDC21BE6555F00749AA9 /* Debug */,
+				5D1DEDC31BE6555F00749AA9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D1DEDC41BE6555F00749AA9 /* Build configuration list for PBXNativeTarget "Booru-chan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D1DEDC51BE6555F00749AA9 /* Debug */,
+				5D1DEDC61BE6555F00749AA9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D1DEDC71BE6555F00749AA9 /* Build configuration list for PBXNativeTarget "Booru-chanTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D1DEDC81BE6555F00749AA9 /* Debug */,
+				5D1DEDC91BE6555F00749AA9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D1DEDCA1BE6555F00749AA9 /* Build configuration list for PBXNativeTarget "Booru-chanUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D1DEDCB1BE6555F00749AA9 /* Debug */,
+				5D1DEDCC1BE6555F00749AA9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5D1DED971BE6555F00749AA9 /* Project object */;
+}
