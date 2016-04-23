@@ -2,8 +2,8 @@
 //  Booru_chanTests.swift
 //  Booru-chanTests
 //
-//  Created by Seth on 2015-11-01.
-//  Copyright © 2015 DrabWeb. All rights reserved.
+//  Created by Seth on 2016-04-23.
+//  Copyright © 2016 DrabWeb. All rights reserved.
 //
 
 import XCTest

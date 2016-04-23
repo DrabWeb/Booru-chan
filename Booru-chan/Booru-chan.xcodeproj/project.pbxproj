@@ -7,66 +7,75 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5D1DEDA31BE6555F00749AA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1DEDA21BE6555F00749AA9 /* AppDelegate.swift */; };
-		5D1DEDA51BE6555F00749AA9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1DEDA41BE6555F00749AA9 /* ViewController.swift */; };
-		5D1DEDA71BE6555F00749AA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D1DEDA61BE6555F00749AA9 /* Assets.xcassets */; };
-		5D1DEDAA1BE6555F00749AA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D1DEDA81BE6555F00749AA9 /* Main.storyboard */; };
-		5D1DEDB51BE6555F00749AA9 /* Booru_chanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1DEDB41BE6555F00749AA9 /* Booru_chanTests.swift */; };
-		5D1DEDC01BE6555F00749AA9 /* Booru_chanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1DEDBF1BE6555F00749AA9 /* Booru_chanUITests.swift */; };
-		5D1DEDD11BE6565D00749AA9 /* SidebarDoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1DEDD01BE6565D00749AA9 /* SidebarDoc.swift */; settings = {ASSET_TAGS = (); }; };
-		5D383D661BE954390079D1A5 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D383D651BE954390079D1A5 /* PreferenceViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		23074CA650B3CADFA092E7F0 /* Pods_Booru_chan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63DDEBE3407D49F095EA58A7 /* Pods_Booru_chan.framework */; };
+		5D71B4961CCC06EA0011C281 /* BCAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4951CCC06EA0011C281 /* BCAppDelegate.swift */; };
+		5D71B4981CCC06EA0011C281 /* BCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4971CCC06EA0011C281 /* BCViewController.swift */; };
+		5D71B49A1CCC06EA0011C281 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D71B4991CCC06EA0011C281 /* Assets.xcassets */; };
+		5D71B49D1CCC06EA0011C281 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D71B49B1CCC06EA0011C281 /* Main.storyboard */; };
+		5D71B4A81CCC06EA0011C281 /* Booru_chanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4A71CCC06EA0011C281 /* Booru_chanTests.swift */; };
+		5D71B4B31CCC06EA0011C281 /* Booru_chanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4B21CCC06EA0011C281 /* Booru_chanUITests.swift */; };
+		5D7CA38F1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7CA38E1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift */; };
+		5D7CA3911CCC0AFD00B4A0A5 /* BCAlwaysActiveTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7CA3901CCC0AFD00B4A0A5 /* BCAlwaysActiveTextField.swift */; };
+		5D88CC0F1CCC133B001FF12E /* BCBooruUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC0E1CCC133B001FF12E /* BCBooruUtilities.swift */; };
+		5D88CC131CCC14DC001FF12E /* BCGridStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC121CCC14DC001FF12E /* BCGridStyleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5D1DEDB11BE6555F00749AA9 /* PBXContainerItemProxy */ = {
+		5D71B4A41CCC06EA0011C281 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5D1DED971BE6555F00749AA9 /* Project object */;
+			containerPortal = 5D71B48A1CCC06EA0011C281 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 5D1DED9E1BE6555F00749AA9;
+			remoteGlobalIDString = 5D71B4911CCC06EA0011C281;
 			remoteInfo = "Booru-chan";
 		};
-		5D1DEDBC1BE6555F00749AA9 /* PBXContainerItemProxy */ = {
+		5D71B4AF1CCC06EA0011C281 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5D1DED971BE6555F00749AA9 /* Project object */;
+			containerPortal = 5D71B48A1CCC06EA0011C281 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 5D1DED9E1BE6555F00749AA9;
+			remoteGlobalIDString = 5D71B4911CCC06EA0011C281;
 			remoteInfo = "Booru-chan";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5D1DED9F1BE6555F00749AA9 /* Booru-chan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Booru-chan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5D1DEDA21BE6555F00749AA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5D1DEDA41BE6555F00749AA9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		5D1DEDA61BE6555F00749AA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5D1DEDA91BE6555F00749AA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5D1DEDAB1BE6555F00749AA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5D1DEDB01BE6555F00749AA9 /* Booru-chanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Booru-chanTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5D1DEDB41BE6555F00749AA9 /* Booru_chanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booru_chanTests.swift; sourceTree = "<group>"; };
-		5D1DEDB61BE6555F00749AA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5D1DEDBB1BE6555F00749AA9 /* Booru-chanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Booru-chanUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5D1DEDBF1BE6555F00749AA9 /* Booru_chanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booru_chanUITests.swift; sourceTree = "<group>"; };
-		5D1DEDC11BE6555F00749AA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5D1DEDD01BE6565D00749AA9 /* SidebarDoc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarDoc.swift; sourceTree = "<group>"; };
-		5D383D651BE954390079D1A5 /* PreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
+		3D9D17B80249B87F2EBC4109 /* Pods-Booru-chan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chan/Pods-Booru-chan.debug.xcconfig"; sourceTree = "<group>"; };
+		5D71B4921CCC06EA0011C281 /* Booru-chan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Booru-chan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D71B4951CCC06EA0011C281 /* BCAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCAppDelegate.swift; sourceTree = "<group>"; };
+		5D71B4971CCC06EA0011C281 /* BCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCViewController.swift; sourceTree = "<group>"; };
+		5D71B4991CCC06EA0011C281 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5D71B49C1CCC06EA0011C281 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5D71B49E1CCC06EA0011C281 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D71B4A31CCC06EA0011C281 /* Booru-chanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Booru-chanTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D71B4A71CCC06EA0011C281 /* Booru_chanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booru_chanTests.swift; sourceTree = "<group>"; };
+		5D71B4A91CCC06EA0011C281 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D71B4AE1CCC06EA0011C281 /* Booru-chanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Booru-chanUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D71B4B21CCC06EA0011C281 /* Booru_chanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booru_chanUITests.swift; sourceTree = "<group>"; };
+		5D71B4B41CCC06EA0011C281 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D7CA38E1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCNoDividerSplitView.swift; sourceTree = "<group>"; };
+		5D7CA3901CCC0AFD00B4A0A5 /* BCAlwaysActiveTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCAlwaysActiveTextField.swift; sourceTree = "<group>"; };
+		5D88CC0E1CCC133B001FF12E /* BCBooruUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BCBooruUtilities.swift; path = Assets.xcassets/BCBooruUtilities.swift; sourceTree = "<group>"; };
+		5D88CC121CCC14DC001FF12E /* BCGridStyleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCGridStyleViewController.swift; sourceTree = "<group>"; };
+		63DDEBE3407D49F095EA58A7 /* Pods_Booru_chan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E3F5A8DA46E4230E39B12F3 /* Pods-Booru-chan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chan/Pods-Booru-chan.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		5D1DED9C1BE6555F00749AA9 /* Frameworks */ = {
+		5D71B48F1CCC06EA0011C281 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23074CA650B3CADFA092E7F0 /* Pods_Booru_chan.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D71B4A01CCC06EA0011C281 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5D1DEDAD1BE6555F00749AA9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5D1DEDB81BE6555F00749AA9 /* Frameworks */ = {
+		5D71B4AB1CCC06EA0011C281 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -76,76 +85,132 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5D1DED961BE6555F00749AA9 = {
+		427D520B6B9C276704604F94 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5D1DEDA11BE6555F00749AA9 /* Booru-chan */,
-				5D1DEDB31BE6555F00749AA9 /* Booru-chanTests */,
-				5D1DEDBE1BE6555F00749AA9 /* Booru-chanUITests */,
-				5D1DEDA01BE6555F00749AA9 /* Products */,
+				3D9D17B80249B87F2EBC4109 /* Pods-Booru-chan.debug.xcconfig */,
+				9E3F5A8DA46E4230E39B12F3 /* Pods-Booru-chan.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5D71B4891CCC06EA0011C281 = {
+			isa = PBXGroup;
+			children = (
+				5D71B4941CCC06EA0011C281 /* Booru-chan */,
+				5D71B4A61CCC06EA0011C281 /* Booru-chanTests */,
+				5D71B4B11CCC06EA0011C281 /* Booru-chanUITests */,
+				5D71B4931CCC06EA0011C281 /* Products */,
+				427D520B6B9C276704604F94 /* Pods */,
+				706F26A406A7FB0C802654CB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		5D1DEDA01BE6555F00749AA9 /* Products */ = {
+		5D71B4931CCC06EA0011C281 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5D1DED9F1BE6555F00749AA9 /* Booru-chan.app */,
-				5D1DEDB01BE6555F00749AA9 /* Booru-chanTests.xctest */,
-				5D1DEDBB1BE6555F00749AA9 /* Booru-chanUITests.xctest */,
+				5D71B4921CCC06EA0011C281 /* Booru-chan.app */,
+				5D71B4A31CCC06EA0011C281 /* Booru-chanTests.xctest */,
+				5D71B4AE1CCC06EA0011C281 /* Booru-chanUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5D1DEDA11BE6555F00749AA9 /* Booru-chan */ = {
+		5D71B4941CCC06EA0011C281 /* Booru-chan */ = {
 			isa = PBXGroup;
 			children = (
-				5D1DEDA21BE6555F00749AA9 /* AppDelegate.swift */,
-				5D1DEDA41BE6555F00749AA9 /* ViewController.swift */,
-				5D383D651BE954390079D1A5 /* PreferenceViewController.swift */,
-				5D1DEDCD1BE655DB00749AA9 /* Models */,
-				5D1DEDA61BE6555F00749AA9 /* Assets.xcassets */,
-				5D1DEDA81BE6555F00749AA9 /* Main.storyboard */,
-				5D1DEDAB1BE6555F00749AA9 /* Info.plist */,
+				5D71B4951CCC06EA0011C281 /* BCAppDelegate.swift */,
+				5D71B4971CCC06EA0011C281 /* BCViewController.swift */,
+				5D7CA38D1CCC0A6E00B4A0A5 /* Storyboards */,
+				5D7CA38C1CCC0A6800B4A0A5 /* Views */,
+				5D7CA3921CCC128C00B4A0A5 /* Utilities */,
+				5D88CC101CCC14B2001FF12E /* Controllers */,
+				5D71B4991CCC06EA0011C281 /* Assets.xcassets */,
+				5D71B49E1CCC06EA0011C281 /* Info.plist */,
 			);
 			path = "Booru-chan";
 			sourceTree = "<group>";
 		};
-		5D1DEDB31BE6555F00749AA9 /* Booru-chanTests */ = {
+		5D71B4A61CCC06EA0011C281 /* Booru-chanTests */ = {
 			isa = PBXGroup;
 			children = (
-				5D1DEDB41BE6555F00749AA9 /* Booru_chanTests.swift */,
-				5D1DEDB61BE6555F00749AA9 /* Info.plist */,
+				5D71B4A71CCC06EA0011C281 /* Booru_chanTests.swift */,
+				5D71B4A91CCC06EA0011C281 /* Info.plist */,
 			);
 			path = "Booru-chanTests";
 			sourceTree = "<group>";
 		};
-		5D1DEDBE1BE6555F00749AA9 /* Booru-chanUITests */ = {
+		5D71B4B11CCC06EA0011C281 /* Booru-chanUITests */ = {
 			isa = PBXGroup;
 			children = (
-				5D1DEDBF1BE6555F00749AA9 /* Booru_chanUITests.swift */,
-				5D1DEDC11BE6555F00749AA9 /* Info.plist */,
+				5D71B4B21CCC06EA0011C281 /* Booru_chanUITests.swift */,
+				5D71B4B41CCC06EA0011C281 /* Info.plist */,
 			);
 			path = "Booru-chanUITests";
 			sourceTree = "<group>";
 		};
-		5D1DEDCD1BE655DB00749AA9 /* Models */ = {
+		5D7CA38C1CCC0A6800B4A0A5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5D1DEDD01BE6565D00749AA9 /* SidebarDoc.swift */,
+				5D7CA38E1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift */,
+				5D7CA3901CCC0AFD00B4A0A5 /* BCAlwaysActiveTextField.swift */,
 			);
-			name = Models;
+			name = Views;
+			sourceTree = "<group>";
+		};
+		5D7CA38D1CCC0A6E00B4A0A5 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				5D71B49B1CCC06EA0011C281 /* Main.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		5D7CA3921CCC128C00B4A0A5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5D88CC0E1CCC133B001FF12E /* BCBooruUtilities.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		5D88CC101CCC14B2001FF12E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5D88CC111CCC14C1001FF12E /* Grid Style Controller */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		5D88CC111CCC14C1001FF12E /* Grid Style Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5D88CC121CCC14DC001FF12E /* BCGridStyleViewController.swift */,
+			);
+			name = "Grid Style Controller";
+			sourceTree = "<group>";
+		};
+		706F26A406A7FB0C802654CB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				63DDEBE3407D49F095EA58A7 /* Pods_Booru_chan.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5D1DED9E1BE6555F00749AA9 /* Booru-chan */ = {
+		5D71B4911CCC06EA0011C281 /* Booru-chan */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5D1DEDC41BE6555F00749AA9 /* Build configuration list for PBXNativeTarget "Booru-chan" */;
+			buildConfigurationList = 5D71B4B71CCC06EA0011C281 /* Build configuration list for PBXNativeTarget "Booru-chan" */;
 			buildPhases = (
-				5D1DED9B1BE6555F00749AA9 /* Sources */,
-				5D1DED9C1BE6555F00749AA9 /* Frameworks */,
-				5D1DED9D1BE6555F00749AA9 /* Resources */,
+				F863EFE697E50FD42310BA85 /* Check Pods Manifest.lock */,
+				5D71B48E1CCC06EA0011C281 /* Sources */,
+				5D71B48F1CCC06EA0011C281 /* Frameworks */,
+				5D71B4901CCC06EA0011C281 /* Resources */,
+				91F7006CD292E930D25218FD /* Embed Pods Frameworks */,
+				90AE52B8B5D5745200A87435 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -153,68 +218,69 @@
 			);
 			name = "Booru-chan";
 			productName = "Booru-chan";
-			productReference = 5D1DED9F1BE6555F00749AA9 /* Booru-chan.app */;
+			productReference = 5D71B4921CCC06EA0011C281 /* Booru-chan.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5D1DEDAF1BE6555F00749AA9 /* Booru-chanTests */ = {
+		5D71B4A21CCC06EA0011C281 /* Booru-chanTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5D1DEDC71BE6555F00749AA9 /* Build configuration list for PBXNativeTarget "Booru-chanTests" */;
+			buildConfigurationList = 5D71B4BA1CCC06EA0011C281 /* Build configuration list for PBXNativeTarget "Booru-chanTests" */;
 			buildPhases = (
-				5D1DEDAC1BE6555F00749AA9 /* Sources */,
-				5D1DEDAD1BE6555F00749AA9 /* Frameworks */,
-				5D1DEDAE1BE6555F00749AA9 /* Resources */,
+				5D71B49F1CCC06EA0011C281 /* Sources */,
+				5D71B4A01CCC06EA0011C281 /* Frameworks */,
+				5D71B4A11CCC06EA0011C281 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				5D1DEDB21BE6555F00749AA9 /* PBXTargetDependency */,
+				5D71B4A51CCC06EA0011C281 /* PBXTargetDependency */,
 			);
 			name = "Booru-chanTests";
 			productName = "Booru-chanTests";
-			productReference = 5D1DEDB01BE6555F00749AA9 /* Booru-chanTests.xctest */;
+			productReference = 5D71B4A31CCC06EA0011C281 /* Booru-chanTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		5D1DEDBA1BE6555F00749AA9 /* Booru-chanUITests */ = {
+		5D71B4AD1CCC06EA0011C281 /* Booru-chanUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5D1DEDCA1BE6555F00749AA9 /* Build configuration list for PBXNativeTarget "Booru-chanUITests" */;
+			buildConfigurationList = 5D71B4BD1CCC06EA0011C281 /* Build configuration list for PBXNativeTarget "Booru-chanUITests" */;
 			buildPhases = (
-				5D1DEDB71BE6555F00749AA9 /* Sources */,
-				5D1DEDB81BE6555F00749AA9 /* Frameworks */,
-				5D1DEDB91BE6555F00749AA9 /* Resources */,
+				5D71B4AA1CCC06EA0011C281 /* Sources */,
+				5D71B4AB1CCC06EA0011C281 /* Frameworks */,
+				5D71B4AC1CCC06EA0011C281 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				5D1DEDBD1BE6555F00749AA9 /* PBXTargetDependency */,
+				5D71B4B01CCC06EA0011C281 /* PBXTargetDependency */,
 			);
 			name = "Booru-chanUITests";
 			productName = "Booru-chanUITests";
-			productReference = 5D1DEDBB1BE6555F00749AA9 /* Booru-chanUITests.xctest */;
+			productReference = 5D71B4AE1CCC06EA0011C281 /* Booru-chanUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		5D1DED971BE6555F00749AA9 /* Project object */ = {
+		5D71B48A1CCC06EA0011C281 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = DrabWeb;
 				TargetAttributes = {
-					5D1DED9E1BE6555F00749AA9 = {
-						CreatedOnToolsVersion = 7.0;
+					5D71B4911CCC06EA0011C281 = {
+						CreatedOnToolsVersion = 7.2;
 					};
-					5D1DEDAF1BE6555F00749AA9 = {
-						CreatedOnToolsVersion = 7.0;
-						TestTargetID = 5D1DED9E1BE6555F00749AA9;
+					5D71B4A21CCC06EA0011C281 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 5D71B4911CCC06EA0011C281;
 					};
-					5D1DEDBA1BE6555F00749AA9 = {
-						CreatedOnToolsVersion = 7.0;
-						TestTargetID = 5D1DED9E1BE6555F00749AA9;
+					5D71B4AD1CCC06EA0011C281 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 5D71B4911CCC06EA0011C281;
 					};
 				};
 			};
-			buildConfigurationList = 5D1DED9A1BE6555F00749AA9 /* Build configuration list for PBXProject "Booru-chan" */;
+			buildConfigurationList = 5D71B48D1CCC06EA0011C281 /* Build configuration list for PBXProject "Booru-chan" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -222,36 +288,36 @@
 				en,
 				Base,
 			);
-			mainGroup = 5D1DED961BE6555F00749AA9;
-			productRefGroup = 5D1DEDA01BE6555F00749AA9 /* Products */;
+			mainGroup = 5D71B4891CCC06EA0011C281;
+			productRefGroup = 5D71B4931CCC06EA0011C281 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5D1DED9E1BE6555F00749AA9 /* Booru-chan */,
-				5D1DEDAF1BE6555F00749AA9 /* Booru-chanTests */,
-				5D1DEDBA1BE6555F00749AA9 /* Booru-chanUITests */,
+				5D71B4911CCC06EA0011C281 /* Booru-chan */,
+				5D71B4A21CCC06EA0011C281 /* Booru-chanTests */,
+				5D71B4AD1CCC06EA0011C281 /* Booru-chanUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		5D1DED9D1BE6555F00749AA9 /* Resources */ = {
+		5D71B4901CCC06EA0011C281 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D1DEDA71BE6555F00749AA9 /* Assets.xcassets in Resources */,
-				5D1DEDAA1BE6555F00749AA9 /* Main.storyboard in Resources */,
+				5D71B49A1CCC06EA0011C281 /* Assets.xcassets in Resources */,
+				5D71B49D1CCC06EA0011C281 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5D1DEDAE1BE6555F00749AA9 /* Resources */ = {
+		5D71B4A11CCC06EA0011C281 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5D1DEDB91BE6555F00749AA9 /* Resources */ = {
+		5D71B4AC1CCC06EA0011C281 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -260,54 +326,104 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		90AE52B8B5D5745200A87435 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Booru-chan/Pods-Booru-chan-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		91F7006CD292E930D25218FD /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Booru-chan/Pods-Booru-chan-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F863EFE697E50FD42310BA85 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		5D1DED9B1BE6555F00749AA9 /* Sources */ = {
+		5D71B48E1CCC06EA0011C281 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D1DEDA51BE6555F00749AA9 /* ViewController.swift in Sources */,
-				5D1DEDA31BE6555F00749AA9 /* AppDelegate.swift in Sources */,
-				5D1DEDD11BE6565D00749AA9 /* SidebarDoc.swift in Sources */,
-				5D383D661BE954390079D1A5 /* PreferenceViewController.swift in Sources */,
+				5D71B4981CCC06EA0011C281 /* BCViewController.swift in Sources */,
+				5D71B4961CCC06EA0011C281 /* BCAppDelegate.swift in Sources */,
+				5D88CC0F1CCC133B001FF12E /* BCBooruUtilities.swift in Sources */,
+				5D88CC131CCC14DC001FF12E /* BCGridStyleViewController.swift in Sources */,
+				5D7CA38F1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift in Sources */,
+				5D7CA3911CCC0AFD00B4A0A5 /* BCAlwaysActiveTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5D1DEDAC1BE6555F00749AA9 /* Sources */ = {
+		5D71B49F1CCC06EA0011C281 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D1DEDB51BE6555F00749AA9 /* Booru_chanTests.swift in Sources */,
+				5D71B4A81CCC06EA0011C281 /* Booru_chanTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5D1DEDB71BE6555F00749AA9 /* Sources */ = {
+		5D71B4AA1CCC06EA0011C281 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D1DEDC01BE6555F00749AA9 /* Booru_chanUITests.swift in Sources */,
+				5D71B4B31CCC06EA0011C281 /* Booru_chanUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5D1DEDB21BE6555F00749AA9 /* PBXTargetDependency */ = {
+		5D71B4A51CCC06EA0011C281 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5D1DED9E1BE6555F00749AA9 /* Booru-chan */;
-			targetProxy = 5D1DEDB11BE6555F00749AA9 /* PBXContainerItemProxy */;
+			target = 5D71B4911CCC06EA0011C281 /* Booru-chan */;
+			targetProxy = 5D71B4A41CCC06EA0011C281 /* PBXContainerItemProxy */;
 		};
-		5D1DEDBD1BE6555F00749AA9 /* PBXTargetDependency */ = {
+		5D71B4B01CCC06EA0011C281 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5D1DED9E1BE6555F00749AA9 /* Booru-chan */;
-			targetProxy = 5D1DEDBC1BE6555F00749AA9 /* PBXContainerItemProxy */;
+			target = 5D71B4911CCC06EA0011C281 /* Booru-chan */;
+			targetProxy = 5D71B4AF1CCC06EA0011C281 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		5D1DEDA81BE6555F00749AA9 /* Main.storyboard */ = {
+		5D71B49B1CCC06EA0011C281 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				5D1DEDA91BE6555F00749AA9 /* Base */,
+				5D71B49C1CCC06EA0011C281 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -315,7 +431,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		5D1DEDC21BE6555F00749AA9 /* Debug */ = {
+		5D71B4B51CCC06EA0011C281 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -359,7 +475,7 @@
 			};
 			name = Debug;
 		};
-		5D1DEDC31BE6555F00749AA9 /* Release */ = {
+		5D71B4B61CCC06EA0011C281 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -395,31 +511,35 @@
 			};
 			name = Release;
 		};
-		5D1DEDC51BE6555F00749AA9 /* Debug */ = {
+		5D71B4B81CCC06EA0011C281 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D9D17B80249B87F2EBC4109 /* Pods-Booru-chan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Booru-chan/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Booru-chan";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		5D1DEDC61BE6555F00749AA9 /* Release */ = {
+		5D71B4B91CCC06EA0011C281 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E3F5A8DA46E4230E39B12F3 /* Pods-Booru-chan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Booru-chan/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Booru-chan";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
-		5D1DEDC81BE6555F00749AA9 /* Debug */ = {
+		5D71B4BB1CCC06EA0011C281 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -432,7 +552,7 @@
 			};
 			name = Debug;
 		};
-		5D1DEDC91BE6555F00749AA9 /* Release */ = {
+		5D71B4BC1CCC06EA0011C281 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -445,7 +565,7 @@
 			};
 			name = Release;
 		};
-		5D1DEDCB1BE6555F00749AA9 /* Debug */ = {
+		5D71B4BE1CCC06EA0011C281 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -458,7 +578,7 @@
 			};
 			name = Debug;
 		};
-		5D1DEDCC1BE6555F00749AA9 /* Release */ = {
+		5D71B4BF1CCC06EA0011C281 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -474,43 +594,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5D1DED9A1BE6555F00749AA9 /* Build configuration list for PBXProject "Booru-chan" */ = {
+		5D71B48D1CCC06EA0011C281 /* Build configuration list for PBXProject "Booru-chan" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5D1DEDC21BE6555F00749AA9 /* Debug */,
-				5D1DEDC31BE6555F00749AA9 /* Release */,
+				5D71B4B51CCC06EA0011C281 /* Debug */,
+				5D71B4B61CCC06EA0011C281 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5D1DEDC41BE6555F00749AA9 /* Build configuration list for PBXNativeTarget "Booru-chan" */ = {
+		5D71B4B71CCC06EA0011C281 /* Build configuration list for PBXNativeTarget "Booru-chan" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5D1DEDC51BE6555F00749AA9 /* Debug */,
-				5D1DEDC61BE6555F00749AA9 /* Release */,
+				5D71B4B81CCC06EA0011C281 /* Debug */,
+				5D71B4B91CCC06EA0011C281 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5D1DEDC71BE6555F00749AA9 /* Build configuration list for PBXNativeTarget "Booru-chanTests" */ = {
+		5D71B4BA1CCC06EA0011C281 /* Build configuration list for PBXNativeTarget "Booru-chanTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5D1DEDC81BE6555F00749AA9 /* Debug */,
-				5D1DEDC91BE6555F00749AA9 /* Release */,
+				5D71B4BB1CCC06EA0011C281 /* Debug */,
+				5D71B4BC1CCC06EA0011C281 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5D1DEDCA1BE6555F00749AA9 /* Build configuration list for PBXNativeTarget "Booru-chanUITests" */ = {
+		5D71B4BD1CCC06EA0011C281 /* Build configuration list for PBXNativeTarget "Booru-chanUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5D1DEDCB1BE6555F00749AA9 /* Debug */,
-				5D1DEDCC1BE6555F00749AA9 /* Release */,
+				5D71B4BE1CCC06EA0011C281 /* Debug */,
+				5D71B4BF1CCC06EA0011C281 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 5D1DED971BE6555F00749AA9 /* Project object */;
+	rootObject = 5D71B48A1CCC06EA0011C281 /* Project object */;
 }
