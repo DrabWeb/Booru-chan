@@ -13,6 +13,9 @@ class BCViewController: NSViewController, NSWindowDelegate {
     /// The main window of this view controller
     var window : NSWindow = NSWindow();
     
+    /// The  controller for browsing boorus in Grid|Image mode
+    @IBOutlet var gridStyleController: BCGridStyleController!
+    
     /// The visual effect view for the window's titlebar
     @IBOutlet var titlebarVisualEffectView: NSVisualEffectView!
     
@@ -27,6 +30,9 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // Do view setup here.
         // Style the window
         styleWindow();
+        
+        // Initialize everything
+        gridStyleController.initialize();
     }
     
     func windowWillEnterFullScreen(notification: NSNotification) {

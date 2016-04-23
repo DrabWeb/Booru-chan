@@ -16,8 +16,9 @@
 		5D71B4B31CCC06EA0011C281 /* Booru_chanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4B21CCC06EA0011C281 /* Booru_chanUITests.swift */; };
 		5D7CA38F1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7CA38E1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift */; };
 		5D7CA3911CCC0AFD00B4A0A5 /* BCAlwaysActiveTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7CA3901CCC0AFD00B4A0A5 /* BCAlwaysActiveTextField.swift */; };
-		5D88CC0F1CCC133B001FF12E /* BCBooruUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC0E1CCC133B001FF12E /* BCBooruUtilities.swift */; };
+		5D88CC0F1CCC133B001FF12E /* BCBooru.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC0E1CCC133B001FF12E /* BCBooru.swift */; };
 		5D88CC131CCC14DC001FF12E /* BCGridStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC121CCC14DC001FF12E /* BCGridStyleViewController.swift */; };
+		5D88CC151CCC177B001FF12E /* BCColoredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC141CCC177B001FF12E /* BCColoredView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,8 +54,9 @@
 		5D71B4B41CCC06EA0011C281 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D7CA38E1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCNoDividerSplitView.swift; sourceTree = "<group>"; };
 		5D7CA3901CCC0AFD00B4A0A5 /* BCAlwaysActiveTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCAlwaysActiveTextField.swift; sourceTree = "<group>"; };
-		5D88CC0E1CCC133B001FF12E /* BCBooruUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BCBooruUtilities.swift; path = Assets.xcassets/BCBooruUtilities.swift; sourceTree = "<group>"; };
+		5D88CC0E1CCC133B001FF12E /* BCBooru.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BCBooru.swift; path = Assets.xcassets/BCBooru.swift; sourceTree = "<group>"; };
 		5D88CC121CCC14DC001FF12E /* BCGridStyleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCGridStyleViewController.swift; sourceTree = "<group>"; };
+		5D88CC141CCC177B001FF12E /* BCColoredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCColoredView.swift; sourceTree = "<group>"; };
 		63DDEBE3407D49F095EA58A7 /* Pods_Booru_chan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3F5A8DA46E4230E39B12F3 /* Pods-Booru-chan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chan/Pods-Booru-chan.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,6 +156,7 @@
 			children = (
 				5D7CA38E1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift */,
 				5D7CA3901CCC0AFD00B4A0A5 /* BCAlwaysActiveTextField.swift */,
+				5D88CC141CCC177B001FF12E /* BCColoredView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -169,7 +172,7 @@
 		5D7CA3921CCC128C00B4A0A5 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				5D88CC0E1CCC133B001FF12E /* BCBooruUtilities.swift */,
+				5D88CC0E1CCC133B001FF12E /* BCBooru.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -381,7 +384,8 @@
 			files = (
 				5D71B4981CCC06EA0011C281 /* BCViewController.swift in Sources */,
 				5D71B4961CCC06EA0011C281 /* BCAppDelegate.swift in Sources */,
-				5D88CC0F1CCC133B001FF12E /* BCBooruUtilities.swift in Sources */,
+				5D88CC151CCC177B001FF12E /* BCColoredView.swift in Sources */,
+				5D88CC0F1CCC133B001FF12E /* BCBooru.swift in Sources */,
 				5D88CC131CCC14DC001FF12E /* BCGridStyleViewController.swift in Sources */,
 				5D7CA38F1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift in Sources */,
 				5D7CA3911CCC0AFD00B4A0A5 /* BCAlwaysActiveTextField.swift in Sources */,

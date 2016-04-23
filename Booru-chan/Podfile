@@ -6,6 +6,7 @@ use_frameworks!
 target 'Booru-chan' do
 	pod 'SWXMLHash'
 	pod 'SwiftyJSON'
+	pod 'Alamofire', '3.1.0'
 end
 
 target 'Booru-chanTests' do

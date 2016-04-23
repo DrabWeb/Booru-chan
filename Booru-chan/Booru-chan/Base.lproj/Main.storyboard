@@ -688,13 +688,25 @@
                                     <splitView arrangesAllSubviews="NO" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xcD-Vz-nhG" userLabel="Grid Style Split View" customClass="BCNoDividerSplitView" customModule="Booru_chan" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                         <subviews>
-                                            <customView fixedFrame="YES" id="9Ys-Ye-hfe">
+                                            <customView fixedFrame="YES" id="9Ys-Ye-hfe" userLabel="Grid Container" customClass="BCColoredView" customModule="Booru_chan" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="237" height="270"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </customView>
-                                            <customView fixedFrame="YES" id="wbo-Zk-nDv">
+                                            <customView id="wbo-Zk-nDv" userLabel="Image Container">
                                                 <rect key="frame" x="247" y="0.0" width="233" height="270"/>
                                                 <autoresizingMask key="autoresizingMask"/>
+                                                <subviews>
+                                                    <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="lqI-W3-QlG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="233" height="233"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="kS9-hL-miy"/>
+                                                    </imageView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="lqI-W3-QlG" firstAttribute="top" secondItem="wbo-Zk-nDv" secondAttribute="top" constant="37" id="6au-LJ-nXK"/>
+                                                    <constraint firstAttribute="trailing" secondItem="lqI-W3-QlG" secondAttribute="trailing" id="D31-yE-7Zz"/>
+                                                    <constraint firstAttribute="bottom" secondItem="lqI-W3-QlG" secondAttribute="bottom" id="kct-Mg-38D"/>
+                                                    <constraint firstItem="lqI-W3-QlG" firstAttribute="leading" secondItem="wbo-Zk-nDv" secondAttribute="leading" id="x31-FQ-9sG"/>
+                                                </constraints>
                                             </customView>
                                         </subviews>
                                         <holdingPriorities>
@@ -710,7 +722,7 @@
                                     <constraint firstItem="xcD-Vz-nhG" firstAttribute="top" secondItem="dOC-CV-oj7" secondAttribute="top" id="iez-DZ-dhQ"/>
                                 </constraints>
                             </visualEffectView>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="6cR-Qd-3On" userLabel="Titlebar Visual Effect View">
+                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="6cR-Qd-3On" userLabel="Titlebar Visual Effect View">
                                 <rect key="frame" x="0.0" y="233" width="480" height="37"/>
                                 <subviews>
                                     <splitView arrangesAllSubviews="NO" autosaveName="titlebarItemsSplitView" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NHl-dR-zxX" userLabel="Toolbar Items Split View" customClass="BCNoDividerSplitView" customModule="Booru_chan" customModuleProvider="target">
@@ -772,11 +784,20 @@
                     </view>
                     <connections>
                         <outlet property="backgroundVisualEffectView" destination="dOC-CV-oj7" id="dKE-hf-QSL"/>
+                        <outlet property="gridStyleController" destination="kWE-u4-SOc" id="DdI-cY-0H6"/>
                         <outlet property="titlebarItemsSplitViewLeftMinimumWidthConstraint" destination="Ntu-Ou-JRo" id="fYT-aQ-8pR"/>
                         <outlet property="titlebarVisualEffectView" destination="6cR-Qd-3On" id="zkI-XD-hcs"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="kWE-u4-SOc" customClass="BCGridStyleController" customModule="Booru_chan" customModuleProvider="target">
+                    <connections>
+                        <outlet property="gridContainerView" destination="9Ys-Ye-hfe" id="X4a-qy-pnR"/>
+                        <outlet property="largeImageView" destination="lqI-W3-QlG" id="faD-qQ-gLr"/>
+                        <outlet property="largeImageViewContainer" destination="wbo-Zk-nDv" id="ty7-Sa-D3K"/>
+                        <outlet property="mainSplitView" destination="xcD-Vz-nhG" id="HoU-jI-QCZ"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="75" y="655"/>
         </scene>

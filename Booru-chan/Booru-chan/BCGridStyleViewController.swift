@@ -7,13 +7,60 @@
 //
 
 import Cocoa
+import Alamofire
 
 /// Controls the Grid on left and Image on right style for Booru browsing
-class BCGridStyleViewController: NSViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
+class BCGridStyleController: NSObject {
+    /// The main split view for the Grid|Image style browser
+    @IBOutlet weak var mainSplitView: BCNoDividerSplitView!
+    
+    /// The container view for the grid of thumbnails
+    @IBOutlet weak var gridContainerView: BCColoredView!
+    
+    /// The container view for largeImageView
+    @IBOutlet weak var largeImageViewContainer: NSView!
+    
+    /// The image view on the right for displaying the current selected image in full size
+    @IBOutlet weak var largeImageView: NSImageView!
+    
+    func postLoaded(post: BCBooruPost?) {
+        if(post != nil) {
+            Alamofire.request(.GET, post!.thumbnailUrl).response { (request, response, data, error) in
+                // If data isnt nil...
+                if(data != nil) {
+                    /// The downloaded image
+                    let image : NSImage? = NSImage(data: data!);
+                    
+                    // If image isnt nil...
+                    if(image != nil) {
+                        self.largeImageView.image = image!;
+                    }
+                }
+            }
+            
+            Alamofire.request(.GET, post!.imageUrl).response { (request, response, data, error) in
+                // If data isnt nil...
+                if(data != nil) {
+                    /// The downloaded image
+                    let image : NSImage? = NSImage(data: data!);
+                    
+                    // If image isnt nil...
+                    if(image != nil) {
+                        self.largeImageView.image = image!;
+                    }
+                }
+            }
+        }
     }
     
+    func initialize() {
+        // Set the grid container's background color
+        gridContainerView.backgroundColor = NSColor(calibratedWhite: 0, alpha: 0.2);
+        
+        let booruUtilies : BCBooruUtilities = BCBooruUtilities();
+        booruUtilies.type = .Moebooru;
+        booruUtilies.baseUrl = "http://yande.re";
+        
+        print(booruUtilies.getPost(346492, completionHandler: postLoaded));
+    }
 }

@@ -84,10 +84,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-Booru-chan/Alamofire.framework"
   install_framework "Pods-Booru-chan/SWXMLHash.framework"
   install_framework "Pods-Booru-chan/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-Booru-chan/Alamofire.framework"
   install_framework "Pods-Booru-chan/SWXMLHash.framework"
   install_framework "Pods-Booru-chan/SwiftyJSON.framework"
 fi
