@@ -25,6 +25,8 @@ class BCGridStyleController: NSObject {
     
     func postLoaded(post: BCBooruPost?) {
         if(post != nil) {
+            largeImageView.toolTip = "\(post!.url)\n\(post!.imageSize) \(String(post!.thumbnailSize))\n\(post!.rating)\n\(post!.tags)";
+            
             Alamofire.request(.GET, post!.thumbnailUrl).response { (request, response, data, error) in
                 // If data isnt nil...
                 if(data != nil) {
@@ -58,9 +60,9 @@ class BCGridStyleController: NSObject {
         gridContainerView.backgroundColor = NSColor(calibratedWhite: 0, alpha: 0.2);
         
         let booruUtilies : BCBooruUtilities = BCBooruUtilities();
-        booruUtilies.type = .Moebooru;
-        booruUtilies.baseUrl = "http://yande.re";
+        booruUtilies.type = .DanbooruLegacy;
+        booruUtilies.baseUrl = "http://danbooru.donmai.us";
         
-        print(booruUtilies.getPost(346492, completionHandler: postLoaded));
+        booruUtilies.getPostFromId(2340518, completionHandler: postLoaded);
     }
 }
