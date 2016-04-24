@@ -18,6 +18,15 @@ class BCBooruUtilities {
     /// The base URL of this Booru(Without a trailing slash)
     var baseUrl : String = "";
     
+    /// The last search string
+    var lastSearch : String = "";
+    
+    /// The limit of the last search
+    var lastSearchLimit : Int = -1;
+    
+    /// The page of the last search
+    var lastSearchPage = -1;
+    
     /// Searches for the given string and returns the results as and array of BCBooruPosts
     func getPostsFromSearch(search : String, limit : Int, page : Int, completionHandler: ([BCBooruPost]) -> ()) {
         /// The search results to pass to the completion handler
@@ -102,6 +111,7 @@ class BCBooruUtilities {
                     /// The XML from the response string
                     let responseXml = SWXMLHash.parse(dataFromResponseJsonString);
                     
+                    print(responseXml);
                     // For every search result...
                     for(_, currentResult) in responseXml["posts"].children.enumerate() {
                         // Add the current post to the results
@@ -113,6 +123,11 @@ class BCBooruUtilities {
                 }
             }
         }
+        
+        // Set the last search string, page and limit
+        lastSearch = search;
+        lastSearchLimit = limit;
+        lastSearchPage = page;
     }
     
     /// Gets the post at the given ID and returns a BCBooruPost(Can be nil)
@@ -228,7 +243,6 @@ class BCBooruUtilities {
             // Make post a new BCBooruPost
             post = BCBooruPost();
             
-            // Set the post's info
             post?.thumbnailUrl = baseUrl + json!["preview_url"].stringValue;
             
             // Danbooru doesnt give you a thumbnail size
@@ -269,12 +283,12 @@ class BCBooruUtilities {
             post = BCBooruPost();
             
             // Set the post's info
-            post?.thumbnailUrl = baseUrl + json!["preview_file_url"].stringValue;
+            post?.thumbnailUrl = baseUrl + json!["preview_url"].stringValue;
             
             // Danbooru doesnt give you a thumbnail size
             post?.thumbnailSize = NSSize.zero;
             
-            post?.imageUrl = baseUrl + json!["large_file_url"].stringValue;
+            post?.imageUrl = baseUrl + json!["file_url"].stringValue;
             post?.imageSize = NSSize(width: json!["image_width"].intValue, height: json!["image_height"].intValue);
             
             switch(json!["rating"]) {
@@ -304,8 +318,8 @@ class BCBooruUtilities {
             post = BCBooruPost();
             
             // Set the post's info
-            post?.thumbnailUrl = xml!.element!.attributes["preview_url"]!;
-            post?.thumbnailSize = NSSize(width: NSString(string: xml!.element!.attributes["preview_width"]!).integerValue, height: NSString(string: xml!.element!.attributes["preview_height"]!).integerValue);
+            post?.thumbnailUrl = xml!["post"].element!.attributes["preview_url"]!;
+            post?.thumbnailSize = NSSize(width: NSString(string: xml!["post"].element!.attributes["preview_width"]!).integerValue, height: NSString(string: xml!["post"].element!.attributes["preview_height"]!).integerValue);
             
             post?.imageUrl = xml!.element!.attributes["file_url"]!;
             post?.imageSize = NSSize(width: NSString(string: xml!.element!.attributes["width"]!).integerValue, height: NSString(string: xml!.element!.attributes["height"]!).integerValue);

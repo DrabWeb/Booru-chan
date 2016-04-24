@@ -73,7 +73,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         window.toolbar?.showsBaselineSeparator = false;
         
         // Set the visual effects views' materials
-        titlebarVisualEffectView.material = .Titlebar;
+        titlebarVisualEffectView.material = .Dark;
         backgroundVisualEffectView.material = .Dark;
     }
 }

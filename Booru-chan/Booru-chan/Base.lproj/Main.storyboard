@@ -688,9 +688,44 @@
                                     <splitView arrangesAllSubviews="NO" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xcD-Vz-nhG" userLabel="Grid Style Split View" customClass="BCNoDividerSplitView" customModule="Booru_chan" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                         <subviews>
-                                            <customView fixedFrame="YES" id="9Ys-Ye-hfe" userLabel="Grid Container" customClass="BCColoredView" customModule="Booru_chan" customModuleProvider="target">
+                                            <customView id="9Ys-Ye-hfe" userLabel="Grid Container" customClass="BCColoredView" customModule="Booru_chan" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="237" height="270"/>
                                                 <autoresizingMask key="autoresizingMask"/>
+                                                <subviews>
+                                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZt-1E-G0R" userLabel="Scroll View - Booru Collection View">
+                                                        <rect key="frame" x="0.0" y="0.0" width="237" height="270"/>
+                                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="7Fd-bU-eR1">
+                                                            <rect key="frame" x="0.0" y="0.0" width="237" height="270"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <collectionView selectable="YES" allowsMultipleSelection="YES" id="vAV-me-trS" userLabel="Booru Collection View">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="237" height="270"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                                                                    <connections>
+                                                                        <binding destination="Kl5-o9-6u6" name="content" keyPath="arrangedObjects" id="pod-Aw-LCS"/>
+                                                                    </connections>
+                                                                </collectionView>
+                                                            </subviews>
+                                                        </clipView>
+                                                        <edgeInsets key="contentInsets" left="0.0" right="0.0" top="37" bottom="0.0"/>
+                                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="eGf-pU-8WM">
+                                                            <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
+                                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="qel-s8-uV1">
+                                                            <rect key="frame" x="221" y="37" width="16" height="233"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
+                                                    </scrollView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="zZt-1E-G0R" firstAttribute="top" secondItem="9Ys-Ye-hfe" secondAttribute="top" id="7of-q9-hBM"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="bfE-4b-9nz"/>
+                                                    <constraint firstAttribute="bottom" secondItem="zZt-1E-G0R" secondAttribute="bottom" id="ktD-Py-L0u"/>
+                                                    <constraint firstItem="zZt-1E-G0R" firstAttribute="leading" secondItem="9Ys-Ye-hfe" secondAttribute="leading" id="l1E-Tu-xrb"/>
+                                                    <constraint firstAttribute="trailing" secondItem="zZt-1E-G0R" secondAttribute="trailing" id="umB-Uy-1wI"/>
+                                                </constraints>
                                             </customView>
                                             <customView id="wbo-Zk-nDv" userLabel="Image Container">
                                                 <rect key="frame" x="247" y="0.0" width="233" height="270"/>
@@ -792,14 +827,90 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <customObject id="kWE-u4-SOc" customClass="BCGridStyleController" customModule="Booru_chan" customModuleProvider="target">
                     <connections>
+                        <outlet property="booruCollectionView" destination="vAV-me-trS" id="wmo-Oi-1KA"/>
+                        <outlet property="booruCollectionViewArrayController" destination="Kl5-o9-6u6" id="cmk-AY-fwa"/>
+                        <outlet property="booruCollectionViewScrollView" destination="zZt-1E-G0R" id="YKZ-2d-LDQ"/>
                         <outlet property="gridContainerView" destination="9Ys-Ye-hfe" id="X4a-qy-pnR"/>
                         <outlet property="largeImageView" destination="lqI-W3-QlG" id="faD-qQ-gLr"/>
                         <outlet property="largeImageViewContainer" destination="wbo-Zk-nDv" id="ty7-Sa-D3K"/>
                         <outlet property="mainSplitView" destination="xcD-Vz-nhG" id="HoU-jI-QCZ"/>
                     </connections>
                 </customObject>
+                <arrayController objectClassName="BCBooruCollectionViewItem" id="Kl5-o9-6u6">
+                    <declaredKeys>
+                        <string>thumbnailImage</string>
+                        <string>representedPost</string>
+                    </declaredKeys>
+                    <connections>
+                        <binding destination="kWE-u4-SOc" name="contentArray" keyPath="booruCollectionViewArrayControllerItems" id="iN7-Is-BNW"/>
+                    </connections>
+                </arrayController>
             </objects>
             <point key="canvasLocation" x="75" y="655"/>
         </scene>
+        <!--Booru Collection View Item-->
+        <scene sceneID="PmY-qs-po0">
+            <objects>
+                <collectionViewItem storyboardIdentifier="booruCollectionViewItem" id="JRS-EQ-YpJ" userLabel="Booru Collection View Item" customClass="BCBooruCollectionViewCollectionViewItem" customModule="Booru_chan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="qsx-FZ-lYf">
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="YQi-3h-wXp" userLabel="Selection Box" customClass="BCBooruCollectionViewSelectionBox" customModule="Booru_chan" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                <connections>
+                                    <binding destination="JRS-EQ-YpJ" name="hidden" keyPath="selected" id="DPp-lg-sZz">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </customView>
+                            <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HBl-ai-0gk" userLabel="Content Container">
+                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                <subviews>
+                                    <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ael-yX-Vi8" customClass="BCRasterizedImageView" customModule="Booru_chan" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="20" width="110" height="110"/>
+                                        <shadow key="shadow" blurRadius="6">
+                                            <size key="offset" width="0.0" height="-6"/>
+                                            <color key="color" white="0.0" alpha="0.39532208588957057" colorSpace="calibratedWhite"/>
+                                        </shadow>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSCaution" id="A7x-qk-93F"/>
+                                        <connections>
+                                            <binding destination="JRS-EQ-YpJ" name="value" keyPath="representedObject.thumbnailImage" id="Le5-j5-LdO"/>
+                                        </connections>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ael-yX-Vi8" firstAttribute="top" secondItem="HBl-ai-0gk" secondAttribute="top" constant="20" id="YFB-xD-1kZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="ael-yX-Vi8" secondAttribute="bottom" constant="20" id="bqC-ua-XKg"/>
+                                    <constraint firstItem="ael-yX-Vi8" firstAttribute="leading" secondItem="HBl-ai-0gk" secondAttribute="leading" constant="20" id="eaJ-5F-6br"/>
+                                    <constraint firstAttribute="trailing" secondItem="ael-yX-Vi8" secondAttribute="trailing" constant="20" id="u1V-eR-jPM"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="YQi-3h-wXp" secondAttribute="trailing" id="0xB-AX-H4x"/>
+                            <constraint firstAttribute="bottom" secondItem="HBl-ai-0gk" secondAttribute="bottom" id="5dP-B4-Hul"/>
+                            <constraint firstItem="HBl-ai-0gk" firstAttribute="top" secondItem="qsx-FZ-lYf" secondAttribute="top" id="FaO-RK-DMo"/>
+                            <constraint firstItem="YQi-3h-wXp" firstAttribute="leading" secondItem="qsx-FZ-lYf" secondAttribute="leading" id="LxB-vm-cLy"/>
+                            <constraint firstItem="YQi-3h-wXp" firstAttribute="top" secondItem="qsx-FZ-lYf" secondAttribute="top" id="cpW-2w-p4Z"/>
+                            <constraint firstItem="HBl-ai-0gk" firstAttribute="leading" secondItem="qsx-FZ-lYf" secondAttribute="leading" id="k19-MO-8F0"/>
+                            <constraint firstAttribute="bottom" secondItem="YQi-3h-wXp" secondAttribute="bottom" id="sVH-rt-T2g"/>
+                            <constraint firstAttribute="trailing" secondItem="HBl-ai-0gk" secondAttribute="trailing" id="vTb-yp-FyP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="ael-yX-Vi8" id="6aF-iN-XEp"/>
+                    </connections>
+                </collectionViewItem>
+                <customObject id="WfW-tF-kd8" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="5tj-GO-YOP"/>
+            </objects>
+            <point key="canvasLocation" x="-311" y="655"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="NSCaution" width="32" height="32"/>
+    </resources>
 </document>
