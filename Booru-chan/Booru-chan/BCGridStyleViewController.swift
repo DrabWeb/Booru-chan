@@ -23,36 +23,12 @@ class BCGridStyleController: NSObject {
     /// The image view on the right for displaying the current selected image in full size
     @IBOutlet weak var largeImageView: NSImageView!
     
-    func postLoaded(post: BCBooruPost?) {
-        if(post != nil) {
-            largeImageView.toolTip = "\(post!.url)\n\(post!.imageSize) \(String(post!.thumbnailSize))\n\(post!.rating)\n\(post!.tags)";
-            
-            Alamofire.request(.GET, post!.thumbnailUrl).response { (request, response, data, error) in
-                // If data isnt nil...
-                if(data != nil) {
-                    /// The downloaded image
-                    let image : NSImage? = NSImage(data: data!);
-                    
-                    // If image isnt nil...
-                    if(image != nil) {
-                        self.largeImageView.image = image!;
-                    }
-                }
-            }
-            
-            Alamofire.request(.GET, post!.imageUrl).response { (request, response, data, error) in
-                // If data isnt nil...
-                if(data != nil) {
-                    /// The downloaded image
-                    let image : NSImage? = NSImage(data: data!);
-                    
-                    // If image isnt nil...
-                    if(image != nil) {
-                        self.largeImageView.image = image!;
-                    }
-                }
-            }
-        }
+    func searchFinished(results: [BCBooruPost]) {
+        print(results);
+    }
+    
+    func postFinished(post: BCBooruPost?) {
+        print(post);
     }
     
     func initialize() {
@@ -60,9 +36,10 @@ class BCGridStyleController: NSObject {
         gridContainerView.backgroundColor = NSColor(calibratedWhite: 0, alpha: 0.2);
         
         let booruUtilies : BCBooruUtilities = BCBooruUtilities();
-        booruUtilies.type = .DanbooruLegacy;
-        booruUtilies.baseUrl = "http://danbooru.donmai.us";
+        booruUtilies.type = .Gelbooru;
+        booruUtilies.baseUrl = "http://gelbooru.com";
         
-        booruUtilies.getPostFromId(2340518, completionHandler: postLoaded);
+        booruUtilies.getPostFromId(1, completionHandler: postFinished);
+        booruUtilies.getPostsFromSearch("dress rating:safe", limit: 10, page: 0, completionHandler: searchFinished);
     }
 }
