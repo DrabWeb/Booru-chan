@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		23074CA650B3CADFA092E7F0 /* Pods_Booru_chan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63DDEBE3407D49F095EA58A7 /* Pods_Booru_chan.framework */; };
+		5D3288321CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3288311CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift */; };
 		5D71B4961CCC06EA0011C281 /* BCAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4951CCC06EA0011C281 /* BCAppDelegate.swift */; };
 		5D71B4981CCC06EA0011C281 /* BCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4971CCC06EA0011C281 /* BCViewController.swift */; };
 		5D71B49A1CCC06EA0011C281 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D71B4991CCC06EA0011C281 /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		3D9D17B80249B87F2EBC4109 /* Pods-Booru-chan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chan/Pods-Booru-chan.debug.xcconfig"; sourceTree = "<group>"; };
+		5D3288311CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCActionOnScrollToBottomScrollView.swift; sourceTree = "<group>"; };
 		5D71B4921CCC06EA0011C281 /* Booru-chan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Booru-chan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D71B4951CCC06EA0011C281 /* BCAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCAppDelegate.swift; sourceTree = "<group>"; };
 		5D71B4971CCC06EA0011C281 /* BCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				5D88CC141CCC177B001FF12E /* BCColoredView.swift */,
 				5DAD29381CCD68CB00C3C747 /* BCRasterizedViews.swift */,
 				5DAD293C1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift */,
+				5D3288311CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				5D71B4981CCC06EA0011C281 /* BCViewController.swift in Sources */,
 				5DAD29371CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift in Sources */,
 				5D71B4961CCC06EA0011C281 /* BCAppDelegate.swift in Sources */,
+				5D3288321CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift in Sources */,
 				5D88CC151CCC177B001FF12E /* BCColoredView.swift in Sources */,
 				5DAD293D1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift in Sources */,
 				5D88CC0F1CCC133B001FF12E /* BCBooru.swift in Sources */,

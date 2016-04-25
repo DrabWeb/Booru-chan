@@ -18,10 +18,16 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     @IBOutlet weak var gridContainerView: BCColoredView!
     
     /// The scroll view for booruCollectionView
-    @IBOutlet weak var booruCollectionViewScrollView: NSScrollView!
+    @IBOutlet weak var booruCollectionViewScrollView: BCActionOnScrollToBottomScrollView!
     
     /// The collection view for showing Booru items
     @IBOutlet weak var booruCollectionView: NSCollectionView!
+    
+    /// The visual effect view for the info bar at the bottom of the Booru collection view
+    @IBOutlet weak var infoBarVisualEffectView: NSVisualEffectView!
+    
+    /// The info label for infoBarVisualEffectView
+    @IBOutlet weak var infoBarInfoLabel: NSTextField!
     
     /// The array controller for booruCollectionView
     @IBOutlet weak var booruCollectionViewArrayController: NSArrayController!
@@ -35,11 +41,111 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// The image view on the right for displaying the current selected image in full size
     @IBOutlet weak var largeImageView: NSImageView!
     
+    /// The last full size image download request made by displayPostItem
+    var lastDisplayRequest : Request? = nil;
+    
+    /// Displays the given BCBooruCollectionViewItem in the full size image view and shows it's info in the info bar. If passed nil it will but a blank iamge in the full size image view and update the info label to say "No Posts Selected"
+    func displayPostItem(postItem : BCBooruCollectionViewItem?) {
+        // If lastDisplayRequest isnt nil...
+        if(lastDisplayRequest != nil) {
+            // Cancel the last request so the image view doesnt get updated with previous requests when looking at new requests
+            lastDisplayRequest!.cancel();
+        }
+        
+        // If postItem isnt nil...
+        if(postItem != nil) {
+            // If we havent already loaded the thumbnail...
+            if(postItem!.thumbnailImage.size == NSSize.zero) {
+                // Download the post item's thumbnail image
+                Alamofire.request(.GET, postItem!.representedPost!.thumbnailUrl).response { (request, response, data, error) in
+                    // If data isnt nil...
+                    if(data != nil) {
+                        /// The downloaded image
+                        let image : NSImage? = NSImage(data: data!);
+                        
+                        // If image isnt nil...
+                        if(image != nil) {
+                            // Show the thumbnail image in the full size image view
+                            self.largeImageView.image = image!;
+                            
+                            // Cache the image in the post item
+                            postItem!.thumbnailImage = image!;
+                        }
+                    }
+                }
+            }
+                // If we already loaded the thumbnail...
+            else {
+                // Show the thumbnail image in the full size image view
+                self.largeImageView.image = postItem!.thumbnailImage;
+            }
+            
+            // If we havent already downloaded the post's full size image...
+            if(!postItem!.finishedLoadingImage) {
+                // Download the post item's full size image
+                lastDisplayRequest = Alamofire.request(.GET, postItem!.representedPost!.imageUrl).response { (request, response, data, error) in
+                    // If data isnt nil...
+                    if(data != nil) {
+                        /// The downloaded image
+                        let image : NSImage? = NSImage(data: data!);
+                        
+                        // If image isnt nil...
+                        if(image != nil) {
+                            // If we finished loading the image...
+                            if(postItem!.finishedLoadingImage) {
+                                // Show the image in the full size image view
+                                self.largeImageView.image = image!;
+                                
+                                // Cache the image in the post item
+                                postItem!.image = image!;
+                            }
+                        }
+                    }
+                    }
+                    .progress { _, totalBytesRead, totalBytesExpectedToRead in
+                        // If we loaded all of the image's data...
+                        if(totalBytesRead == totalBytesExpectedToRead) {
+                            // Say we finished loading the image
+                            postItem!.finishedLoadingImage = true;
+                        }
+                }
+            }
+                // If we have already downloaded the post item's full size image...
+            else {
+                // Show the cached image in the full size image view
+                self.largeImageView.image = postItem!.image;
+            }
+            
+            /// The first letter in the post item's rating
+            var ratingFirstLetter : String = String(postItem!.representedPost!.rating);
+            
+            // Set ratingFirstLetter to the first letter in ratingFirstLetter
+            ratingFirstLetter = ratingFirstLetter.substringToIndex(ratingFirstLetter.startIndex.successor());
+            
+            // Update the info label
+            infoBarInfoLabel.stringValue = "\(Int(postItem!.representedPost!.imageSize.width))x\(Int(postItem!.representedPost!.imageSize.height))[\(ratingFirstLetter)]";
+        }
+        // If postItem is nil...
+        else {
+            // Set the info bar label to "No Posts Selected"
+            infoBarInfoLabel.stringValue = "No Posts Selected";
+            
+            // Show a blank image in the full size image view
+            largeImageView.image = NSImage();
+        }
+    }
+    
+    /// Called when a search is finished
     func searchFinished(results: [BCBooruPost]) {
-        for(currentIndex, currentResult) in results.enumerate() {
+        // For every item in the search results...
+        for(_, currentResult) in results.enumerate() {
+            /// The new item to add to the booru collection view
             let item : BCBooruCollectionViewItem = BCBooruCollectionViewItem();
+            
+            // Set the item's represented post to the current result
             item.representedPost = currentResult;
             
+            // Download the post's thumbnail
             Alamofire.request(.GET, currentResult.thumbnailUrl).response { (request, response, data, error) in
                 // If data isnt nil...
                 if(data != nil) {
@@ -48,17 +154,33 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                     
                     // If image isnt nil...
                     if(image != nil) {
-                        // Update the image view
-                        (self.booruCollectionView.itemAtIndex(currentIndex) as! BCBooruCollectionViewCollectionViewItem).imageView?.image = image!;
-                        
-                        // Set the model's thumbnail image
-                        ((self.booruCollectionView.itemAtIndex(currentIndex) as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem).thumbnailImage = image!;
+                        // For ever item in the Booru collection view...
+                        for currentIndex in 0...(self.booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count - 1 {
+                            // If the current item's represented object is equal to the item we downloaded the thumbnail for...
+                            if(((self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem) == item) {
+                                // Update the image view of the item
+                                (self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).imageView?.image = image!;
+                                
+                                // Set the item's model's thumbnail image
+                                ((self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem).thumbnailImage = image!;
+                            }
+                        }
                     }
                 }
             }
             
+            // Add the item
             self.booruCollectionViewArrayController.addObject(item);
         }
+    }
+    
+    /// Booru utilities used for testing
+    let booruUtilies : BCBooruUtilities = BCBooruUtilities();
+    
+    /// When we reach the bottom of the Booru collection view...
+    func reachedBottomOfBooruCollectionView() {
+        // Add the next page of results to the Booru collection view
+        booruUtilies.getPostsFromSearch(booruUtilies.lastSearch, limit: booruUtilies.lastSearchLimit, page: booruUtilies.lastSearchPage + 1, completionHandler: searchFinished);
     }
     
     func initialize() {
@@ -72,89 +194,42 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         booruCollectionView.minItemSize = NSSize(width: 150, height: 150);
         booruCollectionView.maxItemSize = NSSize(width: 200, height: 200);
         
+        // Style the visual effect views
+        infoBarVisualEffectView.material = .Dark;
+        
         /// The options for the Booru collection view selection observing
         let options = NSKeyValueObservingOptions([.New, .Old]);
         
         // Subscribe to when the Booru collection view's selection changes
         self.booruCollectionView.addObserver(self, forKeyPath: "selectionIndexes", options: options, context: nil);
         
-        let booruUtilies : BCBooruUtilities = BCBooruUtilities();
+        // Set the target and action to use when the user reaches the bottom of the Booru collection view
+        booruCollectionViewScrollView.reachedBottomTarget = self;
+        booruCollectionViewScrollView.reachedBottomAction = Selector("reachedBottomOfBooruCollectionView");
+        
+        // Setup the testing Booru utilities
         booruUtilies.type = BCBooruType.Moebooru;
         booruUtilies.baseUrl = "http://yande.re";
         
-        booruUtilies.getPostsFromSearch("hatsune_miku rating:safe", limit: 10, page: 0, completionHandler: searchFinished);
+        // Do an example search
+        booruUtilies.getPostsFromSearch("sakura_miku rating:safe", limit: 30, page: 0, completionHandler: searchFinished);
     }
-    
-    var lastDisplayRequest : Request? = nil;
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         // If the keyPath is the one for the Booru collection view selection...
         if(keyPath == "selectionIndexes") {
-            // If lastDisplayRequest isnt nil...
-            if(lastDisplayRequest != nil) {
-                // Cancel the last request so we dont have the image view flashing when new stuff loads
-                lastDisplayRequest!.cancel();
+            // If we selected any items...
+            if(booruCollectionView.selectionIndexes.firstIndex != 9223372036854775807) {
+                /// The selected post item
+                let selectedPostItem : BCBooruCollectionViewItem? = (booruCollectionView.itemAtIndex(booruCollectionView.selectionIndexes.firstIndex)?.representedObject as? BCBooruCollectionViewItem);
+                
+                // Show the selected post item
+                displayPostItem(selectedPostItem);
             }
-            
-            /// The selected post
-            let selectedPostItem : BCBooruCollectionViewItem = (booruCollectionView.itemAtIndex(booruCollectionView.selectionIndexes.firstIndex)?.representedObject as! BCBooruCollectionViewItem);
-            
-            // If we havent already loaded the thumbnail...
-            if(selectedPostItem.thumbnailImage.size == NSSize.zero) {
-                // Show the selected post's image
-                Alamofire.request(.GET, selectedPostItem.representedPost!.thumbnailUrl).response { (request, response, data, error) in
-                    // If data isnt nil...
-                    if(data != nil) {
-                        /// The downloaded image
-                        let image : NSImage? = NSImage(data: data!);
-                        
-                        // If image isnt nil...
-                        if(image != nil) {
-                            // Show the thumbnail image in the full size image view
-                            self.largeImageView.image = image!;
-                            
-                            // Cache the image in the post item
-                            selectedPostItem.thumbnailImage = image!;
-                        }
-                    }
-                }
-            }
-            // If we already loaded the thumbnail...
+            // If we deselected all the items...
             else {
-                // Show the thumbnail image in the full size image view
-                self.largeImageView.image = selectedPostItem.thumbnailImage;
-            }
-            
-            if(!selectedPostItem.finishedLoadingImage) {
-                lastDisplayRequest = Alamofire.request(.GET, selectedPostItem.representedPost!.imageUrl).response { (request, response, data, error) in
-                    // If data isnt nil...
-                    if(data != nil) {
-                        /// The downloaded image
-                        let image : NSImage? = NSImage(data: data!);
-                        
-                        // If image isnt nil...
-                        if(image != nil) {
-                            // If we finished loading the image...
-                            if(selectedPostItem.finishedLoadingImage) {
-                                // Show the image in the full size image view
-                                self.largeImageView.image = image!;
-                                
-                                // Cache the image in the post item
-                                selectedPostItem.image = image!;
-                            }
-                        }
-                    }
-                }
-                .progress { _, totalBytesRead, totalBytesExpectedToRead in
-                    // If we loaded all of the image's data...
-                    if(totalBytesRead == totalBytesExpectedToRead) {
-                        // Say we finished loading the image
-                        selectedPostItem.finishedLoadingImage = true;
-                    }
-                }
-            }
-            else {
-                self.largeImageView.image = selectedPostItem.image;
+                // Show a nil post item
+                displayPostItem(nil);
             }
         }
     }
