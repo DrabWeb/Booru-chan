@@ -11,6 +11,9 @@ import Alamofire
 
 /// Controls the Grid on left and Image on right style for Booru browsing
 class BCGridStyleController: NSObject, NSCollectionViewDelegate {
+    /// A reference to the main view controller
+    @IBOutlet weak var mainViewController: BCViewController!
+    
     /// The main split view for the Grid|Image style browser
     @IBOutlet weak var mainSplitView: BCNoDividerSplitView!
     
@@ -174,13 +177,34 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         }
     }
     
-    /// Booru utilities used for testing
-    let booruUtilies : BCBooruUtilities = BCBooruUtilities();
-    
     /// When we reach the bottom of the Booru collection view...
     func reachedBottomOfBooruCollectionView() {
         // Add the next page of results to the Booru collection view
-        booruUtilies.getPostsFromSearch(booruUtilies.lastSearch, limit: booruUtilies.lastSearchLimit, page: booruUtilies.lastSearchPage + 1, completionHandler: searchFinished);
+        mainViewController.currentSelectedSearchingBooru!.utilties.getPostsFromSearch(mainViewController.currentSelectedSearchingBooru!.utilties.lastSearch, limit: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchLimit, page: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchPage + 1, completionHandler: searchFinished);
+    }
+    
+    /// Clears the Booru collection view, searches for the given tags and shows the results
+    func searchFor(searchString : String) {
+        // Deselect all posts
+        booruCollectionView.deselectAll(self);
+        
+        // Clear the Booru collection view
+        booruCollectionViewArrayController.removeObjects(booruCollectionViewArrayController.arrangedObjects as! [AnyObject]);
+        
+        // Clear the full size image view
+        largeImageView.image = NSImage();
+        
+        // Search for the given tags
+        // If currentSelectedSearchingBooru isnt nil...
+        if(mainViewController.currentSelectedSearchingBooru != nil) {
+            // Search for the given tags
+            mainViewController.currentSelectedSearchingBooru!.utilties.getPostsFromSearch(searchString, limit: mainViewController.currentSelectedSearchingBooru!.pagePostLimit, page: 0, completionHandler: searchFinished);
+        }
+        // If currentSelectedSearchingBooru is nil...
+        else {
+            // Print that currentSelectedSearchingBooru is nil
+            print("BCGridStyleViewController: currentSelectedSearchingBooru is nil, cant search");
+        }
     }
     
     func initialize() {
@@ -206,20 +230,13 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // Set the target and action to use when the user reaches the bottom of the Booru collection view
         booruCollectionViewScrollView.reachedBottomTarget = self;
         booruCollectionViewScrollView.reachedBottomAction = Selector("reachedBottomOfBooruCollectionView");
-        
-        // Setup the testing Booru utilities
-        booruUtilies.type = BCBooruType.Moebooru;
-        booruUtilies.baseUrl = "http://yande.re";
-        
-        // Do an example search
-        booruUtilies.getPostsFromSearch("sakura_miku rating:safe", limit: 30, page: 0, completionHandler: searchFinished);
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         // If the keyPath is the one for the Booru collection view selection...
         if(keyPath == "selectionIndexes") {
             // If we selected any items...
-            if(booruCollectionView.selectionIndexes.firstIndex != 9223372036854775807) {
+            if(booruCollectionView.selectionIndexes.firstIndex != NSNotFound) {
                 /// The selected post item
                 let selectedPostItem : BCBooruCollectionViewItem? = (booruCollectionView.itemAtIndex(booruCollectionView.selectionIndexes.firstIndex)?.representedObject as? BCBooruCollectionViewItem);
                 

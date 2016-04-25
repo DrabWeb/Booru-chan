@@ -243,7 +243,7 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="BCViewController" customModule="Booru_chan" customModuleProvider="target" sceneMemberID="viewController">
@@ -361,21 +361,50 @@
                                             <customView id="uct-SO-N8t" userLabel="Left Items">
                                                 <rect key="frame" x="0.0" y="0.0" width="254" height="37"/>
                                                 <autoresizingMask key="autoresizingMask"/>
+                                                <subviews>
+                                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SdD-k4-k5y" userLabel="Booru Picker Popup Button">
+                                                        <rect key="frame" x="94" y="5" width="155" height="26"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="150" id="hPS-mt-ZQQ"/>
+                                                        </constraints>
+                                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="Dtn-0L-h7S">
+                                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="menu"/>
+                                                            <menu key="menu" id="065-q9-6z6">
+                                                                <items>
+                                                                    <menuItem title="No Boorus Added" id="4he-8v-mV2"/>
+                                                                </items>
+                                                            </menu>
+                                                        </popUpButtonCell>
+                                                        <connections>
+                                                            <action selector="titlebarBooruPickerPopupButtonItemSelected:" target="XfG-lQ-9wD" id="KqI-tS-NQc"/>
+                                                        </connections>
+                                                    </popUpButton>
+                                                </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="78" id="Ntu-Ou-JRo"/>
+                                                    <constraint firstAttribute="trailing" secondItem="SdD-k4-k5y" secondAttribute="trailing" constant="8" id="7xl-fA-V3z"/>
+                                                    <constraint firstItem="SdD-k4-k5y" firstAttribute="top" secondItem="uct-SO-N8t" secondAttribute="top" constant="8" id="AoY-Z8-eg4"/>
+                                                    <constraint firstAttribute="bottom" secondItem="SdD-k4-k5y" secondAttribute="bottom" constant="8" id="CjK-Wz-SKx"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="236" id="Ntu-Ou-JRo"/>
+                                                    <constraint firstAttribute="bottom" secondItem="SdD-k4-k5y" secondAttribute="bottom" constant="8" id="kwq-OL-fJe"/>
+                                                    <constraint firstAttribute="trailing" secondItem="SdD-k4-k5y" secondAttribute="trailing" constant="8" id="nCG-9t-TbF"/>
+                                                    <constraint firstItem="SdD-k4-k5y" firstAttribute="top" secondItem="uct-SO-N8t" secondAttribute="top" constant="8" id="zmR-W4-3fV"/>
                                                 </constraints>
                                             </customView>
                                             <customView id="gJG-r7-elb" userLabel="Search Field">
                                                 <rect key="frame" x="264" y="0.0" width="216" height="37"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ops-nh-Wie" customClass="BCAlwaysActiveTextField" customModule="Booru_chan" customModuleProvider="target">
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ops-nh-Wie" userLabel="Search Field" customClass="BCAlwaysActiveTextField" customModule="Booru_chan" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="7" width="208" height="22"/>
-                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Search..." bezelStyle="round" id="qH1-fE-0qh">
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Search..." bezelStyle="round" id="qH1-fE-0qh">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
+                                                        <connections>
+                                                            <action selector="titlebarSearchFieldTextEntered:" target="XfG-lQ-9wD" id="YAC-hJ-6ii"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
@@ -415,6 +444,7 @@
                     <connections>
                         <outlet property="backgroundVisualEffectView" destination="dOC-CV-oj7" id="dKE-hf-QSL"/>
                         <outlet property="gridStyleController" destination="kWE-u4-SOc" id="DdI-cY-0H6"/>
+                        <outlet property="titlebarBooruPickerPopupButton" destination="SdD-k4-k5y" id="yg6-uA-YoO"/>
                         <outlet property="titlebarItemsSplitViewLeftMinimumWidthConstraint" destination="Ntu-Ou-JRo" id="fYT-aQ-8pR"/>
                         <outlet property="titlebarVisualEffectView" destination="6cR-Qd-3On" id="zkI-XD-hcs"/>
                     </connections>
@@ -431,6 +461,7 @@
                         <outlet property="largeImageView" destination="lqI-W3-QlG" id="faD-qQ-gLr"/>
                         <outlet property="largeImageViewContainer" destination="wbo-Zk-nDv" id="ty7-Sa-D3K"/>
                         <outlet property="mainSplitView" destination="xcD-Vz-nhG" id="HoU-jI-QCZ"/>
+                        <outlet property="mainViewController" destination="XfG-lQ-9wD" id="Fag-Sp-oGV"/>
                     </connections>
                 </customObject>
                 <arrayController objectClassName="BCBooruCollectionViewItem" id="Kl5-o9-6u6">

@@ -29,12 +29,18 @@ class BCBooruUtilities {
     
     /// Searches for the given string and returns the results as and array of BCBooruPosts
     func getPostsFromSearch(search : String, limit : Int, page : Int, completionHandler: ([BCBooruPost]) -> ()) {
+        // Print what we are searching for
+        print("BCBooruUtilities: Searching for \"\(search)\"(Limit \(limit), page \(page)) on \"\(self.baseUrl)\"");
+        
         /// The search results to pass to the completion handler
         var results : [BCBooruPost] = [];
         
         // Perform the search and get the results
         // Depending on which Booru API we are using...
         if(type == .Moebooru) {
+            // Print what URL we are querying
+            print("BCBooruUtilities: Using URL \"\((baseUrl + "/post.json?tags=" + search + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
+            
             // Make the get request to the Booru with the post ID...
             Alamofire.request(.GET, (baseUrl + "/post.json?tags=" + search + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
@@ -57,6 +63,9 @@ class BCBooruUtilities {
             }
         }
         else if(type == .DanbooruLegacy) {
+            // Print what URL we are querying
+            print("BCBooruUtilities: Using URL \"\((baseUrl + "/post/index.json?tags=" + search + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
+            
             // Make the get request to the Booru with the post ID...
             Alamofire.request(.GET, (baseUrl + "/post/index.json?tags=" + search + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
@@ -79,6 +88,9 @@ class BCBooruUtilities {
             }
         }
         else if(type == .Danbooru) {
+            // Print what URL we are querying
+            print("BCBooruUtilities: Using URL \"\((baseUrl + "/posts.json?tags=" + search + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
+            
             // Make the get request to the Booru with the post ID...
             Alamofire.request(.GET, (baseUrl + "/posts.json?tags=" + search + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
@@ -101,6 +113,9 @@ class BCBooruUtilities {
             }
         }
         else if(type == .Gelbooru) {
+            // Print what URL we are querying
+            print("BCBooruUtilities: Using URL \"\((baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + "&pid=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
+            
             // Make the get request to the Booru with the post ID...
             Alamofire.request(.GET, (baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + "&pid=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
@@ -111,7 +126,6 @@ class BCBooruUtilities {
                     /// The XML from the response string
                     let responseXml = SWXMLHash.parse(dataFromResponseJsonString);
                     
-                    print(responseXml);
                     // For every search result...
                     for(_, currentResult) in responseXml["posts"].children.enumerate() {
                         // Add the current post to the results
@@ -231,7 +245,7 @@ class BCBooruUtilities {
                     post?.rating = .Explicit;
                     break;
                 default:
-                    print("Rating for post \(json!["id"])(\(json!["rating"])) is invalid");
+                    print("BCBooruUtilities: Rating for post \(json!["id"])(\(json!["rating"])) is invalid");
                     break;
             }
             
@@ -262,7 +276,7 @@ class BCBooruUtilities {
                     post?.rating = .Explicit;
                     break;
                 default:
-                    print("Rating for post \(json!["id"])(\(json!["rating"])) is invalid");
+                    print("BCBooruUtilities: Rating for post \(json!["id"])(\(json!["rating"])) is invalid");
                     break;
             }
             
@@ -283,7 +297,7 @@ class BCBooruUtilities {
             post = BCBooruPost();
             
             // Set the post's info
-            post?.thumbnailUrl = baseUrl + json!["preview_url"].stringValue;
+            post?.thumbnailUrl = baseUrl + json!["preview_file_url"].stringValue;
             
             // Danbooru doesnt give you a thumbnail size
             post?.thumbnailSize = NSSize.zero;
@@ -302,7 +316,7 @@ class BCBooruUtilities {
                 post?.rating = .Explicit;
                 break;
             default:
-                print("Rating for post \(json!["id"])(\(json!["rating"])) is invalid");
+                print("BCBooruUtilities: Rating for post \(json!["id"])(\(json!["rating"])) is invalid");
                 break;
             }
             
@@ -318,8 +332,8 @@ class BCBooruUtilities {
             post = BCBooruPost();
             
             // Set the post's info
-            post?.thumbnailUrl = xml!["post"].element!.attributes["preview_url"]!;
-            post?.thumbnailSize = NSSize(width: NSString(string: xml!["post"].element!.attributes["preview_width"]!).integerValue, height: NSString(string: xml!["post"].element!.attributes["preview_height"]!).integerValue);
+            post?.thumbnailUrl = xml!.element!.attributes["preview_url"]!;
+            post?.thumbnailSize = NSSize(width: NSString(string: xml!.element!.attributes["preview_width"]!).integerValue, height: NSString(string: xml!.element!.attributes["preview_height"]!).integerValue);
             
             post?.imageUrl = xml!.element!.attributes["file_url"]!;
             post?.imageSize = NSSize(width: NSString(string: xml!.element!.attributes["width"]!).integerValue, height: NSString(string: xml!.element!.attributes["height"]!).integerValue);
@@ -335,7 +349,7 @@ class BCBooruUtilities {
                     post?.rating = .Explicit;
                     break;
                 default:
-                    print("Rating for post \(xml!.element!.attributes["id"]!)(\(xml!.element!.attributes["rating"]!)) is invalid");
+                    print("BCBooruUtilities: Rating for post \(xml!.element!.attributes["id"]!)(\(xml!.element!.attributes["rating"]!)) is invalid");
                     break;
             }
             
@@ -354,6 +368,22 @@ class BCBooruUtilities {
         
         // Return the post
         return post;
+    }
+    
+    // Init with a Booru host
+    convenience init(booru : BCBooruHost) {
+        self.init();
+        
+        // Set the type
+        self.type = booru.type;
+        
+        // Set the host
+        if(booru.url.substringFromIndex(booru.url.endIndex.predecessor()) == "/") {
+            self.baseUrl = booru.url.substringToIndex(booru.url.endIndex.predecessor());
+        }
+        else {
+            self.baseUrl = booru.url;
+        }
     }
 }
 
@@ -381,19 +411,67 @@ class BCBooruPost {
     var url : String = "";
 }
 
-class BCBooruHost {
+class BCBooruHost: NSObject, NSCoding {
     /// The display name of this Booru
     var name : String = "";
     
     /// What type of Booru this is
     var type : BCBooruType = .Unchosen;
     
+    /// How many posts to show per page
+    var pagePostLimit : Int = 40;
+    
     /// The URL to this Booru
     var url : String = "";
+    
+    /// The BCBooruUtilities for this host
+    var utilties : BCBooruUtilities = BCBooruUtilities();
+    
+    // Init with a name, type, page post limit and URL
+    convenience init(name : String, type : BCBooruType, pagePostLimit : Int, url : String) {
+        self.init();
+        
+        self.name = name;
+        self.type = type;
+        self.url = url;
+        self.pagePostLimit = pagePostLimit;
+        
+        self.utilties = BCBooruUtilities(booru: self);
+    }
+    
+    func encodeWithCoder(coder: NSCoder) {
+        // Encode the values
+        coder.encodeObject(self.name, forKey: "name");
+        coder.encodeObject(self.type.rawValue, forKey: "type");
+        coder.encodeObject(self.pagePostLimit, forKey: "pagePostLimit");
+        coder.encodeObject(self.url, forKey: "url");
+    }
+    
+    required convenience init(coder decoder: NSCoder) {
+        self.init()
+        // Decode and load the values
+        if((decoder.decodeObjectForKey("name") as? String) != nil) {
+            self.name = decoder.decodeObjectForKey("name") as! String;
+        }
+        
+        if((decoder.decodeObjectForKey("type") as? Int) != nil) {
+            self.type = BCBooruType(rawValue: decoder.decodeObjectForKey("type") as! Int)!;
+        }
+        
+        if((decoder.decodeObjectForKey("pagePostLimit") as? Int) != nil) {
+            self.pagePostLimit = decoder.decodeObjectForKey("pagePostLimit") as! Int;
+        }
+        
+        if((decoder.decodeObjectForKey("url") as? String) != nil) {
+            self.url = decoder.decodeObjectForKey("url") as! String;
+        }
+        
+        self.utilties = BCBooruUtilities(booru: self);
+    }
 }
 
 /// The different types of Booru Booru-chan can use
-enum BCBooruType {
+enum BCBooruType: Int {
     /// Used for placeholders/variable initiation
     case Unchosen
     

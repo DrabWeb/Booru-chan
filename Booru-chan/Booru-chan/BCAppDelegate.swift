@@ -11,16 +11,38 @@ import Cocoa
 @NSApplicationMain
 class BCAppDelegate: NSObject, NSApplicationDelegate {
 
-
-
+    /// The global preferences object
+    var preferences : BCPreferencesObject = BCPreferencesObject();
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
+    }
+    
+    /// Saves the preferences
+    func savePreferences() {
+        /// The data for the preferences object
+        let data = NSKeyedArchiver.archivedDataWithRootObject(preferences);
+        
+        // Set the standard user defaults preferences key to that data
+        NSUserDefaults.standardUserDefaults().setObject(data, forKey: "preferences");
+        
+        // Synchronize the data
+        NSUserDefaults.standardUserDefaults().synchronize();
+    }
+    
+    /// Loads the preferences
+    func loadPreferences() {
+        // If we have any data to load...
+        if let data = NSUserDefaults.standardUserDefaults().objectForKey("preferences") as? NSData {
+            // Set the preferences object to the loaded object
+            preferences = (NSKeyedUnarchiver.unarchiveObjectWithData(data) as! BCPreferencesObject);
+        }
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
+        // Save the preferences
+        savePreferences();
     }
-
-
 }
 
