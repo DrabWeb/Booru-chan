@@ -290,6 +290,12 @@ class BCViewController: NSViewController, NSWindowDelegate {
         window.contentView?.needsDisplay = true;
     }
     
+    /// Makes the post browser the first responder
+    func selectPostBrowser() {
+        // Make booruCollectionView the first responder
+        window.makeFirstResponder(gridStyleController.booruCollectionView);
+    }
+    
     /// Makes titlebarSearchField the first responder
     func selectSearchField() {
         // Make titlebarSearchField the first responder
@@ -303,11 +309,13 @@ class BCViewController: NSViewController, NSWindowDelegate {
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSaveSelectedImages.target = self;
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTitlebar.target = self;
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSelectSearchField.target = self;
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSelectPostBrowser.target = self;
         
         // Set the actions
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSaveSelectedImages.action = Selector("saveSelectedImages");
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTitlebar.action = Selector("toggleTitlebar");
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSelectSearchField.action = Selector("selectSearchField");
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSelectPostBrowser.action = Selector("selectPostBrowser");
     }
     
     /// Styles the window

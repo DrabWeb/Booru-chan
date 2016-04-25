@@ -137,7 +137,9 @@
                                         <menuItem title="Toggle Post Browser" keyEquivalent="b" id="D1L-8u-R3F">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="frj-Oo-SQm"/>
                                         <menuItem title="Select Search Field" keyEquivalent="f" id="QhB-jc-3vW"/>
+                                        <menuItem title="Select Post Browser" keyEquivalent="b" id="OuU-Ru-VLE"/>
                                         <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
                                         <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -169,6 +171,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="BCAppDelegate" customModule="Booru_chan" customModuleProvider="target">
                     <connections>
                         <outlet property="menuItemSaveSelectedImages" destination="BHx-14-SHv" id="4c4-Hp-LZr"/>
+                        <outlet property="menuItemSelectPostBrowser" destination="OuU-Ru-VLE" id="3sY-SF-IjS"/>
                         <outlet property="menuItemSelectSearchField" destination="QhB-jc-3vW" id="Yii-VM-cSn"/>
                         <outlet property="menuItemTogglePostBrowser" destination="D1L-8u-R3F" id="mJ1-wX-0Vf"/>
                         <outlet property="menuItemToggleTitlebar" destination="ZMD-8W-SMq" id="nUf-jP-DBK"/>
@@ -216,7 +219,7 @@
                             <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="dOC-CV-oj7" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
                                 <subviews>
-                                    <splitView arrangesAllSubviews="NO" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xcD-Vz-nhG" userLabel="Grid Style Split View" customClass="BCNoDividerSplitView" customModule="Booru_chan" customModuleProvider="target">
+                                    <splitView arrangesAllSubviews="NO" autosaveName="gridStyleSplitView" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xcD-Vz-nhG" userLabel="Grid Style Split View" customClass="BCNoDividerSplitView" customModule="Booru_chan" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
                                         <subviews>
                                             <customView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" id="9Ys-Ye-hfe" userLabel="Grid Container" customClass="BCColoredView" customModule="Booru_chan" customModuleProvider="target">

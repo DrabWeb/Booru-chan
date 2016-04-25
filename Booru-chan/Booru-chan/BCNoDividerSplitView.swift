@@ -20,5 +20,4 @@ class BCNoDividerSplitView: NSSplitView {
 
         // Drawing code here.
     }
-    
 }

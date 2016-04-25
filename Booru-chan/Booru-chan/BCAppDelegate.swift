@@ -26,6 +26,9 @@ class BCAppDelegate: NSObject, NSApplicationDelegate {
     /// Window/Select Search Field (⌘F)
     @IBOutlet weak var menuItemSelectSearchField: NSMenuItem!
     
+    /// Window/Select Post Browser (⌘B)
+    @IBOutlet weak var menuItemSelectPostBrowser: NSMenuItem!
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
     }
