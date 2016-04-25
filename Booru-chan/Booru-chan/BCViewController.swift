@@ -116,7 +116,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%tags%", withString: tagsString);
                     
                     // Add the extension onto the end
-                    imageFileName += ".jpg";
+                    imageFileName += ".png";
                     
                     // If we have already downloaded the image...
                     if(currentSaveItem.finishedLoadingImage) {

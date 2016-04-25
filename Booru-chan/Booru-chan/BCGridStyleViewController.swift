@@ -225,6 +225,60 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         }
     }
     
+    /// Is the Booru collection view open?
+    var booruCollectionViewOpen : Bool = true;
+    
+    /// The previous size of the Booru collection view(Before it was hidden)
+    var booruCollectionViewPreviousSize : CGFloat = 0;
+    
+    /// Toggles the visibility of the booru collection view
+    func toggleBooruCollectionView() {
+        // Toggle booruCollectionViewOpen
+        booruCollectionViewOpen = !booruCollectionViewOpen;
+        
+        // If the Booru collection view is now open...
+        if(booruCollectionViewOpen) {
+            // Show the Booru collection view
+            showBooruCollectionView();
+        }
+        // If the Booru collection view is now closed...
+        else {
+            // Hide the Booru collection view
+            hideBooruCollectionView();
+        }
+    }
+    
+    /// Hides the Booru collection view
+    func hideBooruCollectionView() {
+        // Store the Booru collection view's size
+        booruCollectionViewPreviousSize = mainSplitView.subviews[0].frame.width;
+        
+        // Hide the Booru collection view
+        mainSplitView.subviews[0].hidden = true;
+        
+        // Set the position of the Booru collection view divider to 0
+        mainSplitView.setPosition(0, ofDividerAtIndex: 0);
+    }
+    
+    /// Shows the Booru collection view
+    func showBooruCollectionView() {
+        // Show the Booru collection view
+        mainSplitView.subviews[0].hidden = false;
+        
+        // Restore the Booru collection view's size
+        mainSplitView.setPosition(booruCollectionViewPreviousSize, ofDividerAtIndex: 0);
+    }
+    
+    /// Sets up the menu items for this controller
+    func setupMenuItems() {
+        // Setup the menu items
+        // Set the targets
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemTogglePostBrowser.target = self;
+        
+        // Set the actions
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemTogglePostBrowser.action = Selector("toggleBooruCollectionView");
+    }
+    
     func initialize() {
         // Set the grid container's background color
         gridContainerView.backgroundColor = NSColor(calibratedWhite: 0, alpha: 0.2);
@@ -235,6 +289,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // Set the minimum and maximum item sizes
         booruCollectionView.minItemSize = NSSize(width: 150, height: 150);
         booruCollectionView.maxItemSize = NSSize(width: 200, height: 200);
+        
+        // Setup the menu items
+        setupMenuItems();
         
         // Style the visual effect views
         infoBarVisualEffectView.material = .Dark;
