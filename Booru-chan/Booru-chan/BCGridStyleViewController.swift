@@ -113,7 +113,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                         }
                 }
             }
-                // If we have already downloaded the post item's full size image...
+            // If we have already downloaded the post item's full size image...
             else {
                 // Show the cached image in the full size image view
                 self.largeImageView.image = postItem!.image;
@@ -136,6 +136,21 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // Show a blank image in the full size image view
             largeImageView.image = NSImage();
         }
+    }
+    
+    /// Returns the selected BCBooruCollectionViewItems from the Booru collection view
+    func getSelectedBooruItems() -> [BCBooruCollectionViewItem] {
+        /// The selected BCBooruCollectionViewItems
+        var selectedItems : [BCBooruCollectionViewItem] = [];
+        
+        // For every selection index...
+        for(_, currentSelectionIndex) in booruCollectionView.selectionIndexes.enumerate() {
+            // Add the item at the current index to selectedItems
+            selectedItems.append((booruCollectionViewArrayController.arrangedObjects as! [BCBooruCollectionViewItem])[currentSelectionIndex]);
+        }
+        
+        // Return the selected items
+        return selectedItems;
     }
     
     /// Called when a search is finished

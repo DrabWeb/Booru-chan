@@ -14,6 +14,9 @@ class BCAppDelegate: NSObject, NSApplicationDelegate {
     /// The global preferences object
     var preferences : BCPreferencesObject = BCPreferencesObject();
     
+    /// File/Save Selected Images (⌘S)
+    @IBOutlet weak var menuItemSaveSelectedImages: NSMenuItem!
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
     }

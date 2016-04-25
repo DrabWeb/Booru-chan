@@ -251,7 +251,9 @@ class BCBooruUtilities {
             
             post?.tags = json!["tags"].stringValue.componentsSeparatedByString(" ");
             
-            post?.url = self.baseUrl + "/post/show/\(json!["id"])";
+            post?.id = json!["id"].intValue;
+            
+            post?.url = self.baseUrl + "/post/show/\(post!.id)";
         }
         else if(type == .DanbooruLegacy) {
             // Make post a new BCBooruPost
@@ -290,7 +292,9 @@ class BCBooruUtilities {
                 post?.tags.removeLast();
             }
             
-            post?.url = self.baseUrl + "/posts/\(json!["id"])";
+            post?.id = json!["id"].intValue;
+            
+            post?.url = self.baseUrl + "/posts/\(post!.id)";
         }
         else if(type == .Danbooru) {
             // Make post a new BCBooruPost
@@ -325,7 +329,9 @@ class BCBooruUtilities {
             post?.tags.appendContentsOf(json!["tag_string_copyright"].stringValue.componentsSeparatedByString(" "));
             post?.tags.appendContentsOf(json!["tag_string_general"].stringValue.componentsSeparatedByString(" "));
             
-            post?.url = self.baseUrl + "/posts/\(json!["id"])";
+            post?.id = json!["id"].intValue;
+            
+            post?.url = self.baseUrl + "/posts/\(post!.id)";
         }
         else if(type == .Gelbooru) {
             // Make post a new BCBooruPost
@@ -363,7 +369,9 @@ class BCBooruUtilities {
                 post?.tags.removeLast();
             }
             
-            post?.url = self.baseUrl + "/index.php?page=post&s=view&id=\(xml!.element!.attributes["id"]!)";
+            post?.id = NSString(string: xml!.element!.attributes["id"]!).integerValue;
+            
+            post?.url = self.baseUrl + "/index.php?page=post&s=view&id=\(post!.id)";
         }
         
         // Return the post
@@ -406,6 +414,9 @@ class BCBooruPost {
     
     /// The rating of this post
     var rating : BCRating = BCRating.Safe;
+    
+    /// The ID of this post
+    var id : Int = -1;
     
     /// The URL to this post on it's respective Booru
     var url : String = "";

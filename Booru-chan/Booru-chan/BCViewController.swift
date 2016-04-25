@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Alamofire
 
 class BCViewController: NSViewController, NSWindowDelegate {
     
@@ -51,11 +52,110 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // Style the window
         styleWindow();
         
+        // Setup the menu items
+        setupMenuItems();
+        
         // Initialize everything
         gridStyleController.initialize();
         
         // Update the Booru picker popup button
         updateBooruPickerPopupButton();
+    }
+    
+    /// Saves the given BCBooruCollectionViewItems
+    func saveBooruItems(items : [BCBooruCollectionViewItem]) {
+        // If there is at least one item in items...
+        if(items.count > 0) {
+            /// The open panel to get the directory to save the images to
+            let saveDirectoryOpenPanel : NSOpenPanel = NSOpenPanel();
+            
+            // Only allow single folders
+            saveDirectoryOpenPanel.allowsMultipleSelection = false;
+            saveDirectoryOpenPanel.canChooseFiles = false;
+            saveDirectoryOpenPanel.canChooseDirectories = true;
+            
+            // Set the prompt to "Save"
+            saveDirectoryOpenPanel.prompt = "Save";
+            
+            // Run the open panel, and if the user hits "Save"...
+            if(Bool(saveDirectoryOpenPanel.runModal())) {
+                /// The directory we are saving the images to
+                let saveDirectory : String = saveDirectoryOpenPanel.URL!.absoluteString.stringByRemovingPercentEncoding!.stringByReplacingOccurrencesOfString("file://", withString: "");
+                
+                // Print how many images we are saving and where
+                print("BCViewController: Saving \(items.count) image(s) to \"\(saveDirectory)\"");
+                
+                // For every item to save...
+                for(_, currentSaveItem) in items.enumerate() {
+                    /// The name of the image file
+                    var imageFileName : String = (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.imageSaveFormat;
+                    
+                    // Replace %id% with the image's id
+                    imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%id%", withString: String(currentSaveItem.representedPost!.id));
+                    
+                    /// Every tag of this post(With spaces in between) put into a string
+                    var tagsString : String = "";
+                    
+                    // For every tag on this post...
+                    for(_, currentTag) in currentSaveItem.representedPost!.tags.enumerate() {
+                        // Add the current tag to tagsString
+                        tagsString += currentTag + " ";
+                    }
+                    
+                    // If tagsString isnt blank...
+                    if(tagsString != "") {
+                        // Remove the trailing space that was added from adding the tags
+                        tagsString = tagsString.substringToIndex(tagsString.endIndex.predecessor());
+                    }
+                    
+                    // Replace %tags% with the tags string
+                    imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%tags%", withString: tagsString);
+                    
+                    // Add the extension onto the end
+                    imageFileName += ".jpg";
+                    
+                    // If we have already downloaded the image...
+                    if(currentSaveItem.finishedLoadingImage) {
+                        // Save the image to disk, asynchronously
+                        dispatch_async(dispatch_get_main_queue()) {
+                            // Write the image to the chosen directory with the generated file name
+                            currentSaveItem.image.TIFFRepresentation?.writeToFile(saveDirectory + imageFileName, atomically: false);
+                        }
+                    }
+                    // If we have to download the image...
+                    else {
+                        // Download the post item's full size image
+                        Alamofire.request(.GET, currentSaveItem.representedPost!.imageUrl).response { (request, response, data, error) in
+                            // If data isnt nil...
+                            if(data != nil) {
+                                /// The downloaded image
+                                let image : NSImage? = NSImage(data: data!);
+                                
+                                // If image isnt nil...
+                                if(image != nil) {
+                                    // Store the image in the post item
+                                    currentSaveItem.image = image!;
+                                    
+                                    // Write the image to the chosen directory with the generated file name
+                                    currentSaveItem.image.TIFFRepresentation?.writeToFile(saveDirectory + imageFileName, atomically: false);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // If items is blank...
+        else {
+            // Print that there were no passed items to save
+            print("BCViewController: Cant save empty array of BCBooruCollectionViewItems");
+        }
+    }
+    
+    /// Saves the selected Booru post images
+    func saveSelectedImages() {
+        // Save the selected items
+        saveBooruItems(gridStyleController.getSelectedBooruItems());
     }
     
     /// Updates currentSelectedSearchingBooru to match the selected item in titlebarBooruPickerPopupButton
@@ -123,6 +223,16 @@ class BCViewController: NSViewController, NSWindowDelegate {
         
         // Update the titlebar items split view left side minimum width
         titlebarItemsSplitViewLeftMinimumWidthConstraint.constant = 236;
+    }
+    
+    /// Sets up the menu items for this controller
+    func setupMenuItems() {
+        // Setup the menu items
+        // Set the targets
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSaveSelectedImages.target = self;
+        
+        // Set the actions
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSaveSelectedImages.action = Selector("saveSelectedImages");
     }
     
     /// Styles the window
