@@ -35,9 +35,13 @@ class BCViewController: NSViewController, NSWindowDelegate {
         updateSelectedSearchingBooru();
     }
     
-    /// When the user hits Enter in the titlebar search field...
+    /// The text field in the titlebar for searching
+    @IBOutlet var titlebarSearchField: BCAlwaysActiveTextField!
+    
+    /// When the user enters text into titlebarSearchField...
     @IBAction func titlebarSearchFieldTextEntered(sender: AnyObject) {
-        gridStyleController.searchFor((sender as! NSTextField).stringValue);
+        // Search for the entered text
+        gridStyleController.searchFor(titlebarSearchField.stringValue);
     }
     
     /// The current Booru the user selected to search from
@@ -223,6 +227,73 @@ class BCViewController: NSViewController, NSWindowDelegate {
         
         // Update the titlebar items split view left side minimum width
         titlebarItemsSplitViewLeftMinimumWidthConstraint.constant = 236;
+        
+        // If we are hiding the titlebar...
+        if(!titlebarVisible) {
+            // Hide the OSX titlebar
+            window.standardWindowButton(.CloseButton)?.superview?.superview?.hidden = true;
+        }
+    }
+    
+    /// Is the titlebar visible?
+    var titlebarVisible : Bool = true;
+    
+    /// Toggles the visibility of the titlebar
+    func toggleTitlebar() {
+        // Toggle titlebarVisible
+        titlebarVisible = !titlebarVisible;
+        
+        // If blank is now visible...
+        if(titlebarVisible) {
+            // Show the titlebar
+            showTitlebar();
+        }
+        // If the titlebar is now hidden...
+        else {
+            // Hide the titlebar
+            hideTitlebar();
+        }
+    }
+    
+    /// Hides the titlebar
+    func hideTitlebar() {
+        // Hide the titlebar visual effect view
+        titlebarVisualEffectView.hidden = true;
+        
+        // If we arent in fullscreen...
+        if(!((window.styleMask & NSFullScreenWindowMask) > 0)) {
+            // Hide the OSX titlebar
+            window.standardWindowButton(.CloseButton)?.superview?.superview?.hidden = true;
+        }
+        
+        // Update constraints/content insets
+        gridStyleController.largeImageViewTopConstraint.constant = 0;
+        gridStyleController.booruCollectionViewScrollView.contentInsets.top = 0;
+        
+        // Redraw the window's content view so we dont get odd vibrancy artifacts
+        window.contentView?.needsDisplay = true;
+    }
+    
+    /// Shows the titlebar
+    func showTitlebar() {
+        // Show the titlebar visual effect view
+        titlebarVisualEffectView.hidden = false;
+        
+        // Show the OSX titlebar
+        window.standardWindowButton(.CloseButton)?.superview?.superview?.hidden = false;
+        
+        // Update constraints/content insets
+        gridStyleController.largeImageViewTopConstraint.constant = 37;
+        gridStyleController.booruCollectionViewScrollView.contentInsets.top = 37;
+        
+        // Redraw the window's content view so we dont get odd vibrancy artifacts
+        window.contentView?.needsDisplay = true;
+    }
+    
+    /// Makes titlebarSearchField the first responder
+    func selectSearchField() {
+        // Make titlebarSearchField the first responder
+        window.makeFirstResponder(titlebarSearchField);
     }
     
     /// Sets up the menu items for this controller
@@ -230,9 +301,13 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // Setup the menu items
         // Set the targets
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSaveSelectedImages.target = self;
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTitlebar.target = self;
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSelectSearchField.target = self;
         
         // Set the actions
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSaveSelectedImages.action = Selector("saveSelectedImages");
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTitlebar.action = Selector("toggleTitlebar");
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSelectSearchField.action = Selector("selectSearchField");
     }
     
     /// Styles the window

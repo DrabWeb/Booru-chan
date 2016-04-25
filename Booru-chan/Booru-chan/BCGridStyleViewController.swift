@@ -44,6 +44,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// The image view on the right for displaying the current selected image in full size
     @IBOutlet weak var largeImageView: NSImageView!
     
+    /// The constraint for the top space for largeImageView
+    @IBOutlet weak var largeImageViewTopConstraint: NSLayoutConstraint!
+    
     /// The last full size image download request made by displayPostItem
     var lastDisplayRequest : Request? = nil;
     

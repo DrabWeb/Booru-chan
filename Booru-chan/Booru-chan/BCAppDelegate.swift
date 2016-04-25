@@ -17,6 +17,12 @@ class BCAppDelegate: NSObject, NSApplicationDelegate {
     /// File/Save Selected Images (⌘S)
     @IBOutlet weak var menuItemSaveSelectedImages: NSMenuItem!
     
+    /// Window/Toggle Titlebar (⌘⌥T)
+    @IBOutlet weak var menuItemToggleTitlebar: NSMenuItem!
+    
+    /// Window/Select Search Field (⌘F)
+    @IBOutlet weak var menuItemSelectSearchField: NSMenuItem!
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
     }
