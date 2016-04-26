@@ -175,15 +175,18 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                     
                     // If image isnt nil...
                     if(image != nil) {
-                        // For ever item in the Booru collection view...
-                        for currentIndex in 0...(self.booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count - 1 {
-                            // If the current item's represented object is equal to the item we downloaded the thumbnail for...
-                            if(((self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem) == item) {
-                                // Update the image view of the item
-                                (self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).imageView?.image = image!;
-                                
-                                // Set the item's model's thumbnail image
-                                ((self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem).thumbnailImage = image!;
+                        // If there are any items in booruCollectionViewArrayController...
+                        if((self.booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count > 0) {
+                            // For ever item in the Booru collection view...
+                            for currentIndex in 0...(self.booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count - 1 {
+                                // If the current item's represented object is equal to the item we downloaded the thumbnail for...
+                                if(((self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem) == item) {
+                                    // Update the image view of the item
+                                    (self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).imageView?.image = image!;
+                                    
+                                    // Set the item's model's thumbnail image
+                                    ((self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem).thumbnailImage = image!;
+                                }
                             }
                         }
                     }
@@ -197,8 +200,11 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     
     /// When we reach the bottom of the Booru collection view...
     func reachedBottomOfBooruCollectionView() {
-        // Add the next page of results to the Booru collection view
-        mainViewController.currentSelectedSearchingBooru!.utilties.getPostsFromSearch(mainViewController.currentSelectedSearchingBooru!.utilties.lastSearch, limit: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchLimit, page: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchPage + 1, completionHandler: searchFinished);
+        // If the last search of the current searching Booru isnt blank...
+        if(mainViewController.currentSelectedSearchingBooru?.utilties.lastSearch != "") {
+            // Add the next page of results to the Booru collection view
+            mainViewController.currentSelectedSearchingBooru!.utilties.getPostsFromSearch(mainViewController.currentSelectedSearchingBooru!.utilties.lastSearch, limit: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchLimit, page: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchPage + 1, completionHandler: searchFinished);
+        }
     }
     
     /// Clears the Booru collection view, searches for the given tags and shows the results

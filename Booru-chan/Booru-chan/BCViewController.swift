@@ -164,6 +164,9 @@ class BCViewController: NSViewController, NSWindowDelegate {
     
     /// Updates currentSelectedSearchingBooru to match the selected item in titlebarBooruPickerPopupButton
     func updateSelectedSearchingBooru() {
+        // Clear the current searching Booru's last search
+        currentSelectedSearchingBooru?.utilties.lastSearch = "";
+        
         // If there isnt one item with a title of "No Boorus Added" in titlebarBooruPickerPopupButton...
         if(titlebarBooruPickerPopupButton.itemArray.count != 1 && titlebarBooruPickerPopupButton.itemArray[0].title != "No Boorus Added") {
             // Set the selected searching Booru to the selected Booru
