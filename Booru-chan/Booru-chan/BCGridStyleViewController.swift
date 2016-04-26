@@ -212,8 +212,8 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             self.booruCollectionViewArrayController.addObject(item);
         }
         
-        // If the results are empty...
-        if(results.isEmpty) {
+        // If the results are empty and booruCollectionViewArrayController is empty...
+        if(results.isEmpty && (booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).isEmpty) {
             // Show the no search results container
             noSearchResultsContainerView.hidden = false;
         }
