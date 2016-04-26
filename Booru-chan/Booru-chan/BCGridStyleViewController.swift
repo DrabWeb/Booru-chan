@@ -26,6 +26,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// The collection view for showing Booru items
     @IBOutlet weak var booruCollectionView: NSCollectionView!
     
+    /// The container for the views to show when there are no search results
+    @IBOutlet weak var noSearchResultsContainerView: NSView!
+    
     /// The visual effect view for the info bar at the bottom of the Booru collection view
     @IBOutlet weak var infoBarVisualEffectView: NSVisualEffectView!
     
@@ -208,6 +211,12 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // Add the item
             self.booruCollectionViewArrayController.addObject(item);
         }
+        
+        // If the results are empty...
+        if(results.isEmpty) {
+            // Show the no search results container
+            noSearchResultsContainerView.hidden = false;
+        }
     }
     
     /// When we reach the bottom of the Booru collection view...
@@ -226,6 +235,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         
         // Disable the reached bottom action from being called
         booruCollectionViewScrollView.reachedBottomAction = nil;
+        
+        // Hide the no search results container
+        noSearchResultsContainerView.hidden = true;
         
         // Clear the Booru collection view
         booruCollectionViewArrayController.removeObjects(booruCollectionViewArrayController.arrangedObjects as! [AnyObject]);
@@ -246,7 +258,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // If currentSelectedSearchingBooru isnt nil...
         if(mainViewController.currentSelectedSearchingBooru != nil) {
             // Search for the given tags
-            mainViewController.currentSelectedSearchingBooru!.utilties.getPostsFromSearch(searchString, limit: mainViewController.currentSelectedSearchingBooru!.pagePostLimit, page: 0, completionHandler: searchFinished);
+            mainViewController.currentSelectedSearchingBooru!.utilties.getPostsFromSearch(searchString, limit: mainViewController.currentSelectedSearchingBooru!.pagePostLimit, page: 1, completionHandler: searchFinished);
         }
         // If currentSelectedSearchingBooru is nil...
         else {
