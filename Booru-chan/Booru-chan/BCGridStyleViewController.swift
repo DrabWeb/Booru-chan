@@ -156,6 +156,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         return selectedItems;
     }
     
+    /// An array of all the thumbnail download requests made by searchFinished(Cleared every time searchFor is called)
+    var lastThumbnailDownloadRequests : [Request] = [];
+    
     /// Called when a search is finished
     func searchFinished(results: [BCBooruPost]) {
         // For every item in the search results...
@@ -167,7 +170,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             item.representedPost = currentResult;
             
             // Download the post's thumbnail
-            Alamofire.request(.GET, currentResult.thumbnailUrl).response { (request, response, data, error) in
+            lastThumbnailDownloadRequests.append(Alamofire.request(.GET, currentResult.thumbnailUrl).response { (request, response, data, error) in
                 // If data isnt nil...
                 if(data != nil) {
                     /// The downloaded image
@@ -191,7 +194,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                         }
                     }
                 }
-            }
+            });
             
             // Add the item
             self.booruCollectionViewArrayController.addObject(item);
@@ -212,11 +215,23 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // Deselect all posts
         booruCollectionView.deselectAll(self);
         
+        // Disable the reached bottom action from being called
+        booruCollectionViewScrollView.reachedBottomAction = nil;
+        
         // Clear the Booru collection view
         booruCollectionViewArrayController.removeObjects(booruCollectionViewArrayController.arrangedObjects as! [AnyObject]);
         
         // Clear the full size image view
         largeImageView.image = NSImage();
+        
+        // For every item in lastThumbnailDownloadRequests...
+        for(_, currentRequest) in lastThumbnailDownloadRequests.enumerate() {
+            // Cancel the current thumbnail download request
+            currentRequest.cancel();
+        }
+        
+        // Clear lastThumbnailDownloadRequests
+        lastThumbnailDownloadRequests.removeAll();
         
         // Search for the given tags
         // If currentSelectedSearchingBooru isnt nil...
@@ -229,6 +244,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // Print that currentSelectedSearchingBooru is nil
             print("BCGridStyleViewController: currentSelectedSearchingBooru is nil, cant search");
         }
+        
+        // Enable the reached bottom action
+        booruCollectionViewScrollView.reachedBottomAction = Selector("reachedBottomOfBooruCollectionView");
     }
     
     /// Is the Booru collection view open?
