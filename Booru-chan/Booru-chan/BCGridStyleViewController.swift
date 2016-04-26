@@ -86,6 +86,12 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                 self.largeImageView.image = postItem!.thumbnailImage;
             }
             
+            /// The first letter in the post item's rating
+            var ratingFirstLetter : String = String(postItem!.representedPost!.rating);
+            
+            // Set ratingFirstLetter to the first letter in ratingFirstLetter
+            ratingFirstLetter = ratingFirstLetter.substringToIndex(ratingFirstLetter.startIndex.successor());
+            
             // If we havent already downloaded the post's full size image...
             if(!postItem!.finishedLoadingImage) {
                 // Download the post item's full size image
@@ -109,6 +115,15 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                     }
                     }
                     .progress { _, totalBytesRead, totalBytesExpectedToRead in
+                        /// How much percent done the download is
+                        let percentFinished : Int = Int((Float(totalBytesRead) / Float(totalBytesExpectedToRead)) * 100);
+                        
+                        // Dispatch onto the UI queue
+                        dispatch_async(dispatch_get_main_queue()) {
+                            // Update the info bar label
+                            self.infoBarInfoLabel.stringValue = "\(Int(postItem!.representedPost!.imageSize.width))x\(Int(postItem!.representedPost!.imageSize.height))[\(ratingFirstLetter)] \(percentFinished)%";
+                        }
+                        
                         // If we loaded all of the image's data...
                         if(totalBytesRead == totalBytesExpectedToRead) {
                             // Say we finished loading the image
@@ -122,14 +137,8 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                 self.largeImageView.image = postItem!.image;
             }
             
-            /// The first letter in the post item's rating
-            var ratingFirstLetter : String = String(postItem!.representedPost!.rating);
-            
-            // Set ratingFirstLetter to the first letter in ratingFirstLetter
-            ratingFirstLetter = ratingFirstLetter.substringToIndex(ratingFirstLetter.startIndex.successor());
-            
-            // Update the info label
-            infoBarInfoLabel.stringValue = "\(Int(postItem!.representedPost!.imageSize.width))x\(Int(postItem!.representedPost!.imageSize.height))[\(ratingFirstLetter)]";
+            // Update the info label(Only called here in case the download doesnt start)
+            infoBarInfoLabel.stringValue = "\(Int(postItem!.representedPost!.imageSize.width))x\(Int(postItem!.representedPost!.imageSize.height))[\(ratingFirstLetter)] 0%";
         }
         // If postItem is nil...
         else {
