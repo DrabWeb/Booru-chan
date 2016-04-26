@@ -385,23 +385,23 @@
                                                 <rect key="frame" x="376" y="0.0" width="224" height="37"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ops-nh-Wie" userLabel="Search Field" customClass="BCAlwaysActiveTextField" customModule="Booru_chan" customModuleProvider="target">
+                                                    <tokenField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c89-CQ-Xbg" userLabel="Search Field" customClass="BCBooruSearchTokenField" customModule="Booru_chan" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="7" width="216" height="22"/>
-                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Search..." bezelStyle="round" id="qH1-fE-0qh">
+                                                        <tokenFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Search" allowsEditingTextAttributes="YES" bezelStyle="round" id="tph-jO-aL5">
                                                             <font key="font" metaFont="system"/>
-                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
+                                                        </tokenFieldCell>
                                                         <connections>
-                                                            <action selector="titlebarSearchFieldTextEntered:" target="XfG-lQ-9wD" id="YAC-hJ-6ii"/>
+                                                            <action selector="titlebarSearchFieldTextEntered:" target="XfG-lQ-9wD" id="p5d-vd-idO"/>
                                                         </connections>
-                                                    </textField>
+                                                    </tokenField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="Ops-nh-Wie" firstAttribute="leading" secondItem="gJG-r7-elb" secondAttribute="leading" id="1Gy-Io-k0H"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Ops-nh-Wie" secondAttribute="bottom" constant="7" id="4aw-Gp-ovP"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Ops-nh-Wie" secondAttribute="trailing" constant="8" id="Qxd-7N-ygE"/>
-                                                    <constraint firstItem="Ops-nh-Wie" firstAttribute="top" secondItem="gJG-r7-elb" secondAttribute="top" constant="8" id="Xgq-pz-JlV"/>
+                                                    <constraint firstItem="c89-CQ-Xbg" firstAttribute="top" secondItem="gJG-r7-elb" secondAttribute="top" constant="8" id="EJy-Rd-sEt"/>
+                                                    <constraint firstItem="c89-CQ-Xbg" firstAttribute="leading" secondItem="gJG-r7-elb" secondAttribute="leading" id="OTt-b7-LFf"/>
+                                                    <constraint firstAttribute="trailing" secondItem="c89-CQ-Xbg" secondAttribute="trailing" constant="8" id="Trh-mb-Mzq"/>
+                                                    <constraint firstAttribute="bottom" secondItem="c89-CQ-Xbg" secondAttribute="bottom" constant="7" id="Yyw-G1-8AL"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="216" id="h82-IU-fiF"/>
                                                 </constraints>
                                             </customView>
@@ -436,7 +436,7 @@
                         <outlet property="gridStyleController" destination="kWE-u4-SOc" id="DdI-cY-0H6"/>
                         <outlet property="titlebarBooruPickerPopupButton" destination="SdD-k4-k5y" id="yg6-uA-YoO"/>
                         <outlet property="titlebarItemsSplitViewLeftMinimumWidthConstraint" destination="Ntu-Ou-JRo" id="fYT-aQ-8pR"/>
-                        <outlet property="titlebarSearchField" destination="Ops-nh-Wie" id="O3j-Ox-60w"/>
+                        <outlet property="titlebarSearchField" destination="c89-CQ-Xbg" id="2fd-i3-Gap"/>
                         <outlet property="titlebarVisualEffectView" destination="6cR-Qd-3On" id="zkI-XD-hcs"/>
                     </connections>
                 </viewController>

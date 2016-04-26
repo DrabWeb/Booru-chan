@@ -22,3 +22,18 @@ class BCAlwaysActiveTextField: NSTextField {
     }
     
 }
+
+class BCAlwaysActiveTokenField: NSTokenField {
+    
+    // Override acceptsFirstResponder so it is always in the active graphical state
+    override var acceptsFirstResponder : Bool {
+        return true;
+    }
+    
+    override func drawRect(dirtyRect: NSRect) {
+        super.drawRect(dirtyRect)
+        
+        // Drawing code here.
+    }
+    
+}

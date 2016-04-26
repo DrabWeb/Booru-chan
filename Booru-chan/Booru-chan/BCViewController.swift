@@ -35,13 +35,13 @@ class BCViewController: NSViewController, NSWindowDelegate {
         updateSelectedSearchingBooru();
     }
     
-    /// The text field in the titlebar for searching
-    @IBOutlet var titlebarSearchField: BCAlwaysActiveTextField!
+    /// The token field in the titlebar for searching
+    @IBOutlet var titlebarSearchField: BCAlwaysActiveTokenField!
     
     /// When the user enters text into titlebarSearchField...
-    @IBAction func titlebarSearchFieldTextEntered(sender: AnyObject) {
-        // Search for the entered text
-        gridStyleController.searchFor(titlebarSearchField.stringValue);
+    @IBAction func titlebarSearchFieldTextEntered(sender: NSTokenField) {
+        // Search for the entered text(It replaces commas with spaces because when NSTokenField gives you it's stringValue, there is a comma in between each token)
+        gridStyleController.searchFor(sender.stringValue.stringByReplacingOccurrencesOfString(",", withString: " "));
     }
     
     /// The current Booru the user selected to search from

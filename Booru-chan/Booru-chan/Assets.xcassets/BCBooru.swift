@@ -27,6 +27,35 @@ class BCBooruUtilities {
     /// The page of the last search
     var lastSearchPage = -1;
     
+    /// The maximum rating of post to show when searching
+    var maximumRating : BCRating = .Explicit;
+    
+    /// Returns an array of Strings containing all the tags that matched the passed query
+    func getTagsMatchingSearch(search : String, completionHandler: ([String]) -> ()) {
+        // Print what we are searching for
+        print("BCBooruUtilities: Searching for tags matching \"\(search)\" on \"\(self.baseUrl)\"");
+        
+        /// The tag search results to pass to the completion handler
+        var results : [String] = [];
+        
+        // Get the tags with the passed query
+        // Depending on which Booru API we are using...
+        if(type == .Moebooru) {
+            // baseUrl/tag.json?name=*query*
+            // Query can also be "query*" or "*query"
+        }
+        else if(type == .DanbooruLegacy) {
+            
+        }
+        else if(type == .Danbooru) {
+            /// baseUrl/tags.json?search[name_matches]=*query*
+            // Query can also be "query*" or "*query"
+        }
+        else if(type == .Gelbooru) {
+            
+        }
+    }
+    
     /// Searches for the given string and returns the results as and array of BCBooruPosts
     func getPostsFromSearch(search : String, limit : Int, page : Int, completionHandler: ([BCBooruPost]) -> ()) {
         // Print what we are searching for
@@ -35,14 +64,31 @@ class BCBooruUtilities {
         /// The search results to pass to the completion handler
         var results : [BCBooruPost] = [];
         
+        /// The string to append to the search query to set the maximum rating of posts to show
+        var ratingLimitString : String = "";
+        
+        // If the maximum rating isnt Explicit...
+        if(maximumRating != .Explicit) {
+            // If the maximum rating is Safe...
+            if(maximumRating == .Safe) {
+                // Set rating limit string to " rating:safe"
+                ratingLimitString = " rating:safe";
+            }
+            // If the maximum rating is Questionable...
+            else if(maximumRating == .Questionable) {
+                // Set rating limit string to " -rating:explicit"
+                ratingLimitString = " -rating:explicit";
+            }
+        }
+        
         // Perform the search and get the results
         // Depending on which Booru API we are using...
         if(type == .Moebooru) {
             // Print what URL we are querying
-            print("BCBooruUtilities: Using URL \"\((baseUrl + "/post.json?tags=" + search + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
+            print("BCBooruUtilities: Using URL \"\((baseUrl + "/post.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
             
-            // Make the get request to the Booru with the post ID...
-            Alamofire.request(.GET, (baseUrl + "/post.json?tags=" + search + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            // Make the get request to the Booru with the search string and rating limit...
+            Alamofire.request(.GET, (baseUrl + "/post.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -64,10 +110,10 @@ class BCBooruUtilities {
         }
         else if(type == .DanbooruLegacy) {
             // Print what URL we are querying
-            print("BCBooruUtilities: Using URL \"\((baseUrl + "/post/index.json?tags=" + search + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
+            print("BCBooruUtilities: Using URL \"\((baseUrl + "/post/index.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
             
-            // Make the get request to the Booru with the post ID...
-            Alamofire.request(.GET, (baseUrl + "/post/index.json?tags=" + search + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            // Make the get request to the Booru with the search string and rating limit...
+            Alamofire.request(.GET, (baseUrl + "/post/index.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -89,10 +135,10 @@ class BCBooruUtilities {
         }
         else if(type == .Danbooru) {
             // Print what URL we are querying
-            print("BCBooruUtilities: Using URL \"\((baseUrl + "/posts.json?tags=" + search + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
+            print("BCBooruUtilities: Using URL \"\((baseUrl + "/posts.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
             
-            // Make the get request to the Booru with the post ID...
-            Alamofire.request(.GET, (baseUrl + "/posts.json?tags=" + search + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            // Make the get request to the Booru with the search string and rating limit...
+            Alamofire.request(.GET, (baseUrl + "/posts.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -114,10 +160,10 @@ class BCBooruUtilities {
         }
         else if(type == .Gelbooru) {
             // Print what URL we are querying
-            print("BCBooruUtilities: Using URL \"\((baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + "&pid=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
+            print("BCBooruUtilities: Using URL \"\((baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + ratingLimitString + ratingLimitString + "&pid=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
             
-            // Make the get request to the Booru with the post ID...
-            Alamofire.request(.GET, (baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + "&pid=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            // Make the get request to the Booru with the search string and rating limit...
+            Alamofire.request(.GET, (baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + ratingLimitString + "&pid=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -217,6 +263,7 @@ class BCBooruUtilities {
         }
     }
     
+    /// Returns a BCBooruPOst from the given data(Can be nil)
     func getPostFromData(json : JSON?, xml : XMLIndexer?) -> BCBooruPost? {
         /// The post to return
         var post : BCBooruPost? = nil;
@@ -392,6 +439,9 @@ class BCBooruUtilities {
         else {
             self.baseUrl = booru.url;
         }
+        
+        // Set the maximum rating
+        self.maximumRating = booru.maximumRating;
     }
 }
 
@@ -432,6 +482,9 @@ class BCBooruHost: NSObject, NSCoding {
     /// How many posts to show per page
     var pagePostLimit : Int = 40;
     
+    /// The maximum rating of post to show on this Booru
+    var maximumRating : BCRating = .Explicit;
+    
     /// The URL to this Booru
     var url : String = "";
     
@@ -439,13 +492,14 @@ class BCBooruHost: NSObject, NSCoding {
     var utilties : BCBooruUtilities = BCBooruUtilities();
     
     // Init with a name, type, page post limit and URL
-    convenience init(name : String, type : BCBooruType, pagePostLimit : Int, url : String) {
+    convenience init(name : String, type : BCBooruType, pagePostLimit : Int, url : String, maximumRating : BCRating) {
         self.init();
         
         self.name = name;
         self.type = type;
         self.url = url;
         self.pagePostLimit = pagePostLimit;
+        self.maximumRating = maximumRating;
         
         self.utilties = BCBooruUtilities(booru: self);
     }
@@ -456,6 +510,7 @@ class BCBooruHost: NSObject, NSCoding {
         coder.encodeObject(self.type.rawValue, forKey: "type");
         coder.encodeObject(self.pagePostLimit, forKey: "pagePostLimit");
         coder.encodeObject(self.url, forKey: "url");
+        coder.encodeObject(self.maximumRating.rawValue, forKey: "maximumRating");
     }
     
     required convenience init(coder decoder: NSCoder) {
@@ -475,6 +530,10 @@ class BCBooruHost: NSObject, NSCoding {
         
         if((decoder.decodeObjectForKey("url") as? String) != nil) {
             self.url = decoder.decodeObjectForKey("url") as! String;
+        }
+        
+        if((decoder.decodeObjectForKey("maximumRating") as? Int) != nil) {
+            self.maximumRating = BCRating(rawValue: decoder.decodeObjectForKey("maximumRating") as! Int)!;
         }
         
         self.utilties = BCBooruUtilities(booru: self);
@@ -500,7 +559,7 @@ enum BCBooruType: Int {
 }
 
 /// The different ratings a post can have
-enum BCRating {
+enum BCRating: Int {
     /// Safe
     case Safe
     

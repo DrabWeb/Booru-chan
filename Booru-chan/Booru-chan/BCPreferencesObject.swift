@@ -11,7 +11,12 @@ import Cocoa
 class BCPreferencesObject: NSObject, NSCoding {
     /// The Booru hosts the user has added
     // REMINDER: Set this back to init as [] when you can set your Boorus in preferences
-    var booruHosts : [BCBooruHost] = [BCBooruHost(name: "Yande.re", type: .Moebooru, pagePostLimit: 40, url: "http://yande.re/"), BCBooruHost(name: "Danbooru", type: .Danbooru, pagePostLimit: 40, url: "http://danbooru.donmai.us/"), BCBooruHost(name: "Konachan", type: .Moebooru, pagePostLimit: 40, url: "http://konachan.net/"), BCBooruHost(name: "Gelbooru", type: .Gelbooru, pagePostLimit: 40, url: "http://gelbooru.com/")];
+    var booruHosts : [BCBooruHost] = [
+        BCBooruHost(name: "Yande.re", type: .Moebooru, pagePostLimit: 40, url: "http://yande.re/", maximumRating: .Explicit),
+        BCBooruHost(name: "Danbooru", type: .Danbooru, pagePostLimit: 40, url: "http://danbooru.donmai.us/", maximumRating: .Explicit),
+        BCBooruHost(name: "Konachan", type: .Moebooru, pagePostLimit: 40, url: "http://konachan.net/", maximumRating: .Explicit),
+        BCBooruHost(name: "Gelbooru", type: .Gelbooru, pagePostLimit: 40, url: "http://gelbooru.com/", maximumRating: .Explicit)
+    ];
     
     /// The format for naming saved images
     var imageSaveFormat : String = "%id% - %tags%";
