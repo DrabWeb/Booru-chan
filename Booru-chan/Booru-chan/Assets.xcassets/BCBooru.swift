@@ -30,7 +30,7 @@ class BCBooruUtilities {
     /// The maximum rating of post to show when searching
     var maximumRating : BCRating = .Explicit;
     
-    /// Returns an array of Strings containing all the tags that matched the passed query
+    /// Returns an array of Strings containing all the tags that matched the passed query(You can do things like *query, query* and *query*)
     func getTagsMatchingSearch(search : String, completionHandler: ([String]) -> ()) {
         // Print what we are searching for
         print("BCBooruUtilities: Searching for tags matching \"\(search)\" on \"\(self.baseUrl)\"");
@@ -41,18 +41,53 @@ class BCBooruUtilities {
         // Get the tags with the passed query
         // Depending on which Booru API we are using...
         if(type == .Moebooru) {
-            // baseUrl/tag.json?name=*query*
-            // Query can also be "query*" or "*query"
+            // baseUrl/tag.json?name=search
+            // Make the request to get the tags
+            Alamofire.request(.GET, (baseUrl + "/tag.json?name=" + search).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+                /// The string of JSON that will be returned when the GET request finishes
+                let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
+                
+                // If the the response data isnt nil...
+                if let dataFromResponseJsonString = responseJsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+                    /// The JSON from the response string
+                    let responseJson = JSON(data: dataFromResponseJsonString);
+                    
+                    // For evert tag in responseJson...
+                    for(_, currentTag) in responseJson.enumerate() {
+                        // Add the current tag's name to the results
+                        results.append(currentTag.1["name"].stringValue);
+                    }
+                    
+                    // Call the completion handler with the results
+                    completionHandler(results);
+                }
+            }
         }
-        else if(type == .DanbooruLegacy) {
-            
-        }
-        else if(type == .Danbooru) {
-            /// baseUrl/tags.json?search[name_matches]=*query*
-            // Query can also be "query*" or "*query"
+        else if(type == .Danbooru || type == .DanbooruLegacy) {
+            /// baseUrl/tags.json?search[name_matches]=search
+            // Make the request to get the tags
+            Alamofire.request(.GET, (baseUrl + "/tags.json?search[name_matches]=" + search).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+                /// The string of JSON that will be returned when the GET request finishes
+                let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
+                
+                // If the the response data isnt nil...
+                if let dataFromResponseJsonString = responseJsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+                    /// The JSON from the response string
+                    let responseJson = JSON(data: dataFromResponseJsonString);
+                    
+                    // For evert tag in responseJson...
+                    for(_, currentTag) in responseJson.enumerate() {
+                        // Add the current tag's name to the results
+                        results.append(currentTag.1["name"].stringValue);
+                    }
+                    
+                    // Call the completion handler with the results
+                    completionHandler(results);
+                }
+            }
         }
         else if(type == .Gelbooru) {
-            
+            // There is no proper API for getting tags with the format "*search", "search*" or "*search*"(Or at least froom what I can find), so do nothing
         }
     }
     
