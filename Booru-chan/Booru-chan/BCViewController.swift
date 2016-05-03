@@ -36,7 +36,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     /// The token field in the titlebar for searching
-    @IBOutlet var titlebarSearchField: BCAlwaysActiveTokenField!
+    @IBOutlet var titlebarSearchField: BCBooruSearchTokenField!
     
     /// When the user enters text into titlebarSearchField...
     @IBAction func titlebarSearchFieldTextEntered(sender: NSTokenField) {
@@ -210,6 +210,9 @@ class BCViewController: NSViewController, NSWindowDelegate {
             // Print that the user has no Boorus added
             print("BCViewController: Tried to change searching Boorus, but the user doesnt have any");
         }
+        
+        // Set the search field's token Booru
+        titlebarSearchField.tokenBooru = currentSelectedSearchingBooru;
     }
     
     /// Updates titlebarBooruPickerPopupButton to match the Boorus listed in the user's added Boorus

@@ -520,11 +520,24 @@ class BCBooruHost: NSObject, NSCoding {
     /// The maximum rating of post to show on this Booru
     var maximumRating : BCRating = .Explicit;
     
+    /// The tags the user has entered into this Booru for searching before
+    // TODO: When the preferences are made add a table view or something that you can see all your history and remove certain ones or clear them all
+    var tagHistory : [String] = [];
+    
     /// The URL to this Booru
     var url : String = "";
     
     /// The BCBooruUtilities for this host
     var utilties : BCBooruUtilities = BCBooruUtilities();
+    
+    /// Adds the given tag to this Booru's tag search history
+    func addTagToHistory(tag : String) {
+        // If tagHistory doesnt have the given tag...
+        if(!tagHistory.contains(tag)) {
+            // Add the given tag to tagHistory
+            tagHistory.append(tag);
+        }
+    }
     
     // Init with a name, type, page post limit and URL
     convenience init(name : String, type : BCBooruType, pagePostLimit : Int, url : String, maximumRating : BCRating) {
@@ -546,6 +559,7 @@ class BCBooruHost: NSObject, NSCoding {
         coder.encodeObject(self.pagePostLimit, forKey: "pagePostLimit");
         coder.encodeObject(self.url, forKey: "url");
         coder.encodeObject(self.maximumRating.rawValue, forKey: "maximumRating");
+        coder.encodeObject(self.tagHistory, forKey: "tagHistory");
     }
     
     required convenience init(coder decoder: NSCoder) {
@@ -569,6 +583,10 @@ class BCBooruHost: NSObject, NSCoding {
         
         if((decoder.decodeObjectForKey("maximumRating") as? Int) != nil) {
             self.maximumRating = BCRating(rawValue: decoder.decodeObjectForKey("maximumRating") as! Int)!;
+        }
+        
+        if((decoder.decodeObjectForKey("tagHistory") as? [String]) != nil) {
+            self.tagHistory = decoder.decodeObjectForKey("tagHistory") as! [String]!;
         }
         
         self.utilties = BCBooruUtilities(booru: self);

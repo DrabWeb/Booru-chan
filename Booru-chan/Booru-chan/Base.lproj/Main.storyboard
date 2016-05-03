@@ -514,7 +514,7 @@
                                                 <subviews>
                                                     <tokenField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c89-CQ-Xbg" userLabel="Search Field" customClass="BCBooruSearchTokenField" customModule="Booru_chan" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="7" width="216" height="22"/>
-                                                        <tokenFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Search" allowsEditingTextAttributes="YES" bezelStyle="round" tokenStyle="plain" id="tph-jO-aL5">
+                                                        <tokenFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Search" allowsEditingTextAttributes="YES" bezelStyle="round" tokenStyle="rounded" id="tph-jO-aL5">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
