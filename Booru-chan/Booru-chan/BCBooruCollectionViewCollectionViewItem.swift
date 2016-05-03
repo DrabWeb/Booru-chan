@@ -9,10 +9,9 @@
 import Cocoa
 
 class BCBooruCollectionViewCollectionViewItem: NSCollectionViewItem {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
     }
-    
 }

@@ -14,11 +14,20 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// A reference to the main view controller
     @IBOutlet weak var mainViewController: BCViewController!
     
+    /// The controller for the tag list table view
+    @IBOutlet weak var tagListController: BCGridStyleTagListTableViewController!
+    
     /// The main split view for the Grid|Image style browser
     @IBOutlet weak var mainSplitView: BCNoDividerSplitView!
     
     /// The container view for the grid of thumbnails
-    @IBOutlet weak var gridContainerView: BCColoredView!
+    @IBOutlet weak var gridContainerView: NSVisualEffectView!
+    
+    /// The visual effect view for the background of the grid
+    @IBOutlet weak var gridBackgroundVisualEffectView: NSVisualEffectView!
+    
+    /// The view for darkening gridBackgroundVisualEffectView
+    @IBOutlet weak var gridBackgroundVisualEffectViewDarkenView: BCColoredView!
     
     /// The scroll view for booruCollectionView
     @IBOutlet weak var booruCollectionViewScrollView: BCActionOnScrollToBottomScrollView!
@@ -150,6 +159,17 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             
             // Show a blank image in the full size image view
             largeImageView.image = NSImage();
+        }
+        
+        // If the post item and it's post arent nil...
+        if(postItem != nil && postItem?.representedPost != nil) {
+            // Load the post's tags into the tags table view
+            tagListController.displayTagsFromPost(postItem!.representedPost!);
+        }
+        // If the post item or post is nil...
+        else {
+            // Display a blank item in the tag list(So it just clears the table view)
+            tagListController.displayTagsFromPost(BCBooruPost());
         }
     }
     
@@ -325,9 +345,6 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     }
     
     func initialize() {
-        // Set the grid container's background color
-        gridContainerView.backgroundColor = NSColor(calibratedWhite: 0, alpha: 0.2);
-        
         // Set the Booru collection view's item prototype
         booruCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateControllerWithIdentifier("booruCollectionViewItem") as! BCBooruCollectionViewCollectionViewItem;
         
@@ -339,7 +356,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         setupMenuItems();
         
         // Style the visual effect views
-        infoBarVisualEffectView.material = .Dark;
+        gridContainerView.state = .Active;
+        gridBackgroundVisualEffectView.material = .Dark;
+        gridBackgroundVisualEffectViewDarkenView.backgroundColor = NSColor(calibratedWhite: 0, alpha: 0.15);
         
         /// The options for the Booru collection view selection observing
         let options = NSKeyValueObservingOptions([.New, .Old]);

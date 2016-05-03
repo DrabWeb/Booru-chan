@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		23074CA650B3CADFA092E7F0 /* Pods_Booru_chan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63DDEBE3407D49F095EA58A7 /* Pods_Booru_chan.framework */; };
+		5D0202681CD8EE3300A6E5D5 /* BCGridStyleTagListTableViewItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0202671CD8EE3300A6E5D5 /* BCGridStyleTagListTableViewItemData.swift */; };
+		5D02026A1CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0202691CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift */; };
+		5D02026C1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D02026B1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift */; };
 		5D3288321CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3288311CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift */; };
 		5D3288351CCE95710029A57F /* BCPreferencesObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3288341CCE95710029A57F /* BCPreferencesObject.swift */; };
 		5D47F5E31CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D47F5E21CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift */; };
@@ -25,6 +28,7 @@
 		5DAD29371CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD29361CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift */; };
 		5DAD293A1CCD68CB00C3C747 /* BCRasterizedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD29381CCD68CB00C3C747 /* BCRasterizedViews.swift */; };
 		5DAD293D1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD293C1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift */; };
+		5DBDDD121CD910C00086E61D /* BCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBDDD111CD910C00086E61D /* BCExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +50,9 @@
 
 /* Begin PBXFileReference section */
 		3D9D17B80249B87F2EBC4109 /* Pods-Booru-chan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chan/Pods-Booru-chan.debug.xcconfig"; sourceTree = "<group>"; };
+		5D0202671CD8EE3300A6E5D5 /* BCGridStyleTagListTableViewItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCGridStyleTagListTableViewItemData.swift; sourceTree = "<group>"; };
+		5D0202691CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCGridStyleTagListTableViewController.swift; sourceTree = "<group>"; };
+		5D02026B1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCGridStyleTagListTableViewCellView.swift; sourceTree = "<group>"; };
 		5D3288311CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCActionOnScrollToBottomScrollView.swift; sourceTree = "<group>"; };
 		5D3288341CCE95710029A57F /* BCPreferencesObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCPreferencesObject.swift; sourceTree = "<group>"; };
 		5D47F5E21CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruSearchTokenField.swift; sourceTree = "<group>"; };
@@ -69,6 +76,7 @@
 		5DAD29361CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruCollectionViewCollectionViewItem.swift; sourceTree = "<group>"; };
 		5DAD29381CCD68CB00C3C747 /* BCRasterizedViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCRasterizedViews.swift; sourceTree = "<group>"; };
 		5DAD293C1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruCollectionViewSelectionBox.swift; sourceTree = "<group>"; };
+		5DBDDD111CD910C00086E61D /* BCExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCExtensions.swift; sourceTree = "<group>"; };
 		63DDEBE3407D49F095EA58A7 /* Pods_Booru_chan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3F5A8DA46E4230E39B12F3 /* Pods-Booru-chan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chan/Pods-Booru-chan.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				5D3288341CCE95710029A57F /* BCPreferencesObject.swift */,
+				5D0202671CD8EE3300A6E5D5 /* BCGridStyleTagListTableViewItemData.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -198,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				5D88CC0E1CCC133B001FF12E /* BCBooru.swift */,
+				5DBDDD111CD910C00086E61D /* BCExtensions.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -215,6 +225,8 @@
 			children = (
 				5D88CC121CCC14DC001FF12E /* BCGridStyleViewController.swift */,
 				5DAD29361CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift */,
+				5D0202691CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift */,
+				5D02026B1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift */,
 			);
 			name = "Grid Style Controller";
 			sourceTree = "<group>";
@@ -412,12 +424,16 @@
 				5DAD29371CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift in Sources */,
 				5D3288351CCE95710029A57F /* BCPreferencesObject.swift in Sources */,
 				5D71B4961CCC06EA0011C281 /* BCAppDelegate.swift in Sources */,
+				5D02026A1CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift in Sources */,
 				5D47F5E31CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift in Sources */,
+				5D02026C1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift in Sources */,
 				5D3288321CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift in Sources */,
 				5D88CC151CCC177B001FF12E /* BCColoredView.swift in Sources */,
 				5DAD293D1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift in Sources */,
+				5D0202681CD8EE3300A6E5D5 /* BCGridStyleTagListTableViewItemData.swift in Sources */,
 				5D88CC0F1CCC133B001FF12E /* BCBooru.swift in Sources */,
 				5D88CC131CCC14DC001FF12E /* BCGridStyleViewController.swift in Sources */,
+				5DBDDD121CD910C00086E61D /* BCExtensions.swift in Sources */,
 				5D7CA38F1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift in Sources */,
 				5D7CA3911CCC0AFD00B4A0A5 /* BCAlwaysActiveViews.swift in Sources */,
 				5DAD293A1CCD68CB00C3C747 /* BCRasterizedViews.swift in Sources */,
