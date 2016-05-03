@@ -23,6 +23,12 @@ class BCAppDelegate: NSObject, NSApplicationDelegate {
     /// Window/Toggle Post Browser (⌘⌥B)
     @IBOutlet weak var menuItemTogglePostBrowser: NSMenuItem!
     
+    /// Window/Toggle Info Bar (⌘⌥I)
+    @IBOutlet weak var menuItemToggleInfoBar: NSMenuItem!
+    
+    /// Window/Toggle Tag List (⌘⌥L)
+    @IBOutlet weak var menuItemToggleTagList: NSMenuItem!
+    
     /// Window/Select Search Field (⌘F)
     @IBOutlet weak var menuItemSelectSearchField: NSMenuItem!
     

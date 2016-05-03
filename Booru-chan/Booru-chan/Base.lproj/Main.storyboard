@@ -22,7 +22,7 @@
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
-                                        <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
+                                        <menuItem isSeparatorItem="YES" id="5pM-6d-cCY"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
@@ -137,6 +137,12 @@
                                         <menuItem title="Toggle Post Browser" keyEquivalent="b" id="D1L-8u-R3F">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                         </menuItem>
+                                        <menuItem title="Toggle Info Bar" keyEquivalent="i" id="Khz-uv-AkP">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Toggle Tag List" keyEquivalent="l" id="TgK-Jw-Z48">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="frj-Oo-SQm"/>
                                         <menuItem title="Select Search Field" keyEquivalent="f" id="QhB-jc-3vW"/>
                                         <menuItem title="Select Post Browser" keyEquivalent="b" id="OuU-Ru-VLE"/>
@@ -173,7 +179,9 @@
                         <outlet property="menuItemSaveSelectedImages" destination="BHx-14-SHv" id="4c4-Hp-LZr"/>
                         <outlet property="menuItemSelectPostBrowser" destination="OuU-Ru-VLE" id="3sY-SF-IjS"/>
                         <outlet property="menuItemSelectSearchField" destination="QhB-jc-3vW" id="Yii-VM-cSn"/>
+                        <outlet property="menuItemToggleInfoBar" destination="Khz-uv-AkP" id="q07-0L-C2b"/>
                         <outlet property="menuItemTogglePostBrowser" destination="D1L-8u-R3F" id="mJ1-wX-0Vf"/>
+                        <outlet property="menuItemToggleTagList" destination="TgK-Jw-Z48" id="6DJ-xc-IcW"/>
                         <outlet property="menuItemToggleTitlebar" destination="ZMD-8W-SMq" id="nUf-jP-DBK"/>
                     </connections>
                 </customObject>
@@ -206,7 +214,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="200"/>
+            <point key="canvasLocation" x="75" y="264"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -234,7 +242,7 @@
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <subviews>
                                                                     <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="cig-Oz-6iZ" userLabel="Grid Background Visual Effect View">
-                                                                        <rect key="frame" x="0.0" y="22" width="298" height="281"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="298" height="303"/>
                                                                     </visualEffectView>
                                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="35B-nM-UAS" userLabel="Backgroud Darken View" customClass="BCColoredView" customModule="Booru_chan" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="298" height="303"/>
@@ -311,12 +319,12 @@
                                                                     <constraint firstAttribute="bottom" secondItem="y2Y-rw-rfC" secondAttribute="bottom" id="10L-ee-Smj"/>
                                                                     <constraint firstItem="cig-Oz-6iZ" firstAttribute="leading" secondItem="npx-gX-VuP" secondAttribute="leading" id="2AC-eE-67O"/>
                                                                     <constraint firstItem="d4m-oo-UgF" firstAttribute="top" secondItem="npx-gX-VuP" secondAttribute="top" constant="37" id="6Ni-95-DI2"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="cig-Oz-6iZ" secondAttribute="bottom" id="99f-5K-EQC"/>
                                                                     <constraint firstItem="cig-Oz-6iZ" firstAttribute="top" secondItem="npx-gX-VuP" secondAttribute="top" id="Aeg-Cd-Spx"/>
                                                                     <constraint firstItem="zZt-1E-G0R" firstAttribute="top" secondItem="npx-gX-VuP" secondAttribute="top" id="Ar2-qD-rCw"/>
                                                                     <constraint firstAttribute="trailing" secondItem="35B-nM-UAS" secondAttribute="trailing" id="Cw4-30-UPc"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="35B-nM-UAS" secondAttribute="bottom" id="DYZ-kE-LuU"/>
-                                                                    <constraint firstItem="y2Y-rw-rfC" firstAttribute="top" secondItem="cig-Oz-6iZ" secondAttribute="bottom" id="Gpy-QO-70f"/>
                                                                     <constraint firstItem="y2Y-rw-rfC" firstAttribute="leading" secondItem="npx-gX-VuP" secondAttribute="leading" id="JTk-Yj-QcM"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="35B-nM-UAS" secondAttribute="bottom" id="JuD-e6-msO"/>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="59" id="KqY-4E-e2C"/>
                                                                     <constraint firstAttribute="trailing" secondItem="cig-Oz-6iZ" secondAttribute="trailing" id="MnB-aN-PFE"/>
                                                                     <constraint firstItem="35B-nM-UAS" firstAttribute="top" secondItem="npx-gX-VuP" secondAttribute="top" id="MnO-pa-6JZ"/>
@@ -564,6 +572,7 @@
                     <connections>
                         <outlet property="booruCollectionView" destination="vAV-me-trS" id="wmo-Oi-1KA"/>
                         <outlet property="booruCollectionViewArrayController" destination="Kl5-o9-6u6" id="cmk-AY-fwa"/>
+                        <outlet property="booruCollectionViewContainerMinimumHeightConstraint" destination="KqY-4E-e2C" id="Rxa-ht-6iW"/>
                         <outlet property="booruCollectionViewScrollView" destination="zZt-1E-G0R" id="NXS-Mg-EYP"/>
                         <outlet property="gridBackgroundVisualEffectView" destination="cig-Oz-6iZ" id="uTR-Pd-hdn"/>
                         <outlet property="gridBackgroundVisualEffectViewDarkenView" destination="35B-nM-UAS" id="v2v-fv-XcD"/>
@@ -573,6 +582,7 @@
                         <outlet property="largeImageView" destination="lqI-W3-QlG" id="faD-qQ-gLr"/>
                         <outlet property="largeImageViewContainer" destination="wbo-Zk-nDv" id="ty7-Sa-D3K"/>
                         <outlet property="largeImageViewTopConstraint" destination="6au-LJ-nXK" id="BqZ-19-zsH"/>
+                        <outlet property="leftSplitView" destination="yLl-h0-mSF" id="ODA-Jg-DcU"/>
                         <outlet property="mainSplitView" destination="xcD-Vz-nhG" id="HoU-jI-QCZ"/>
                         <outlet property="mainViewController" destination="XfG-lQ-9wD" id="Fag-Sp-oGV"/>
                         <outlet property="noSearchResultsContainerView" destination="d4m-oo-UgF" id="rBe-LK-2dy"/>

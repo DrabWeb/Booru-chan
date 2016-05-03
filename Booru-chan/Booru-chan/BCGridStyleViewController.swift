@@ -35,6 +35,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// The collection view for showing Booru items
     @IBOutlet weak var booruCollectionView: NSCollectionView!
     
+    /// The minimum height constraint for booruCollectionView
+    @IBOutlet weak var booruCollectionViewContainerMinimumHeightConstraint: NSLayoutConstraint!
+    
     /// The container for the views to show when there are no search results
     @IBOutlet weak var noSearchResultsContainerView: NSView!
     
@@ -46,6 +49,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     
     /// The array controller for booruCollectionView
     @IBOutlet weak var booruCollectionViewArrayController: NSArrayController!
+    
+    /// The split view for the left items(The Booru collection view and the tag list)
+    @IBOutlet weak var leftSplitView: BCNoDividerSplitView!
     
     /// The items from booruCollectionViewArrayController
     var booruCollectionViewArrayControllerItems: NSMutableArray = NSMutableArray();
@@ -290,6 +296,82 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         booruCollectionViewScrollView.reachedBottomAction = Selector("reachedBottomOfBooruCollectionView");
     }
     
+    /// Is the tag list open?
+    var tagListOpen : Bool = true;
+    
+    /// Toggles the visibility of the tag list
+    func toggleTagList() {
+        // Toggle tagListOpen
+        tagListOpen = !tagListOpen;
+        
+        // If the tag list is now open...
+        if(tagListOpen) {
+            // Show the tag list
+            showTagList();
+        }
+        // If the tag list is now closed...
+        else {
+            // Hide the tag list
+            hideTagList();
+        }
+    }
+    
+    /// Hides the tag list
+    func hideTagList() {
+        // Hide the tag list
+        leftSplitView.subviews[1].hidden = true;
+    }
+    
+    /// Shows the tag list
+    func showTagList() {
+        // Show the tag list
+        leftSplitView.subviews[1].hidden = false;
+    }
+    
+    /// Is the info bar open?
+    var infoBarOpen : Bool = true;
+    
+    /// Toggles the visibility of the info bar
+    func toggleInfoBar() {
+        // Toggle infoBarOpen
+        infoBarOpen = !infoBarOpen;
+        
+        // If the info bar is now open...
+        if(infoBarOpen) {
+            // Show the info bar
+            showInfoBar();
+        }
+        // If the info bar is now closed...
+        else {
+            // Hide the info bar
+            hideInfoBar();
+        }
+    }
+    
+    /// Hides the info bar
+    func hideInfoBar() {
+        // Hide the info bar
+        infoBarVisualEffectView.hidden = true;
+        
+        // Update the Booru collection view's minimum height
+        booruCollectionViewContainerMinimumHeightConstraint.constant = 37;
+        
+        // Adjust the Booru collection view's bottom scroll inset
+        booruCollectionViewScrollView.contentInsets.bottom = 0;
+    }
+    
+    /// Shows the info bar
+    func showInfoBar() {
+        // Show the info bar
+        infoBarVisualEffectView.hidden = false;
+        
+        // Reset the Booru collection view's minimum height
+        booruCollectionViewContainerMinimumHeightConstraint.constant = 59;
+        
+        // Reset the Booru collection view's bottom scroll inset
+        booruCollectionViewScrollView.contentInsets.bottom = 22;
+    }
+    
     /// Is the Booru collection view open?
     var booruCollectionViewOpen : Bool = true;
     
@@ -339,9 +421,13 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // Setup the menu items
         // Set the targets
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemTogglePostBrowser.target = self;
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleInfoBar.target = self;
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTagList.target = self;
         
         // Set the actions
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemTogglePostBrowser.action = Selector("toggleBooruCollectionView");
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleInfoBar.action = Selector("toggleInfoBar");
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTagList.action = Selector("toggleTagList");
     }
     
     func initialize() {
