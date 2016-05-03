@@ -28,16 +28,6 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
     }
     
     func tokenField(tokenField: NSTokenField, shouldAddObjects tokens: [AnyObject], atIndex index: Int) -> [AnyObject] {
-        // Store the tokens in the Token Booru's tag search history
-        // For every item in tokens...
-        for(_, currentTag) in tokens.enumerate() {
-            // If the current item is a string...
-            if((currentTag as? String) != nil) {
-                // Add the string to the Booru's tag search history
-                tokenBooru?.addTagToHistory(currentTag as! String);
-            }
-        }
-        
         // Empty lastDownloadedTags
         lastDownloadedTags = [];
         

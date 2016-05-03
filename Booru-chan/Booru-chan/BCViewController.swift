@@ -42,6 +42,13 @@ class BCViewController: NSViewController, NSWindowDelegate {
     @IBAction func titlebarSearchFieldTextEntered(sender: NSTokenField) {
         // Search for the entered text(It replaces commas with spaces because when NSTokenField gives you it's stringValue, there is a comma in between each token)
         gridStyleController.searchFor(sender.stringValue.stringByReplacingOccurrencesOfString(",", withString: " "));
+        
+        // Add all the searched tags to the current Booru's history
+        // For every entered token...
+        for(_, currentToken) in sender.tokens.enumerate() {
+            // Add the current token to the search history of the current Searching Booru
+            currentSelectedSearchingBooru?.addTagToHistory(currentToken);
+        }
     }
     
     /// The current Booru the user selected to search from
