@@ -59,16 +59,23 @@ class BCGridStyleTagListTableViewController: NSObject {
             changedState = currentData.1;
         }
         
+        // Update the data
+        changedData.tagBeingSearchedBy = changedState;
+        
         // If we now want to add the tag to the search...
         if(changedState) {
-            print("Add \"\(changedData.tagName)\" to search");
+            // Print what we are doing
+            print("BCGridStyleController: Adding \"\(changedData.tagName)\" to the search field");
             
+            // Add the given token to the search field
             mainViewController.titlebarSearchField.addToken(changedData.tagName);
         }
         // If we now want to remove the tag from the search...
         else {
-            print("Remove \"\(changedData.tagName)\" from search");
+            // Print what we are doing
+            print("BCGridStyleController: Removing \"\(changedData.tagName)\" from the search field");
             
+            // Remove the given token from the search field
             mainViewController.titlebarSearchField.removeToken(changedData.tagName);
         }
     }
