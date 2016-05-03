@@ -43,7 +43,7 @@ class BCBooruUtilities {
         if(type == .Moebooru) {
             // baseUrl/tag.json?name=search
             // Make the request to get the tags
-            Alamofire.request(.GET, (baseUrl + "/tag.json?name=" + search).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            Alamofire.request(.GET, (baseUrl + "/tag.json?name=" + search + "&limit=0").stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -66,7 +66,7 @@ class BCBooruUtilities {
         else if(type == .Danbooru || type == .DanbooruLegacy) {
             /// baseUrl/tags.json?search[name_matches]=search
             // Make the request to get the tags
-            Alamofire.request(.GET, (baseUrl + "/tags.json?search[name_matches]=" + search).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            Alamofire.request(.GET, (baseUrl + "/tags.json?search[name_matches]=" + search + "&limit=0").stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 

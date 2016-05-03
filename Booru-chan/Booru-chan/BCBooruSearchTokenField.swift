@@ -69,6 +69,9 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
             }
         }
         
+        // Remove all the duplicates from completions
+        completions = Array(Set(completions));
+        
         // Return the completions
         return completions;
     }
