@@ -539,6 +539,27 @@ class BCBooruHost: NSObject, NSCoding {
         }
     }
     
+    /// The path to this Booru's cache folder
+    var cacheFolderPath : String = "$NOTSET$";
+    
+    /// Creates the cache folder for this Booru(If it doesnt exist)
+    func createCacheFolder() {
+        // Set the cache folder path
+        self.cacheFolderPath = NSHomeDirectory() + "/Library/Application Support/Booru-chan/caches/" + self.name + "/";
+        
+        // If the cache folder doesnt exist and cacheFolderPath is set...
+        if(!NSFileManager.defaultManager().fileExistsAtPath(cacheFolderPath) && cacheFolderPath != "$NOTSET$") {
+            do {
+                // Create the cache folder
+                try NSFileManager.defaultManager().createDirectoryAtPath(cacheFolderPath, withIntermediateDirectories: false, attributes: nil);
+            }
+            catch let error as NSError {
+                // Print the error
+                print("BCBooruHost(\(self.name)): Failed to create cache folder, \(error.description)");
+            }
+        }
+    }
+    
     // Init with a name, type, page post limit and URL
     convenience init(name : String, type : BCBooruType, pagePostLimit : Int, url : String, maximumRating : BCRating) {
         self.init();
@@ -563,7 +584,8 @@ class BCBooruHost: NSObject, NSCoding {
     }
     
     required convenience init(coder decoder: NSCoder) {
-        self.init()
+        self.init();
+        
         // Decode and load the values
         if((decoder.decodeObjectForKey("name") as? String) != nil) {
             self.name = decoder.decodeObjectForKey("name") as! String;

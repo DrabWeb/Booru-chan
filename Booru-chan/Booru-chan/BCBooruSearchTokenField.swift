@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import SwiftyJSON
 
 /// The custom NSTokenField for tag search fields
 class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
@@ -16,6 +17,9 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
     
     /// The last tags that were downloaded from searching
     var lastDownloadedTags : [String] = [];
+    
+    /// The last search that triggered a tag download
+    var lastDownloadSearch : String = "";
     
     override func textDidChange(notification: NSNotification) {
         super.textDidChange(notification);
@@ -39,12 +43,33 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         /// The completions for this substring
         var completions : [String] = [];
         
+        // Make sure the Token Booru's cache folder exists
+        tokenBooru?.createCacheFolder();
+        
         // If we typed in more than one character...
         if(substring.characters.count == 1) {
             // If lastDownloadedTags is empty...
             if(lastDownloadedTags == []) {
-                // Search for any tags with the current substring as a prefix
-                tokenBooru?.utilties.getTagsMatchingSearch(substring + "*", completionHandler: finishedDownloadingTags);
+                // If there is already a cache file for this search...
+                if(NSFileManager.defaultManager().fileExistsAtPath(tokenBooru!.cacheFolderPath + substring + ".json")) {
+                    // Load the results from that file
+                    // Print that we are loading results from a cache file
+                    Swift.print("BCBooruSearchTokenField: Loading search results cache from \"\(tokenBooru!.cacheFolderPath + substring + ".json")\"");
+                    
+                    /// The JSON from the results cache file
+                    let resultsCacheJson : JSON = JSON(data: NSFileManager.defaultManager().contentsAtPath(tokenBooru!.cacheFolderPath + substring + ".json")!);
+                    
+                    // Set lastDownloadedTags to the cached results
+                    lastDownloadedTags = resultsCacheJson["results"].arrayObject as! [String];
+                }
+                // If there isnt a cache file for this search...
+                else {
+                    // Search for any tags with the current substring as a prefix
+                    tokenBooru?.utilties.getTagsMatchingSearch(substring + "*", completionHandler: finishedDownloadingTags);
+                }
+                
+                // Set lastDownloadSearch
+                lastDownloadSearch = substring;
             }
         }
         
@@ -85,6 +110,25 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         if(lastDownloadedTags == []) {
             // Set lastDownloadedTags to the downloaded tags
             lastDownloadedTags = tags;
+            
+            // Cache the tag results
+            /// The JSON to hold the results
+            var tagsJson : JSON = JSON(["results":[]]);
+            
+            // Set the results value
+            tagsJson["results"].arrayObject = tags;
+            
+            do {
+                // Print where we are saving the JSON
+                Swift.print("BCBooruSearchTokenField: Writing search cache to \"\((tokenBooru?.cacheFolderPath)! + lastDownloadSearch + ".json"))\"");
+                
+                // Write the JSON to a JSON file in the Token Booru's cache folder
+                try String(tagsJson).writeToFile((tokenBooru?.cacheFolderPath)! + lastDownloadSearch + ".json", atomically: true, encoding: NSUTF8StringEncoding);
+            }
+            catch let error as NSError {
+                // Print the error
+                Swift.print("BCBooruSearchTokenField: Failed to write JSON cache file, \(error.description)");
+            }
         }
     }
     

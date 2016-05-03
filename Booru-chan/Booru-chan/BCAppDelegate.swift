@@ -37,6 +37,34 @@ class BCAppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
+        // Make the application support folders
+        createApplicationSupportFolders();
+    }
+    
+    func createApplicationSupportFolders() {
+        // If the application support folder doesnt exist...
+        if(!NSFileManager.defaultManager().fileExistsAtPath(NSHomeDirectory() + "/Library/Application Support/Booru-chan/")) {
+            do {
+                // Make the ~/Library/Application Support/Booru-chan folder
+                try NSFileManager.defaultManager().createDirectoryAtPath(NSHomeDirectory() + "/Library/Application Support/Booru-chan/", withIntermediateDirectories: false, attributes: nil);
+            }
+            catch let error as NSError {
+                // Print the error
+                print("BCAppDelegate: Error creating Application Support folder, \(error.description)");
+            }
+        }
+        
+        // If the caches folder doesnt exist...
+        if(!NSFileManager.defaultManager().fileExistsAtPath(NSHomeDirectory() + "/Library/Application Support/Booru-chan/caches")) {
+            do {
+                // Make the ~/Library/Application Support/Booru-chan/caches folder
+                try NSFileManager.defaultManager().createDirectoryAtPath(NSHomeDirectory() + "/Library/Application Support/Booru-chan/caches", withIntermediateDirectories: false, attributes: nil);
+            }
+            catch let error as NSError {
+                // Print the error
+                print("BCAppDelegate: Error creating caches folder, \(error.description)");
+            }
+        }
     }
     
     /// Saves the preferences
