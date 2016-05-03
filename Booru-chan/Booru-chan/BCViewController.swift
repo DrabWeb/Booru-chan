@@ -115,6 +115,20 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     // Replace %tags% with the tags string
                     imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%tags%", withString: tagsString);
                     
+                    // If imageFileName has over 250 characters...
+                    if(imageFileName.characters.count > 250) {
+                        // Cut imageFileName down to 250 characters
+                        imageFileName = imageFileName.substringToIndex(imageFileName.startIndex.advancedBy(250));
+                        
+                        /// The indexes of all the spaces in imageFileName
+                        let indexesOfSpaceInImageFileName = imageFileName.characters.enumerate()
+                            .filter { $0.element == " " }
+                            .map { $0.index }
+                        
+                        // Cut imageFileName down to the last space
+                        imageFileName = imageFileName.substringToIndex(imageFileName.startIndex.advancedBy(indexesOfSpaceInImageFileName.last!));
+                    }
+                    
                     // Add the extension onto the end
                     imageFileName += ".png";
                     
@@ -123,7 +137,10 @@ class BCViewController: NSViewController, NSWindowDelegate {
                         // Save the image to disk, asynchronously
                         dispatch_async(dispatch_get_main_queue()) {
                             // Write the image to the chosen directory with the generated file name
-                            currentSaveItem.image.TIFFRepresentation?.writeToFile(saveDirectory + imageFileName, atomically: false);
+                            currentSaveItem.image.TIFFRepresentation?.writeToFile(saveDirectory + imageFileName, atomically: true);
+                            
+                            // Print that we saved the image
+                            print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
                         }
                     }
                     // If we have to download the image...
@@ -140,8 +157,14 @@ class BCViewController: NSViewController, NSWindowDelegate {
                                     // Store the image in the post item
                                     currentSaveItem.image = image!;
                                     
-                                    // Write the image to the chosen directory with the generated file name
-                                    currentSaveItem.image.TIFFRepresentation?.writeToFile(saveDirectory + imageFileName, atomically: false);
+                                    // Dispatch onto the main queue
+                                    dispatch_async(dispatch_get_main_queue()) {
+                                        // Write the image to the chosen directory with the generated file name
+                                        currentSaveItem.image.TIFFRepresentation?.writeToFile(saveDirectory + imageFileName, atomically: true);
+                                        
+                                        // Print that we saved the image
+                                        print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
+                                    }
                                 }
                             }
                         }
