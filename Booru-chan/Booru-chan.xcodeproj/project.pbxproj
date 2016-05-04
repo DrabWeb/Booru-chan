@@ -25,6 +25,7 @@
 		5D88CC0F1CCC133B001FF12E /* BCBooru.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC0E1CCC133B001FF12E /* BCBooru.swift */; };
 		5D88CC131CCC14DC001FF12E /* BCGridStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC121CCC14DC001FF12E /* BCGridStyleViewController.swift */; };
 		5D88CC151CCC177B001FF12E /* BCColoredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC141CCC177B001FF12E /* BCColoredView.swift */; };
+		5D976B291CDA45B600191679 /* BCPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D976B281CDA45B600191679 /* BCPreferencesViewController.swift */; };
 		5DAD29371CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD29361CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift */; };
 		5DAD293A1CCD68CB00C3C747 /* BCRasterizedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD29381CCD68CB00C3C747 /* BCRasterizedViews.swift */; };
 		5DAD293D1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD293C1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift */; };
@@ -73,6 +74,7 @@
 		5D88CC0E1CCC133B001FF12E /* BCBooru.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BCBooru.swift; path = Assets.xcassets/BCBooru.swift; sourceTree = "<group>"; };
 		5D88CC121CCC14DC001FF12E /* BCGridStyleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCGridStyleViewController.swift; sourceTree = "<group>"; };
 		5D88CC141CCC177B001FF12E /* BCColoredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCColoredView.swift; sourceTree = "<group>"; };
+		5D976B281CDA45B600191679 /* BCPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCPreferencesViewController.swift; sourceTree = "<group>"; };
 		5DAD29361CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruCollectionViewCollectionViewItem.swift; sourceTree = "<group>"; };
 		5DAD29381CCD68CB00C3C747 /* BCRasterizedViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCRasterizedViews.swift; sourceTree = "<group>"; };
 		5DAD293C1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruCollectionViewSelectionBox.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 		5D88CC101CCC14B2001FF12E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5D976B271CDA45A400191679 /* Preferences */,
 				5D88CC111CCC14C1001FF12E /* Grid Style Controller */,
 			);
 			name = Controllers;
@@ -229,6 +232,14 @@
 				5D02026B1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift */,
 			);
 			name = "Grid Style Controller";
+			sourceTree = "<group>";
+		};
+		5D976B271CDA45A400191679 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				5D976B281CDA45B600191679 /* BCPreferencesViewController.swift */,
+			);
+			name = Preferences;
 			sourceTree = "<group>";
 		};
 		706F26A406A7FB0C802654CB /* Frameworks */ = {
@@ -428,6 +439,7 @@
 				5D47F5E31CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift in Sources */,
 				5D02026C1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift in Sources */,
 				5D3288321CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift in Sources */,
+				5D976B291CDA45B600191679 /* BCPreferencesViewController.swift in Sources */,
 				5D88CC151CCC177B001FF12E /* BCColoredView.swift in Sources */,
 				5DAD293D1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift in Sources */,
 				5D0202681CD8EE3300A6E5D5 /* BCGridStyleTagListTableViewItemData.swift in Sources */,

@@ -560,6 +560,12 @@ class BCBooruHost: NSObject, NSCoding {
         }
     }
     
+    /// Updates utilties to match the current host info
+    func refreshUtilities() {
+        // Update utilities
+        self.utilties = BCBooruUtilities(booru: self);
+    }
+    
     // Init with a name, type, page post limit and URL
     convenience init(name : String, type : BCBooruType, pagePostLimit : Int, url : String, maximumRating : BCRating) {
         self.init();

@@ -66,11 +66,38 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // Setup the menu items
         setupMenuItems();
         
+        // Add the preferences updated observer
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("preferencesUpdated"), name: "BCPreferences.Updated", object: nil);
+        
         // Initialize everything
         gridStyleController.initialize();
         
         // Update the Booru picker popup button
         updateBooruPickerPopupButton();
+    }
+    
+    /// Called when the preferences are updated
+    func preferencesUpdated() {
+        /// The index of the item to select after the Boorus are updated
+        var selectionIndex : Int = 0;
+        
+        // If the selection item isnt nil...
+        if(titlebarBooruPickerPopupButton.selectedItem != nil) {
+            // Set selection index to the index of the selected item
+            selectionIndex = titlebarBooruPickerPopupButton.indexOfItem(titlebarBooruPickerPopupButton.selectedItem!);
+        }
+        
+        // Update the Searching Boorus
+        updateBooruPickerPopupButton();
+        
+        // Reselect the previous item
+        titlebarBooruPickerPopupButton.selectItemAtIndex(selectionIndex);
+        
+        // If the selected item is now nil...
+        if(titlebarBooruPickerPopupButton.selectedItem == nil) {
+            // Select the last item in titlebarBooruPickerPopupButton
+            titlebarBooruPickerPopupButton.selectItemAtIndex(titlebarBooruPickerPopupButton.indexOfItem(titlebarBooruPickerPopupButton.lastItem!));
+        }
     }
     
     /// Saves the given BCBooruCollectionViewItems
