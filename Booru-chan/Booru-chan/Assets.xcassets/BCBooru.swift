@@ -65,8 +65,8 @@ class BCBooruUtilities {
         }
         else if(type == .Danbooru || type == .DanbooruLegacy) {
             /// baseUrl/tags.json?search[name_matches]=search
-            // Make the request to get the tags
-            Alamofire.request(.GET, (baseUrl + "/tags.json?search[name_matches]=" + search + "&limit=0").stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            // Make the request to get the tags(It seems Danbooru has a tag request limit of 1000(Using 0 gives you none), so I use 1000 here)
+            Alamofire.request(.GET, (baseUrl + "/tags.json?search[name_matches]=" + search + "&limit=1000").stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
