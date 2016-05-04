@@ -31,9 +31,12 @@ class BCBooruUtilities {
     var maximumRating : BCRating = .Explicit;
     
     /// Returns an array of Strings containing all the tags that matched the passed query(You can do things like *query, query* and *query*)
-    func getTagsMatchingSearch(search : String, completionHandler: ([String]) -> ()) {
+    func getTagsMatchingSearch(search : String, completionHandler: ([String]) -> ()) -> Request? {
         // Print what we are searching for
         print("BCBooruUtilities: Searching for tags matching \"\(search)\" on \"\(self.baseUrl)\"");
+        
+        /// The request that will be made, and then returned
+        var request : Request? = nil;
         
         /// The tag search results to pass to the completion handler
         var results : [String] = [];
@@ -43,7 +46,7 @@ class BCBooruUtilities {
         if(type == .Moebooru) {
             // baseUrl/tag.json?name=search
             // Make the request to get the tags
-            Alamofire.request(.GET, (baseUrl + "/tag.json?name=" + search + "&limit=0").stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, (baseUrl + "/tag.json?name=" + search + "&limit=0").stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -66,7 +69,7 @@ class BCBooruUtilities {
         else if(type == .Danbooru || type == .DanbooruLegacy) {
             /// baseUrl/tags.json?search[name_matches]=search
             // Make the request to get the tags(It seems Danbooru has a tag request limit of 1000(Using 0 gives you none), so I use 1000 here)
-            Alamofire.request(.GET, (baseUrl + "/tags.json?search[name_matches]=" + search + "&limit=1000").stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, (baseUrl + "/tags.json?search[name_matches]=" + search + "&limit=1000").stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -89,15 +92,21 @@ class BCBooruUtilities {
         else if(type == .Gelbooru) {
             // There is no proper API for getting tags with the format "*search", "search*" or "*search*"(Or at least froom what I can find), so do nothing
         }
+        
+        // Return the request
+        return request;
     }
     
     /// Searches for the given string and returns the results as and array of BCBooruPosts
-    func getPostsFromSearch(search : String, limit : Int, page : Int, completionHandler: ([BCBooruPost]) -> ()) {
+    func getPostsFromSearch(search : String, limit : Int, page : Int, completionHandler: ([BCBooruPost]) -> ()) -> Request? {
         // Print what we are searching for
         print("BCBooruUtilities: Searching for \"\(search)\"(Limit \(limit), page \(page)) on \"\(self.baseUrl)\"");
         
         /// The search results to pass to the completion handler
         var results : [BCBooruPost] = [];
+        
+        /// The request that will be made, and then returned
+        var request : Request? = nil;
         
         /// The string to append to the search query to set the maximum rating of posts to show
         var ratingLimitString : String = "";
@@ -123,7 +132,7 @@ class BCBooruUtilities {
             print("BCBooruUtilities: Using URL \"\((baseUrl + "/post.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
             
             // Make the get request to the Booru with the search string and rating limit...
-            Alamofire.request(.GET, (baseUrl + "/post.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, (baseUrl + "/post.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -148,7 +157,7 @@ class BCBooruUtilities {
             print("BCBooruUtilities: Using URL \"\((baseUrl + "/post/index.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
             
             // Make the get request to the Booru with the search string and rating limit...
-            Alamofire.request(.GET, (baseUrl + "/post/index.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, (baseUrl + "/post/index.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -173,7 +182,7 @@ class BCBooruUtilities {
             print("BCBooruUtilities: Using URL \"\((baseUrl + "/posts.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
             
             // Make the get request to the Booru with the search string and rating limit...
-            Alamofire.request(.GET, (baseUrl + "/posts.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, (baseUrl + "/posts.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -198,7 +207,7 @@ class BCBooruUtilities {
             print("BCBooruUtilities: Using URL \"\((baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + ratingLimitString + ratingLimitString + "&pid=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
             
             // Make the get request to the Booru with the search string and rating limit...
-            Alamofire.request(.GET, (baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + ratingLimitString + "&pid=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, (baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + ratingLimitString + "&pid=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -223,15 +232,21 @@ class BCBooruUtilities {
         lastSearch = search;
         lastSearchLimit = limit;
         lastSearchPage = page;
+        
+        // Return the request
+        return request;
     }
     
     /// Gets the post at the given ID and returns a BCBooruPost(Can be nil)
-    func getPostFromId(id : Int, completionHandler: (BCBooruPost?) -> ()) {
+    func getPostFromId(id : Int, completionHandler: (BCBooruPost?) -> ()) -> Request? {
+        /// The request that will be made, and then returned
+        var request : Request? = nil;
+        
         // Get the post
         // Depending on which Booru API we are using...
         if(type == .Moebooru) {
             // Make the get request to the Booru with the post ID...
-            Alamofire.request(.GET, baseUrl + "/post.json?tags=id:" + String(id), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, baseUrl + "/post.json?tags=id:" + String(id), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -247,7 +262,7 @@ class BCBooruUtilities {
         }
         else if(type == .DanbooruLegacy) {
             // Make the get request to the Booru with the post ID...
-            Alamofire.request(.GET, baseUrl + "/post/index.json?tags=id:" + String(id), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, baseUrl + "/post/index.json?tags=id:" + String(id), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -263,7 +278,7 @@ class BCBooruUtilities {
         }
         else if(type == .Danbooru) {
             // Make the get request to the Booru with the post ID...
-            Alamofire.request(.GET, baseUrl + "/posts.json?tags=id:" + String(id), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, baseUrl + "/posts.json?tags=id:" + String(id), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -279,7 +294,7 @@ class BCBooruUtilities {
         }
         else if(type == .Gelbooru) {
             // Make the get request to the Booru with the post ID...
-            Alamofire.request(.GET, baseUrl + "/index.php?page=dapi&s=post&q=index&tags=id:" + String(id), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, baseUrl + "/index.php?page=dapi&s=post&q=index&tags=id:" + String(id), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -296,6 +311,9 @@ class BCBooruUtilities {
                 }
             }
         }
+        
+        // Return the request
+        return request;
     }
     
     /// Returns a BCBooruPOst from the given data(Can be nil)

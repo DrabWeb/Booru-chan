@@ -8,6 +8,7 @@
 
 import Cocoa
 import SwiftyJSON
+import Alamofire
 
 /// The custom NSTokenField for tag search fields
 class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
@@ -21,6 +22,9 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
     /// The last search that triggered a tag download
     var lastDownloadSearch : String = "";
     
+    /// The last request that was made to download tag suggestions
+    var lastDownloadRequest : Request? = nil;
+    
     override func textDidChange(notification: NSNotification) {
         super.textDidChange(notification);
         
@@ -28,6 +32,9 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         if(self.tokens.last == "" || self.stringValue.substringFromIndex(self.stringValue.endIndex.predecessor()) == ",") {
             // Empty lastDownloadedTags
             lastDownloadedTags = [];
+            
+            // Stop the last tag suggestion download request
+            lastDownloadRequest?.cancel();
         }
     }
     
@@ -56,16 +63,19 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
                     // Print that we are loading results from a cache file
                     Swift.print("BCBooruSearchTokenField: Loading search results cache from \"\(tokenBooru!.cacheFolderPath + substring + ".json")\"");
                     
-                    /// The JSON from the results cache file
-                    let resultsCacheJson : JSON = JSON(data: NSFileManager.defaultManager().contentsAtPath(tokenBooru!.cacheFolderPath + substring + ".json")!);
-                    
-                    // Set lastDownloadedTags to the cached results
-                    lastDownloadedTags = resultsCacheJson["results"].arrayObject as! [String];
+                    // Asynchronously load the cached file
+                    dispatch_async(dispatch_get_main_queue()) {
+                        /// The JSON from the results cache file
+                        let resultsCacheJson : JSON = JSON(data: NSFileManager.defaultManager().contentsAtPath(self.tokenBooru!.cacheFolderPath + substring + ".json")!);
+                        
+                        // Set lastDownloadedTags to the cached results
+                        self.lastDownloadedTags = resultsCacheJson["results"].arrayObject as! [String];
+                    }
                 }
                 // If there isnt a cache file for this search...
                 else {
                     // Search for any tags with the current substring as a prefix
-                    tokenBooru?.utilties.getTagsMatchingSearch(substring + "*", completionHandler: finishedDownloadingTags);
+                    lastDownloadRequest = tokenBooru?.utilties.getTagsMatchingSearch(substring + "*", completionHandler: finishedDownloadingTags);
                 }
                 
                 // Set lastDownloadSearch
