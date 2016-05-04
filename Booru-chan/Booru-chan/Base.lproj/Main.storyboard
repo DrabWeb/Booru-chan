@@ -58,7 +58,7 @@
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" selectionHighlightStyle="sourceList" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="31" viewBased="YES" id="ERs-GA-pGy" userLabel="Booru Table View">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="400" height="0.0"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <color key="backgroundColor" red="0.49547861728288273" green="0.61712742345916061" blue="0.78039199999999997" alpha="0.0" colorSpace="deviceRGB"/>
                                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>

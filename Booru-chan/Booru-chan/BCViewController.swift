@@ -164,7 +164,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     }
                     
                     // Add the extension onto the end
-                    imageFileName += ".png";
+                    imageFileName += "." + NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension;
                     
                     // If we have already downloaded the image...
                     if(currentSaveItem.finishedLoadingImage) {
