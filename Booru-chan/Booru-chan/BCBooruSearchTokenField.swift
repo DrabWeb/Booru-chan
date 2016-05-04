@@ -111,23 +111,26 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         
         // If the tags arent empty...
         if(tags != []) {
-            // Cache the tag results
-            /// The JSON to hold the results
-            var tagsJson : JSON = JSON(["results":[]]);
-            
-            // Set the results value
-            tagsJson["results"].arrayObject = tags;
-            
-            do {
-                // Print where we are saving the JSON
-                Swift.print("BCBooruSearchTokenField: Writing search cache to \"\((tokenBooru?.cacheFolderPath)! + lastDownloadSearch + ".json"))\"");
+            // If the first letter in the first element of tags is equal to the last download search...
+            if(tags[0].substringToIndex(tags[0].startIndex.successor()) == lastDownloadSearch) {
+                // Cache the tag results
+                /// The JSON to hold the results
+                var tagsJson : JSON = JSON(["results":[]]);
                 
-                // Write the JSON to a JSON file in the Token Booru's cache folder
-                try String(tagsJson).writeToFile((tokenBooru?.cacheFolderPath)! + lastDownloadSearch + ".json", atomically: true, encoding: NSUTF8StringEncoding);
-            }
-            catch let error as NSError {
-                // Print the error
-                Swift.print("BCBooruSearchTokenField: Failed to write JSON cache file, \(error.description)");
+                // Set the results value
+                tagsJson["results"].arrayObject = tags;
+                
+                do {
+                    // Print where we are saving the JSON
+                    Swift.print("BCBooruSearchTokenField: Writing search cache to \"\((tokenBooru?.cacheFolderPath)! + lastDownloadSearch + ".json"))\"");
+                    
+                    // Write the JSON to a JSON file in the Token Booru's cache folder
+                    try String(tagsJson).writeToFile((tokenBooru?.cacheFolderPath)! + lastDownloadSearch + ".json", atomically: true, encoding: NSUTF8StringEncoding);
+                }
+                catch let error as NSError {
+                    // Print the error
+                    Swift.print("BCBooruSearchTokenField: Failed to write JSON cache file, \(error.description)");
+                }
             }
         }
     }
