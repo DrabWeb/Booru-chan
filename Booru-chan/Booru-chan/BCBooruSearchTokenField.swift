@@ -73,15 +73,6 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
             }
         }
         
-        // For every tag in lastDownloadedTags...
-        for(_, currentDownloadedTag) in lastDownloadedTags.enumerate() {
-            // If the current tag has the current substring as a prefix...
-            if(currentDownloadedTag.hasPrefix(substring)) {
-                // Add the current tag to the completions
-                completions.append(currentDownloadedTag);
-            }
-        }
-        
         // If tokenBooru isnt nil...
         if(tokenBooru != nil) {
             // For every tag in the Token Booru's tag search history...
@@ -94,11 +85,25 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
             }
         }
         
-        // Remove all the duplicates from completions
-        completions = Array(Set(completions));
+        // For every tag in lastDownloadedTags...
+        for(_, currentDownloadedTag) in lastDownloadedTags.enumerate() {
+            // If the current tag has the current substring as a prefix and the tag isnt already in the completions...
+            if(currentDownloadedTag.hasPrefix(substring) && !completions.contains(currentDownloadedTag)) {
+                // Add the current tag to the completions
+                completions.append(currentDownloadedTag);
+            }
+        }
         
         // Return the completions
         return completions;
+    }
+    
+    func uniq<T: Hashable>(lst: [T]) -> [T] {
+        var uniqueSet = [T : Void](minimumCapacity: lst.count)
+        for x in lst {
+            uniqueSet[x] = ()
+        }
+        return Array(uniqueSet.keys)
     }
     
     /// Called when the tag download finishes for autocompletion suggestions
@@ -110,7 +115,10 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         if(lastDownloadedTags == []) {
             // Set lastDownloadedTags to the downloaded tags
             lastDownloadedTags = tags;
-            
+        }
+        
+        // If the tags arent empty...
+        if(tags != []) {
             // Cache the tag results
             /// The JSON to hold the results
             var tagsJson : JSON = JSON(["results":[]]);
