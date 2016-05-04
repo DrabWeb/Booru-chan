@@ -98,14 +98,6 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         return completions;
     }
     
-    func uniq<T: Hashable>(lst: [T]) -> [T] {
-        var uniqueSet = [T : Void](minimumCapacity: lst.count)
-        for x in lst {
-            uniqueSet[x] = ()
-        }
-        return Array(uniqueSet.keys)
-    }
-    
     /// Called when the tag download finishes for autocompletion suggestions
     func finishedDownloadingTags(tags : [String]) {
         // Print what tags we downloaded
