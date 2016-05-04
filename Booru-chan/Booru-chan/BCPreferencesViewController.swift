@@ -115,6 +115,18 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
         postUpdatedNotification();
     }
     
+    /// When we press the "Clear History" button...
+    @IBAction func booruClearHistoryButtonPressed(sender: AnyObject) {
+        // Clear the tag history for the current editing Booru
+        currentEditingBooruHost.tagHistory = [];
+        
+        // Update the host's utilties
+        currentEditingBooruHost.refreshUtilities();
+        
+        // Post the notification saying we update the preferences
+        postUpdatedNotification();
+    }
+    
     /// The current Booru Host we are editing
     var currentEditingBooruHost : BCBooruHost = BCBooruHost();
     

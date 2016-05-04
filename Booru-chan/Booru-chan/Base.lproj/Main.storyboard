@@ -280,17 +280,34 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
+                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4B0-q3-Rog" userLabel="Clear History Button">
+                                                            <rect key="frame" x="304" y="10" width="119" height="32"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="107" id="ZDp-rM-JfM"/>
+                                                                <constraint firstAttribute="height" constant="21" id="ZMK-pj-zZB"/>
+                                                            </constraints>
+                                                            <buttonCell key="cell" type="push" title="Clear History" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UET-aE-rOI">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="booruClearHistoryButtonPressed:" target="hSc-eT-Q8S" id="D5W-Jt-zwK"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="HS7-Ig-z53" firstAttribute="top" secondItem="hNI-kE-CJj" secondAttribute="bottom" constant="12" id="0Ap-Hm-7Ma"/>
                                                         <constraint firstItem="pHp-fd-Y9K" firstAttribute="top" secondItem="T3B-hG-M1B" secondAttribute="bottom" constant="8" id="78v-RQ-TYR"/>
                                                         <constraint firstItem="HS7-Ig-z53" firstAttribute="leading" secondItem="ndj-zA-XwD" secondAttribute="trailing" constant="8" id="APc-c8-BXy"/>
+                                                        <constraint firstItem="4B0-q3-Rog" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HS7-Ig-z53" secondAttribute="trailing" constant="17" id="CAq-dN-hSd"/>
                                                         <constraint firstItem="pHp-fd-Y9K" firstAttribute="leading" secondItem="6d4-pB-6r4" secondAttribute="trailing" constant="8" id="DZg-fV-OuQ"/>
                                                         <constraint firstItem="T3B-hG-M1B" firstAttribute="top" secondItem="yTc-rH-Z45" secondAttribute="top" constant="3" id="Dwb-zY-odt"/>
                                                         <constraint firstItem="ndj-zA-XwD" firstAttribute="leading" secondItem="yTc-rH-Z45" secondAttribute="leading" constant="17" id="FfL-8d-aNS"/>
                                                         <constraint firstItem="mC1-RB-yFy" firstAttribute="top" secondItem="JsO-S5-NFa" secondAttribute="bottom" constant="14" id="Jh7-dt-KeI"/>
                                                         <constraint firstItem="JsO-S5-NFa" firstAttribute="leading" secondItem="yTc-rH-Z45" secondAttribute="leading" constant="17" id="MtL-Ek-E3k"/>
                                                         <constraint firstItem="T3B-hG-M1B" firstAttribute="leading" secondItem="yTc-rH-Z45" secondAttribute="leading" constant="17" id="QMY-mB-Sm6"/>
+                                                        <constraint firstAttribute="trailing" secondItem="4B0-q3-Rog" secondAttribute="trailing" constant="17" id="R3w-3V-39P"/>
+                                                        <constraint firstAttribute="bottom" secondItem="4B0-q3-Rog" secondAttribute="bottom" constant="17" id="VvD-n3-Obs"/>
                                                         <constraint firstItem="hNI-kE-CJj" firstAttribute="leading" secondItem="mC1-RB-yFy" secondAttribute="trailing" constant="8" id="a6r-EH-XKP"/>
                                                         <constraint firstItem="mC1-RB-yFy" firstAttribute="leading" secondItem="yTc-rH-Z45" secondAttribute="leading" constant="17" id="a7K-a8-eqC"/>
                                                         <constraint firstItem="HS7-Ig-z53" firstAttribute="leading" secondItem="ndj-zA-XwD" secondAttribute="trailing" constant="8" id="aqT-nM-My9"/>
