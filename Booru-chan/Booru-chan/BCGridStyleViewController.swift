@@ -243,17 +243,26 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // Show the no search results container
             noSearchResultsContainerView.hidden = false;
         }
+        
+        // Reload the downloaded indicators
+        reloadDownloadedIndicators();
     }
     
+    /// Updates the downloaded indicators for all the posts in the Booru collection view
     func reloadDownloadedIndicators() {
-        for(_, currentItem) in (booruCollectionViewArrayController.arrangedObjects as! [BCBooruCollectionViewItem]).enumerate() {
-            // Set the item's alpha value to 0.5 if it has been downloaded
-            if(mainViewController.currentSelectedSearchingBooru!.hasDownloadedId(currentItem.representedPost!.id)) {
-                currentItem.alphaValue = 0.5;
+        // If we said to indicate downloaded posts...
+        if((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.indicateDownloadedPosts) {
+            // For every item in the Booru collection view...
+            for(_, currentItem) in (booruCollectionViewArrayController.arrangedObjects as! [BCBooruCollectionViewItem]).enumerate() {
+                // Set the item's alpha value to downloadedPostAlphaValue if it has been downloaded
+                if(mainViewController.currentSelectedSearchingBooru!.hasDownloadedId(currentItem.representedPost!.id)) {
+                    currentItem.alphaValue = (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.downloadedPostAlphaValue;
+                }
             }
+            
+            // Reload the collection view
+            booruCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateControllerWithIdentifier("booruCollectionViewItem") as! BCBooruCollectionViewCollectionViewItem;
         }
-        
-        booruCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateControllerWithIdentifier("booruCollectionViewItem") as! BCBooruCollectionViewCollectionViewItem;
     }
     
     /// When we reach the bottom of the Booru collection view...

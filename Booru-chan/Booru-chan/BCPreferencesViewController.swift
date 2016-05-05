@@ -148,6 +148,15 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.imageSaveFormat = generalImageSavingFormatTextField.stringValue;
     }
     
+    /// The checkbox to set if we want to indicate already downloaded posts
+    @IBOutlet var generalIndicateDownloadedPostsCheckbox: NSButton!
+    
+    /// When we press generalIndicateDownloadedPostsCheckbox...
+    @IBAction func generalIndicateDownloadedPostsCheckboxPressed(sender: AnyObject) {
+        // Update the preferences
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.indicateDownloadedPosts = Bool(generalIndicateDownloadedPostsCheckbox.state);
+    }
+    
     /// The current Booru Host we are editing
     var currentEditingBooruHost : BCBooruHost = BCBooruHost();
     
@@ -160,8 +169,9 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
         // Display the info from the first Booru host
         displayInfoFromHost((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts[0]);
         
-        // Set the image file name format text field's value to the current image file name value
+        // Load the preferences values
         generalImageSavingFormatTextField.stringValue = (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.imageSaveFormat;
+        generalIndicateDownloadedPostsCheckbox.state = Int((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.indicateDownloadedPosts);
     }
     
     /// Displays the info of the given host in the Booru tab's editor

@@ -21,10 +21,17 @@ class BCPreferencesObject: NSObject, NSCoding {
     /// The format for naming saved images
     var imageSaveFormat : String = "%id%(%booru%) - %tags%";
     
+    /// The alpha value of a post that has already been downloaded
+    var downloadedPostAlphaValue : CGFloat = 0.5;
+    
+    /// Should already downloaded posts be marked?
+    var indicateDownloadedPosts : Bool = true;
+    
     func encodeWithCoder(coder: NSCoder) {
         // Encode the preferences
         coder.encodeObject(booruHosts, forKey: "booruHosts");
         coder.encodeObject(imageSaveFormat, forKey: "imageSaveFormat");
+        coder.encodeObject(indicateDownloadedPosts, forKey: "indicateDownloadedPosts");
     }
     
     required convenience init(coder decoder: NSCoder) {
@@ -37,6 +44,10 @@ class BCPreferencesObject: NSObject, NSCoding {
         
         if((decoder.decodeObjectForKey("imageSaveFormat") as? String) != nil) {
             self.imageSaveFormat = decoder.decodeObjectForKey("imageSaveFormat") as! String;
+        }
+        
+        if((decoder.decodeObjectForKey("indicateDownloadedPosts") as? Bool) != nil) {
+            self.indicateDownloadedPosts = decoder.decodeObjectForKey("indicateDownloadedPosts") as! Bool;
         }
     }
 }

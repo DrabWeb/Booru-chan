@@ -46,7 +46,7 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mbs-sr-nwX" userLabel="Image Saving Format Label">
-                                                            <rect key="frame" x="15" y="296" width="128" height="17"/>
+                                                            <rect key="frame" x="15" y="292" width="128" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="124" id="bXr-V1-x5W"/>
                                                                 <constraint firstAttribute="height" constant="17" id="xQ5-tb-awB"/>
@@ -58,7 +58,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NUB-dd-b8V" userLabel="Image Saving Format Text Field" customClass="BCAlwaysActiveTextField" customModule="Booru_chan" customModuleProvider="target">
-                                                            <rect key="frame" x="149" y="293" width="268" height="22"/>
+                                                            <rect key="frame" x="149" y="289" width="268" height="22"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="22" id="wRr-gY-iiU"/>
                                                             </constraints>
@@ -71,14 +71,30 @@
                                                                 <action selector="generalImageSavingFormatTextFieldEndedEditing:" target="hSc-eT-Q8S" id="EMU-Wr-pqu"/>
                                                             </connections>
                                                         </textField>
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="Efe-qo-EnG" userLabel="Indicate Downloaded Posts Checkbox">
+                                                            <rect key="frame" x="15" y="266" width="404" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="14" id="HIc-Pt-U8Z"/>
+                                                            </constraints>
+                                                            <buttonCell key="cell" type="check" title="Indicate downloaded posts" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="XlH-Q5-RaJ">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="generalIndicateDownloadedPostsCheckboxPressed:" target="hSc-eT-Q8S" id="d1C-wU-5ni"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="Mbs-sr-nwX" firstAttribute="leading" secondItem="Ahl-6t-b41" secondAttribute="leading" constant="17" id="7uJ-No-Alb"/>
-                                                        <constraint firstItem="NUB-dd-b8V" firstAttribute="top" secondItem="Ahl-6t-b41" secondAttribute="top" constant="1" id="Ba5-dz-o1T"/>
-                                                        <constraint firstItem="Mbs-sr-nwX" firstAttribute="top" secondItem="Ahl-6t-b41" secondAttribute="top" constant="3" id="epk-gc-mL1"/>
+                                                        <constraint firstItem="NUB-dd-b8V" firstAttribute="top" secondItem="Ahl-6t-b41" secondAttribute="top" constant="5" id="Ba5-dz-o1T"/>
+                                                        <constraint firstItem="Efe-qo-EnG" firstAttribute="top" secondItem="NUB-dd-b8V" secondAttribute="bottom" constant="7" id="TjX-YT-tcT"/>
+                                                        <constraint firstItem="Mbs-sr-nwX" firstAttribute="top" secondItem="Ahl-6t-b41" secondAttribute="top" constant="7" id="epk-gc-mL1"/>
                                                         <constraint firstItem="NUB-dd-b8V" firstAttribute="leading" secondItem="Mbs-sr-nwX" secondAttribute="trailing" constant="8" id="kHD-Ke-T45"/>
                                                         <constraint firstAttribute="trailing" secondItem="NUB-dd-b8V" secondAttribute="trailing" constant="17" id="lHz-Zb-Amt"/>
+                                                        <constraint firstItem="Efe-qo-EnG" firstAttribute="leading" secondItem="Ahl-6t-b41" secondAttribute="leading" constant="17" id="n7h-ti-V5i"/>
                                                         <constraint firstItem="NUB-dd-b8V" firstAttribute="leading" secondItem="Mbs-sr-nwX" secondAttribute="trailing" constant="8" id="s90-b8-u1b"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Efe-qo-EnG" secondAttribute="trailing" constant="17" id="tab-gK-G4e"/>
                                                     </constraints>
                                                 </view>
                                             </tabViewItem>
@@ -410,6 +426,7 @@
                         <outlet property="booruTableViewScrollView" destination="T3B-hG-M1B" id="RPV-hA-pEf"/>
                         <outlet property="booruTypePopupButton" destination="JsO-S5-NFa" id="KJ6-T0-u7e"/>
                         <outlet property="generalImageSavingFormatTextField" destination="NUB-dd-b8V" id="MJf-vh-tgY"/>
+                        <outlet property="generalIndicateDownloadedPostsCheckbox" destination="Efe-qo-EnG" id="krF-wZ-x2Q"/>
                         <outlet property="titlebarVisualEffectView" destination="Vgn-w2-Ilt" id="sq7-6M-Tt7"/>
                     </connections>
                 </viewController>
