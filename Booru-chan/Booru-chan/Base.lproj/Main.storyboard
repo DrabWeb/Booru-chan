@@ -45,7 +45,7 @@
                                                     <rect key="frame" x="10" y="33" width="434" height="280"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mbs-sr-nwX" userLabel="Image Saving Format Label">
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mbs-sr-nwX" userLabel="Image Saving Format Label">
                                                             <rect key="frame" x="15" y="292" width="128" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="124" id="bXr-V1-x5W"/>
@@ -57,7 +57,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NUB-dd-b8V" userLabel="Image Saving Format Text Field" customClass="BCAlwaysActiveTextField" customModule="Booru_chan" customModuleProvider="target">
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NUB-dd-b8V" userLabel="Image Saving Format Text Field" customClass="BCAlwaysActiveTextField" customModule="Booru_chan" customModuleProvider="target">
                                                             <rect key="frame" x="149" y="289" width="268" height="22"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="22" id="wRr-gY-iiU"/>
@@ -71,7 +71,7 @@
                                                                 <action selector="generalImageSavingFormatTextFieldEndedEditing:" target="hSc-eT-Q8S" id="EMU-Wr-pqu"/>
                                                             </connections>
                                                         </textField>
-                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="Efe-qo-EnG" userLabel="Indicate Downloaded Posts Checkbox">
+                                                        <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Efe-qo-EnG" userLabel="Indicate Downloaded Posts Checkbox">
                                                             <rect key="frame" x="15" y="266" width="404" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="HIc-Pt-U8Z"/>
@@ -687,7 +687,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="298" height="303"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <subviews>
-                                                                                <collectionView selectable="YES" allowsMultipleSelection="YES" id="vAV-me-trS" userLabel="Booru Collection View">
+                                                                                <collectionView selectable="YES" allowsMultipleSelection="YES" id="vAV-me-trS" userLabel="Booru Collection View" customClass="BCBooruCollectionView" customModule="Booru_chan" customModuleProvider="target">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="298" height="303"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -874,7 +874,7 @@
                                                 <rect key="frame" x="308" y="0.0" width="292" height="400"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="lqI-W3-QlG">
+                                                    <imageView horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="lqI-W3-QlG">
                                                         <rect key="frame" x="0.0" y="0.0" width="292" height="363"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="el3-yM-HKI"/>

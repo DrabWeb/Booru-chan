@@ -29,6 +29,7 @@
 		5DAD29371CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD29361CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift */; };
 		5DAD293A1CCD68CB00C3C747 /* BCRasterizedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD29381CCD68CB00C3C747 /* BCRasterizedViews.swift */; };
 		5DAD293D1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD293C1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift */; };
+		5DBB0A061CDBF427007B383B /* BCBooruCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBB0A051CDBF427007B383B /* BCBooruCollectionView.swift */; };
 		5DBDDD121CD910C00086E61D /* BCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBDDD111CD910C00086E61D /* BCExtensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		5DAD29361CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruCollectionViewCollectionViewItem.swift; sourceTree = "<group>"; };
 		5DAD29381CCD68CB00C3C747 /* BCRasterizedViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCRasterizedViews.swift; sourceTree = "<group>"; };
 		5DAD293C1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruCollectionViewSelectionBox.swift; sourceTree = "<group>"; };
+		5DBB0A051CDBF427007B383B /* BCBooruCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruCollectionView.swift; sourceTree = "<group>"; };
 		5DBDDD111CD910C00086E61D /* BCExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCExtensions.swift; sourceTree = "<group>"; };
 		63DDEBE3407D49F095EA58A7 /* Pods_Booru_chan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3F5A8DA46E4230E39B12F3 /* Pods-Booru-chan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chan/Pods-Booru-chan.release.xcconfig"; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				5DAD29361CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift */,
 				5D0202691CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift */,
 				5D02026B1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift */,
+				5DBB0A051CDBF427007B383B /* BCBooruCollectionView.swift */,
 			);
 			name = "Grid Style Controller";
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				5DBDDD121CD910C00086E61D /* BCExtensions.swift in Sources */,
 				5D7CA38F1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift in Sources */,
 				5D7CA3911CCC0AFD00B4A0A5 /* BCAlwaysActiveViews.swift in Sources */,
+				5DBB0A061CDBF427007B383B /* BCBooruCollectionView.swift in Sources */,
 				5DAD293A1CCD68CB00C3C747 /* BCRasterizedViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
