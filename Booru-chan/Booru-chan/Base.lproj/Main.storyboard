@@ -44,6 +44,42 @@
                                                 <view key="view" id="Ahl-6t-b41">
                                                     <rect key="frame" x="10" y="33" width="434" height="280"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mbs-sr-nwX" userLabel="Image Saving Format Label">
+                                                            <rect key="frame" x="15" y="296" width="128" height="17"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="124" id="bXr-V1-x5W"/>
+                                                                <constraint firstAttribute="height" constant="17" id="xQ5-tb-awB"/>
+                                                            </constraints>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Image saving format" id="OLk-Dn-G26">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NUB-dd-b8V" userLabel="Image Saving Format Text Field" customClass="BCAlwaysActiveTextField" customModule="Booru_chan" customModuleProvider="target">
+                                                            <rect key="frame" x="149" y="293" width="268" height="22"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="22" id="wRr-gY-iiU"/>
+                                                            </constraints>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" title="%id%(%booru%) - %tags%" bezelStyle="round" id="Po5-77-15E">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <action selector="generalImageSavingFormatTextFieldEndedEditing:" target="hSc-eT-Q8S" id="EMU-Wr-pqu"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="Mbs-sr-nwX" firstAttribute="leading" secondItem="Ahl-6t-b41" secondAttribute="leading" constant="17" id="7uJ-No-Alb"/>
+                                                        <constraint firstItem="NUB-dd-b8V" firstAttribute="top" secondItem="Ahl-6t-b41" secondAttribute="top" constant="1" id="Ba5-dz-o1T"/>
+                                                        <constraint firstItem="Mbs-sr-nwX" firstAttribute="top" secondItem="Ahl-6t-b41" secondAttribute="top" constant="3" id="epk-gc-mL1"/>
+                                                        <constraint firstItem="NUB-dd-b8V" firstAttribute="leading" secondItem="Mbs-sr-nwX" secondAttribute="trailing" constant="8" id="kHD-Ke-T45"/>
+                                                        <constraint firstAttribute="trailing" secondItem="NUB-dd-b8V" secondAttribute="trailing" constant="17" id="lHz-Zb-Amt"/>
+                                                        <constraint firstItem="NUB-dd-b8V" firstAttribute="leading" secondItem="Mbs-sr-nwX" secondAttribute="trailing" constant="8" id="s90-b8-u1b"/>
+                                                    </constraints>
                                                 </view>
                                             </tabViewItem>
                                             <tabViewItem label="Boorus" identifier="2" id="vbH-sT-5Nr">
@@ -373,6 +409,7 @@
                         <outlet property="booruTableView" destination="ERs-GA-pGy" id="CbQ-dr-ng5"/>
                         <outlet property="booruTableViewScrollView" destination="T3B-hG-M1B" id="RPV-hA-pEf"/>
                         <outlet property="booruTypePopupButton" destination="JsO-S5-NFa" id="KJ6-T0-u7e"/>
+                        <outlet property="generalImageSavingFormatTextField" destination="NUB-dd-b8V" id="MJf-vh-tgY"/>
                         <outlet property="titlebarVisualEffectView" destination="Vgn-w2-Ilt" id="sq7-6M-Tt7"/>
                     </connections>
                 </viewController>

@@ -139,6 +139,15 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
         postUpdatedNotification();
     }
     
+    /// The text field for setting the format of saved image's file names
+    @IBOutlet var generalImageSavingFormatTextField: NSTextField!
+    
+    /// When we stop editing generalImageSavingFormatTextField...
+    @IBAction func generalImageSavingFormatTextFieldEndedEditing(sender: AnyObject) {
+        // Set the preferences value to the entered text
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.imageSaveFormat = generalImageSavingFormatTextField.stringValue;
+    }
+    
     /// The current Booru Host we are editing
     var currentEditingBooruHost : BCBooruHost = BCBooruHost();
     
@@ -150,6 +159,9 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
         
         // Display the info from the first Booru host
         displayInfoFromHost((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts[0]);
+        
+        // Set the image file name format text field's value to the current image file name value
+        generalImageSavingFormatTextField.stringValue = (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.imageSaveFormat;
     }
     
     /// Displays the info of the given host in the Booru tab's editor
