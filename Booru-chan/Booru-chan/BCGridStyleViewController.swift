@@ -207,35 +207,41 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // Set the item's represented post to the current result
             item.representedPost = currentResult;
             
-            // Download the post's thumbnail
-            lastThumbnailDownloadRequests.append(Alamofire.request(.GET, currentResult.thumbnailUrl).response { (request, response, data, error) in
-                // If data isnt nil...
-                if(data != nil) {
-                    /// The downloaded image
-                    let image : NSImage? = NSImage(data: data!);
-                    
-                    // If image isnt nil...
-                    if(image != nil) {
-                        // If there are any items in booruCollectionViewArrayController...
-                        if((self.booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count > 0) {
-                            // For ever item in the Booru collection view...
-                            for currentIndex in 0...(self.booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count - 1 {
-                                // If the current item's represented object is equal to the item we downloaded the thumbnail for...
-                                if(((self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem) == item) {
-                                    // Update the image view of the item
-                                    (self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).imageView?.image = image!;
-                                    
-                                    // Set the item's model's thumbnail image
-                                    ((self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem).thumbnailImage = image!;
+            /// The image extensions that are allowed to be viewed
+            let imageExtension : [String] = ["png", "jpg", "jpeg", "gif"];
+            
+            // If the result's image and thumbnail URL are an image...
+            if(imageExtension.contains(NSString(string: item.representedPost!.imageUrl).pathExtension) && imageExtension.contains(NSString(string: item.representedPost!.thumbnailUrl).pathExtension)) {
+                // Download the post's thumbnail
+                lastThumbnailDownloadRequests.append(Alamofire.request(.GET, currentResult.thumbnailUrl).response { (request, response, data, error) in
+                    // If data isnt nil...
+                    if(data != nil) {
+                        /// The downloaded image
+                        let image : NSImage? = NSImage(data: data!);
+                        
+                        // If image isnt nil...
+                        if(image != nil) {
+                            // If there are any items in booruCollectionViewArrayController...
+                            if((self.booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count > 0) {
+                                // For ever item in the Booru collection view...
+                                for currentIndex in 0...(self.booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count - 1 {
+                                    // If the current item's represented object is equal to the item we downloaded the thumbnail for...
+                                    if(((self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem) == item) {
+                                        // Update the image view of the item
+                                        (self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).imageView?.image = image!;
+                                        
+                                        // Set the item's model's thumbnail image
+                                        ((self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem).thumbnailImage = image!;
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            });
-            
-            // Add the item
-            self.booruCollectionViewArrayController.addObject(item);
+                    });
+                
+                // Add the item
+                self.booruCollectionViewArrayController.addObject(item);
+            }
         }
         
         // If the results are empty and booruCollectionViewArrayController is empty...
