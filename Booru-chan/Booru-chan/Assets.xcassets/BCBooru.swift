@@ -539,8 +539,10 @@ class BCBooruHost: NSObject, NSCoding {
     var maximumRating : BCRating = .Explicit;
     
     /// The tags the user has entered into this Booru for searching before
-    // TODO: When the preferences are made add a table view or something that you can see all your history and remove certain ones or clear them all
     var tagHistory : [String] = [];
+    
+    /// The IDs of all the posts that the user has downloaded from this Booru
+    var downloadedPosts : [Int] = [];
     
     /// The URL to this Booru
     var url : String = "";
@@ -554,7 +556,28 @@ class BCBooruHost: NSObject, NSCoding {
         if(!tagHistory.contains(tag)) {
             // Add the given tag to tagHistory
             tagHistory.append(tag);
+            
+            // Print what tag we added to the tag history
+            print("BCBooruHost(\(self.name)): Added tag \"\(tag)\" to tag history");
         }
+    }
+    
+    /// Adds the given ID to this Booru's downloaded posts
+    func addIDToDownloadHistory(id : Int) {
+        // If downloadedPosts doesnt already have this ID...
+        if(!downloadedPosts.contains(id)) {
+            // Add the given ID to downloadedPosts
+            downloadedPosts.append(id);
+            
+            // Print what ID we added to the download history
+            print("BCBooruHost(\(self.name)): Added post \(id) to download history");
+        }
+    }
+    
+    /// Has this Booru downloaded the given ID?
+    func hasDownloadedId(id : Int) -> Bool {
+        // Return if downloadedPosts contains the given ID
+        return downloadedPosts.contains(id);
     }
     
     /// The path to this Booru's cache folder
@@ -605,6 +628,7 @@ class BCBooruHost: NSObject, NSCoding {
         coder.encodeObject(self.url, forKey: "url");
         coder.encodeObject(self.maximumRating.rawValue, forKey: "maximumRating");
         coder.encodeObject(self.tagHistory, forKey: "tagHistory");
+        coder.encodeObject(self.downloadedPosts, forKey: "downloadedPosts");
     }
     
     required convenience init(coder decoder: NSCoder) {
@@ -633,6 +657,10 @@ class BCBooruHost: NSObject, NSCoding {
         
         if((decoder.decodeObjectForKey("tagHistory") as? [String]) != nil) {
             self.tagHistory = decoder.decodeObjectForKey("tagHistory") as! [String]!;
+        }
+        
+        if((decoder.decodeObjectForKey("downloadedPosts") as? [Int]) != nil) {
+            self.downloadedPosts = decoder.decodeObjectForKey("downloadedPosts") as! [Int]!;
         }
         
         self.utilties = BCBooruUtilities(booru: self);

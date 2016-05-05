@@ -245,6 +245,17 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         }
     }
     
+    func reloadDownloadedIndicators() {
+        for(_, currentItem) in (booruCollectionViewArrayController.arrangedObjects as! [BCBooruCollectionViewItem]).enumerate() {
+            // Set the item's alpha value to 0.5 if it has been downloaded
+            if(mainViewController.currentSelectedSearchingBooru!.hasDownloadedId(currentItem.representedPost!.id)) {
+                currentItem.alphaValue = 0.5;
+            }
+        }
+        
+        booruCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateControllerWithIdentifier("booruCollectionViewItem") as! BCBooruCollectionViewCollectionViewItem;
+    }
+    
     /// When we reach the bottom of the Booru collection view...
     func reachedBottomOfBooruCollectionView() {
         // If the last search of the current searching Booru isnt blank...
@@ -486,6 +497,9 @@ class BCBooruCollectionViewItem: NSObject {
     
     /// Has the image finished loading yet?
     var finishedLoadingImage : Bool = false;
+    
+    /// How opaque this item should be in the grid(Used to represent when you have downloaded something before)
+    var alphaValue : CGFloat = 1;
     
     /// The post this item represents
     var representedPost : BCBooruPost? = nil;

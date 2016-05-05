@@ -280,7 +280,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4B0-q3-Rog" userLabel="Clear History Button">
+                                                        <button toolTip="This clears your tag search history and download history" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4B0-q3-Rog" userLabel="Clear History Button">
                                                             <rect key="frame" x="304" y="10" width="119" height="32"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="107" id="ZDp-rM-JfM"/>

@@ -13,5 +13,7 @@ class BCBooruCollectionViewCollectionViewItem: NSCollectionViewItem {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        // Bind the alpha value
+        self.imageView?.bind("alphaValue", toObject: self, withKeyPath: "representedObject.alphaValue", options: nil);
     }
 }

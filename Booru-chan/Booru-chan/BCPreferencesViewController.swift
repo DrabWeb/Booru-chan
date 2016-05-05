@@ -120,6 +120,9 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
         // Clear the tag history for the current editing Booru
         currentEditingBooruHost.tagHistory = [];
         
+        // Clear the download history for the current editing Booru
+        currentEditingBooruHost.downloadedPosts = [];
+        
         // Update the host's utilties
         currentEditingBooruHost.refreshUtilities();
         

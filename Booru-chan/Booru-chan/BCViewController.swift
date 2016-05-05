@@ -98,6 +98,9 @@ class BCViewController: NSViewController, NSWindowDelegate {
             // Select the last item in titlebarBooruPickerPopupButton
             titlebarBooruPickerPopupButton.selectItemAtIndex(titlebarBooruPickerPopupButton.indexOfItem(titlebarBooruPickerPopupButton.lastItem!));
         }
+        
+        // Update the searching Booru to match the selected popup item
+        updateSelectedSearchingBooru();
     }
     
     /// Saves the given BCBooruCollectionViewItems
@@ -124,7 +127,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                 print("BCViewController: Saving \(items.count) image(s) to \"\(saveDirectory)\"");
                 
                 // For every item to save...
-                for(_, currentSaveItem) in items.enumerate() {
+                for(currentIndex, currentSaveItem) in items.enumerate() {
                     /// The name of the image file
                     var imageFileName : String = (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.imageSaveFormat;
                     
@@ -175,6 +178,15 @@ class BCViewController: NSViewController, NSWindowDelegate {
                             
                             // Print that we saved the image
                             print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
+                            
+                            // Add the ID of this post to the current searching Booru's downloaded posts
+                            self.currentSelectedSearchingBooru?.addIDToDownloadHistory(currentSaveItem.representedPost!.id);
+                            
+                            // If this is the last item to download...
+                            if(currentIndex == items.count - 1) {
+                                // Reload the downloaded indicators for the grid style controller
+                                self.gridStyleController.reloadDownloadedIndicators();
+                            }
                         }
                     }
                     // If we have to download the image...
@@ -198,6 +210,15 @@ class BCViewController: NSViewController, NSWindowDelegate {
                                         
                                         // Print that we saved the image
                                         print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
+                                        
+                                        // Add the ID of this post to the current searching Booru's downloaded posts
+                                        self.currentSelectedSearchingBooru?.addIDToDownloadHistory(currentSaveItem.representedPost!.id);
+                                        
+                                        // If this is the last item to download...
+                                        if(currentIndex == items.count - 1) {
+                                            // Reload the downloaded indicators for the grid style controller
+                                            self.gridStyleController.reloadDownloadedIndicators();
+                                        }
                                     }
                                 }
                             }
