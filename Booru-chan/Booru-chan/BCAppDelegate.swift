@@ -84,7 +84,7 @@ class BCAppDelegate: NSObject, NSApplicationDelegate {
         // If we have any data to load...
         if let data = NSUserDefaults.standardUserDefaults().objectForKey("preferences") as? NSData {
             // Set the preferences object to the loaded object
-            preferences = (NSKeyedUnarchiver.unarchiveObjectWithData(data) as! BCPreferencesObject);
+//            preferences = (NSKeyedUnarchiver.unarchiveObjectWithData(data) as! BCPreferencesObject);
         }
     }
 

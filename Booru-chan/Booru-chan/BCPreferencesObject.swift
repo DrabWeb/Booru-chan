@@ -19,7 +19,7 @@ class BCPreferencesObject: NSObject, NSCoding {
     ];
     
     /// The format for naming saved images
-    var imageSaveFormat : String = "%id% - %tags%";
+    var imageSaveFormat : String = "%id%(%booru%) - %tags%";
     
     func encodeWithCoder(coder: NSCoder) {
         // Encode the preferences

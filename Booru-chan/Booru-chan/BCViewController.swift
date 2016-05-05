@@ -134,6 +134,9 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     // Replace %id% with the image's id
                     imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%id%", withString: String(currentSaveItem.representedPost!.id));
                     
+                    // Replace %booru% with the post's Booru's name
+                    imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%booru%", withString: String(currentSelectedSearchingBooru!.name));
+                    
                     /// Every tag of this post(With spaces in between) put into a string
                     var tagsString : String = "";
                     
