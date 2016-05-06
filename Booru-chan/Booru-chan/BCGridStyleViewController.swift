@@ -197,6 +197,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// An array of all the thumbnail download requests made by searchFinished(Cleared every time searchFor is called)
     var lastThumbnailDownloadRequests : [Request] = [];
     
+    /// Have we already added the no more results item to this search?
+    var addedNoMoreResultsItem : Bool = false;
+    
     /// Called when a search is finished
     func searchFinished(results: [BCBooruPost]) {
         // For every item in the search results...
@@ -249,6 +252,27 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // Show the no search results container
             noSearchResultsContainerView.hidden = false;
         }
+        // If just the results are empty and we havent added the no more results item...
+        else if(results.isEmpty && !addedNoMoreResultsItem) {
+            // Add the no more results item to the end of the Booru collection view
+            /// The item to show the no more results item
+            let item: BCBooruCollectionViewItem = BCBooruCollectionViewItem();
+            
+            // Set the item's post to a blank post
+            item.representedPost = BCBooruPost();
+            
+            // Say the image has been loaded so it doesnt waste anything trying to load nothing
+            item.finishedLoadingImage = true;
+            
+            // Set the item's thumbnail image to the no more results image
+            item.thumbnailImage = NSImage(named: "No More Results")!;
+            
+            // Add the item to the Booru collection view
+            self.booruCollectionViewArrayController.addObject(item);
+            
+            // Say we added the no more results item
+            addedNoMoreResultsItem = true;
+        }
         
         // Reload the downloaded indicators
         reloadDownloadedIndicators();
@@ -293,6 +317,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         
         // Clear the Booru collection view
         booruCollectionViewArrayController.removeObjects(booruCollectionViewArrayController.arrangedObjects as! [AnyObject]);
+        
+        // Say we havent added the no more results item
+        addedNoMoreResultsItem = false;
         
         // Clear the full size image view
         largeImageView.image = NSImage();

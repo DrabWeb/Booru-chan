@@ -45,6 +45,9 @@ class BCBooruUtilities {
         // Depending on which Booru API we are using...
         if(type == .Moebooru) {
             // baseUrl/tag.json?name=search
+            // Print what URL we are using
+            print("BCBooruUtilities: Using URL \((baseUrl + "/tag.json?name=" + search + "&limit=0")) to search for tags");
+            
             // Make the request to get the tags
             request = Alamofire.request(.GET, (baseUrl + "/tag.json?name=" + search + "&limit=0").stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
@@ -68,6 +71,9 @@ class BCBooruUtilities {
         }
         else if(type == .Danbooru || type == .DanbooruLegacy) {
             /// baseUrl/tags.json?search[name_matches]=search
+            // Print what URL we are using
+            print("BCBooruUtilities: Using URL \((baseUrl + "/tags.json?search[name_matches]=" + search + "&limit=1000")) to search for tags");
+            
             // Make the request to get the tags(It seems Danbooru has a tag request limit of 1000(Using 0 gives you none), so I use 1000 here)
             request = Alamofire.request(.GET, (baseUrl + "/tags.json?search[name_matches]=" + search + "&limit=1000").stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
