@@ -21,6 +21,9 @@ class BCGridStyleTagListTableViewController: NSObject {
     /// The table view for displaying the tags on the current selected posts
     @IBOutlet weak var tagsTableView: NSTableView!
     
+    /// The last post passed to displayTagsFromPost
+    var lastDisplayedPost : BCBooruPost = BCBooruPost();
+    
     /// Displays the tags from the given post in the tags table view
     func displayTagsFromPost(post: BCBooruPost) {
         // Clear all the current items
@@ -43,6 +46,15 @@ class BCGridStyleTagListTableViewController: NSObject {
         
         // Reload the tags table view
         tagsTableView.reloadData();
+        
+        // If we arent just refreshing the tag list...
+        if(lastDisplayedPost.url != post.url) {
+            // Scroll to the top of the tag list
+            tagsTableView.scrollRowToVisible(0);
+        }
+        
+        // Set lastDisplayedPost to post
+        lastDisplayedPost = post;
     }
     
     /// Called when the user presses a checkbox in the tag list

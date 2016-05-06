@@ -16,26 +16,42 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
     /// The Booru to use to get the autocompletion suggestions
     var tokenBooru : BCBooruHost? = nil;
     
+    /// The object to perform tokensChangedAction
+    var tokensChangedTarget : AnyObject? = nil;
+    
+    /// The selector to call when tokens are added/removed
+    var tokensChangedAction : Selector? = nil;
+    
     /// The last tags that were downloaded from searching
     var lastDownloadedTags : [String] = [];
     
     /// The last search that triggered a tag download
     var lastDownloadSearch : String = "";
     
-    /// The last request that was made to download tag suggestions
-    var lastDownloadRequest : Request? = nil;
+    /// Used for checking when the user has deleted a token
+    var lastTokens : [String] = [];
     
     override func textDidChange(notification: NSNotification) {
         super.textDidChange(notification);
         
-        // If the current token is blank or the last character in the string is a comma...
-        if(self.tokens.last == "" || self.stringValue.substringFromIndex(self.stringValue.endIndex.predecessor()) == ",") {
-            // Empty lastDownloadedTags
-            lastDownloadedTags = [];
-            
-            // Stop the last tag suggestion download request
-            lastDownloadRequest?.cancel();
+        // If we have more tokens than last time...
+        if(self.tokens.count < lastTokens.count || self.tokens.count > lastTokens.count) {
+            // If tokensChangedTarget and tokensChangedAction arent nil...
+            if(tokensChangedTarget != nil && tokensChangedAction != nil) {
+                // Call the tokens changed action
+                tokensChangedTarget!.performSelector(tokensChangedAction!);
+            }
         }
+        // If it says we have one token and stringValue is empty...
+        else if(self.tokens.count == lastTokens.count && self.stringValue == "") {
+            // If tokensChangedTarget and tokensChangedAction arent nil...
+            if(tokensChangedTarget != nil && tokensChangedAction != nil) {
+                // Call the tokens changed action
+                tokensChangedTarget!.performSelector(tokensChangedAction!);
+            }
+        }
+        
+        lastTokens = self.tokens;
     }
     
     func tokenField(tokenField: NSTokenField, readFromPasteboard pboard: NSPasteboard) -> [AnyObject]? {
@@ -73,6 +89,12 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         // Empty lastDownloadedTags
         lastDownloadedTags = [];
         
+        // If tokensChangedTarget and tokensChangedAction arent nil...
+        if(tokensChangedTarget != nil && tokensChangedAction != nil) {
+            // Call the tokens changed action
+            tokensChangedTarget!.performSelector(tokensChangedAction!);
+        }
+        
         // Return the given tokens
         return tokens;
     }
@@ -106,7 +128,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
                 // If there isnt a cache file for this search...
                 else {
                     // Search for any tags with the current substring as a prefix
-                    lastDownloadRequest = tokenBooru?.utilties.getTagsMatchingSearch(substring + "*", completionHandler: finishedDownloadingTags);
+                    tokenBooru?.utilties.getTagsMatchingSearch(substring + "*", completionHandler: finishedDownloadingTags);
                 }
                 
                 // Set lastDownloadSearch
@@ -152,26 +174,23 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         
         // If the tags arent empty...
         if(tags != []) {
-            // If the first letter in the first element of tags is equal to the last download search(This is for safety in case another download finishes before the one we want and caches results under the wrong file, breaking those results until the cache is wiped)...
-            if(tags[0].substringToIndex(tags[0].startIndex.successor()) == lastDownloadSearch) {
-                // Cache the tag results
-                /// The JSON to hold the results
-                var tagsJson : JSON = JSON(["results":[]]);
+            // Cache the tag results
+            /// The JSON to hold the results
+            var tagsJson : JSON = JSON(["results":[]]);
+            
+            // Set the results value
+            tagsJson["results"].arrayObject = tags;
+            
+            do {
+                // Print where we are saving the JSON
+                Swift.print("BCBooruSearchTokenField: Writing search cache to \"\((tokenBooru?.cacheFolderPath)! + tags[0].substringToIndex(tags[0].startIndex.successor()) + ".json"))\"");
                 
-                // Set the results value
-                tagsJson["results"].arrayObject = tags;
-                
-                do {
-                    // Print where we are saving the JSON
-                    Swift.print("BCBooruSearchTokenField: Writing search cache to \"\((tokenBooru?.cacheFolderPath)! + lastDownloadSearch + ".json"))\"");
-                    
-                    // Write the JSON to a JSON file in the Token Booru's cache folder
-                    try String(tagsJson).writeToFile((tokenBooru?.cacheFolderPath)! + lastDownloadSearch + ".json", atomically: true, encoding: NSUTF8StringEncoding);
-                }
-                catch let error as NSError {
-                    // Print the error
-                    Swift.print("BCBooruSearchTokenField: Failed to write JSON cache file, \(error.description)");
-                }
+                // Write the JSON to a JSON file in the Token Booru's cache folder(With the name of the first character in the first item of tags)
+                try String(tagsJson).writeToFile((tokenBooru?.cacheFolderPath)! + tags[0].substringToIndex(tags[0].startIndex.successor()) + ".json", atomically: true, encoding: NSUTF8StringEncoding);
+            }
+            catch let error as NSError {
+                // Print the error
+                Swift.print("BCBooruSearchTokenField: Failed to write JSON cache file, \(error.description)");
             }
         }
     }

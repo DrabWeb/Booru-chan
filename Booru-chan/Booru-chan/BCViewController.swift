@@ -69,11 +69,21 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // Add the preferences updated observer
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("preferencesUpdated"), name: "BCPreferences.Updated", object: nil);
         
+        // Set the target and action for the titlebar search field's tokens changed event
+        titlebarSearchField.tokensChangedTarget = self;
+        titlebarSearchField.tokensChangedAction = Selector("searchTokensChanged");
+        
         // Initialize everything
         gridStyleController.initialize();
         
         // Update the Booru picker popup button
         updateBooruPickerPopupButton();
+    }
+    
+    /// Called when the tokens from titlebarSearchField change
+    func searchTokensChanged() {
+        // Update the tag display list
+        gridStyleController.tagListController.displayTagsFromPost(gridStyleController.tagListController.lastDisplayedPost);
     }
     
     /// Called when the preferences are updated
