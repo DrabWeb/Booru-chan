@@ -39,3 +39,17 @@ extension NSTokenField {
         self.stringValue = self.stringValue.stringByReplacingOccurrencesOfString(token, withString: "");
     }
 }
+
+extension NSImage {
+    /// Saves this image to the given path with the given file type
+    func saveTo(filePath : String, fileType : NSBitmapImageFileType) {
+        // If the bitmap representation isnt nil...
+        if let imageRepresentation = self.representations[0] as? NSBitmapImageRep {
+            // If the data using the given file type isnt nil...
+            if let data = imageRepresentation.representationUsingType(fileType, properties: [:]) {
+                // Write the data to the specified file
+                data.writeToFile(filePath, atomically: false);
+            }
+        }
+    }
+}

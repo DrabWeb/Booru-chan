@@ -184,7 +184,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                         // Save the image to disk, asynchronously
                         dispatch_async(dispatch_get_main_queue()) {
                             // Write the image to the chosen directory with the generated file name
-                            currentSaveItem.image.TIFFRepresentation?.writeToFile(saveDirectory + imageFileName, atomically: true);
+                            currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
                             
                             // Print that we saved the image
                             print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
@@ -216,7 +216,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                                     // Dispatch onto the main queue
                                     dispatch_async(dispatch_get_main_queue()) {
                                         // Write the image to the chosen directory with the generated file name
-                                        currentSaveItem.image.TIFFRepresentation?.writeToFile(saveDirectory + imageFileName, atomically: true);
+                                        currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
                                         
                                         // Print that we saved the image
                                         print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");

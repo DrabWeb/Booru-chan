@@ -29,6 +29,7 @@
 		5DAD29371CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD29361CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift */; };
 		5DAD293A1CCD68CB00C3C747 /* BCRasterizedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD29381CCD68CB00C3C747 /* BCRasterizedViews.swift */; };
 		5DAD293D1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD293C1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift */; };
+		5DAF1A5B1CDD23480090D654 /* BCImageUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAF1A5A1CDD23480090D654 /* BCImageUtilities.swift */; };
 		5DBB0A061CDBF427007B383B /* BCBooruCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBB0A051CDBF427007B383B /* BCBooruCollectionView.swift */; };
 		5DBDDD121CD910C00086E61D /* BCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBDDD111CD910C00086E61D /* BCExtensions.swift */; };
 /* End PBXBuildFile section */
@@ -79,6 +80,7 @@
 		5DAD29361CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruCollectionViewCollectionViewItem.swift; sourceTree = "<group>"; };
 		5DAD29381CCD68CB00C3C747 /* BCRasterizedViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCRasterizedViews.swift; sourceTree = "<group>"; };
 		5DAD293C1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruCollectionViewSelectionBox.swift; sourceTree = "<group>"; };
+		5DAF1A5A1CDD23480090D654 /* BCImageUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCImageUtilities.swift; sourceTree = "<group>"; };
 		5DBB0A051CDBF427007B383B /* BCBooruCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruCollectionView.swift; sourceTree = "<group>"; };
 		5DBDDD111CD910C00086E61D /* BCExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCExtensions.swift; sourceTree = "<group>"; };
 		63DDEBE3407D49F095EA58A7 /* Pods_Booru_chan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -212,6 +214,7 @@
 			children = (
 				5D88CC0E1CCC133B001FF12E /* BCBooru.swift */,
 				5DBDDD111CD910C00086E61D /* BCExtensions.swift */,
+				5DAF1A5A1CDD23480090D654 /* BCImageUtilities.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D71B4981CCC06EA0011C281 /* BCViewController.swift in Sources */,
+				5DAF1A5B1CDD23480090D654 /* BCImageUtilities.swift in Sources */,
 				5DAD29371CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift in Sources */,
 				5D3288351CCE95710029A57F /* BCPreferencesObject.swift in Sources */,
 				5D71B4961CCC06EA0011C281 /* BCAppDelegate.swift in Sources */,

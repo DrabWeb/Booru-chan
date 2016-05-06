@@ -41,6 +41,9 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
                 // Call the tokens changed action
                 tokensChangedTarget!.performSelector(tokensChangedAction!);
             }
+            
+            // Empty lastDownloadedTags
+            lastDownloadedTags = [];
         }
         // If it says we have one token and stringValue is empty...
         else if(self.tokens.count == lastTokens.count && self.stringValue == "") {
@@ -49,6 +52,9 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
                 // Call the tokens changed action
                 tokensChangedTarget!.performSelector(tokensChangedAction!);
             }
+            
+            // Empty lastDownloadedTags
+            lastDownloadedTags = [];
         }
         
         lastTokens = self.tokens;
@@ -106,8 +112,8 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         // Make sure the Token Booru's cache folder exists
         tokenBooru?.createCacheFolder();
         
-        // If we typed in one character and its not a space...
-        if(substring.characters.count == 1 && substring != " ") {
+        // If we typed in one character and its not a space or blank...
+        if(substring.characters.count == 1 && substring != " " && substring != "") {
             // If lastDownloadedTags is empty...
             if(lastDownloadedTags == []) {
                 // If there is already a cache file for this search...
