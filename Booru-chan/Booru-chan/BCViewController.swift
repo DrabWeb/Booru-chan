@@ -98,9 +98,6 @@ class BCViewController: NSViewController, NSWindowDelegate {
             // Select the last item in titlebarBooruPickerPopupButton
             titlebarBooruPickerPopupButton.selectItemAtIndex(titlebarBooruPickerPopupButton.indexOfItem(titlebarBooruPickerPopupButton.lastItem!));
         }
-        
-        // Update the searching Booru to match the selected popup item
-        updateSelectedSearchingBooru();
     }
     
     /// Saves the given BCBooruCollectionViewItems

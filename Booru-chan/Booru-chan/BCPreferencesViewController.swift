@@ -229,11 +229,11 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
             booruRemoveButton.enabled = true;
         }
         
+        // Print that we are posting the notification
+        print("BCPreferencesViewController: Posting the preferences updated notification");
+        
         // Post the notification
         NSNotificationCenter.defaultCenter().postNotificationName("BCPreferences.Updated", object: nil);
-        
-        // Print that we posted the notification
-        print("BCPreferencesViewController: Posted preferences updated notification");
     }
     
     func windowDidResignKey(notification: NSNotification) {
