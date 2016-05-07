@@ -357,6 +357,9 @@ class BCBooruUtilities {
             
             post?.tags = json!["tags"].stringValue.componentsSeparatedByString(" ");
             
+            // Filter out any possibly empty tags from the tags
+            post?.tags = post!.tags.filter({$0 != ""});
+            
             post?.id = json!["id"].intValue;
             
             post?.url = self.baseUrl + "/post/show/\(post!.id)";
@@ -398,6 +401,9 @@ class BCBooruUtilities {
                 post?.tags.removeLast();
             }
             
+            // Filter out any possibly empty tags from the tags
+            post?.tags = post!.tags.filter({$0 != ""});
+            
             post?.id = json!["id"].intValue;
             
             post?.url = self.baseUrl + "/posts/\(post!.id)";
@@ -434,6 +440,9 @@ class BCBooruUtilities {
             post?.tags.appendContentsOf(json!["tag_string_character"].stringValue.componentsSeparatedByString(" "));
             post?.tags.appendContentsOf(json!["tag_string_copyright"].stringValue.componentsSeparatedByString(" "));
             post?.tags.appendContentsOf(json!["tag_string_general"].stringValue.componentsSeparatedByString(" "));
+            
+            // Filter out any possibly empty tags from the tags
+            post?.tags = post!.tags.filter({$0 != ""});
             
             post?.id = json!["id"].intValue;
             
@@ -474,6 +483,9 @@ class BCBooruUtilities {
             if(post?.tags[(post?.tags.count)! - 1] == "") {
                 post?.tags.removeLast();
             }
+            
+            // Filter out any possibly empty tags from the tags
+            post?.tags = post!.tags.filter({$0 != ""});
             
             post?.id = NSString(string: xml!.element!.attributes["id"]!).integerValue;
             
