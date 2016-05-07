@@ -17,6 +17,15 @@ class BCAppDelegate: NSObject, NSApplicationDelegate {
     /// File/Save Selected Images (⌘S)
     @IBOutlet weak var menuItemSaveSelectedImages: NSMenuItem!
     
+    /// Image/Zoom In (⌘=)
+    @IBOutlet weak var menuItemZoomIn: NSMenuItem!
+    
+    /// Image/Zoom Out (⌘-)
+    @IBOutlet weak var menuItemZoomOut: NSMenuItem!
+    
+    /// Image/Reset Zoom (⌘0)
+    @IBOutlet weak var menuItemResetZoom: NSMenuItem!
+    
     /// Window/Toggle Titlebar (⌘⌥T)
     @IBOutlet weak var menuItemToggleTitlebar: NSMenuItem!
     

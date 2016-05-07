@@ -59,6 +59,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// The container view for largeImageView
     @IBOutlet weak var largeImageViewContainer: NSView!
     
+    /// The scroll view for largeImageView
+    @IBOutlet weak var largeImageViewScrollView: NSScrollView!
+    
     /// The image view on the right for displaying the current selected image in full size
     @IBOutlet weak var largeImageView: NSImageView!
     
@@ -78,6 +81,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         
         // If postItem isnt nil...
         if(postItem != nil) {
+            // Reset the zoom on the large image view
+            resetZoom(false);
+            
             // If we havent already loaded the thumbnail...
             if(postItem!.thumbnailImage.size == NSSize.zero) {
                 // Download the post item's thumbnail image
@@ -177,6 +183,37 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // Display a blank item in the tag list(So it just clears the table view)
             tagListController.displayTagsFromPost(BCBooruPost());
         }
+    }
+    
+    /// Zooms in on the large image view
+    func zoomIn() {
+        // Zoom in
+        largeImageViewScrollView.magnification += 0.5;
+    }
+    
+    /// Zooms out of the large image view
+    func zoomOut() {
+        // Zoom out
+        largeImageViewScrollView.magnification -= 0.5;
+    }
+    
+    /// Resets the zoom on the large image view(Animates if animate is true)
+    func resetZoom(animate : Bool) {
+        // If we said to animate...
+        if(animate) {
+            // Reset the zoom with the animation
+            largeImageViewScrollView.animator().magnification = 0;
+        }
+        // If we said not to animate...
+        else {
+            // Reset the zoom without the animation
+            largeImageViewScrollView.magnification = 0;
+        }
+    }
+    
+    /// Calls resetZoom(true)
+    func resetZoomWithAnimation() {
+        resetZoom(true);
     }
     
     /// Returns the selected BCBooruCollectionViewItems from the Booru collection view
@@ -476,11 +513,17 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemTogglePostBrowser.target = self;
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleInfoBar.target = self;
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTagList.target = self;
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemZoomIn.target = self;
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemZoomOut.target = self;
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemResetZoom.target = self;
         
         // Set the actions
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemTogglePostBrowser.action = Selector("toggleBooruCollectionView");
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleInfoBar.action = Selector("toggleInfoBar");
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTagList.action = Selector("toggleTagList");
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemZoomIn.action = Selector("zoomIn");
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemZoomOut.action = Selector("zoomOut");
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemResetZoom.action = Selector("resetZoomWithAnimation");
     }
     
     func initialize() {

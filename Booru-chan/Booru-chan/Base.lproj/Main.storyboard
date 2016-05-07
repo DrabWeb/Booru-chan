@@ -545,9 +545,15 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="View" id="H8h-7b-M4v">
+                            <menuItem title="Image" id="AXS-Ed-5GX" userLabel="Image">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="View" id="HyV-fh-RgO"/>
+                                <menu key="submenu" title="Image" id="9Ce-yT-tbC">
+                                    <items>
+                                        <menuItem title="Zoom In" keyEquivalent="=" id="AlW-cq-7t3"/>
+                                        <menuItem title="Zoom Out" keyEquivalent="-" id="KUu-XZ-gbj"/>
+                                        <menuItem title="Reset Zoom" keyEquivalent="0" id="f9y-iU-uVu"/>
+                                    </items>
+                                </menu>
                             </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -610,6 +616,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="BCAppDelegate" customModule="Booru_chan" customModuleProvider="target">
                     <connections>
+                        <outlet property="menuItemResetZoom" destination="f9y-iU-uVu" id="E24-Kl-DLl"/>
                         <outlet property="menuItemSaveSelectedImages" destination="BHx-14-SHv" id="4c4-Hp-LZr"/>
                         <outlet property="menuItemSelectPostBrowser" destination="OuU-Ru-VLE" id="3sY-SF-IjS"/>
                         <outlet property="menuItemSelectSearchField" destination="QhB-jc-3vW" id="Yii-VM-cSn"/>
@@ -617,6 +624,8 @@
                         <outlet property="menuItemTogglePostBrowser" destination="D1L-8u-R3F" id="mJ1-wX-0Vf"/>
                         <outlet property="menuItemToggleTagList" destination="TgK-Jw-Z48" id="6DJ-xc-IcW"/>
                         <outlet property="menuItemToggleTitlebar" destination="ZMD-8W-SMq" id="nUf-jP-DBK"/>
+                        <outlet property="menuItemZoomIn" destination="AlW-cq-7t3" id="0I8-lP-X9f"/>
+                        <outlet property="menuItemZoomOut" destination="KUu-XZ-gbj" id="iEP-jp-6sf"/>
                     </connections>
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -874,19 +883,53 @@
                                                 <rect key="frame" x="308" y="0.0" width="292" height="400"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <imageView horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="lqI-W3-QlG">
+                                                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="10" minMagnification="1" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yn8-zo-XEH" userLabel="Scroll View - Large Image View">
                                                         <rect key="frame" x="0.0" y="0.0" width="292" height="363"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="el3-yM-HKI"/>
-                                                        </constraints>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="kS9-hL-miy"/>
-                                                    </imageView>
+                                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="arB-mM-dOD">
+                                                            <rect key="frame" x="0.0" y="0.0" width="292" height="363"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <view translatesAutoresizingMaskIntoConstraints="NO" id="phK-g9-C7b">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="292" height="363"/>
+                                                                    <subviews>
+                                                                        <imageView horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="lqI-W3-QlG">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="292" height="363"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="dVl-b1-Pr8"/>
+                                                                            </constraints>
+                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="kS9-hL-miy"/>
+                                                                        </imageView>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="bottom" secondItem="lqI-W3-QlG" secondAttribute="bottom" id="Ok4-Ku-rUR"/>
+                                                                        <constraint firstItem="lqI-W3-QlG" firstAttribute="top" secondItem="phK-g9-C7b" secondAttribute="top" id="bRs-vP-rFF"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="lqI-W3-QlG" secondAttribute="trailing" id="lng-uZ-juN"/>
+                                                                        <constraint firstItem="lqI-W3-QlG" firstAttribute="leading" secondItem="phK-g9-C7b" secondAttribute="leading" id="qM2-9y-XsK"/>
+                                                                    </constraints>
+                                                                </view>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="phK-g9-C7b" firstAttribute="top" secondItem="arB-mM-dOD" secondAttribute="top" id="7pS-Aa-zUk"/>
+                                                                <constraint firstAttribute="bottom" secondItem="phK-g9-C7b" secondAttribute="bottom" id="PT3-ed-g5e"/>
+                                                                <constraint firstItem="phK-g9-C7b" firstAttribute="leading" secondItem="arB-mM-dOD" secondAttribute="leading" id="bdx-ep-wuE"/>
+                                                                <constraint firstAttribute="trailing" secondItem="phK-g9-C7b" secondAttribute="trailing" id="oOf-0E-u3X"/>
+                                                            </constraints>
+                                                        </clipView>
+                                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="MrX-au-vND">
+                                                            <rect key="frame" x="0.0" y="347" width="292" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
+                                                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="ZrN-SC-BsJ">
+                                                            <rect key="frame" x="276" y="0.0" width="16" height="363"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
+                                                    </scrollView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="lqI-W3-QlG" firstAttribute="top" secondItem="wbo-Zk-nDv" secondAttribute="top" constant="37" id="6au-LJ-nXK"/>
-                                                    <constraint firstAttribute="trailing" secondItem="lqI-W3-QlG" secondAttribute="trailing" id="D31-yE-7Zz"/>
-                                                    <constraint firstAttribute="bottom" secondItem="lqI-W3-QlG" secondAttribute="bottom" id="kct-Mg-38D"/>
-                                                    <constraint firstItem="lqI-W3-QlG" firstAttribute="leading" secondItem="wbo-Zk-nDv" secondAttribute="leading" id="x31-FQ-9sG"/>
+                                                    <constraint firstAttribute="trailing" secondItem="yn8-zo-XEH" secondAttribute="trailing" id="0BW-jW-dDH"/>
+                                                    <constraint firstItem="yn8-zo-XEH" firstAttribute="top" secondItem="wbo-Zk-nDv" secondAttribute="top" constant="37" id="DuH-6f-sq6"/>
+                                                    <constraint firstAttribute="bottom" secondItem="yn8-zo-XEH" secondAttribute="bottom" id="KjB-eb-IKE"/>
+                                                    <constraint firstItem="yn8-zo-XEH" firstAttribute="leading" secondItem="wbo-Zk-nDv" secondAttribute="leading" id="Rbv-KZ-PbC"/>
                                                 </constraints>
                                             </customView>
                                         </subviews>
@@ -1015,7 +1058,8 @@
                         <outlet property="infoBarVisualEffectView" destination="y2Y-rw-rfC" id="WMg-n6-sXq"/>
                         <outlet property="largeImageView" destination="lqI-W3-QlG" id="faD-qQ-gLr"/>
                         <outlet property="largeImageViewContainer" destination="wbo-Zk-nDv" id="ty7-Sa-D3K"/>
-                        <outlet property="largeImageViewTopConstraint" destination="6au-LJ-nXK" id="BqZ-19-zsH"/>
+                        <outlet property="largeImageViewScrollView" destination="yn8-zo-XEH" id="Qyj-GE-zLc"/>
+                        <outlet property="largeImageViewTopConstraint" destination="DuH-6f-sq6" id="ax9-NZ-zMy"/>
                         <outlet property="leftSplitView" destination="yLl-h0-mSF" id="ODA-Jg-DcU"/>
                         <outlet property="mainSplitView" destination="xcD-Vz-nhG" id="HoU-jI-QCZ"/>
                         <outlet property="mainViewController" destination="XfG-lQ-9wD" id="Fag-Sp-oGV"/>
