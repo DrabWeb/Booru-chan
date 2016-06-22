@@ -3,7 +3,6 @@
 //  Booru-chan
 //
 //  Created by Seth on 2016-05-03.
-//  Copyright © 2016 DrabWeb. All rights reserved.
 //
 
 import Cocoa

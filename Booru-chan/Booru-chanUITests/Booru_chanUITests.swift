@@ -3,7 +3,6 @@
 //  Booru-chanUITests
 //
 //  Created by Seth on 2016-04-23.
-//  Copyright © 2016 DrabWeb. All rights reserved.
 //
 
 import XCTest
