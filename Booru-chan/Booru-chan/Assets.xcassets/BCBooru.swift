@@ -209,10 +209,10 @@ class BCBooruUtilities {
         }
         else if(type == .Gelbooru) {
             // Print what URL we are querying
-            print("BCBooruUtilities: Using URL \"\((baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + ratingLimitString + ratingLimitString + "&pid=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
+            print("BCBooruUtilities: Using URL \"\((baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + ratingLimitString + ratingLimitString + "&pid=" + String(page - 1) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
             
             // Make the get request to the Booru with the search string and rating limit...
-            request = Alamofire.request(.GET, (baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + ratingLimitString + "&pid=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, (baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + ratingLimitString + "&pid=" + String(page - 1) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
