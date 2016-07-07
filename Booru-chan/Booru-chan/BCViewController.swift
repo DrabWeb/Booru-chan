@@ -398,12 +398,6 @@ class BCViewController: NSViewController, NSWindowDelegate {
     /// Sets up the menu items for this controller
     func setupMenuItems() {
         // Setup the menu items
-        // Set the targets
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSaveSelectedImages.target = self;
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTitlebar.target = self;
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSelectSearchField.target = self;
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSelectPostBrowser.target = self;
-        
         // Set the actions
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSaveSelectedImages.action = Selector("saveSelectedImages");
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTitlebar.action = Selector("toggleTitlebar");
