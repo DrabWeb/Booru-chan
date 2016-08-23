@@ -134,7 +134,7 @@ class BCBooruUtilities {
         // Depending on which Booru API we are using...
         if(type == .Moebooru) {
             /// The URL to make the search request to
-            var requestUrl : String = (baseUrl + "/post.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20");
+            var requestUrl : String = (baseUrl + "/post.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit));
             
             // Encode special characters in the request URL
             requestUrl = requestUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!;
@@ -165,7 +165,7 @@ class BCBooruUtilities {
         }
         else if(type == .DanbooruLegacy) {
             /// The URL to make the search request to
-            var requestUrl : String = (baseUrl + "/post/index.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20");
+            var requestUrl : String = (baseUrl + "/post/index.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit));
             
             // Encode special characters in the request URL
             requestUrl = requestUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!;
@@ -196,7 +196,7 @@ class BCBooruUtilities {
         }
         else if(type == .Danbooru) {
             /// The URL to make the search request to
-            var requestUrl : String = (baseUrl + "/posts.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20");
+            var requestUrl : String = (baseUrl + "/posts.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit));
             
             // Encode special characters in the request URL
             requestUrl = requestUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!;
@@ -227,7 +227,7 @@ class BCBooruUtilities {
         }
         else if(type == .Gelbooru) {
             /// The URL to make the search request to
-            var requestUrl : String = (baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + ratingLimitString + ratingLimitString + "&pid=" + String(page - 1) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20");
+            var requestUrl : String = (baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + ratingLimitString + ratingLimitString + "&pid=" + String(page - 1) + "&limit=" + String(limit));
             
             // Encode special characters in the request URL
             requestUrl = requestUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!;
