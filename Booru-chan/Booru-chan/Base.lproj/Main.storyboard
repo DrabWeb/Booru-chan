@@ -505,6 +505,10 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Save Selected Images" keyEquivalent="s" id="BHx-14-SHv"/>
+                                        <menuItem isSeparatorItem="YES" id="PiA-mG-5PH"/>
+                                        <menuItem title="Open Selected Posts In Browser" keyEquivalent="o" id="fvh-hQ-1hD"/>
+                                        <menuItem title="Copy URLs of Selected Posts" keyEquivalent="C" id="hRr-pn-fLj"/>
+                                        <menuItem title="Copy Image URLs of Selected Posts" keyEquivalent="c" id="N4M-Fe-uaM"/>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -617,6 +621,9 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="BCAppDelegate" customModule="Booru_chan" customModuleProvider="target">
                     <connections>
+                        <outlet property="menuItemCopyImageUrlsOfSelectedPosts" destination="N4M-Fe-uaM" id="Upt-zn-bdA"/>
+                        <outlet property="menuItemCopyUrlsOfSelectedPosts" destination="hRr-pn-fLj" id="Pa1-ep-JYT"/>
+                        <outlet property="menuItemOpenSelectedPostsInBrowser" destination="fvh-hQ-1hD" id="Db4-4P-env"/>
                         <outlet property="menuItemResetZoom" destination="f9y-iU-uVu" id="E24-Kl-DLl"/>
                         <outlet property="menuItemSaveSelectedImages" destination="BHx-14-SHv" id="4c4-Hp-LZr"/>
                         <outlet property="menuItemSelectPostBrowser" destination="OuU-Ru-VLE" id="3sY-SF-IjS"/>
@@ -921,7 +928,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="ZrN-SC-BsJ">
-                                                            <rect key="frame" x="277" y="0.0" width="15" height="363"/>
+                                                            <rect key="frame" x="276" y="0.0" width="16" height="363"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                     </scrollView>

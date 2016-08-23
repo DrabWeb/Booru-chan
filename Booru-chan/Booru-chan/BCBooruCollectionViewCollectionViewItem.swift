@@ -9,6 +9,16 @@ import Cocoa
 
 class BCBooruCollectionViewCollectionViewItem: NSCollectionViewItem {
     
+    /// Returns the URL to this post
+    var getUrl : String {
+        return (self.representedObject as! BCBooruCollectionViewItem).representedPost!.url;
+    }
+    
+    /// Returns the URL to this post's image
+    var getImageUrl : String {
+        return (self.representedObject as! BCBooruCollectionViewItem).representedPost!.imageUrl;
+    }
+    
     override func rightMouseDown(theEvent: NSEvent) {
         /// The menu to show when the user right clicks this item
         let menu : NSMenu = NSMenu();
@@ -31,7 +41,7 @@ class BCBooruCollectionViewCollectionViewItem: NSCollectionViewItem {
     /// Opens this post in the browser
     func openInBrowser() {
         // Open this item's post's URL in the browser
-        NSWorkspace.sharedWorkspace().openURL(NSURL(string: (self.representedObject as! BCBooruCollectionViewItem).representedPost!.url)!);
+        NSWorkspace.sharedWorkspace().openURL(NSURL(string: getUrl)!);
     }
     
     /// Copys the URL of this post to the clipboard
@@ -40,7 +50,7 @@ class BCBooruCollectionViewCollectionViewItem: NSCollectionViewItem {
         NSPasteboard.generalPasteboard().declareTypes([NSStringPboardType], owner: nil);
         
         // Set the string of the general pasteboard to this item's post's URL
-        NSPasteboard.generalPasteboard().setString((self.representedObject as! BCBooruCollectionViewItem).representedPost!.url, forType: NSStringPboardType);
+        NSPasteboard.generalPasteboard().setString(getUrl, forType: NSStringPboardType);
     }
     
     /// Copys the URL of this post to the clipboard
@@ -49,7 +59,7 @@ class BCBooruCollectionViewCollectionViewItem: NSCollectionViewItem {
         NSPasteboard.generalPasteboard().declareTypes([NSStringPboardType], owner: nil);
         
         // Set the string of the general pasteboard to this item's post's image's URL
-        NSPasteboard.generalPasteboard().setString((self.representedObject as! BCBooruCollectionViewItem).representedPost!.imageUrl, forType: NSStringPboardType);
+        NSPasteboard.generalPasteboard().setString(getImageUrl, forType: NSStringPboardType);
     }
     
     override func viewDidLoad() {

@@ -16,6 +16,15 @@ class BCAppDelegate: NSObject, NSApplicationDelegate {
     /// File/Save Selected Images (⌘S)
     @IBOutlet weak var menuItemSaveSelectedImages: NSMenuItem!
     
+    /// File/Open Selected Posts In Browser
+    @IBOutlet weak var menuItemOpenSelectedPostsInBrowser: NSMenuItem!
+    
+    /// File/Copy URLs of Selected Posts
+    @IBOutlet weak var menuItemCopyUrlsOfSelectedPosts: NSMenuItem!
+    
+    /// File/Copy Image URLs of Selected Posts (⌘C)
+    @IBOutlet weak var menuItemCopyImageUrlsOfSelectedPosts: NSMenuItem!
+    
     /// Image/Zoom In (⌘=)
     @IBOutlet weak var menuItemZoomIn: NSMenuItem!
     

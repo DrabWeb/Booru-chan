@@ -249,6 +249,69 @@ class BCViewController: NSViewController, NSWindowDelegate {
         saveBooruItems(gridStyleController.getSelectedBooruItems());
     }
     
+    /// Opens the selected posts in the browser
+    func openSelectedPostsInBrowser() {
+        // For every selected post...
+        for(_, currentSelectedPost) in gridStyleController.getSelectedBooruItems().enumerate() {
+            // Open the selected post in the browser
+            NSWorkspace.sharedWorkspace().openURL(NSURL(string: currentSelectedPost.representedPost!.url)!);
+        }
+    }
+    
+    /// Copys the URLs of the selected posts
+    func copyUrlsOfSelectedPosts() {
+        /// The string to copy to the pasteboard
+        var copyString : String = "";
+        
+        // For every selected post...
+        for(currentIndex, currentSelectedPost) in gridStyleController.getSelectedBooruItems().enumerate() {
+            // If this isnt the last item...
+            if(currentIndex != (gridStyleController.getSelectedBooruItems().count - 1)) {
+                // Add the current item's post's URL to the end of copyString, with a trailing new line
+                copyString += currentSelectedPost.representedPost!.url + "\n";
+            }
+            // If ths is the last item...
+            else {
+                // Add the current item's post's URL to the end of copyString
+                copyString += currentSelectedPost.representedPost!.url;
+            }
+        }
+        
+        // Copy copyString
+        // Add the string type to the general pasteboard
+        NSPasteboard.generalPasteboard().declareTypes([NSStringPboardType], owner: nil);
+        
+        // Set the string of the general pasteboard to copyString
+        NSPasteboard.generalPasteboard().setString(copyString, forType: NSStringPboardType);
+    }
+    
+    /// Copys the image URLs of the selected posts
+    func copyImageUrlsOfSelectedPosts() {
+        /// The string to copy to the pasteboard
+        var copyString : String = "";
+        
+        // For every selected post...
+        for(currentIndex, currentSelectedPost) in gridStyleController.getSelectedBooruItems().enumerate() {
+            // If this isnt the last item...
+            if(currentIndex != (gridStyleController.getSelectedBooruItems().count - 1)) {
+                // Add the current item's post's image URL to the end of copyString, with a trailing new line
+                copyString += currentSelectedPost.representedPost!.imageUrl + "\n";
+            }
+                // If ths is the last item...
+            else {
+                // Add the current item's post's image URL to the end of copyString
+                copyString += currentSelectedPost.representedPost!.imageUrl;
+            }
+        }
+        
+        // Copy copyString
+        // Add the string type to the general pasteboard
+        NSPasteboard.generalPasteboard().declareTypes([NSStringPboardType], owner: nil);
+        
+        // Set the string of the general pasteboard to copyString
+        NSPasteboard.generalPasteboard().setString(copyString, forType: NSStringPboardType);
+    }
+    
     /// Updates currentSelectedSearchingBooru to match the selected item in titlebarBooruPickerPopupButton
     func updateSelectedSearchingBooru() {
         // Clear the current searching Booru's last search
@@ -400,6 +463,9 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // Setup the menu items
         // Set the actions
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSaveSelectedImages.action = Selector("saveSelectedImages");
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemOpenSelectedPostsInBrowser.action = Selector("openSelectedPostsInBrowser");
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemCopyUrlsOfSelectedPosts.action = Selector("copyUrlsOfSelectedPosts");
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemCopyImageUrlsOfSelectedPosts.action = Selector("copyImageUrlsOfSelectedPosts");
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTitlebar.action = Selector("toggleTitlebar");
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSelectSearchField.action = Selector("selectSearchField");
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSelectPostBrowser.action = Selector("selectPostBrowser");
