@@ -133,11 +133,17 @@ class BCBooruUtilities {
         // Perform the search and get the results
         // Depending on which Booru API we are using...
         if(type == .Moebooru) {
+            /// The URL to make the search request to
+            var requestUrl : String = (baseUrl + "/post.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20");
+            
+            // Encode special characters in the request URL
+            requestUrl = requestUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!;
+            
             // Print what URL we are querying
-            print("BCBooruUtilities: Using URL \"\((baseUrl + "/post.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
+            print("BCBooruUtilities: Using URL \"\(requestUrl)\" to search");
             
             // Make the get request to the Booru with the search string and rating limit...
-            request = Alamofire.request(.GET, (baseUrl + "/post.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, requestUrl, encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -158,11 +164,17 @@ class BCBooruUtilities {
             }
         }
         else if(type == .DanbooruLegacy) {
+            /// The URL to make the search request to
+            var requestUrl : String = (baseUrl + "/post/index.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20");
+            
+            // Encode special characters in the request URL
+            requestUrl = requestUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!;
+            
             // Print what URL we are querying
-            print("BCBooruUtilities: Using URL \"\((baseUrl + "/post/index.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
+            print("BCBooruUtilities: Using URL \"\(requestUrl)\" to search");
             
             // Make the get request to the Booru with the search string and rating limit...
-            request = Alamofire.request(.GET, (baseUrl + "/post/index.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, requestUrl, encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -183,11 +195,17 @@ class BCBooruUtilities {
             }
         }
         else if(type == .Danbooru) {
+            /// The URL to make the search request to
+            var requestUrl : String = (baseUrl + "/posts.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20");
+            
+            // Encode special characters in the request URL
+            requestUrl = requestUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!;
+            
             // Print what URL we are querying
-            print("BCBooruUtilities: Using URL \"\((baseUrl + "/posts.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
+            print("BCBooruUtilities: Using URL \"\(requestUrl)\" to search");
             
             // Make the get request to the Booru with the search string and rating limit...
-            request = Alamofire.request(.GET, (baseUrl + "/posts.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, requestUrl, encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
@@ -208,11 +226,17 @@ class BCBooruUtilities {
             }
         }
         else if(type == .Gelbooru) {
+            /// The URL to make the search request to
+            var requestUrl : String = (baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + ratingLimitString + ratingLimitString + "&pid=" + String(page - 1) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20");
+            
+            // Encode special characters in the request URL
+            requestUrl = requestUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!;
+            
             // Print what URL we are querying
-            print("BCBooruUtilities: Using URL \"\((baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + ratingLimitString + ratingLimitString + "&pid=" + String(page - 1) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"))\" to search");
+            print("BCBooruUtilities: Using URL \"\(requestUrl)\" to search");
             
             // Make the get request to the Booru with the search string and rating limit...
-            request = Alamofire.request(.GET, (baseUrl + "/index.php?page=dapi&s=post&q=index&tags=" + search + ratingLimitString + "&pid=" + String(page - 1) + "&limit=" + String(limit)).stringByReplacingOccurrencesOfString(" ", withString: "%20"), encoding: .JSON).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(.GET, requestUrl, encoding: .JSON).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: NSUTF8StringEncoding)!;
                 
