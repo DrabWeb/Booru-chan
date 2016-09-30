@@ -162,6 +162,12 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             
             // Update the info label(Only called here in case the download doesnt start)
             infoBarInfoLabel.stringValue = "\(Int(postItem!.representedPost!.imageSize.width))x\(Int(postItem!.representedPost!.imageSize.height))[\(ratingFirstLetter)] 0%";
+            
+            // If the post item's image finished loading...
+            if(postItem!.finishedLoadingImage) {
+                // Update the info label to say 100%
+                infoBarInfoLabel.stringValue = "\(Int(postItem!.representedPost!.imageSize.width))x\(Int(postItem!.representedPost!.imageSize.height))[\(ratingFirstLetter)] 100%";
+            }
         }
         // If postItem is nil...
         else {
