@@ -25,6 +25,12 @@ class BCAppDelegate: NSObject, NSApplicationDelegate {
     /// File/Copy Image URLs of Selected Posts (⌘C)
     @IBOutlet weak var menuItemCopyImageUrlsOfSelectedPosts: NSMenuItem!
     
+    /// File/Copy All Previously Copied Post URLs (⌃⌘C)
+    @IBOutlet weak var menuItemCopyAllPreviouslyCopiedPostUrls: NSMenuItem!
+    
+    /// File/Copy All Previously Copied Image URLs (⌃⇧⌘C)
+    @IBOutlet weak var menuItemCopyAllPreviouslyCopiedImageUrls: NSMenuItem!
+    
     /// Image/Zoom In (⌘=)
     @IBOutlet weak var menuItemZoomIn: NSMenuItem!
     

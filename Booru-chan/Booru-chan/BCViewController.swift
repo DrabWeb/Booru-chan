@@ -53,6 +53,12 @@ class BCViewController: NSViewController, NSWindowDelegate {
     /// The current Booru the user selected to search from
     var currentSelectedSearchingBooru : BCBooruHost? = nil;
     
+    /// The log of copied post URLs
+    var postUrlCopyLog : [String] = [];
+    
+    /// The log of copied image URLs
+    var imageUrlCopyLog : [String] = [];
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -275,6 +281,37 @@ class BCViewController: NSViewController, NSWindowDelegate {
                 // Add the current item's post's URL to the end of copyString
                 copyString += currentSelectedPost.representedPost!.url;
             }
+            
+            // If the current post's URL isnt already in postUrlCopyLog...
+            if(!postUrlCopyLog.contains(currentSelectedPost.representedPost!.url)) {
+                // Add the current post's URL to postUrlCopyLog
+                postUrlCopyLog.append(currentSelectedPost.representedPost!.url);
+            }
+        }
+        
+        // Copy copyString
+        // Add the string type to the general pasteboard
+        NSPasteboard.generalPasteboard().declareTypes([NSStringPboardType], owner: nil);
+        
+        // Set the string of the general pasteboard to copyString
+        NSPasteboard.generalPasteboard().setString(copyString, forType: NSStringPboardType);
+    }
+    
+    /// Copies all the URLs in postUrlCopyLog
+    func copyPreviouslyCopiedPostUrls() {
+        /// The string to copy
+        var copyString : String = "";
+        
+        // For every item in postUrlCopyLog...
+        for(_, currentUrl) in postUrlCopyLog.enumerate() {
+            // Add the current URL to the end of copyString, with a trailing new line
+            copyString += currentUrl + "\n";
+        }
+        
+        // If copyString isnt empty...
+        if(copyString != "") {
+            // Remove the final new line from copyString
+            copyString = copyString.substringToIndex(copyString.endIndex.predecessor());
         }
         
         // Copy copyString
@@ -302,6 +339,37 @@ class BCViewController: NSViewController, NSWindowDelegate {
                 // Add the current item's post's image URL to the end of copyString
                 copyString += currentSelectedPost.representedPost!.imageUrl;
             }
+            
+            // If the current post's image URL isnt already in imageUrlCopyLog...
+            if(!imageUrlCopyLog.contains(currentSelectedPost.representedPost!.imageUrl)) {
+                // Add the current post's image URL to imageUrlCopyLog
+                imageUrlCopyLog.append(currentSelectedPost.representedPost!.imageUrl);
+            }
+        }
+        
+        // Copy copyString
+        // Add the string type to the general pasteboard
+        NSPasteboard.generalPasteboard().declareTypes([NSStringPboardType], owner: nil);
+        
+        // Set the string of the general pasteboard to copyString
+        NSPasteboard.generalPasteboard().setString(copyString, forType: NSStringPboardType);
+    }
+    
+    /// Copies all the URLs in imageUrlCopyLog
+    func copyPreviouslyCopiedImageUrls() {
+        /// The string to copy
+        var copyString : String = "";
+        
+        // For every item in imageUrlCopyLog...
+        for(_, currentUrl) in imageUrlCopyLog.enumerate() {
+            // Add the current URL to the end of copyString, with a trailing new line
+            copyString += currentUrl + "\n";
+        }
+        
+        // If copyString isnt empty...
+        if(copyString != "") {
+            // Remove the final new line from copyString
+            copyString = copyString.substringToIndex(copyString.endIndex.predecessor());
         }
         
         // Copy copyString
@@ -466,6 +534,8 @@ class BCViewController: NSViewController, NSWindowDelegate {
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemOpenSelectedPostsInBrowser.action = Selector("openSelectedPostsInBrowser");
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemCopyUrlsOfSelectedPosts.action = Selector("copyUrlsOfSelectedPosts");
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemCopyImageUrlsOfSelectedPosts.action = Selector("copyImageUrlsOfSelectedPosts");
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemCopyAllPreviouslyCopiedPostUrls.action = Selector("copyPreviouslyCopiedPostUrls");
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemCopyAllPreviouslyCopiedImageUrls.action = Selector("copyPreviouslyCopiedImageUrls");
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTitlebar.action = Selector("toggleTitlebar");
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSelectSearchField.action = Selector("selectSearchField");
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSelectPostBrowser.action = Selector("selectPostBrowser");
