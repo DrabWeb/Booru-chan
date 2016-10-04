@@ -360,8 +360,8 @@ class BCBooruUtilities {
             post?.thumbnailUrl = json!["preview_url"].stringValue;
             post?.thumbnailSize = NSSize(width: json!["actual_preview_width"].intValue, height: json!["actual_preview_height"].intValue);
             
-            post?.imageUrl = json!["jpeg_url"].stringValue;
-            post?.imageSize = NSSize(width: json!["jpeg_width"].intValue, height: json!["jpeg_height"].intValue);
+            post?.imageUrl = json!["file_url"].stringValue;
+            post?.imageSize = NSSize(width: json!["width"].intValue, height: json!["height"].intValue);
             
             switch(json!["rating"]) {
                 case "s":

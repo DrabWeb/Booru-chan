@@ -992,14 +992,24 @@
                                                             <action selector="titlebarBooruPickerPopupButtonItemSelected:" target="XfG-lQ-9wD" id="KqI-tS-NQc"/>
                                                         </connections>
                                                     </popUpButton>
+                                                    <button hidden="YES" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="peL-jh-hXT" userLabel="Page Indicator">
+                                                        <rect key="frame" x="123" y="1" width="83" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="Page X" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5Bb-w9-BOF">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                    </button>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstItem="peL-jh-hXT" firstAttribute="top" secondItem="uct-SO-N8t" secondAttribute="top" constant="8" id="32i-Wh-5cW"/>
                                                     <constraint firstAttribute="trailing" secondItem="SdD-k4-k5y" secondAttribute="trailing" constant="8" id="7xl-fA-V3z"/>
                                                     <constraint firstItem="SdD-k4-k5y" firstAttribute="top" secondItem="uct-SO-N8t" secondAttribute="top" constant="8" id="AoY-Z8-eg4"/>
                                                     <constraint firstAttribute="bottom" secondItem="SdD-k4-k5y" secondAttribute="bottom" constant="8" id="CjK-Wz-SKx"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="236" id="Ntu-Ou-JRo"/>
+                                                    <constraint firstItem="SdD-k4-k5y" firstAttribute="leading" secondItem="peL-jh-hXT" secondAttribute="trailing" constant="8" id="Ua8-3J-bKA"/>
                                                     <constraint firstAttribute="bottom" secondItem="SdD-k4-k5y" secondAttribute="bottom" constant="8" id="kwq-OL-fJe"/>
                                                     <constraint firstAttribute="trailing" secondItem="SdD-k4-k5y" secondAttribute="trailing" constant="8" id="nCG-9t-TbF"/>
+                                                    <constraint firstAttribute="bottom" secondItem="peL-jh-hXT" secondAttribute="bottom" constant="8" id="rst-VF-Ura"/>
                                                     <constraint firstItem="SdD-k4-k5y" firstAttribute="top" secondItem="uct-SO-N8t" secondAttribute="top" constant="8" id="zmR-W4-3fV"/>
                                                 </constraints>
                                             </customView>
