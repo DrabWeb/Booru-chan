@@ -564,6 +564,12 @@ class BCBooruPost {
     
     /// The URL to this post on it's respective Booru
     var url : String = "";
+    
+    /// Is this post's image animated?
+    var animated : Bool {
+        // Return if the extension is GIF
+        return (NSString(string: self.imageUrl).pathExtension.lowercaseString == "gif");
+    }
 }
 
 class BCBooruHost: NSObject, NSCoding {

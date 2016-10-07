@@ -133,6 +133,10 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                                 
                                 // Cache the image in the post item
                                 postItem!.image = image!;
+                                
+                                // Enable/disable animated GIF displaying based on if the image is animated
+                                self.largeImageView.canDrawSubviewsIntoLayer = postItem!.representedPost!.animated;
+                                self.largeImageView.animates = postItem!.representedPost!.animated;
                             }
                         }
                     }
@@ -158,6 +162,10 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             else {
                 // Show the cached image in the full size image view
                 self.largeImageView.image = postItem!.image;
+                
+                // Enable/disable animated GIF displaying based on if the image is animated
+                largeImageView.canDrawSubviewsIntoLayer = postItem!.representedPost!.animated;
+                largeImageView.animates = postItem!.representedPost!.animated;
             }
             
             // Update the info label(Only called here in case the download doesnt start)
@@ -556,9 +564,6 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // Set the target and action to use when the user reaches the bottom of the Booru collection view
         booruCollectionViewScrollView.reachedBottomTarget = self;
         booruCollectionViewScrollView.reachedBottomAction = Selector("reachedBottomOfBooruCollectionView");
-        
-        // Allow GIFs to play
-        largeImageView.canDrawSubviewsIntoLayer = true;
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
