@@ -511,10 +511,10 @@
                                         <menuItem title="Copy URLs of Selected Posts" keyEquivalent="C" id="hRr-pn-fLj"/>
                                         <menuItem title="Copy Image URLs of Selected Posts" keyEquivalent="c" id="N4M-Fe-uaM"/>
                                         <menuItem isSeparatorItem="YES" id="kne-ng-rYy"/>
-                                        <menuItem title="Copy All Previously Copied Post URLs" keyEquivalent="c" id="5cx-3G-YPN">
+                                        <menuItem title="Copy All Previously Copied Post URLs" keyEquivalent="C" id="5cx-3G-YPN">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                         </menuItem>
-                                        <menuItem title="Copy All Previously Copied Image URLs" keyEquivalent="C" id="OdP-2K-UCE">
+                                        <menuItem title="Copy All Previously Copied Image URLs" keyEquivalent="c" id="OdP-2K-UCE">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                         </menuItem>
                                     </items>
@@ -938,7 +938,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="ZrN-SC-BsJ">
-                                                            <rect key="frame" x="277" y="0.0" width="15" height="363"/>
+                                                            <rect key="frame" x="276" y="0.0" width="16" height="363"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                     </scrollView>
