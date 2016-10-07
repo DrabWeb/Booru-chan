@@ -556,6 +556,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // Set the target and action to use when the user reaches the bottom of the Booru collection view
         booruCollectionViewScrollView.reachedBottomTarget = self;
         booruCollectionViewScrollView.reachedBottomAction = Selector("reachedBottomOfBooruCollectionView");
+        
+        // Allow GIFs to play
+        largeImageView.canDrawSubviewsIntoLayer = true;
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
