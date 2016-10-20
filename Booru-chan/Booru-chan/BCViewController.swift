@@ -167,6 +167,9 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     // Replace %tags% with the tags string
                     imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%tags%", withString: tagsString);
                     
+                    // Remove all /'s in the file name
+                    imageFileName = imageFileName.stringByReplacingOccurrencesOfString("/", withString: " ");
+                    
                     // If imageFileName has over 250 characters...
                     if(imageFileName.characters.count > 250) {
                         // Cut imageFileName down to 250 characters
