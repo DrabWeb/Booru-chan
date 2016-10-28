@@ -730,7 +730,7 @@
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                         </scroller>
                                                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.6271186440677966" horizontal="NO" id="qel-s8-uV1">
-                                                                            <rect key="frame" x="-100" y="-100" width="16" height="211"/>
+                                                                            <rect key="frame" x="-100" y="-100" width="16" height="244"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                         </scroller>
                                                                     </scrollView>
@@ -964,7 +964,7 @@
                                     <constraint firstItem="xcD-Vz-nhG" firstAttribute="top" secondItem="dOC-CV-oj7" secondAttribute="top" id="iez-DZ-dhQ"/>
                                 </constraints>
                             </visualEffectView>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="6cR-Qd-3On" userLabel="Titlebar Visual Effect View">
+                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="6cR-Qd-3On" userLabel="Titlebar Visual Effect View">
                                 <rect key="frame" x="0.0" y="363" width="600" height="37"/>
                                 <subviews>
                                     <splitView arrangesAllSubviews="NO" autosaveName="titlebarItemsSplitView" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NHl-dR-zxX" userLabel="Toolbar Items Split View" customClass="BCNoDividerSplitView" customModule="Booru_chan" customModuleProvider="target">
