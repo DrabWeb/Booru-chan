@@ -135,11 +135,26 @@ class BCViewController: NSViewController, NSWindowDelegate {
                 /// The directory we are saving the images to
                 let saveDirectory : String = saveDirectoryOpenPanel.URL!.absoluteString.stringByRemovingPercentEncoding!.stringByReplacingOccurrencesOfString("file://", withString: "");
                 
-                // Print how many images we are saving and where
-                print("BCViewController: Saving \(items.count) image(s) to \"\(saveDirectory)\"");
+                /// The items to download from items
+                var downloadItems : [BCBooruCollectionViewItem] = [];
                 
-                // Download the items
-                self.downloadBooruItems(items, saveDirectory: saveDirectory, tags: titlebarSearchField.stringValue, count: items.count);
+                // For every item in items...
+                for(_, currentItem) in items.enumerate() {
+                    // If the current item isn't a "No More Results" item...
+                    if(!currentItem.noMoreResultsItem) {
+                        // Append the current item to downloadItems
+                        downloadItems.append(currentItem);
+                    }
+                }
+                
+                // If downloadItems isn't empty...
+                if(downloadItems.count > 0) {
+                    // Print how many images we are saving and where
+                    print("BCViewController: Saving \(items.count) image(s) to \"\(saveDirectory)\"");
+                    
+                    // Download the items
+                    self.downloadBooruItems(downloadItems, saveDirectory: saveDirectory, tags: titlebarSearchField.stringValue, count: downloadItems.count);
+                }
             }
         }
         // If items is blank...
@@ -152,7 +167,8 @@ class BCViewController: NSViewController, NSWindowDelegate {
     /// The actual downloading part of saveBooruItems, saves the given items to the given path, uses tags and count when showing the download completed notification
     private func downloadBooruItems(var items : [BCBooruCollectionViewItem], saveDirectory : String, tags : String, count : Int) -> Void {
         if let currentSaveItem = items.popLast() {
-            print("Saving \(currentSaveItem.representedPost!.imageUrl)");
+            // Print what image we are saving
+            print("BCViewController: Saving \(currentSaveItem.representedPost!.imageUrl)");
             
             /// The name of the image file
             var imageFileName : String = (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.imageSaveFormat;

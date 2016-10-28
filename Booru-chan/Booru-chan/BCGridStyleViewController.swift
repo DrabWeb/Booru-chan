@@ -317,6 +317,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // Set the item's thumbnail image to the no more results image
             item.thumbnailImage = NSImage(named: "No More Results")!;
             
+            // Set that the item is a "No More Results" item
+            item.noMoreResultsItem = true;
+            
             // Add the item to the Booru collection view
             self.booruCollectionViewArrayController.addObject(item);
             
@@ -598,6 +601,9 @@ class BCBooruCollectionViewItem: NSObject {
     
     /// How opaque this item should be in the grid(Used to represent when you have downloaded something before)
     var alphaValue : CGFloat = 1;
+    
+    /// Is this an item that shows that there is no more results?
+    var noMoreResultsItem : Bool = false;
     
     /// The post this item represents
     var representedPost : BCBooruPost? = nil;
