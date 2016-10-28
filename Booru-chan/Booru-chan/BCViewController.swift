@@ -223,6 +223,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                         self.gridStyleController.reloadDownloadedIndicators();
                     }
                     
+                    // Download the next item
                     self.downloadBooruItems(items, saveDirectory: saveDirectory);
                 }
             }
