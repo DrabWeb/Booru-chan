@@ -348,7 +348,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// When we reach the bottom of the Booru collection view...
     func reachedBottomOfBooruCollectionView() {
         // If the last search of the current searching Booru isnt blank...
-        if(mainViewController.currentSelectedSearchingBooru?.utilties.lastSearch != "") {
+        if((booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count > 0) {
             // Add the next page of results to the Booru collection view
             mainViewController.currentSelectedSearchingBooru!.utilties.getPostsFromSearch(mainViewController.currentSelectedSearchingBooru!.utilties.lastSearch, limit: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchLimit, page: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchPage + 1, completionHandler: searchFinished);
         }
