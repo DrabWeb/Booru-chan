@@ -138,117 +138,135 @@ class BCViewController: NSViewController, NSWindowDelegate {
                 // Print how many images we are saving and where
                 print("BCViewController: Saving \(items.count) image(s) to \"\(saveDirectory)\"");
                 
-                // For every item to save...
-                for(currentIndex, currentSaveItem) in items.enumerate() {
-                    /// The name of the image file
-                    var imageFileName : String = (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.imageSaveFormat;
-                    
-                    // Replace %id% with the image's id
-                    imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%id%", withString: String(currentSaveItem.representedPost!.id));
-                    
-                    // Replace %booru% with the post's Booru's name
-                    imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%booru%", withString: String(currentSelectedSearchingBooru!.name));
-                    
-                    /// Every tag of this post(With spaces in between) put into a string
-                    var tagsString : String = "";
-                    
-                    // For every tag on this post...
-                    for(_, currentTag) in currentSaveItem.representedPost!.tags.enumerate() {
-                        // Add the current tag to tagsString
-                        tagsString += currentTag + " ";
-                    }
-                    
-                    // If tagsString isnt blank...
-                    if(tagsString != "") {
-                        // Remove the trailing space that was added from adding the tags
-                        tagsString = tagsString.substringToIndex(tagsString.endIndex.predecessor());
-                    }
-                    
-                    // Replace %tags% with the tags string
-                    imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%tags%", withString: tagsString);
-                    
-                    // Remove all /'s in the file name
-                    imageFileName = imageFileName.stringByReplacingOccurrencesOfString("/", withString: " ");
-                    
-                    // If imageFileName has over 250 characters...
-                    if(imageFileName.characters.count > 250) {
-                        // Cut imageFileName down to 250 characters
-                        imageFileName = imageFileName.substringToIndex(imageFileName.startIndex.advancedBy(250));
-                        
-                        /// The indexes of all the spaces in imageFileName
-                        let indexesOfSpaceInImageFileName = imageFileName.characters.enumerate()
-                            .filter { $0.element == " " }
-                            .map { $0.index }
-                        
-                        // Cut imageFileName down to the last space
-                        imageFileName = imageFileName.substringToIndex(imageFileName.startIndex.advancedBy(indexesOfSpaceInImageFileName.last!));
-                    }
-                    
-                    // Add the extension onto the end
-                    imageFileName += "." + NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension;
-                    
-                    // If we have already downloaded the image...
-                    if(currentSaveItem.finishedLoadingImage) {
-                        // Save the image to disk, asynchronously
-                        dispatch_async(dispatch_get_main_queue()) {
-                            // Write the image to the chosen directory with the generated file name
-                            currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
-                            
-                            // Print that we saved the image
-                            print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
-                            
-                            // Add the ID of this post to the current searching Booru's downloaded posts
-                            self.currentSelectedSearchingBooru?.addIDToDownloadHistory(currentSaveItem.representedPost!.id);
-                            
-                            // If this is the last item to download...
-                            if(currentIndex == items.count - 1) {
-                                // Reload the downloaded indicators for the grid style controller
-                                self.gridStyleController.reloadDownloadedIndicators();
-                            }
-                        }
-                    }
-                    // If we have to download the image...
-                    else {
-                        // Download the post item's full size image
-                        Alamofire.request(.GET, currentSaveItem.representedPost!.imageUrl).response { (request, response, data, error) in
-                            // If data isnt nil...
-                            if(data != nil) {
-                                /// The downloaded image
-                                let image : NSImage? = NSImage(data: data!);
-                                
-                                // If image isnt nil...
-                                if(image != nil) {
-                                    // Store the image in the post item
-                                    currentSaveItem.image = image!;
-                                    
-                                    // Dispatch onto the main queue
-                                    dispatch_async(dispatch_get_main_queue()) {
-                                        // Write the image to the chosen directory with the generated file name
-                                        currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
-                                        
-                                        // Print that we saved the image
-                                        print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
-                                        
-                                        // Add the ID of this post to the current searching Booru's downloaded posts
-                                        self.currentSelectedSearchingBooru?.addIDToDownloadHistory(currentSaveItem.representedPost!.id);
-                                        
-                                        // If this is the last item to download...
-                                        if(currentIndex == items.count - 1) {
-                                            // Reload the downloaded indicators for the grid style controller
-                                            self.gridStyleController.reloadDownloadedIndicators();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                // Download the items
+                self.downloadBooruItems(items, saveDirectory: saveDirectory);
             }
         }
         // If items is blank...
         else {
             // Print that there were no passed items to save
             print("BCViewController: Cant save empty array of BCBooruCollectionViewItems");
+        }
+    }
+    
+    /// The actual downloading part of saveBooruItems, saves the given items to the given path
+    private func downloadBooruItems(var items : [BCBooruCollectionViewItem], saveDirectory : String) -> Void {
+        if let currentSaveItem = items.popLast() {
+            print("Saving \(currentSaveItem.representedPost!.imageUrl)");
+            
+            /// The name of the image file
+            var imageFileName : String = (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.imageSaveFormat;
+            
+            // Replace %id% with the image's id
+            imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%id%", withString: String(currentSaveItem.representedPost!.id));
+            
+            // Replace %booru% with the post's Booru's name
+            imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%booru%", withString: String(currentSelectedSearchingBooru!.name));
+            
+            /// Every tag of this post(With spaces in between) put into a string
+            var tagsString : String = "";
+            
+            // For every tag on this post...
+            for(_, currentTag) in currentSaveItem.representedPost!.tags.enumerate() {
+                // Add the current tag to tagsString
+                tagsString += currentTag + " ";
+            }
+            
+            // If tagsString isnt blank...
+            if(tagsString != "") {
+                // Remove the trailing space that was added from adding the tags
+                tagsString = tagsString.substringToIndex(tagsString.endIndex.predecessor());
+            }
+            
+            // Replace %tags% with the tags string
+            imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%tags%", withString: tagsString);
+            
+            // Remove all /'s in the file name
+            imageFileName = imageFileName.stringByReplacingOccurrencesOfString("/", withString: " ");
+            
+            // If imageFileName has over 250 characters...
+            if(imageFileName.characters.count > 250) {
+                // Cut imageFileName down to 250 characters
+                imageFileName = imageFileName.substringToIndex(imageFileName.startIndex.advancedBy(250));
+                
+                /// The indexes of all the spaces in imageFileName
+                let indexesOfSpaceInImageFileName = imageFileName.characters.enumerate()
+                    .filter { $0.element == " " }
+                    .map { $0.index }
+                
+                // Cut imageFileName down to the last space
+                imageFileName = imageFileName.substringToIndex(imageFileName.startIndex.advancedBy(indexesOfSpaceInImageFileName.last!));
+            }
+            
+            // Add the extension onto the end
+            imageFileName += "." + NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension;
+            
+            // If we have already downloaded the image...
+            if(currentSaveItem.finishedLoadingImage) {
+                // Save the image asynchronously so it doesn't lag the interface
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                    // Write the image to the chosen directory with the generated file name
+                    currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
+                    
+                    // Print that we saved the image
+                    print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
+                }
+                
+                // Save the image to disk, asynchronously
+                dispatch_async(dispatch_get_main_queue()) {
+                    // Add the ID of this post to the current searching Booru's downloaded posts
+                    self.currentSelectedSearchingBooru?.addIDToDownloadHistory(currentSaveItem.representedPost!.id);
+                    
+                    // If this is the last item to download...
+                    if(items.count <= 0) {
+                        // Reload the downloaded indicators for the grid style controller
+                        self.gridStyleController.reloadDownloadedIndicators();
+                    }
+                    
+                    self.downloadBooruItems(items, saveDirectory: saveDirectory);
+                }
+            }
+            // If we have to download the image...
+            else {
+                // Download the post item's full size image
+                Alamofire.request(.GET, currentSaveItem.representedPost!.imageUrl).response { (request, response, data, error) in
+                    // If data isnt nil...
+                    if(data != nil) {
+                        /// The downloaded image
+                        let image : NSImage? = NSImage(data: data!);
+                        
+                        // If image isnt nil...
+                        if(image != nil) {
+                            // Store the image in the post item
+                            currentSaveItem.image = image!;
+                            
+                            // Save the image asynchronously so it doesn't lag the interface
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                                // Write the image to the chosen directory with the generated file name
+                                currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
+                                
+                                // Print that we saved the image
+                                print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
+                            }
+                            
+                            // Dispatch onto the main queue
+                            dispatch_async(dispatch_get_main_queue()) {
+                                // Add the ID of this post to the current searching Booru's downloaded posts
+                                self.currentSelectedSearchingBooru?.addIDToDownloadHistory(currentSaveItem.representedPost!.id);
+                                
+                                // If this is the last item to download...
+                                if(items.count <= 0) {
+                                    // Reload the downloaded indicators for the grid style controller
+                                    self.gridStyleController.reloadDownloadedIndicators();
+                                }
+                                
+                                // Download the next item
+                                self.downloadBooruItems(items, saveDirectory: saveDirectory);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     
