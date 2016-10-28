@@ -45,7 +45,7 @@
                                                     <rect key="frame" x="10" y="33" width="434" height="280"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mbs-sr-nwX" userLabel="Image Saving Format Label">
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mbs-sr-nwX" userLabel="Image Saving Format Label">
                                                             <rect key="frame" x="15" y="292" width="128" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="124" id="bXr-V1-x5W"/>
@@ -57,7 +57,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField focusRingType="none" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NUB-dd-b8V" userLabel="Image Saving Format Text Field" customClass="BCAlwaysActiveTextField" customModule="Booru_chan" customModuleProvider="target">
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NUB-dd-b8V" userLabel="Image Saving Format Text Field" customClass="BCAlwaysActiveTextField" customModule="Booru_chan" customModuleProvider="target">
                                                             <rect key="frame" x="149" y="289" width="268" height="22"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="22" id="wRr-gY-iiU"/>
@@ -71,7 +71,7 @@
                                                                 <action selector="generalImageSavingFormatTextFieldEndedEditing:" target="hSc-eT-Q8S" id="EMU-Wr-pqu"/>
                                                             </connections>
                                                         </textField>
-                                                        <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Efe-qo-EnG" userLabel="Indicate Downloaded Posts Checkbox">
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="Efe-qo-EnG" userLabel="Indicate Downloaded Posts Checkbox">
                                                             <rect key="frame" x="15" y="266" width="404" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="HIc-Pt-U8Z"/>
@@ -84,10 +84,26 @@
                                                                 <action selector="generalIndicateDownloadedPostsCheckboxPressed:" target="hSc-eT-Q8S" id="d1C-wU-5ni"/>
                                                             </connections>
                                                         </button>
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="l7s-BB-cZE" userLabel="Notify When Downloads Complete Checkbox">
+                                                            <rect key="frame" x="15" y="246" width="404" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="14" id="JvN-YF-03X"/>
+                                                            </constraints>
+                                                            <buttonCell key="cell" type="check" title="Notify when downloads finish" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="eWW-nH-FFM">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="generalNotifyWhenDownloadsCompleteCheckboxPressed:" target="hSc-eT-Q8S" id="tJG-eR-vLb"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="l7s-BB-cZE" secondAttribute="trailing" constant="17" id="4Ko-rc-06k"/>
                                                         <constraint firstItem="Mbs-sr-nwX" firstAttribute="leading" secondItem="Ahl-6t-b41" secondAttribute="leading" constant="17" id="7uJ-No-Alb"/>
+                                                        <constraint firstItem="l7s-BB-cZE" firstAttribute="top" secondItem="Efe-qo-EnG" secondAttribute="bottom" constant="6" id="B42-ND-Ald"/>
                                                         <constraint firstItem="NUB-dd-b8V" firstAttribute="top" secondItem="Ahl-6t-b41" secondAttribute="top" constant="5" id="Ba5-dz-o1T"/>
+                                                        <constraint firstItem="l7s-BB-cZE" firstAttribute="leading" secondItem="Ahl-6t-b41" secondAttribute="leading" constant="17" id="QvN-BA-cf6"/>
                                                         <constraint firstItem="Efe-qo-EnG" firstAttribute="top" secondItem="NUB-dd-b8V" secondAttribute="bottom" constant="7" id="TjX-YT-tcT"/>
                                                         <constraint firstItem="Mbs-sr-nwX" firstAttribute="top" secondItem="Ahl-6t-b41" secondAttribute="top" constant="7" id="epk-gc-mL1"/>
                                                         <constraint firstItem="NUB-dd-b8V" firstAttribute="leading" secondItem="Mbs-sr-nwX" secondAttribute="trailing" constant="8" id="kHD-Ke-T45"/>
@@ -427,6 +443,7 @@
                         <outlet property="booruTypePopupButton" destination="JsO-S5-NFa" id="KJ6-T0-u7e"/>
                         <outlet property="generalImageSavingFormatTextField" destination="NUB-dd-b8V" id="MJf-vh-tgY"/>
                         <outlet property="generalIndicateDownloadedPostsCheckbox" destination="Efe-qo-EnG" id="krF-wZ-x2Q"/>
+                        <outlet property="generalNotifyWhenDownloadsCompleteCheckbox" destination="l7s-BB-cZE" id="ORc-I0-2h4"/>
                         <outlet property="titlebarVisualEffectView" destination="Vgn-w2-Ilt" id="sq7-6M-Tt7"/>
                     </connections>
                 </viewController>

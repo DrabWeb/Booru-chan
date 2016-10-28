@@ -156,6 +156,15 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
         (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.indicateDownloadedPosts = Bool(generalIndicateDownloadedPostsCheckbox.state);
     }
     
+    // The checkbox to set if we want to show notifications when downloads finish
+    @IBOutlet var generalNotifyWhenDownloadsCompleteCheckbox: NSButton!
+    
+    /// When we press generalNotifyWhenDownloadsCompleteCheckbox...
+    @IBAction func generalNotifyWhenDownloadsCompleteCheckboxPressed(sender: NSButton) {
+        // Update the preferences
+        (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished = Bool(sender.state);
+    }
+    
     /// The current Booru Host we are editing
     var currentEditingBooruHost : BCBooruHost = BCBooruHost();
     
@@ -171,6 +180,7 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
         // Load the preferences values
         generalImageSavingFormatTextField.stringValue = (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.imageSaveFormat;
         generalIndicateDownloadedPostsCheckbox.state = Int((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.indicateDownloadedPosts);
+        generalNotifyWhenDownloadsCompleteCheckbox.state = Int((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished);
     }
     
     /// Displays the info of the given host in the Booru tab's editor

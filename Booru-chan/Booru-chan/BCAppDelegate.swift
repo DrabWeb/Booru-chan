@@ -8,7 +8,7 @@
 import Cocoa
 
 @NSApplicationMain
-class BCAppDelegate: NSObject, NSApplicationDelegate {
+class BCAppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
 
     /// The global preferences object
     var preferences : BCPreferencesObject = BCPreferencesObject();
@@ -62,6 +62,13 @@ class BCAppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to initialize your application
         // Make the application support folders
         createApplicationSupportFolders();
+        
+        // Set the notification center delegate
+        NSUserNotificationCenter.defaultUserNotificationCenter().delegate = self;
+    }
+    
+    func userNotificationCenter(center: NSUserNotificationCenter, shouldPresentNotification notification: NSUserNotification) -> Bool {
+        return true;
     }
     
     func createApplicationSupportFolders() {

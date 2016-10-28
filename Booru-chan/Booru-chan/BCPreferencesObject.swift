@@ -26,11 +26,15 @@ class BCPreferencesObject: NSObject, NSCoding {
     /// Should already downloaded posts be marked?
     var indicateDownloadedPosts : Bool = true;
     
+    /// Should a notification show when a download finishes?
+    var notifyWhenDownloadsFinished : Bool = true;
+    
     func encodeWithCoder(coder: NSCoder) {
         // Encode the preferences
         coder.encodeObject(booruHosts, forKey: "booruHosts");
         coder.encodeObject(imageSaveFormat, forKey: "imageSaveFormat");
         coder.encodeObject(indicateDownloadedPosts, forKey: "indicateDownloadedPosts");
+        coder.encodeObject(notifyWhenDownloadsFinished, forKey: "notifyWhenDownloadsFinished");
     }
     
     required convenience init(coder decoder: NSCoder) {
@@ -47,6 +51,10 @@ class BCPreferencesObject: NSObject, NSCoding {
         
         if((decoder.decodeObjectForKey("indicateDownloadedPosts") as? Bool) != nil) {
             self.indicateDownloadedPosts = decoder.decodeObjectForKey("indicateDownloadedPosts") as! Bool;
+        }
+        
+        if((decoder.decodeObjectForKey("notifyWhenDownloadsFinished") as? Bool) != nil) {
+            self.notifyWhenDownloadsFinished = decoder.decodeObjectForKey("notifyWhenDownloadsFinished") as! Bool;
         }
     }
 }

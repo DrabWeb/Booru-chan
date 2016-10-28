@@ -139,7 +139,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                 print("BCViewController: Saving \(items.count) image(s) to \"\(saveDirectory)\"");
                 
                 // Download the items
-                self.downloadBooruItems(items, saveDirectory: saveDirectory);
+                self.downloadBooruItems(items, saveDirectory: saveDirectory, tags: titlebarSearchField.stringValue, count: items.count);
             }
         }
         // If items is blank...
@@ -149,8 +149,8 @@ class BCViewController: NSViewController, NSWindowDelegate {
         }
     }
     
-    /// The actual downloading part of saveBooruItems, saves the given items to the given path
-    private func downloadBooruItems(var items : [BCBooruCollectionViewItem], saveDirectory : String) -> Void {
+    /// The actual downloading part of saveBooruItems, saves the given items to the given path, uses tags and count when showing the download completed notification
+    private func downloadBooruItems(var items : [BCBooruCollectionViewItem], saveDirectory : String, tags : String, count : Int) -> Void {
         if let currentSaveItem = items.popLast() {
             print("Saving \(currentSaveItem.representedPost!.imageUrl)");
             
@@ -217,14 +217,8 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     // Add the ID of this post to the current searching Booru's downloaded posts
                     self.currentSelectedSearchingBooru?.addIDToDownloadHistory(currentSaveItem.representedPost!.id);
                     
-                    // If this is the last item to download...
-                    if(items.count <= 0) {
-                        // Reload the downloaded indicators for the grid style controller
-                        self.gridStyleController.reloadDownloadedIndicators();
-                    }
-                    
                     // Download the next item
-                    self.downloadBooruItems(items, saveDirectory: saveDirectory);
+                    self.downloadBooruItems(items, saveDirectory: saveDirectory, tags: tags, count: count);
                 }
             }
             // If we have to download the image...
@@ -255,18 +249,33 @@ class BCViewController: NSViewController, NSWindowDelegate {
                                 // Add the ID of this post to the current searching Booru's downloaded posts
                                 self.currentSelectedSearchingBooru?.addIDToDownloadHistory(currentSaveItem.representedPost!.id);
                                 
-                                // If this is the last item to download...
-                                if(items.count <= 0) {
-                                    // Reload the downloaded indicators for the grid style controller
-                                    self.gridStyleController.reloadDownloadedIndicators();
-                                }
-                                
                                 // Download the next item
-                                self.downloadBooruItems(items, saveDirectory: saveDirectory);
+                                self.downloadBooruItems(items, saveDirectory: saveDirectory, tags: tags, count: count);
                             }
                         }
                     }
                 }
+            }
+        }
+        else {
+            // Reload the downloaded indicators for the grid style controller
+            self.gridStyleController.reloadDownloadedIndicators();
+            
+            // If the user has downloads finished notifications on...
+            if((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished) {
+                /// The notification to tell the user that tells the user their downloads have finished
+                let downloadsFinishedNotification : NSUserNotification = NSUserNotification();
+                
+                // Set the informative text
+                if(count == 1) {
+                    downloadsFinishedNotification.informativeText = "\(count) image downloaded";
+                }
+                else {
+                    downloadsFinishedNotification.informativeText = "\(count) images downloaded";
+                }
+                
+                // Post the notification
+                NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(downloadsFinishedNotification);
             }
         }
     }
