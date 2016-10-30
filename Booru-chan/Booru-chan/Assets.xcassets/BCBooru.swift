@@ -11,6 +11,9 @@ import SwiftyJSON
 import SWXMLHash
 
 class BCBooruUtilities {
+    /// The BCBooruHost this booru utilities represents
+    var representedBooru : BCBooruHost? = nil;
+    
     /// The type of Booru to use for this Booru Utilities
     var type : BCBooruType = .Unchosen;
     
@@ -154,8 +157,35 @@ class BCBooruUtilities {
                     
                     // For every search result...
                     for(_, currentResult) in responseJson.enumerate() {
-                        // Add the current post to the results
-                        results.append(self.getPostFromData(currentResult.1, xml: nil)!);
+                        /// The BCBooruPost from currentResult
+                        let post : BCBooruPost = self.getPostFromData(currentResult.1, xml: nil)!;
+                        
+                        /// Does the current post have a blacklisted tag?
+                        var containsTagInBlacklist : Bool = false;
+                        
+                        // If the tag blacklist isn't empty(don't want to waste time when there's no possibility)...
+                        if(self.representedBooru!.tagBlacklist.count > 0) {
+                            // For every tag in the current post's tag...
+                            for(_, currentTag) in post.tags.enumerate() {
+                                // If the current tag is in the tag blacklist...
+                                if(self.representedBooru!.tagBlacklist.contains(currentTag)) {
+                                    // Say there was a blacklisted tag in this item
+                                    containsTagInBlacklist = true;
+                                    
+                                    // Print that this post was blacklisted
+                                    print("BCBooruUtilities: Blacklisted post \(post.id) from \(self.representedBooru!.name) for tag \"\(currentTag)\"");
+                                    
+                                    // Stop the loop
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        // If this post isn't blacklisted...
+                        if(!containsTagInBlacklist) {
+                            // Add the current post to the results
+                            results.append(post);
+                        }
                     }
                     
                     // Call the completion handler with the results
@@ -185,8 +215,35 @@ class BCBooruUtilities {
                     
                     // For every search result...
                     for(_, currentResult) in responseJson.enumerate() {
-                        // Add the current post to the results
-                        results.append(self.getPostFromData(currentResult.1, xml: nil)!);
+                        /// The BCBooruPost from currentResult
+                        let post : BCBooruPost = self.getPostFromData(currentResult.1, xml: nil)!;
+                        
+                        /// Does the current post have a blacklisted tag?
+                        var containsTagInBlacklist : Bool = false;
+                        
+                        // If the tag blacklist isn't empty(don't want to waste time when there's no possibility)...
+                        if(self.representedBooru!.tagBlacklist.count > 0) {
+                            // For every tag in the current post's tag...
+                            for(_, currentTag) in post.tags.enumerate() {
+                                // If the current tag is in the tag blacklist...
+                                if(self.representedBooru!.tagBlacklist.contains(currentTag)) {
+                                    // Say there was a blacklisted tag in this item
+                                    containsTagInBlacklist = true;
+                                    
+                                    // Print that this post was blacklisted
+                                    print("BCBooruUtilities: Blacklisted post \(post.id) from \(self.representedBooru!.name) for tag \"\(currentTag)\"");
+                                    
+                                    // Stop the loop
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        // If this post isn't blacklisted...
+                        if(!containsTagInBlacklist) {
+                            // Add the current post to the results
+                            results.append(post);
+                        }
                     }
                     
                     // Call the completion handler with the results
@@ -216,8 +273,35 @@ class BCBooruUtilities {
                     
                     // For every search result...
                     for(_, currentResult) in responseJson.enumerate() {
-                        // Add the current post to the results
-                        results.append(self.getPostFromData(currentResult.1, xml: nil)!);
+                        /// The BCBooruPost from currentResult
+                        let post : BCBooruPost = self.getPostFromData(currentResult.1, xml: nil)!;
+                        
+                        /// Does the current post have a blacklisted tag?
+                        var containsTagInBlacklist : Bool = false;
+                        
+                        // If the tag blacklist isn't empty(don't want to waste time when there's no possibility)...
+                        if(self.representedBooru!.tagBlacklist.count > 0) {
+                            // For every tag in the current post's tag...
+                            for(_, currentTag) in post.tags.enumerate() {
+                                // If the current tag is in the tag blacklist...
+                                if(self.representedBooru!.tagBlacklist.contains(currentTag)) {
+                                    // Say there was a blacklisted tag in this item
+                                    containsTagInBlacklist = true;
+                                    
+                                    // Print that this post was blacklisted
+                                    print("BCBooruUtilities: Blacklisted post \(post.id) from \(self.representedBooru!.name) for tag \"\(currentTag)\"");
+                                    
+                                    // Stop the loop
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        // If this post isn't blacklisted...
+                        if(!containsTagInBlacklist) {
+                            // Add the current post to the results
+                            results.append(post);
+                        }
                     }
                     
                     // Call the completion handler with the results
@@ -247,8 +331,35 @@ class BCBooruUtilities {
                     
                     // For every search result...
                     for(_, currentResult) in responseXml["posts"].children.enumerate() {
-                        // Add the current post to the results
-                        results.append(self.getPostFromData(nil, xml: currentResult)!);
+                        /// The BCBooruPost from currentResult
+                        let post : BCBooruPost = self.getPostFromData(nil, xml: currentResult)!;
+                        
+                        /// Does the current post have a blacklisted tag?
+                        var containsTagInBlacklist : Bool = false;
+                        
+                        // If the tag blacklist isn't empty(don't want to waste time when there's no possibility)...
+                        if(self.representedBooru!.tagBlacklist.count > 0) {
+                            // For every tag in the current post's tag...
+                            for(_, currentTag) in post.tags.enumerate() {
+                                // If the current tag is in the tag blacklist...
+                                if(self.representedBooru!.tagBlacklist.contains(currentTag)) {
+                                    // Say there was a blacklisted tag in this item
+                                    containsTagInBlacklist = true;
+                                    
+                                    // Print that this post was blacklisted
+                                    print("BCBooruUtilities: Blacklisted post \(post.id) from \(self.representedBooru!.name) for tag \"\(currentTag)\"");
+                                    
+                                    // Stop the loop
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        // If this post isn't blacklisted...
+                        if(!containsTagInBlacklist) {
+                            // Add the current post to the results
+                            results.append(post);
+                        }
                     }
                     
                     // Call the completion handler with the results
@@ -523,6 +634,9 @@ class BCBooruUtilities {
     convenience init(booru : BCBooruHost) {
         self.init();
         
+        // Set representedBooru
+        self.representedBooru = booru;
+        
         // Set the type
         self.type = booru.type;
         
@@ -593,6 +707,9 @@ class BCBooruHost: NSObject, NSCoding {
     
     /// The URL to this Booru
     var url : String = "";
+    
+    /// The tag blacklist for this booru, filters out any posts that has any of these tags when returning search results
+    var tagBlacklist : [String] = [];
     
     /// The BCBooruUtilities for this host
     var utilties : BCBooruUtilities = BCBooruUtilities();
@@ -676,6 +793,7 @@ class BCBooruHost: NSObject, NSCoding {
         coder.encodeObject(self.maximumRating.rawValue, forKey: "maximumRating");
         coder.encodeObject(self.tagHistory, forKey: "tagHistory");
         coder.encodeObject(self.downloadedPosts, forKey: "downloadedPosts");
+        coder.encodeObject(self.tagBlacklist, forKey: "tagBlacklist");
     }
     
     required convenience init(coder decoder: NSCoder) {
@@ -708,6 +826,10 @@ class BCBooruHost: NSObject, NSCoding {
         
         if((decoder.decodeObjectForKey("downloadedPosts") as? [Int]) != nil) {
             self.downloadedPosts = decoder.decodeObjectForKey("downloadedPosts") as! [Int]!;
+        }
+        
+        if((decoder.decodeObjectForKey("tagBlacklist") as? [String]) != nil) {
+            self.tagBlacklist = decoder.decodeObjectForKey("tagBlacklist") as! [String]!;
         }
         
         self.utilties = BCBooruUtilities(booru: self);

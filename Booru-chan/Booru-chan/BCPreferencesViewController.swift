@@ -138,6 +138,9 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
         postUpdatedNotification();
     }
     
+    /// The token field for setting the tag blacklist of a booru
+    @IBOutlet var booruTagBlacklistTokenField: NSTokenField!
+    
     /// The text field for setting the format of saved image's file names
     @IBOutlet var generalImageSavingFormatTextField: NSTextField!
     
@@ -192,6 +195,12 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
         booruPostsPerPageTextField.integerValue = host.pagePostLimit;
         booruTypePopupButton.selectItemWithTag(host.type.rawValue);
         booruMaximumRatingPoupButton.selectItemWithTag(host.maximumRating.rawValue);
+        
+        booruTagBlacklistTokenField.stringValue = "";
+        
+        for(_, currentTag) in host.tagBlacklist.enumerate() {
+            booruTagBlacklistTokenField.stringValue += currentTag;
+        }
     }
     
     /// Called when the user changes the name of a Booru list item
@@ -246,6 +255,9 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
     }
     
     func windowDidResignKey(notification: NSNotification) {
+        // Update the tag blacklist
+        currentEditingBooruHost.tagBlacklist = booruTagBlacklistTokenField.tokens;
+        
         // Post the notification saying we update the preferences
         postUpdatedNotification();
     }
@@ -326,6 +338,10 @@ extension BCPreferencesViewController: NSTableViewDelegate {
         /// The row we selected
         let selectedRow : Int = (notification.object as! NSTableView).selectedRow;
         
+        // Update the tag blacklist
+        currentEditingBooruHost.tagBlacklist = booruTagBlacklistTokenField.tokens;
+        
+        // Displat the info from the newly selected host
         displayInfoFromHost((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts[selectedRow]);
     }
 }

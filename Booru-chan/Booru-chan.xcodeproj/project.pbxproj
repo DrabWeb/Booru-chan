@@ -11,6 +11,7 @@
 		5D0202681CD8EE3300A6E5D5 /* BCGridStyleTagListTableViewItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0202671CD8EE3300A6E5D5 /* BCGridStyleTagListTableViewItemData.swift */; };
 		5D02026A1CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0202691CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift */; };
 		5D02026C1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D02026B1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift */; };
+		5D1CC5881DC591C100E3988D /* BCScaleToFitContentTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1CC5871DC591C100E3988D /* BCScaleToFitContentTokenField.swift */; };
 		5D3288321CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3288311CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift */; };
 		5D3288351CCE95710029A57F /* BCPreferencesObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3288341CCE95710029A57F /* BCPreferencesObject.swift */; };
 		5D47F5E31CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D47F5E21CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift */; };
@@ -56,6 +57,7 @@
 		5D0202671CD8EE3300A6E5D5 /* BCGridStyleTagListTableViewItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCGridStyleTagListTableViewItemData.swift; sourceTree = "<group>"; };
 		5D0202691CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCGridStyleTagListTableViewController.swift; sourceTree = "<group>"; };
 		5D02026B1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCGridStyleTagListTableViewCellView.swift; sourceTree = "<group>"; };
+		5D1CC5871DC591C100E3988D /* BCScaleToFitContentTokenField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCScaleToFitContentTokenField.swift; sourceTree = "<group>"; };
 		5D3288311CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCActionOnScrollToBottomScrollView.swift; sourceTree = "<group>"; };
 		5D3288341CCE95710029A57F /* BCPreferencesObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCPreferencesObject.swift; sourceTree = "<group>"; };
 		5D47F5E21CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruSearchTokenField.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				5DAD293C1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift */,
 				5D3288311CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift */,
 				5D47F5E21CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift */,
+				5D1CC5871DC591C100E3988D /* BCScaleToFitContentTokenField.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				5D02026A1CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift in Sources */,
 				5D47F5E31CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift in Sources */,
 				5D02026C1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift in Sources */,
+				5D1CC5881DC591C100E3988D /* BCScaleToFitContentTokenField.swift in Sources */,
 				5D3288321CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift in Sources */,
 				5D976B291CDA45B600191679 /* BCPreferencesViewController.swift in Sources */,
 				5D88CC151CCC177B001FF12E /* BCColoredView.swift in Sources */,
