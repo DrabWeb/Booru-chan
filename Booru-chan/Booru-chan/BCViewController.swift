@@ -277,18 +277,13 @@ class BCViewController: NSViewController, NSWindowDelegate {
             // Reload the downloaded indicators for the grid style controller
             self.gridStyleController.reloadDownloadedIndicators();
             
-            // If the user has downloads finished notifications on...
-            if((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished) {
+            // If the user has downloads finished notifications on and we downloaded more than one image...
+            if((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished && count > 1) {
                 /// The notification to tell the user that tells the user their downloads have finished
                 let downloadsFinishedNotification : NSUserNotification = NSUserNotification();
                 
                 // Set the informative text
-                if(count == 1) {
-                    downloadsFinishedNotification.informativeText = "\(count) image downloaded";
-                }
-                else {
-                    downloadsFinishedNotification.informativeText = "\(count) images downloaded";
-                }
+                downloadsFinishedNotification.informativeText = "\(count) images downloaded";
                 
                 // Post the notification
                 NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(downloadsFinishedNotification);
