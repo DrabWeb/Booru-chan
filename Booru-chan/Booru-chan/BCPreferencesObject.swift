@@ -49,12 +49,7 @@ class BCPreferencesObject: NSObject, NSCoding {
             self.imageSaveFormat = decoder.decodeObject(forKey: "imageSaveFormat") as! String;
         }
         
-        if((decoder.decodeObject(forKey: "indicateDownloadedPosts") as? Bool) != nil) {
-            self.indicateDownloadedPosts = decoder.decodeObject(forKey: "indicateDownloadedPosts") as! Bool;
-        }
-        
-        if((decoder.decodeObject(forKey: "notifyWhenDownloadsFinished") as? Bool) != nil) {
-            self.notifyWhenDownloadsFinished = decoder.decodeObject(forKey: "notifyWhenDownloadsFinished") as! Bool;
-        }
+        self.indicateDownloadedPosts = decoder.decodeBool(forKey: "indicateDownloadedPosts");
+        self.notifyWhenDownloadsFinished = decoder.decodeBool(forKey: "notifyWhenDownloadsFinished");
     }
 }

@@ -804,21 +804,14 @@ class BCBooruHost: NSObject, NSCoding {
             self.name = decoder.decodeObject(forKey: "name") as! String;
         }
         
-        if((decoder.decodeObject(forKey: "type") as? Int) != nil) {
-            self.type = BCBooruType(rawValue: decoder.decodeObject(forKey: "type") as! Int)!;
-        }
-        
-        if((decoder.decodeObject(forKey: "pagePostLimit") as? Int) != nil) {
-            self.pagePostLimit = decoder.decodeObject(forKey: "pagePostLimit") as! Int;
-        }
+        self.type = BCBooruType(rawValue: decoder.decodeInteger(forKey: "type"))!;
+        self.pagePostLimit = decoder.decodeInteger(forKey: "pagePostLimit");
         
         if((decoder.decodeObject(forKey: "url") as? String) != nil) {
             self.url = decoder.decodeObject(forKey: "url") as! String;
         }
         
-        if((decoder.decodeObject(forKey: "maximumRating") as? Int) != nil) {
-            self.maximumRating = BCRating(rawValue: decoder.decodeObject(forKey: "maximumRating") as! Int)!;
-        }
+        self.maximumRating = BCRating(rawValue: decoder.decodeInteger(forKey: "maximumRating"))!;
         
         if((decoder.decodeObject(forKey: "tagHistory") as? [String]) != nil) {
             self.tagHistory = decoder.decodeObject(forKey: "tagHistory") as! [String]!;
