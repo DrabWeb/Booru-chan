@@ -25,7 +25,7 @@ class BCGridStyleTagListTableViewCellView: NSTableCellView {
         // If changedTarget and changedAction arent nil...
         if(changedTarget != nil && changedAction != nil) {
             // Perform the selector with this cells data and the new state
-            changedTarget!.perform(changedAction!, with: [data : Bool(checkbox.state as NSNumber)]);
+            _ = changedTarget!.perform(changedAction!, with: [data : Bool(checkbox.state as NSNumber)]);
         }
     }
 }

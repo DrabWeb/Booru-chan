@@ -52,7 +52,7 @@ class BCActionOnScrollToBottomScrollView: NSScrollView {
                 // If reachedBottomTarget and reachedBottomAction are both not nil...
                 if(reachedBottomTarget != nil && reachedBottomAction != nil) {
                     // Call the reached bottom action
-                    reachedBottomTarget!.perform(reachedBottomAction!);
+                    _ = reachedBottomTarget!.perform(reachedBottomAction!);
                 }
             }
             

@@ -38,7 +38,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
             // If tokensChangedTarget and tokensChangedAction arent nil...
             if(tokensChangedTarget != nil && tokensChangedAction != nil) {
                 // Call the tokens changed action
-                tokensChangedTarget!.perform(tokensChangedAction!);
+                _ = tokensChangedTarget!.perform(tokensChangedAction!);
             }
             
             // Empty lastDownloadedTags
@@ -49,7 +49,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
             // If tokensChangedTarget and tokensChangedAction arent nil...
             if(tokensChangedTarget != nil && tokensChangedAction != nil) {
                 // Call the tokens changed action
-                tokensChangedTarget!.perform(tokensChangedAction!);
+                _ = tokensChangedTarget!.perform(tokensChangedAction!);
             }
             
             // Empty lastDownloadedTags
@@ -97,7 +97,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         // If tokensChangedTarget and tokensChangedAction arent nil...
         if(tokensChangedTarget != nil && tokensChangedAction != nil) {
             // Call the tokens changed action
-            tokensChangedTarget!.perform(tokensChangedAction!);
+            _ = tokensChangedTarget!.perform(tokensChangedAction!);
         }
         
         // Return the given tokens
@@ -133,7 +133,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
                 // If there isnt a cache file for this search...
                 else {
                     // Search for any tags with the current substring as a prefix
-                    tokenBooru?.utilties.getTagsMatchingSearch(substring + "*", completionHandler: finishedDownloadingTags);
+                    _ = tokenBooru?.utilties.getTagsMatchingSearch(substring + "*", completionHandler: finishedDownloadingTags);
                 }
                 
                 // Set lastDownloadSearch

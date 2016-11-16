@@ -251,17 +251,15 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     self.downloadBooruItems(items, saveDirectory: saveDirectory, tags: tags, count: count);
                 }
             }
-                // If we have to download the image...
+            // If we have to download the image...
             else {
                 // Download the post item's full size image
-                Alamofire.download(currentSaveItem.representedPost!.imageUrl)
+                Alamofire.request(currentSaveItem.representedPost!.imageUrl)
                     .responseData { response in
-                        let data = response.result.value;
-                        
                         // If data isnt nil...
-                        if(data != nil) {
+                        if let data = response.result.value {
                             /// The downloaded image
-                            let image : NSImage? = NSImage(data: data!);
+                            let image : NSImage? = NSImage(data: data);
                             
                             // If image isnt nil...
                             if(image != nil) {
@@ -287,7 +285,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                                 }
                             }
                         }
-                }
+                };
             }
         }
         else {

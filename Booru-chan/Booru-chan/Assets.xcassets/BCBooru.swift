@@ -320,14 +320,14 @@ class BCBooruUtilities {
             print("BCBooruUtilities: Using URL \"\(requestUrl)\" to search");
             
             // Make the get request to the Booru with the search string and rating limit...
-            request = Alamofire.request(requestUrl).responseJSON { (responseData) -> Void in
-                /// The string of JSON that will be returned when the GET request finishes
-                let responseJsonString : NSString = NSString(data: responseData.data!, encoding: String.Encoding.utf8.rawValue)!;
+            request = Alamofire.request(requestUrl).response { (responseData) -> Void in
+                /// The string of XML that will be returned when the GET request finishes
+                let responseXmlString : NSString = NSString(data: responseData.data!, encoding: String.Encoding.utf8.rawValue)!;
                 
                 // If the the response data isnt nil...
-                if let dataFromResponseJsonString = responseJsonString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false) {
+                if let dataFromResponseXmlString = responseXmlString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false) {
                     /// The XML from the response string
-                    let responseXml = SWXMLHash.parse(dataFromResponseJsonString);
+                    let responseXml = SWXMLHash.parse(dataFromResponseXmlString);
                     
                     // For every search result...
                     for(_, currentResult) in responseXml["posts"].children.enumerated() {

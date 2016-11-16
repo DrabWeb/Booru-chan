@@ -85,27 +85,24 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             
             // If we havent already loaded the thumbnail...
             if(postItem!.thumbnailImage.size == NSSize.zero) {
-                
                 // Download the post item's thumbnail image
-                Alamofire.download(postItem!.representedPost!.thumbnailUrl)
+                Alamofire.request(postItem!.representedPost!.thumbnailUrl)
                     .responseData { response in
-                    let data = response.result.value;
-                        
-                    // If data isnt nil...
-                    if(data != nil) {
-                        /// The downloaded image
-                        let image : NSImage? = NSImage(data: data!);
-                        
-                        // If image isnt nil...
-                        if(image != nil) {
-                            // Show the thumbnail image in the full size image view
-                            self.largeImageView.image = image!;
+                        // If data isnt nil...
+                        if let data = response.result.value {
+                            /// The downloaded image
+                            let image : NSImage? = NSImage(data: data);
                             
-                            // Cache the image in the post item
-                            postItem!.thumbnailImage = image!;
+                            // If image isnt nil...
+                            if(image != nil) {
+                                // Show the thumbnail image in the full size image view
+                                self.largeImageView.image = image!;
+                            
+                                // Cache the image in the post item
+                                postItem!.thumbnailImage = image!;
+                            }
                         }
-                    }
-                }
+                };
             }
             // If we already loaded the thumbnail...
             else {
@@ -121,15 +118,14 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             
             // If we havent already downloaded the post's full size image...
             if(!postItem!.finishedLoadingImage) {
+                
                 // Download the post item's full size image
-                lastDisplayRequest = Alamofire.download(postItem!.representedPost!.imageUrl)
+                lastDisplayRequest = Alamofire.request(postItem!.representedPost!.imageUrl)
                     .responseData { response in
-                        let data = response.result.value;
-                        
                         // If data isnt nil...
-                        if(data != nil) {
+                        if let data = response.result.value {
                             /// The downloaded image
-                            let image : NSImage? = NSImage(data: data!);
+                            let image : NSImage? = NSImage(data: data);
                             
                             // If image isnt nil...
                             if(image != nil) {
@@ -163,7 +159,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                             // Say we finished loading the image
                             postItem!.finishedLoadingImage = true;
                         }
-                }
+                };
             }
             // If we have already downloaded the post item's full size image...
             else {
@@ -273,15 +269,12 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // If the result's image and thumbnail URL are an image...
             if(imageExtension.contains(NSString(string: item.representedPost!.imageUrl).pathExtension) && imageExtension.contains(NSString(string: item.representedPost!.thumbnailUrl).pathExtension)) {
                 // Download the post's thumbnail
-                lastThumbnailDownloadRequests.append(Alamofire.download(currentResult.thumbnailUrl)
+                lastThumbnailDownloadRequests.append(Alamofire.request(currentResult.thumbnailUrl)
                     .responseData { response in
-                        
-                        let data = response.result.value;
-                        
                         // If data isnt nil...
-                        if(data != nil) {
+                        if let data = response.result.value {
                             /// The downloaded image
-                            let image : NSImage? = NSImage(data: data!);
+                            let image : NSImage? = NSImage(data: data);
                             
                             // If image isnt nil...
                             if(image != nil) {
@@ -301,7 +294,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                                 }
                             }
                         }
-                    });
+                });
                 
                 // Add the item
                 self.booruCollectionViewArrayController.addObject(item);
@@ -364,7 +357,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // If the last search of the current searching Booru isnt blank...
         if((booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count > 0) {
             // Add the next page of results to the Booru collection view
-            mainViewController.currentSelectedSearchingBooru!.utilties.getPostsFromSearch(mainViewController.currentSelectedSearchingBooru!.utilties.lastSearch, limit: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchLimit, page: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchPage + 1, completionHandler: searchFinished);
+            _ = mainViewController.currentSelectedSearchingBooru!.utilties.getPostsFromSearch(mainViewController.currentSelectedSearchingBooru!.utilties.lastSearch, limit: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchLimit, page: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchPage + 1, completionHandler: searchFinished);
         }
     }
     
@@ -401,7 +394,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // If currentSelectedSearchingBooru isnt nil...
         if(mainViewController.currentSelectedSearchingBooru != nil) {
             // Search for the given tags
-            mainViewController.currentSelectedSearchingBooru!.utilties.getPostsFromSearch(searchString, limit: mainViewController.currentSelectedSearchingBooru!.pagePostLimit, page: 1, completionHandler: searchFinished);
+            _ = mainViewController.currentSelectedSearchingBooru!.utilties.getPostsFromSearch(searchString, limit: mainViewController.currentSelectedSearchingBooru!.pagePostLimit, page: 1, completionHandler: searchFinished);
         }
         // If currentSelectedSearchingBooru is nil...
         else {

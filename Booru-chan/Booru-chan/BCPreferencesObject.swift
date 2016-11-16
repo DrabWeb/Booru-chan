@@ -24,7 +24,7 @@ class BCPreferencesObject: NSObject, NSCoding {
     var downloadedPostAlphaValue : CGFloat = 0.5;
     
     /// Should already downloaded posts be marked?
-    var indicateDownloadedPosts : Bool = true;
+    var indicateDownloadedPosts : Bool = false;
     
     /// Should a notification show when a download finishes?
     var notifyWhenDownloadsFinished : Bool = true;
