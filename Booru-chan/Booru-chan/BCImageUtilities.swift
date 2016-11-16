@@ -9,29 +9,29 @@ import Cocoa
 
 class BCImageUtilities {
     /// Returns the NSBitmapImageFileType from the given extension
-    func fileTypeFromExtension(fileExtension : String) -> NSBitmapImageFileType? {
+    func fileTypeFromExtension(_ fileExtension : String) -> NSBitmapImageFileType? {
         /// The file type to return
         var fileType : NSBitmapImageFileType? = nil;
         
         // If the extension is PNG...
-        if(fileExtension.lowercaseString == "png") {
+        if(fileExtension.lowercased() == "png") {
             // Set fileType to PNG
-            fileType = NSBitmapImageFileType.NSPNGFileType;
+            fileType = NSBitmapImageFileType.PNG;
         }
             // If the extension is GIF...
-        else if(fileExtension.lowercaseString == "gif") {
+        else if(fileExtension.lowercased() == "gif") {
             // Set fileType to GIF
-            fileType = NSBitmapImageFileType.NSGIFFileType;
+            fileType = NSBitmapImageFileType.GIF;
         }
             // If the extension is TIFF...
-        else if(fileExtension.lowercaseString == "tiff") {
+        else if(fileExtension.lowercased() == "tiff") {
             // Set fileType to GIF
-            fileType = NSBitmapImageFileType.NSGIFFileType;
+            fileType = NSBitmapImageFileType.GIF;
         }
             // If the extension is JPG or JPEG...
-        else if(fileExtension.lowercaseString == "jpg" || fileExtension.lowercaseString == "jpeg") {
+        else if(fileExtension.lowercased() == "jpg" || fileExtension.lowercased() == "jpeg") {
             // Set fileType to GIF
-            fileType = NSBitmapImageFileType.NSJPEGFileType;
+            fileType = NSBitmapImageFileType.JPEG;
         }
         
         // Return the file type

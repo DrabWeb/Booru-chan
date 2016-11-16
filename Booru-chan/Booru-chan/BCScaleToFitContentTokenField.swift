@@ -24,7 +24,7 @@ class BCScaleToFitContentTokenField: NSTokenField {
         self.invalidateIntrinsicContentSize();
     }
     
-    override func textDidChange(notification: NSNotification) {
+    override func textDidChange(_ notification: Notification) {
         super.textDidChange(notification);
         
         // Update the size of this token field

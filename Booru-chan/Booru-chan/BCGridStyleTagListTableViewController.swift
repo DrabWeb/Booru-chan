@@ -24,12 +24,12 @@ class BCGridStyleTagListTableViewController: NSObject {
     var lastDisplayedPost : BCBooruPost = BCBooruPost();
     
     /// Displays the tags from the given post in the tags table view
-    func displayTagsFromPost(post: BCBooruPost) {
+    func displayTagsFromPost(_ post: BCBooruPost) {
         // Clear all the current items
         tagListItems.removeAll();
         
         // For every one of the post's tags...
-        for(_, currentTag) in post.tags.enumerate() {
+        for(_, currentTag) in post.tags.enumerated() {
             /// Is this tag already being searched by?
             var tagBeingSearchedBy : Bool = false;
             
@@ -57,7 +57,7 @@ class BCGridStyleTagListTableViewController: NSObject {
     }
     
     /// Called when the user presses a checkbox in the tag list
-    func tagListItemChanged(data: [BCGridStyleTagListTableViewItemData : Bool]) {
+    func tagListItemChanged(_ data: [BCGridStyleTagListTableViewItemData : Bool]) {
         /// The BCGridStyleTagListTableViewItemData from data
         var changedData : BCGridStyleTagListTableViewItemData = BCGridStyleTagListTableViewItemData();
         
@@ -65,7 +65,7 @@ class BCGridStyleTagListTableViewController: NSObject {
         var changedState : Bool = false;
         
         // Load in the data into their respective variables
-        for(_, currentData) in data.enumerate() {
+        for(_, currentData) in data.enumerated() {
             changedData = currentData.0;
             changedState = currentData.1;
         }
@@ -93,14 +93,14 @@ class BCGridStyleTagListTableViewController: NSObject {
 }
 
 extension BCGridStyleTagListTableViewController: NSTableViewDataSource {
-    func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
+    func numberOfRows(in aTableView: NSTableView) -> Int {
         // Return the amount of items in tagListItems
         return self.tagListItems.count;
     }
     
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         /// The cell view for the cell we want to modify
-        let cellView: NSTableCellView = tableView.makeViewWithIdentifier(tableColumn!.identifier, owner: nil) as! NSTableCellView;
+        let cellView: NSTableCellView = tableView.make(withIdentifier: tableColumn!.identifier, owner: nil) as! NSTableCellView;
         
         // If this is the main column...
         if(tableColumn!.identifier == "Main Column") {
@@ -112,12 +112,12 @@ extension BCGridStyleTagListTableViewController: NSTableViewDataSource {
             
             // Set the cell's data and display it
             cellViewTagListCellView.data = cellData;
-            cellViewTagListCellView.checkbox.state = Int(cellData.tagBeingSearchedBy);
+            cellViewTagListCellView.checkbox.state = Int.fromBool(bool: cellData.tagBeingSearchedBy);
             cellViewTagListCellView.checkbox.title = cellData.tagName;
             
             // Setup the target and action
             cellViewTagListCellView.changedTarget = self;
-            cellViewTagListCellView.changedAction = Selector("tagListItemChanged:");
+            cellViewTagListCellView.changedAction = #selector(BCGridStyleTagListTableViewController.tagListItemChanged(_:));
             
             // Return the modified cell view
             return cellViewTagListCellView as NSTableCellView;

@@ -28,7 +28,7 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
     @IBOutlet var booruTypePopupButton: NSPopUpButton!
     
     /// When we select an item in booruTypePopupButton...
-    @IBAction func booruTypePopupButtonSelected(sender: AnyObject) {
+    @IBAction func booruTypePopupButtonSelected(_ sender: AnyObject) {
         // Print what we are doing
         print("BCPreferencesViewController: Changing type for \"\(currentEditingBooruHost.name)\" to \"\(BCBooruType(rawValue: booruTypePopupButton.selectedTag())!)\"");
         
@@ -46,7 +46,7 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
     @IBOutlet var booruMaximumRatingPoupButton: NSPopUpButton!
     
     /// When we select an item in booruMaximumRatingPoupButton...
-    @IBAction func booruMaximumRatingPoupButtonSelected(sender: AnyObject) {
+    @IBAction func booruMaximumRatingPoupButtonSelected(_ sender: AnyObject) {
         // Print what we are doing
         print("BCPreferencesViewController: Changing maximum rating of \"\(currentEditingBooruHost.name)\" to \"\(BCRating(rawValue: booruMaximumRatingPoupButton.selectedTag())!)\"");
         
@@ -64,11 +64,11 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
     @IBOutlet var booruRemoveButton: NSButton!
     
     /// When we press booruRemoveButton...
-    @IBAction func booruRemoveButtonPressed(sender: AnyObject) {
+    @IBAction func booruRemoveButtonPressed(_ sender: AnyObject) {
         // If there is more than one Booru in the user's Booru hosts...
-        if((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts.count > 1) {
+        if((NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts.count > 1) {
             // Remove the selected Booru from the user's hosts
-            (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts.removeAtIndex(booruTableView.selectedRow);
+            (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts.remove(at: booruTableView.selectedRow);
             
             // Reload the table view
             booruTableView.reloadData();
@@ -79,9 +79,9 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
     }
     
     /// When we press the add button to add a Booru to the user's Boorus...
-    @IBAction func booruAddButtonPressed(sender: AnyObject) {
+    @IBAction func booruAddButtonPressed(_ sender: AnyObject) {
         // Add an empty Booru onto the user's Booru hosts
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts.append(BCBooruHost(name: "Name", type: BCBooruType.Moebooru, pagePostLimit: 40, url: "URL", maximumRating: BCRating.Explicit));
+        (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts.append(BCBooruHost(name: "Name", type: BCBooruType.moebooru, pagePostLimit: 40, url: "URL", maximumRating: BCRating.explicit));
         
         // Reload the table view
         booruTableView.reloadData();
@@ -90,7 +90,7 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
         booruTableView.deselectAll(self);
         
         // Select the last Booru in the table view
-        booruTableView.selectRowIndexes(NSIndexSet(index: (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts.count - 1), byExtendingSelection: false);
+        booruTableView.selectRowIndexes(IndexSet(integer: (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts.count - 1), byExtendingSelection: false);
         
         // Post the preferences updated notification
         postUpdatedNotification();
@@ -100,7 +100,7 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var booruPostsPerPageTextField: NSTextField!
     
     /// When the user enters text into booruPostsPerPageTextField...
-    @IBAction func booruPostsPerPageTextFieldEntered(sender: AnyObject) {
+    @IBAction func booruPostsPerPageTextFieldEntered(_ sender: AnyObject) {
         // Print what we are doing
         print("BCPreferencesViewController: Changing page post limit of \"\(currentEditingBooruHost.name)\" to \"\(booruPostsPerPageTextField.integerValue)\"");
         
@@ -115,7 +115,7 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
     }
     
     /// When we press the "Clear Tags" button...
-    @IBAction func booruClearTagHistoryButtonPressed(sender: AnyObject) {
+    @IBAction func booruClearTagHistoryButtonPressed(_ sender: AnyObject) {
         // Clear the tag history for the current editing Booru
         currentEditingBooruHost.tagHistory = [];
         
@@ -127,7 +127,7 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
     }
     
     /// When we press the "Clear Downloads" button...
-    @IBAction func booruClearDownloadHistoryButtonPressed(sender: AnyObject) {
+    @IBAction func booruClearDownloadHistoryButtonPressed(_ sender: AnyObject) {
         // Clear the download history for the current editing Booru
         currentEditingBooruHost.downloadedPosts = [];
         
@@ -145,27 +145,27 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
     @IBOutlet var generalImageSavingFormatTextField: NSTextField!
     
     /// When we stop editing generalImageSavingFormatTextField...
-    @IBAction func generalImageSavingFormatTextFieldEndedEditing(sender: AnyObject) {
+    @IBAction func generalImageSavingFormatTextFieldEndedEditing(_ sender: AnyObject) {
         // Set the preferences value to the entered text
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.imageSaveFormat = generalImageSavingFormatTextField.stringValue;
+        (NSApplication.shared().delegate as! BCAppDelegate).preferences.imageSaveFormat = generalImageSavingFormatTextField.stringValue;
     }
     
     /// The checkbox to set if we want to indicate already downloaded posts
     @IBOutlet var generalIndicateDownloadedPostsCheckbox: NSButton!
     
     /// When we press generalIndicateDownloadedPostsCheckbox...
-    @IBAction func generalIndicateDownloadedPostsCheckboxPressed(sender: AnyObject) {
+    @IBAction func generalIndicateDownloadedPostsCheckboxPressed(_ sender: AnyObject) {
         // Update the preferences
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.indicateDownloadedPosts = Bool(generalIndicateDownloadedPostsCheckbox.state);
+        (NSApplication.shared().delegate as! BCAppDelegate).preferences.indicateDownloadedPosts = Bool(generalIndicateDownloadedPostsCheckbox.state as NSNumber);
     }
     
     // The checkbox to set if we want to show notifications when downloads finish
     @IBOutlet var generalNotifyWhenDownloadsCompleteCheckbox: NSButton!
     
     /// When we press generalNotifyWhenDownloadsCompleteCheckbox...
-    @IBAction func generalNotifyWhenDownloadsCompleteCheckboxPressed(sender: NSButton) {
+    @IBAction func generalNotifyWhenDownloadsCompleteCheckboxPressed(_ sender: NSButton) {
         // Update the preferences
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished = Bool(sender.state);
+        (NSApplication.shared().delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished = Bool(sender.state as NSNumber);
     }
     
     /// The current Booru Host we are editing
@@ -178,38 +178,38 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
         styleWindow();
         
         // Display the info from the first Booru host
-        displayInfoFromHost((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts[0]);
+        displayInfoFromHost((NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts[0]);
         
         // Load the preferences values
-        generalImageSavingFormatTextField.stringValue = (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.imageSaveFormat;
-        generalIndicateDownloadedPostsCheckbox.state = Int((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.indicateDownloadedPosts);
-        generalNotifyWhenDownloadsCompleteCheckbox.state = Int((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished);
+        generalImageSavingFormatTextField.stringValue = (NSApplication.shared().delegate as! BCAppDelegate).preferences.imageSaveFormat;
+        generalIndicateDownloadedPostsCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! BCAppDelegate).preferences.indicateDownloadedPosts);
+        generalNotifyWhenDownloadsCompleteCheckbox.state = Int.fromBool(bool: (NSApplication.shared().delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished);
     }
     
     /// Displays the info of the given host in the Booru tab's editor
-    func displayInfoFromHost(host : BCBooruHost) {
+    func displayInfoFromHost(_ host : BCBooruHost) {
         // Set currentEditingBooruHost
         currentEditingBooruHost = host;
         
         // Show the info
         booruPostsPerPageTextField.integerValue = host.pagePostLimit;
-        booruTypePopupButton.selectItemWithTag(host.type.rawValue);
-        booruMaximumRatingPoupButton.selectItemWithTag(host.maximumRating.rawValue);
+        booruTypePopupButton.selectItem(withTag: host.type.rawValue);
+        booruMaximumRatingPoupButton.selectItem(withTag: host.maximumRating.rawValue);
         
         booruTagBlacklistTokenField.stringValue = "";
         
-        for(_, currentTag) in host.tagBlacklist.enumerate() {
+        for(_, currentTag) in host.tagBlacklist.enumerated() {
             booruTagBlacklistTokenField.stringValue += currentTag;
         }
     }
     
     /// Called when the user changes the name of a Booru list item
-    func booruNameTextFieldEdited(sender: NSTextField) {
+    func booruNameTextFieldEdited(_ sender: NSTextField) {
         // Print what we are doing
         print("BCPreferencesViewController: Changing name of \"\(currentEditingBooruHost.name)\" to \"\(sender.stringValue)\"");
         
         // Change the name of the Booru that the user edited
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts[sender.tag].name = sender.stringValue;
+        (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts[sender.tag].name = sender.stringValue;
         
         // Update the host's utilties
         currentEditingBooruHost.refreshUtilities();
@@ -220,12 +220,12 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
     
     
     /// Called when the user changes the URL of a Booru list item
-    func booruUrlTextFieldEdited(sender: NSTextField) {
+    func booruUrlTextFieldEdited(_ sender: NSTextField) {
         // Print what we are doing
         print("BCPreferencesViewController: Changing URL of \"\(currentEditingBooruHost.name)\" to \"\(sender.stringValue)\"");
         
         // Change the URL of the Booru that the user edited
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts[sender.tag].url = sender.stringValue;
+        (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts[sender.tag].url = sender.stringValue;
         
         // Update the host's utilties
         currentEditingBooruHost.refreshUtilities();
@@ -237,24 +237,24 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
     /// Posts the notification saying the preferences have been updated
     func postUpdatedNotification() {
         // If there is only one item in the user's Booru hosts...
-        if((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts.count == 1) {
+        if((NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts.count == 1) {
             // Disable the remove button
-            booruRemoveButton.enabled = false;
+            booruRemoveButton.isEnabled = false;
         }
         // If there are more than one items in the user's Booru hosts...
-        else if( (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts.count > 1) {
+        else if( (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts.count > 1) {
             // Enable the remove button
-            booruRemoveButton.enabled = true;
+            booruRemoveButton.isEnabled = true;
         }
         
         // Print that we are posting the notification
         print("BCPreferencesViewController: Posting the preferences updated notification");
         
         // Post the notification
-        NSNotificationCenter.defaultCenter().postNotificationName("BCPreferences.Updated", object: nil);
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "BCPreferences.Updated"), object: nil);
     }
     
-    func windowDidResignKey(notification: NSNotification) {
+    func windowDidResignKey(_ notification: Notification) {
         // Update the tag blacklist
         currentEditingBooruHost.tagBlacklist = booruTagBlacklistTokenField.tokens;
         
@@ -265,20 +265,20 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
     /// Styles the window
     func styleWindow() {
         // Get the window
-        preferencesWindow = NSApplication.sharedApplication().windows.last!;
+        preferencesWindow = NSApplication.shared().windows.last!;
         
         // Set the window's delegate
         preferencesWindow.delegate = self;
         
         // Style the window
-        preferencesWindow.standardWindowButton(.MiniaturizeButton)?.hidden = true;
-        preferencesWindow.standardWindowButton(.ZoomButton)?.hidden = true;
-        preferencesWindow.titleVisibility = .Hidden;
+        preferencesWindow.standardWindowButton(.miniaturizeButton)?.isHidden = true;
+        preferencesWindow.standardWindowButton(.zoomButton)?.isHidden = true;
+        preferencesWindow.titleVisibility = .hidden;
         preferencesWindow.titlebarAppearsTransparent = true;
         
         // Style the visual effect views
-        titlebarVisualEffectView.material = .Titlebar;
-        backgroundVisualEffectView.material = .Dark;
+        titlebarVisualEffectView.material = .titlebar;
+        backgroundVisualEffectView.material = .dark;
     }
     
     override func viewWillAppear() {
@@ -288,17 +288,17 @@ class BCPreferencesViewController: NSViewController, NSWindowDelegate {
 }
 
 extension BCPreferencesViewController: NSTableViewDataSource {
-    func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
+    func numberOfRows(in aTableView: NSTableView) -> Int {
         // Return the amount of items in the preference's Booru hosts
-        return (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts.count;
+        return (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts.count;
     }
     
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         /// The cell view for the cell we want to modify
-        let cellView: NSTableCellView = tableView.makeViewWithIdentifier(tableColumn!.identifier, owner: nil) as! NSTableCellView;
+        let cellView: NSTableCellView = tableView.make(withIdentifier: tableColumn!.identifier, owner: nil) as! NSTableCellView;
         
         /// The data for this cell
-        let cellData : BCBooruHost = (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts[row];
+        let cellData : BCBooruHost = (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts[row];
         
         // Set the cell's text field's tag to the row it is at
         cellView.textField?.tag = row;
@@ -310,7 +310,7 @@ extension BCPreferencesViewController: NSTableViewDataSource {
             
             // Set the target and action of the text field
             cellView.textField?.target = self;
-            cellView.textField?.action = Selector("booruNameTextFieldEdited:");
+            cellView.textField?.action = #selector(BCPreferencesViewController.booruNameTextFieldEdited(_:));
             
             // Return the modified cell view
             return cellView;
@@ -322,7 +322,7 @@ extension BCPreferencesViewController: NSTableViewDataSource {
             
             // Set the target and action of the text field
             cellView.textField?.target = self;
-            cellView.textField?.action = Selector("booruUrlTextFieldEdited:");
+            cellView.textField?.action = #selector(BCPreferencesViewController.booruUrlTextFieldEdited(_:));
             
             // Return the modified cell view
             return cellView;
@@ -334,7 +334,7 @@ extension BCPreferencesViewController: NSTableViewDataSource {
 }
 
 extension BCPreferencesViewController: NSTableViewDelegate {
-    func tableViewSelectionDidChange(notification: NSNotification) {
+    func tableViewSelectionDidChange(_ notification: Notification) {
         /// The row we selected
         let selectedRow : Int = (notification.object as! NSTableView).selectedRow;
         
@@ -342,6 +342,6 @@ extension BCPreferencesViewController: NSTableViewDelegate {
         currentEditingBooruHost.tagBlacklist = booruTagBlacklistTokenField.tokens;
         
         // Displat the info from the newly selected host
-        displayInfoFromHost((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts[selectedRow]);
+        displayInfoFromHost((NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts[selectedRow]);
     }
 }

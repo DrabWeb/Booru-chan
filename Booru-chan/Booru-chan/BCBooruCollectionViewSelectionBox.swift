@@ -11,7 +11,7 @@ class BCBooruCollectionViewSelectionBox: NSBox {
 
     override func awakeFromNib() {
         // Set it to be a custom box
-        self.boxType = NSBoxType.Custom;
+        self.boxType = NSBoxType.custom;
         
         // Set the corner radius to 5
         self.cornerRadius = 5;
@@ -20,9 +20,9 @@ class BCBooruCollectionViewSelectionBox: NSBox {
         self.alphaValue = 0.2;
         
         // Set the box to have no border
-        self.borderType = NSBorderType.NoBorder;
+        self.borderType = NSBorderType.noBorder;
         
         // Set the background color to black
-        self.fillColor = NSColor.blackColor();
+        self.fillColor = NSColor.black;
     }
 }

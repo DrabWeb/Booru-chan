@@ -19,7 +19,7 @@ class BCBooruCollectionViewCollectionViewItem: NSCollectionViewItem {
         return (self.representedObject as! BCBooruCollectionViewItem).representedPost!.imageUrl;
     }
     
-    override func rightMouseDown(theEvent: NSEvent) {
+    override func rightMouseDown(with theEvent: NSEvent) {
         /// The menu to show when the user right clicks this item
         let menu : NSMenu = NSMenu();
         
@@ -27,45 +27,45 @@ class BCBooruCollectionViewCollectionViewItem: NSCollectionViewItem {
         self.collectionView.deselectAll(self);
         
         // Select this item
-        self.selected = true;
+        self.isSelected = true;
         
         // Add the menu items to the menu
-        menu.addItemWithTitle("Open In Browser", action: Selector("openInBrowser"), keyEquivalent: "");
-        menu.addItemWithTitle("Copy URL", action: Selector("copyUrlToClipboard"), keyEquivalent: "");
-        menu.addItemWithTitle("Copy Image URL", action: Selector("copyImageUrlToClipboard"), keyEquivalent: "");
+        menu.addItem(withTitle: "Open In Browser", action: #selector(BCBooruCollectionViewCollectionViewItem.openInBrowser), keyEquivalent: "");
+        menu.addItem(withTitle: "Copy URL", action: #selector(BCBooruCollectionViewCollectionViewItem.copyUrlToClipboard), keyEquivalent: "");
+        menu.addItem(withTitle: "Copy Image URL", action: #selector(BCBooruCollectionViewCollectionViewItem.copyImageUrlToClipboard), keyEquivalent: "");
         
         // Show the menu
-        NSMenu.popUpContextMenu(menu, withEvent: theEvent, forView: self.view);
+        NSMenu.popUpContextMenu(menu, with: theEvent, for: self.view);
     }
     
     /// Opens this post in the browser
     func openInBrowser() {
         // Open this item's post's URL in the browser
-        NSWorkspace.sharedWorkspace().openURL(NSURL(string: getUrl)!);
+        NSWorkspace.shared().open(URL(string: getUrl)!);
     }
     
     /// Copys the URL of this post to the clipboard
     func copyUrlToClipboard() {
         // Add the string type to the general pasteboard
-        NSPasteboard.generalPasteboard().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
         
         // Set the string of the general pasteboard to this item's post's URL
-        NSPasteboard.generalPasteboard().setString(getUrl, forType: NSStringPboardType);
+        NSPasteboard.general().setString(getUrl, forType: NSStringPboardType);
     }
     
     /// Copys the URL of this post to the clipboard
     func copyImageUrlToClipboard() {
         // Add the string type to the general pasteboard
-        NSPasteboard.generalPasteboard().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
         
         // Set the string of the general pasteboard to this item's post's image's URL
-        NSPasteboard.generalPasteboard().setString(getImageUrl, forType: NSStringPboardType);
+        NSPasteboard.general().setString(getImageUrl, forType: NSStringPboardType);
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         // Bind the alpha value
-        self.imageView?.bind("alphaValue", toObject: self, withKeyPath: "representedObject.alphaValue", options: nil);
+        self.imageView?.bind("alphaValue", to: self, withKeyPath: "representedObject.alphaValue", options: nil);
     }
 }

@@ -58,25 +58,25 @@ class BCAppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDe
     /// Window/Select Post Browser (⌘B)
     @IBOutlet weak var menuItemSelectPostBrowser: NSMenuItem!
     
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         // Make the application support folders
         createApplicationSupportFolders();
         
         // Set the notification center delegate
-        NSUserNotificationCenter.defaultUserNotificationCenter().delegate = self;
+        NSUserNotificationCenter.default.delegate = self;
     }
     
-    func userNotificationCenter(center: NSUserNotificationCenter, shouldPresentNotification notification: NSUserNotification) -> Bool {
+    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
         return true;
     }
     
     func createApplicationSupportFolders() {
         // If the application support folder doesnt exist...
-        if(!NSFileManager.defaultManager().fileExistsAtPath(NSHomeDirectory() + "/Library/Application Support/Booru-chan/")) {
+        if(!FileManager.default.fileExists(atPath: NSHomeDirectory() + "/Library/Application Support/Booru-chan/")) {
             do {
                 // Make the ~/Library/Application Support/Booru-chan folder
-                try NSFileManager.defaultManager().createDirectoryAtPath(NSHomeDirectory() + "/Library/Application Support/Booru-chan/", withIntermediateDirectories: false, attributes: nil);
+                try FileManager.default.createDirectory(atPath: NSHomeDirectory() + "/Library/Application Support/Booru-chan/", withIntermediateDirectories: false, attributes: nil);
             }
             catch let error as NSError {
                 // Print the error
@@ -85,10 +85,10 @@ class BCAppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDe
         }
         
         // If the caches folder doesnt exist...
-        if(!NSFileManager.defaultManager().fileExistsAtPath(NSHomeDirectory() + "/Library/Application Support/Booru-chan/caches")) {
+        if(!FileManager.default.fileExists(atPath: NSHomeDirectory() + "/Library/Application Support/Booru-chan/caches")) {
             do {
                 // Make the ~/Library/Application Support/Booru-chan/caches folder
-                try NSFileManager.defaultManager().createDirectoryAtPath(NSHomeDirectory() + "/Library/Application Support/Booru-chan/caches", withIntermediateDirectories: false, attributes: nil);
+                try FileManager.default.createDirectory(atPath: NSHomeDirectory() + "/Library/Application Support/Booru-chan/caches", withIntermediateDirectories: false, attributes: nil);
             }
             catch let error as NSError {
                 // Print the error
@@ -100,25 +100,25 @@ class BCAppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDe
     /// Saves the preferences
     func savePreferences() {
         /// The data for the preferences object
-        let data = NSKeyedArchiver.archivedDataWithRootObject(preferences);
+        let data = NSKeyedArchiver.archivedData(withRootObject: preferences);
         
         // Set the standard user defaults preferences key to that data
-        NSUserDefaults.standardUserDefaults().setObject(data, forKey: "preferences");
+        UserDefaults.standard.set(data, forKey: "preferences");
         
         // Synchronize the data
-        NSUserDefaults.standardUserDefaults().synchronize();
+        UserDefaults.standard.synchronize();
     }
     
     /// Loads the preferences
     func loadPreferences() {
         // If we have any data to load...
-        if let data = NSUserDefaults.standardUserDefaults().objectForKey("preferences") as? NSData {
+        if let data = UserDefaults.standard.object(forKey: "preferences") as? Data {
             // Set the preferences object to the loaded object
-            preferences = (NSKeyedUnarchiver.unarchiveObjectWithData(data) as! BCPreferencesObject);
+            preferences = (NSKeyedUnarchiver.unarchiveObject(with: data) as! BCPreferencesObject);
         }
     }
 
-    func applicationWillTerminate(aNotification: NSNotification) {
+    func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
         // Save the preferences
         savePreferences();

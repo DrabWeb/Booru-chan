@@ -11,10 +11,10 @@ class BCPreferencesObject: NSObject, NSCoding {
     /// The Booru hosts the user has added
     // REMINDER: Set this back to init as [] when you can set your Boorus in preferences
     var booruHosts : [BCBooruHost] = [
-        BCBooruHost(name: "Yande.re", type: .Moebooru, pagePostLimit: 40, url: "http://yande.re/", maximumRating: .Explicit),
-        BCBooruHost(name: "Danbooru", type: .Danbooru, pagePostLimit: 40, url: "http://danbooru.donmai.us/", maximumRating: .Explicit),
-        BCBooruHost(name: "Konachan", type: .Moebooru, pagePostLimit: 40, url: "http://konachan.net/", maximumRating: .Explicit),
-        BCBooruHost(name: "Gelbooru", type: .Gelbooru, pagePostLimit: 40, url: "http://gelbooru.com/", maximumRating: .Explicit)
+        BCBooruHost(name: "Yande.re", type: .moebooru, pagePostLimit: 40, url: "http://yande.re/", maximumRating: .explicit),
+        BCBooruHost(name: "Danbooru", type: .danbooru, pagePostLimit: 40, url: "http://danbooru.donmai.us/", maximumRating: .explicit),
+        BCBooruHost(name: "Konachan", type: .moebooru, pagePostLimit: 40, url: "http://konachan.net/", maximumRating: .explicit),
+        BCBooruHost(name: "Gelbooru", type: .gelbooru, pagePostLimit: 40, url: "http://gelbooru.com/", maximumRating: .explicit)
     ];
     
     /// The format for naming saved images
@@ -29,32 +29,32 @@ class BCPreferencesObject: NSObject, NSCoding {
     /// Should a notification show when a download finishes?
     var notifyWhenDownloadsFinished : Bool = true;
     
-    func encodeWithCoder(coder: NSCoder) {
+    func encode(with coder: NSCoder) {
         // Encode the preferences
-        coder.encodeObject(booruHosts, forKey: "booruHosts");
-        coder.encodeObject(imageSaveFormat, forKey: "imageSaveFormat");
-        coder.encodeObject(indicateDownloadedPosts, forKey: "indicateDownloadedPosts");
-        coder.encodeObject(notifyWhenDownloadsFinished, forKey: "notifyWhenDownloadsFinished");
+        coder.encode(booruHosts, forKey: "booruHosts");
+        coder.encode(imageSaveFormat, forKey: "imageSaveFormat");
+        coder.encode(indicateDownloadedPosts, forKey: "indicateDownloadedPosts");
+        coder.encode(notifyWhenDownloadsFinished, forKey: "notifyWhenDownloadsFinished");
     }
     
     required convenience init(coder decoder: NSCoder) {
         self.init();
         
         // Decode and load the preferences
-        if((decoder.decodeObjectForKey("booruHosts") as? [BCBooruHost]) != nil) {
-            self.booruHosts = decoder.decodeObjectForKey("booruHosts") as! [BCBooruHost];
+        if((decoder.decodeObject(forKey: "booruHosts") as? [BCBooruHost]) != nil) {
+            self.booruHosts = decoder.decodeObject(forKey: "booruHosts") as! [BCBooruHost];
         }
         
-        if((decoder.decodeObjectForKey("imageSaveFormat") as? String) != nil) {
-            self.imageSaveFormat = decoder.decodeObjectForKey("imageSaveFormat") as! String;
+        if((decoder.decodeObject(forKey: "imageSaveFormat") as? String) != nil) {
+            self.imageSaveFormat = decoder.decodeObject(forKey: "imageSaveFormat") as! String;
         }
         
-        if((decoder.decodeObjectForKey("indicateDownloadedPosts") as? Bool) != nil) {
-            self.indicateDownloadedPosts = decoder.decodeObjectForKey("indicateDownloadedPosts") as! Bool;
+        if((decoder.decodeObject(forKey: "indicateDownloadedPosts") as? Bool) != nil) {
+            self.indicateDownloadedPosts = decoder.decodeObject(forKey: "indicateDownloadedPosts") as! Bool;
         }
         
-        if((decoder.decodeObjectForKey("notifyWhenDownloadsFinished") as? Bool) != nil) {
-            self.notifyWhenDownloadsFinished = decoder.decodeObjectForKey("notifyWhenDownloadsFinished") as! Bool;
+        if((decoder.decodeObject(forKey: "notifyWhenDownloadsFinished") as? Bool) != nil) {
+            self.notifyWhenDownloadsFinished = decoder.decodeObject(forKey: "notifyWhenDownloadsFinished") as! Bool;
         }
     }
 }

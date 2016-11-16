@@ -1,0 +1,6 @@
+framework module Pods_Booru_chanUITests {
+  umbrella header "Pods-Booru-chanUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

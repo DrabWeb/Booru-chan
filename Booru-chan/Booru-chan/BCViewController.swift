@@ -7,6 +7,19 @@
 
 import Cocoa
 import Alamofire
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 class BCViewController: NSViewController, NSWindowDelegate {
     
@@ -29,7 +42,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
     @IBOutlet var titlebarBooruPickerPopupButton: NSPopUpButton!
     
     /// When we select an item in titlebarBooruPickerPopupButton...
-    @IBAction func titlebarBooruPickerPopupButtonItemSelected(sender: AnyObject) {
+    @IBAction func titlebarBooruPickerPopupButtonItemSelected(_ sender: AnyObject) {
         // Update the searching Booru
         updateSelectedSearchingBooru();
     }
@@ -38,13 +51,13 @@ class BCViewController: NSViewController, NSWindowDelegate {
     @IBOutlet var titlebarSearchField: BCBooruSearchTokenField!
     
     /// When the user enters text into titlebarSearchField...
-    @IBAction func titlebarSearchFieldTextEntered(sender: NSTokenField) {
+    @IBAction func titlebarSearchFieldTextEntered(_ sender: NSTokenField) {
         // Search for the entered text(It replaces commas with spaces because when NSTokenField gives you it's stringValue, there is a comma in between each token)
-        gridStyleController.searchFor(sender.stringValue.stringByReplacingOccurrencesOfString(",", withString: " "));
+        gridStyleController.searchFor(sender.stringValue.replacingOccurrences(of: ",", with: " "));
         
         // Add all the searched tags to the current Booru's history
         // For every entered token...
-        for(_, currentToken) in sender.tokens.enumerate() {
+        for(_, currentToken) in sender.tokens.enumerated() {
             // Add the current token to the search history of the current Searching Booru
             currentSelectedSearchingBooru?.addTagToHistory(currentToken);
         }
@@ -63,7 +76,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         super.viewDidLoad()
         // Do view setup here.
         // Tell BCAppDelegate to load the preferences
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).loadPreferences();
+        (NSApplication.shared().delegate as! BCAppDelegate).loadPreferences();
         
         // Style the window
         styleWindow();
@@ -72,11 +85,11 @@ class BCViewController: NSViewController, NSWindowDelegate {
         setupMenuItems();
         
         // Add the preferences updated observer
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("preferencesUpdated"), name: "BCPreferences.Updated", object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(BCViewController.preferencesUpdated), name: NSNotification.Name(rawValue: "BCPreferences.Updated"), object: nil);
         
         // Set the target and action for the titlebar search field's tokens changed event
         titlebarSearchField.tokensChangedTarget = self;
-        titlebarSearchField.tokensChangedAction = Selector("searchTokensChanged");
+        titlebarSearchField.tokensChangedAction = #selector(BCViewController.searchTokensChanged);
         
         // Initialize everything
         gridStyleController.initialize();
@@ -99,24 +112,24 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // If the selection item isnt nil...
         if(titlebarBooruPickerPopupButton.selectedItem != nil) {
             // Set selection index to the index of the selected item
-            selectionIndex = titlebarBooruPickerPopupButton.indexOfItem(titlebarBooruPickerPopupButton.selectedItem!);
+            selectionIndex = titlebarBooruPickerPopupButton.index(of: titlebarBooruPickerPopupButton.selectedItem!);
         }
         
         // Update the Searching Boorus
         updateBooruPickerPopupButton();
         
         // Reselect the previous item
-        titlebarBooruPickerPopupButton.selectItemAtIndex(selectionIndex);
+        titlebarBooruPickerPopupButton.selectItem(at: selectionIndex);
         
         // If the selected item is now nil...
         if(titlebarBooruPickerPopupButton.selectedItem == nil) {
             // Select the last item in titlebarBooruPickerPopupButton
-            titlebarBooruPickerPopupButton.selectItemAtIndex(titlebarBooruPickerPopupButton.indexOfItem(titlebarBooruPickerPopupButton.lastItem!));
+            titlebarBooruPickerPopupButton.selectItem(at: titlebarBooruPickerPopupButton.index(of: titlebarBooruPickerPopupButton.lastItem!));
         }
     }
     
     /// Saves the given BCBooruCollectionViewItems
-    func saveBooruItems(items : [BCBooruCollectionViewItem]) {
+    func saveBooruItems(_ items : [BCBooruCollectionViewItem]) {
         // If there is at least one item in items...
         if(items.count > 0) {
             /// The open panel to get the directory to save the images to
@@ -131,15 +144,15 @@ class BCViewController: NSViewController, NSWindowDelegate {
             saveDirectoryOpenPanel.prompt = "Save";
             
             // Run the open panel, and if the user hits "Save"...
-            if(Bool(saveDirectoryOpenPanel.runModal())) {
+            if(Bool(saveDirectoryOpenPanel.runModal() as NSNumber)) {
                 /// The directory we are saving the images to
-                let saveDirectory : String = saveDirectoryOpenPanel.URL!.absoluteString.stringByRemovingPercentEncoding!.stringByReplacingOccurrencesOfString("file://", withString: "");
+                let saveDirectory : String = saveDirectoryOpenPanel.url!.absoluteString.removingPercentEncoding!.replacingOccurrences(of: "file://", with: "");
                 
                 /// The items to download from items
                 var downloadItems : [BCBooruCollectionViewItem] = [];
                 
                 // For every item in items...
-                for(_, currentItem) in items.enumerate() {
+                for(_, currentItem) in items.enumerated() {
                     // If the current item isn't a "No More Results" item...
                     if(!currentItem.noMoreResultsItem) {
                         // Append the current item to downloadItems
@@ -165,25 +178,26 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     /// The actual downloading part of saveBooruItems, saves the given items to the given path, uses tags and count when showing the download completed notification
-    private func downloadBooruItems(var items : [BCBooruCollectionViewItem], saveDirectory : String, tags : String, count : Int) -> Void {
+    private func downloadBooruItems(_ items : [BCBooruCollectionViewItem], saveDirectory : String, tags : String, count : Int) -> Void {
+        var items = items
         if let currentSaveItem = items.popLast() {
             // Print what image we are saving
             print("BCViewController: Saving \(currentSaveItem.representedPost!.imageUrl)");
             
             /// The name of the image file
-            var imageFileName : String = (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.imageSaveFormat;
+            var imageFileName : String = (NSApplication.shared().delegate as! BCAppDelegate).preferences.imageSaveFormat;
             
             // Replace %id% with the image's id
-            imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%id%", withString: String(currentSaveItem.representedPost!.id));
+            imageFileName = imageFileName.replacingOccurrences(of: "%id%", with: String(currentSaveItem.representedPost!.id));
             
             // Replace %booru% with the post's Booru's name
-            imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%booru%", withString: String(currentSelectedSearchingBooru!.name));
+            imageFileName = imageFileName.replacingOccurrences(of: "%booru%", with: String(currentSelectedSearchingBooru!.name));
             
             /// Every tag of this post(With spaces in between) put into a string
             var tagsString : String = "";
             
             // For every tag on this post...
-            for(_, currentTag) in currentSaveItem.representedPost!.tags.enumerate() {
+            for(_, currentTag) in currentSaveItem.representedPost!.tags.enumerated() {
                 // Add the current tag to tagsString
                 tagsString += currentTag + " ";
             }
@@ -191,27 +205,27 @@ class BCViewController: NSViewController, NSWindowDelegate {
             // If tagsString isnt blank...
             if(tagsString != "") {
                 // Remove the trailing space that was added from adding the tags
-                tagsString = tagsString.substringToIndex(tagsString.endIndex.predecessor());
+                tagsString = tagsString.substring(to: tagsString.characters.index(before: tagsString.endIndex));
             }
             
             // Replace %tags% with the tags string
-            imageFileName = imageFileName.stringByReplacingOccurrencesOfString("%tags%", withString: tagsString);
+            imageFileName = imageFileName.replacingOccurrences(of: "%tags%", with: tagsString);
             
             // Remove all /'s in the file name
-            imageFileName = imageFileName.stringByReplacingOccurrencesOfString("/", withString: " ");
+            imageFileName = imageFileName.replacingOccurrences(of: "/", with: " ");
             
             // If imageFileName has over 250 characters...
             if(imageFileName.characters.count > 250) {
                 // Cut imageFileName down to 250 characters
-                imageFileName = imageFileName.substringToIndex(imageFileName.startIndex.advancedBy(250));
+                imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: 250));
                 
                 /// The indexes of all the spaces in imageFileName
-                let indexesOfSpaceInImageFileName = imageFileName.characters.enumerate()
+                let indexesOfSpaceInImageFileName = imageFileName.characters.enumerated()
                     .filter { $0.element == " " }
-                    .map { $0.index }
+                    .map { $0.offset }
                 
                 // Cut imageFileName down to the last space
-                imageFileName = imageFileName.substringToIndex(imageFileName.startIndex.advancedBy(indexesOfSpaceInImageFileName.last!));
+                imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: indexesOfSpaceInImageFileName.last!));
             }
             
             // Add the extension onto the end
@@ -220,7 +234,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
             // If we have already downloaded the image...
             if(currentSaveItem.finishedLoadingImage) {
                 // Save the image asynchronously so it doesn't lag the interface
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                DispatchQueue.global(qos: DispatchQoS.default.qosClass).async {
                     // Write the image to the chosen directory with the generated file name
                     currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
                     
@@ -229,7 +243,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                 }
                 
                 // Save the image to disk, asynchronously
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     // Add the ID of this post to the current searching Booru's downloaded posts
                     self.currentSelectedSearchingBooru?.addIDToDownloadHistory(currentSaveItem.representedPost!.id);
                     
@@ -237,39 +251,42 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     self.downloadBooruItems(items, saveDirectory: saveDirectory, tags: tags, count: count);
                 }
             }
-            // If we have to download the image...
+                // If we have to download the image...
             else {
                 // Download the post item's full size image
-                Alamofire.request(.GET, currentSaveItem.representedPost!.imageUrl).response { (request, response, data, error) in
-                    // If data isnt nil...
-                    if(data != nil) {
-                        /// The downloaded image
-                        let image : NSImage? = NSImage(data: data!);
+                Alamofire.download(currentSaveItem.representedPost!.imageUrl)
+                    .responseData { response in
+                        let data = response.result.value;
                         
-                        // If image isnt nil...
-                        if(image != nil) {
-                            // Store the image in the post item
-                            currentSaveItem.image = image!;
+                        // If data isnt nil...
+                        if(data != nil) {
+                            /// The downloaded image
+                            let image : NSImage? = NSImage(data: data!);
                             
-                            // Save the image asynchronously so it doesn't lag the interface
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                                // Write the image to the chosen directory with the generated file name
-                                currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
+                            // If image isnt nil...
+                            if(image != nil) {
+                                // Store the image in the post item
+                                currentSaveItem.image = image!;
                                 
-                                // Print that we saved the image
-                                print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
-                            }
-                            
-                            // Dispatch onto the main queue
-                            dispatch_async(dispatch_get_main_queue()) {
-                                // Add the ID of this post to the current searching Booru's downloaded posts
-                                self.currentSelectedSearchingBooru?.addIDToDownloadHistory(currentSaveItem.representedPost!.id);
+                                // Save the image asynchronously so it doesn't lag the interface
+                                DispatchQueue.global().async {
+                                    // Write the image to the chosen directory with the generated file name
+                                    currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
+                                    
+                                    // Print that we saved the image
+                                    print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
+                                }
                                 
-                                // Download the next item
-                                self.downloadBooruItems(items, saveDirectory: saveDirectory, tags: tags, count: count);
+                                // Dispatch onto the main queue
+                                DispatchQueue.main.async {
+                                    // Add the ID of this post to the current searching Booru's downloaded posts
+                                    self.currentSelectedSearchingBooru?.addIDToDownloadHistory(currentSaveItem.representedPost!.id);
+                                    
+                                    // Download the next item
+                                    self.downloadBooruItems(items, saveDirectory: saveDirectory, tags: tags, count: count);
+                                }
                             }
                         }
-                    }
                 }
             }
         }
@@ -278,7 +295,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
             self.gridStyleController.reloadDownloadedIndicators();
             
             // If the user has downloads finished notifications on and we downloaded more than one image...
-            if((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished && count > 1) {
+            if((NSApplication.shared().delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished && count > 1) {
                 /// The notification to tell the user that tells the user their downloads have finished
                 let downloadsFinishedNotification : NSUserNotification = NSUserNotification();
                 
@@ -286,7 +303,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                 downloadsFinishedNotification.informativeText = "\(count) images downloaded";
                 
                 // Post the notification
-                NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(downloadsFinishedNotification);
+                NSUserNotificationCenter.default.deliver(downloadsFinishedNotification);
             }
         }
     }
@@ -300,9 +317,9 @@ class BCViewController: NSViewController, NSWindowDelegate {
     /// Opens the selected posts in the browser
     func openSelectedPostsInBrowser() {
         // For every selected post...
-        for(_, currentSelectedPost) in gridStyleController.getSelectedBooruItems().enumerate() {
+        for(_, currentSelectedPost) in gridStyleController.getSelectedBooruItems().enumerated() {
             // Open the selected post in the browser
-            NSWorkspace.sharedWorkspace().openURL(NSURL(string: currentSelectedPost.representedPost!.url)!);
+            NSWorkspace.shared().open(URL(string: currentSelectedPost.representedPost!.url)!);
         }
     }
     
@@ -312,7 +329,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         var copyString : String = "";
         
         // For every selected post...
-        for(currentIndex, currentSelectedPost) in gridStyleController.getSelectedBooruItems().enumerate() {
+        for(currentIndex, currentSelectedPost) in gridStyleController.getSelectedBooruItems().enumerated() {
             // If this isnt the last item...
             if(currentIndex != (gridStyleController.getSelectedBooruItems().count - 1)) {
                 // Add the current item's post's URL to the end of copyString, with a trailing new line
@@ -333,10 +350,10 @@ class BCViewController: NSViewController, NSWindowDelegate {
         
         // Copy copyString
         // Add the string type to the general pasteboard
-        NSPasteboard.generalPasteboard().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
         
         // Set the string of the general pasteboard to copyString
-        NSPasteboard.generalPasteboard().setString(copyString, forType: NSStringPboardType);
+        NSPasteboard.general().setString(copyString, forType: NSStringPboardType);
     }
     
     /// Copies all the URLs in postUrlCopyLog
@@ -345,7 +362,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         var copyString : String = "";
         
         // For every item in postUrlCopyLog...
-        for(_, currentUrl) in postUrlCopyLog.enumerate() {
+        for(_, currentUrl) in postUrlCopyLog.enumerated() {
             // Add the current URL to the end of copyString, with a trailing new line
             copyString += currentUrl + "\n";
         }
@@ -353,15 +370,15 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // If copyString isnt empty...
         if(copyString != "") {
             // Remove the final new line from copyString
-            copyString = copyString.substringToIndex(copyString.endIndex.predecessor());
+            copyString = copyString.substring(to: copyString.characters.index(before: copyString.endIndex));
         }
         
         // Copy copyString
         // Add the string type to the general pasteboard
-        NSPasteboard.generalPasteboard().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
         
         // Set the string of the general pasteboard to copyString
-        NSPasteboard.generalPasteboard().setString(copyString, forType: NSStringPboardType);
+        NSPasteboard.general().setString(copyString, forType: NSStringPboardType);
     }
     
     /// Copys the image URLs of the selected posts
@@ -370,7 +387,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         var copyString : String = "";
         
         // For every selected post...
-        for(currentIndex, currentSelectedPost) in gridStyleController.getSelectedBooruItems().enumerate() {
+        for(currentIndex, currentSelectedPost) in gridStyleController.getSelectedBooruItems().enumerated() {
             // If this isnt the last item...
             if(currentIndex != (gridStyleController.getSelectedBooruItems().count - 1)) {
                 // Add the current item's post's image URL to the end of copyString, with a trailing new line
@@ -391,10 +408,10 @@ class BCViewController: NSViewController, NSWindowDelegate {
         
         // Copy copyString
         // Add the string type to the general pasteboard
-        NSPasteboard.generalPasteboard().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
         
         // Set the string of the general pasteboard to copyString
-        NSPasteboard.generalPasteboard().setString(copyString, forType: NSStringPboardType);
+        NSPasteboard.general().setString(copyString, forType: NSStringPboardType);
     }
     
     /// Copies all the URLs in imageUrlCopyLog
@@ -403,7 +420,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         var copyString : String = "";
         
         // For every item in imageUrlCopyLog...
-        for(_, currentUrl) in imageUrlCopyLog.enumerate() {
+        for(_, currentUrl) in imageUrlCopyLog.enumerated() {
             // Add the current URL to the end of copyString, with a trailing new line
             copyString += currentUrl + "\n";
         }
@@ -411,15 +428,15 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // If copyString isnt empty...
         if(copyString != "") {
             // Remove the final new line from copyString
-            copyString = copyString.substringToIndex(copyString.endIndex.predecessor());
+            copyString = copyString.substring(to: copyString.characters.index(before: copyString.endIndex));
         }
         
         // Copy copyString
         // Add the string type to the general pasteboard
-        NSPasteboard.generalPasteboard().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
         
         // Set the string of the general pasteboard to copyString
-        NSPasteboard.generalPasteboard().setString(copyString, forType: NSStringPboardType);
+        NSPasteboard.general().setString(copyString, forType: NSStringPboardType);
     }
     
     /// Updates currentSelectedSearchingBooru to match the selected item in titlebarBooruPickerPopupButton
@@ -430,7 +447,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // If there isnt one item with a title of "No Boorus Added" in titlebarBooruPickerPopupButton...
         if(titlebarBooruPickerPopupButton.itemArray.count != 1 && titlebarBooruPickerPopupButton.itemArray[0].title != "No Boorus Added") {
             // Set the selected searching Booru to the selected Booru
-            currentSelectedSearchingBooru = (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts[titlebarBooruPickerPopupButton.indexOfItem(titlebarBooruPickerPopupButton.selectedItem!)];
+            currentSelectedSearchingBooru = (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts[titlebarBooruPickerPopupButton.index(of: titlebarBooruPickerPopupButton.selectedItem!)];
         }
         else {
             // Set currentSelectedSearchingBooru to nil
@@ -458,24 +475,24 @@ class BCViewController: NSViewController, NSWindowDelegate {
         titlebarBooruPickerPopupButton.removeAllItems();
         
         // For every Booru in the user's Boorus...
-        for(_, currentBooruHost) in (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.booruHosts.enumerate() {
+        for(_, currentBooruHost) in (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts.enumerated() {
             // Add the current item to titlebarBooruPickerPopupButton
-            titlebarBooruPickerPopupButton.addItemWithTitle(currentBooruHost.name);
+            titlebarBooruPickerPopupButton.addItem(withTitle: currentBooruHost.name);
         }
         
         // If there arent any items in titlebarBooruPickerPopupButton...
-        if(titlebarBooruPickerPopupButton.menu?.itemArray.count < 1) {
+        if(titlebarBooruPickerPopupButton.menu?.items.count < 1) {
             // Add an item saying "No Boorus Added" to titlebarBooruPickerPopupButton
-            titlebarBooruPickerPopupButton.addItemWithTitle("");
+            titlebarBooruPickerPopupButton.addItem(withTitle: "");
         }
         
         // Update the searching Booru
         updateSelectedSearchingBooru();
     }
     
-    func windowWillEnterFullScreen(notification: NSNotification) {
+    func windowWillEnterFullScreen(_ notification: Notification) {
         // Hide the toolbar
-        window.toolbar?.visible = false;
+        window.toolbar?.isVisible = false;
         
         // Set the window's appearance to vibrant dark so the fullscreen toolbar is dark
         window.appearance = NSAppearance(named: NSAppearanceNameVibrantDark);
@@ -484,9 +501,9 @@ class BCViewController: NSViewController, NSWindowDelegate {
         titlebarItemsSplitViewLeftMinimumWidthConstraint.constant = 166;
     }
     
-    func windowDidExitFullScreen(notification: NSNotification) {
+    func windowDidExitFullScreen(_ notification: Notification) {
         // Show the toolbar
-        window.toolbar?.visible = true;
+        window.toolbar?.isVisible = true;
         
         // Set back the window's appearance
         window.appearance = NSAppearance(named: NSAppearanceNameAqua);
@@ -497,7 +514,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // If we are hiding the titlebar...
         if(!titlebarVisible) {
             // Hide the OSX titlebar
-            window.standardWindowButton(.CloseButton)?.superview?.superview?.hidden = true;
+            window.standardWindowButton(.closeButton)?.superview?.superview?.isHidden = true;
         }
     }
     
@@ -524,12 +541,12 @@ class BCViewController: NSViewController, NSWindowDelegate {
     /// Hides the titlebar
     func hideTitlebar() {
         // Hide the titlebar visual effect view
-        titlebarVisualEffectView.hidden = true;
+        titlebarVisualEffectView.isHidden = true;
         
         // If we arent in fullscreen...
-        if(!((window.styleMask & NSFullScreenWindowMask) > 0)) {
+        if(!(window.styleMask.contains(NSFullScreenWindowMask))) {
             // Hide the OSX titlebar
-            window.standardWindowButton(.CloseButton)?.superview?.superview?.hidden = true;
+            window.standardWindowButton(.closeButton)?.superview?.superview?.isHidden = true;
         }
         
         // Update constraints/content insets
@@ -543,10 +560,10 @@ class BCViewController: NSViewController, NSWindowDelegate {
     /// Shows the titlebar
     func showTitlebar() {
         // Show the titlebar visual effect view
-        titlebarVisualEffectView.hidden = false;
+        titlebarVisualEffectView.isHidden = false;
         
         // Show the OSX titlebar
-        window.standardWindowButton(.CloseButton)?.superview?.superview?.hidden = false;
+        window.standardWindowButton(.closeButton)?.superview?.superview?.isHidden = false;
         
         // Update constraints/content insets
         gridStyleController.largeImageViewTopConstraint.constant = 37;
@@ -572,34 +589,34 @@ class BCViewController: NSViewController, NSWindowDelegate {
     func setupMenuItems() {
         // Setup the menu items
         // Set the actions
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSaveSelectedImages.action = Selector("saveSelectedImages");
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemOpenSelectedPostsInBrowser.action = Selector("openSelectedPostsInBrowser");
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemCopyUrlsOfSelectedPosts.action = Selector("copyUrlsOfSelectedPosts");
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemCopyImageUrlsOfSelectedPosts.action = Selector("copyImageUrlsOfSelectedPosts");
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemCopyAllPreviouslyCopiedPostUrls.action = Selector("copyPreviouslyCopiedPostUrls");
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemCopyAllPreviouslyCopiedImageUrls.action = Selector("copyPreviouslyCopiedImageUrls");
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTitlebar.action = Selector("toggleTitlebar");
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSelectSearchField.action = Selector("selectSearchField");
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemSelectPostBrowser.action = Selector("selectPostBrowser");
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemSaveSelectedImages.action = #selector(BCViewController.saveSelectedImages);
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemOpenSelectedPostsInBrowser.action = #selector(BCViewController.openSelectedPostsInBrowser);
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemCopyUrlsOfSelectedPosts.action = #selector(BCViewController.copyUrlsOfSelectedPosts);
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemCopyImageUrlsOfSelectedPosts.action = #selector(BCViewController.copyImageUrlsOfSelectedPosts);
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemCopyAllPreviouslyCopiedPostUrls.action = #selector(BCViewController.copyPreviouslyCopiedPostUrls);
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemCopyAllPreviouslyCopiedImageUrls.action = #selector(BCViewController.copyPreviouslyCopiedImageUrls);
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemToggleTitlebar.action = #selector(BCViewController.toggleTitlebar);
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemSelectSearchField.action = #selector(BCViewController.selectSearchField);
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemSelectPostBrowser.action = #selector(BCViewController.selectPostBrowser);
     }
     
     /// Styles the window
     func styleWindow() {
         // Get the window
-        window = NSApplication.sharedApplication().windows.last!;
+        window = NSApplication.shared().windows.last!;
         
         // Set the window's delegate
         window.delegate = self;
         
         // Style the titlebar
         window.titlebarAppearsTransparent = true;
-        window.titleVisibility = .Hidden;
+        window.titleVisibility = .hidden;
         
-        window.styleMask |= NSFullSizeContentViewWindowMask;
+        window.styleMask.insert(NSFullSizeContentViewWindowMask);
         window.toolbar?.showsBaselineSeparator = false;
         
         // Set the visual effects views' materials
-        titlebarVisualEffectView.material = .Dark;
-        backgroundVisualEffectView.material = .Dark;
+        titlebarVisualEffectView.material = .dark;
+        backgroundVisualEffectView.material = .dark;
     }
 }

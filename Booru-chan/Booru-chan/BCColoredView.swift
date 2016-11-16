@@ -10,16 +10,16 @@ import Cocoa
 class BCColoredView: NSView {
     
     /// The background color of the view
-    var backgroundColor : NSColor = NSColor.clearColor();
+    var backgroundColor : NSColor = NSColor.clear;
 
-    override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
 
         // Drawing code here.
         // Make sure we get a layer
         self.wantsLayer = true;
         
         // Set the layer's background color
-        self.layer?.backgroundColor = backgroundColor.CGColor;
+        self.layer?.backgroundColor = backgroundColor.cgColor;
     }
 }

@@ -6,11 +6,35 @@
 //
 
 import Cocoa
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
 
 class BCActionOnScrollToBottomScrollView: NSScrollView {
     
     /// Are we at the bottom of the scroll view?(Used so it isnt spammed when reaching the bottom)
-    private var atBottom : Bool = false;
+    fileprivate var atBottom : Bool = false;
     
     /// The object to perform reachedBottomAction
     var reachedBottomTarget : AnyObject? = nil;
@@ -18,7 +42,7 @@ class BCActionOnScrollToBottomScrollView: NSScrollView {
     /// The selector to call when the user reaches the bottom of this scroll view
     var reachedBottomAction : Selector? = nil;
     
-    override func reflectScrolledClipView(cView: NSClipView) {
+    override func reflectScrolledClipView(_ cView: NSClipView) {
         super.reflectScrolledClipView(cView);
         
         // If we are at the bottom of the scroll view...
@@ -28,7 +52,7 @@ class BCActionOnScrollToBottomScrollView: NSScrollView {
                 // If reachedBottomTarget and reachedBottomAction are both not nil...
                 if(reachedBottomTarget != nil && reachedBottomAction != nil) {
                     // Call the reached bottom action
-                    reachedBottomTarget!.performSelector(reachedBottomAction!);
+                    reachedBottomTarget!.perform(reachedBottomAction!);
                 }
             }
             

@@ -21,11 +21,11 @@ class BCGridStyleTagListTableViewCellView: NSTableCellView {
     var changedAction : Selector? = nil;
     
     /// When we press checkbox...
-    @IBAction func checkboxPressed(sender: AnyObject) {
+    @IBAction func checkboxPressed(_ sender: AnyObject) {
         // If changedTarget and changedAction arent nil...
         if(changedTarget != nil && changedAction != nil) {
             // Perform the selector with this cells data and the new state
-            changedTarget!.performSelector(changedAction!, withObject: [data : Bool(checkbox.state)]);
+            changedTarget!.perform(changedAction!, with: [data : Bool(checkbox.state as NSNumber)]);
         }
     }
 }

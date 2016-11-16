@@ -30,7 +30,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
     /// Used for checking when the user has deleted a token
     var lastTokens : [String] = [];
     
-    override func textDidChange(notification: NSNotification) {
+    override func textDidChange(_ notification: Notification) {
         super.textDidChange(notification);
         
         // If we have more tokens than last time...
@@ -38,7 +38,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
             // If tokensChangedTarget and tokensChangedAction arent nil...
             if(tokensChangedTarget != nil && tokensChangedAction != nil) {
                 // Call the tokens changed action
-                tokensChangedTarget!.performSelector(tokensChangedAction!);
+                tokensChangedTarget!.perform(tokensChangedAction!);
             }
             
             // Empty lastDownloadedTags
@@ -49,7 +49,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
             // If tokensChangedTarget and tokensChangedAction arent nil...
             if(tokensChangedTarget != nil && tokensChangedAction != nil) {
                 // Call the tokens changed action
-                tokensChangedTarget!.performSelector(tokensChangedAction!);
+                tokensChangedTarget!.perform(tokensChangedAction!);
             }
             
             // Empty lastDownloadedTags
@@ -59,12 +59,12 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         lastTokens = self.tokens;
     }
     
-    func tokenField(tokenField: NSTokenField, readFromPasteboard pboard: NSPasteboard) -> [AnyObject]? {
+    func tokenField(_ tokenField: NSTokenField, readFrom pboard: NSPasteboard) -> [Any]? {
         // Return the text from pboard split at every space
-        return (pboard.stringForType(NSStringPboardType)?.componentsSeparatedByString(" "));
+        return (pboard.string(forType: NSStringPboardType)?.components(separatedBy: " "));
     }
     
-    func tokenField(tokenField: NSTokenField, writeRepresentedObjects objects: [AnyObject], toPasteboard pboard: NSPasteboard) -> Bool {
+    func tokenField(_ tokenField: NSTokenField, writeRepresentedObjects objects: [Any], to pboard: NSPasteboard) -> Bool {
         // Add the string type to the pasteboard
         pboard.declareTypes([NSStringPboardType], owner: nil);
         
@@ -72,7 +72,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         var pasteString : String = "";
         
         // For every string in objects...
-        for(_, currentString) in (objects as! [String]).enumerate() {
+        for(_, currentString) in (objects as! [String]).enumerated() {
             // Add the current string with a trailing space to pasteString
             pasteString += currentString + " ";
         }
@@ -80,7 +80,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         // If pasteString isnt empty...
         if(pasteString != "") {
             // Remove the final trailing space from pasteString
-            pasteString = pasteString.substringToIndex(pasteString.endIndex.predecessor());
+            pasteString = pasteString.substring(to: pasteString.characters.index(before: pasteString.endIndex));
         }
         
         // Paste pasteString to the pasteboard
@@ -90,21 +90,21 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         return true;
     }
     
-    func tokenField(tokenField: NSTokenField, shouldAddObjects tokens: [AnyObject], atIndex index: Int) -> [AnyObject] {
+    func tokenField(_ tokenField: NSTokenField, shouldAdd tokens: [Any], at index: Int) -> [Any] {
         // Empty lastDownloadedTags
         lastDownloadedTags = [];
         
         // If tokensChangedTarget and tokensChangedAction arent nil...
         if(tokensChangedTarget != nil && tokensChangedAction != nil) {
             // Call the tokens changed action
-            tokensChangedTarget!.performSelector(tokensChangedAction!);
+            tokensChangedTarget!.perform(tokensChangedAction!);
         }
         
         // Return the given tokens
         return tokens;
     }
     
-    func tokenField(tokenField: NSTokenField, completionsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>) -> [AnyObject]? {
+    private func tokenField(_ tokenField: NSTokenField, completionsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<UnsafeMutablePointer<Int>>?) -> [Any]? {
         /// The completions for this substring
         var completions : [String] = [];
         
@@ -116,15 +116,15 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
             // If lastDownloadedTags is empty...
             if(lastDownloadedTags == []) {
                 // If there is already a cache file for this search...
-                if(NSFileManager.defaultManager().fileExistsAtPath(tokenBooru!.cacheFolderPath + substring + ".json")) {
+                if(FileManager.default.fileExists(atPath: tokenBooru!.cacheFolderPath + substring + ".json")) {
                     // Load the results from that file
                     // Print that we are loading results from a cache file
                     Swift.print("BCBooruSearchTokenField: Loading search results cache from \"\(tokenBooru!.cacheFolderPath + substring + ".json")\"");
                     
                     // Asynchronously load the cached file
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         /// The JSON from the results cache file
-                        let resultsCacheJson : JSON = JSON(data: NSFileManager.defaultManager().contentsAtPath(self.tokenBooru!.cacheFolderPath + substring + ".json")!);
+                        let resultsCacheJson : JSON = JSON(data: FileManager.default.contents(atPath: self.tokenBooru!.cacheFolderPath + substring + ".json")!);
                         
                         // Set lastDownloadedTags to the cached results
                         self.lastDownloadedTags = resultsCacheJson["results"].arrayObject as! [String];
@@ -144,7 +144,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         // If tokenBooru isnt nil...
         if(tokenBooru != nil) {
             // For every tag in the Token Booru's tag search history...
-            for(_, currentHistoryTag) in tokenBooru!.tagHistory.enumerate() {
+            for(_, currentHistoryTag) in tokenBooru!.tagHistory.enumerated() {
                 // If the current tag has the current substring as a prefix...
                 if(currentHistoryTag.hasPrefix(substring)) {
                     // Add the current tag to the completions
@@ -154,7 +154,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         }
         
         // For every tag in lastDownloadedTags...
-        for(_, currentDownloadedTag) in lastDownloadedTags.enumerate() {
+        for(_, currentDownloadedTag) in lastDownloadedTags.enumerated() {
             // If the current tag has the current substring as a prefix and the tag isnt already in the completions...
             if(currentDownloadedTag.hasPrefix(substring) && !completions.contains(currentDownloadedTag)) {
                 // Add the current tag to the completions
@@ -167,7 +167,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
     }
     
     /// Called when the tag download finishes for autocompletion suggestions
-    func finishedDownloadingTags(tags : [String]) {
+    func finishedDownloadingTags(_ tags : [String]) {
         // Print what tags we downloaded
         Swift.print("BCBooruSearchTokenField: Downloaded tags for completion: \(tags)");
         
@@ -188,10 +188,11 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
             
             do {
                 // Print where we are saving the JSON
-                Swift.print("BCBooruSearchTokenField: Writing search cache to \"\((tokenBooru?.cacheFolderPath)! + tags[0].substringToIndex(tags[0].startIndex.successor()) + ".json"))\"");
+                Swift.print("BCBooruSearchTokenField: Writing search cache to \"\((tokenBooru?.cacheFolderPath)! + tags[0].substring(to: tags[0].characters.index(after: tags[0].startIndex)) + ".json"))\"");
                 
+                // POTENTIONALLY BROKEN
                 // Write the JSON to a JSON file in the Token Booru's cache folder(With the name of the first character in the first item of tags)
-                try String(tagsJson).writeToFile((tokenBooru?.cacheFolderPath)! + tags[0].substringToIndex(tags[0].startIndex.successor()) + ".json", atomically: true, encoding: NSUTF8StringEncoding);
+                try String(describing: tagsJson).write(toFile: (tokenBooru?.cacheFolderPath)! + tags[0].substring(to: tags[0].index(after: tags[0].startIndex)) + ".json", atomically: true, encoding: String.Encoding.utf8);
             }
             catch let error as NSError {
                 // Print the error

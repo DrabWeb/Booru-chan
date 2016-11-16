@@ -71,7 +71,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     var lastDisplayRequest : Request? = nil;
     
     /// Displays the given BCBooruCollectionViewItem in the full size image view and shows it's info in the info bar. If passed nil it will but a blank iamge in the full size image view and update the info label to say "No Posts Selected"
-    func displayPostItem(postItem : BCBooruCollectionViewItem?) {
+    func displayPostItem(_ postItem : BCBooruCollectionViewItem?) {
         // If lastDisplayRequest isnt nil...
         if(lastDisplayRequest != nil) {
             // Cancel the last request so the image view doesnt get updated with previous requests when looking at new requests
@@ -85,8 +85,12 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             
             // If we havent already loaded the thumbnail...
             if(postItem!.thumbnailImage.size == NSSize.zero) {
+                
                 // Download the post item's thumbnail image
-                Alamofire.request(.GET, postItem!.representedPost!.thumbnailUrl).response { (request, response, data, error) in
+                Alamofire.download(postItem!.representedPost!.thumbnailUrl)
+                    .responseData { response in
+                    let data = response.result.value;
+                        
                     // If data isnt nil...
                     if(data != nil) {
                         /// The downloaded image
@@ -103,56 +107,59 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                     }
                 }
             }
-                // If we already loaded the thumbnail...
+            // If we already loaded the thumbnail...
             else {
                 // Show the thumbnail image in the full size image view
                 self.largeImageView.image = postItem!.thumbnailImage;
             }
             
             /// The first letter in the post item's rating
-            var ratingFirstLetter : String = String(postItem!.representedPost!.rating);
+            var ratingFirstLetter : String = String(describing: postItem!.representedPost!.rating);
             
             // Set ratingFirstLetter to the first letter in ratingFirstLetter
-            ratingFirstLetter = ratingFirstLetter.substringToIndex(ratingFirstLetter.startIndex.successor());
+            ratingFirstLetter = ratingFirstLetter.substring(to: ratingFirstLetter.characters.index(after: ratingFirstLetter.startIndex));
             
             // If we havent already downloaded the post's full size image...
             if(!postItem!.finishedLoadingImage) {
                 // Download the post item's full size image
-                lastDisplayRequest = Alamofire.request(.GET, postItem!.representedPost!.imageUrl).response { (request, response, data, error) in
-                    // If data isnt nil...
-                    if(data != nil) {
-                        /// The downloaded image
-                        let image : NSImage? = NSImage(data: data!);
+                lastDisplayRequest = Alamofire.download(postItem!.representedPost!.imageUrl)
+                    .responseData { response in
+                        let data = response.result.value;
                         
-                        // If image isnt nil...
-                        if(image != nil) {
-                            // If we finished loading the image...
-                            if(postItem!.finishedLoadingImage) {
-                                // Show the image in the full size image view
-                                self.largeImageView.image = image!;
-                                
-                                // Cache the image in the post item
-                                postItem!.image = image!;
-                                
-                                // Enable/disable animated GIF displaying based on if the image is animated
-                                self.largeImageView.canDrawSubviewsIntoLayer = postItem!.representedPost!.animated;
-                                self.largeImageView.animates = postItem!.representedPost!.animated;
+                        // If data isnt nil...
+                        if(data != nil) {
+                            /// The downloaded image
+                            let image : NSImage? = NSImage(data: data!);
+                            
+                            // If image isnt nil...
+                            if(image != nil) {
+                                // If we finished loading the image...
+                                if(postItem!.finishedLoadingImage) {
+                                    // Show the image in the full size image view
+                                    self.largeImageView.image = image!;
+                                    
+                                    // Cache the image in the post item
+                                    postItem!.image = image!;
+                                    
+                                    // Enable/disable animated GIF displaying based on if the image is animated
+                                    self.largeImageView.canDrawSubviewsIntoLayer = postItem!.representedPost!.animated;
+                                    self.largeImageView.animates = postItem!.representedPost!.animated;
+                                }
                             }
                         }
                     }
-                    }
-                    .progress { _, totalBytesRead, totalBytesExpectedToRead in
+                    .downloadProgress { progress in
                         /// How much percent done the download is
-                        let percentFinished : Int = Int((Float(totalBytesRead) / Float(totalBytesExpectedToRead)) * 100);
+                        let percentFinished : Int = Int(progress.fractionCompleted * Double(100));
                         
                         // Dispatch onto the UI queue
-                        dispatch_async(dispatch_get_main_queue()) {
+                        DispatchQueue.main.async() {
                             // Update the info bar label
                             self.infoBarInfoLabel.stringValue = "\(Int(postItem!.representedPost!.imageSize.width))x\(Int(postItem!.representedPost!.imageSize.height))[\(ratingFirstLetter)] \(percentFinished)%";
                         }
                         
                         // If we loaded all of the image's data...
-                        if(totalBytesRead == totalBytesExpectedToRead) {
+                        if(progress.fractionCompleted == Double(1)) {
                             // Say we finished loading the image
                             postItem!.finishedLoadingImage = true;
                         }
@@ -211,7 +218,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     }
     
     /// Resets the zoom on the large image view(Animates if animate is true)
-    func resetZoom(animate : Bool) {
+    func resetZoom(_ animate : Bool) {
         // If we said to animate...
         if(animate) {
             // Reset the zoom with the animation
@@ -235,7 +242,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         var selectedItems : [BCBooruCollectionViewItem] = [];
         
         // For every selection index...
-        for(_, currentSelectionIndex) in booruCollectionView.selectionIndexes.enumerate() {
+        for(_, currentSelectionIndex) in booruCollectionView.selectionIndexes.enumerated() {
             // Add the item at the current index to selectedItems
             selectedItems.append((booruCollectionViewArrayController.arrangedObjects as! [BCBooruCollectionViewItem])[currentSelectionIndex]);
         }
@@ -251,9 +258,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     var addedNoMoreResultsItem : Bool = false;
     
     /// Called when a search is finished
-    func searchFinished(results: [BCBooruPost]) {
+    func searchFinished(_ results: [BCBooruPost]) {
         // For every item in the search results...
-        for(_, currentResult) in results.enumerate() {
+        for(_, currentResult) in results.enumerated() {
             /// The new item to add to the booru collection view
             let item : BCBooruCollectionViewItem = BCBooruCollectionViewItem();
             
@@ -266,30 +273,34 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // If the result's image and thumbnail URL are an image...
             if(imageExtension.contains(NSString(string: item.representedPost!.imageUrl).pathExtension) && imageExtension.contains(NSString(string: item.representedPost!.thumbnailUrl).pathExtension)) {
                 // Download the post's thumbnail
-                lastThumbnailDownloadRequests.append(Alamofire.request(.GET, currentResult.thumbnailUrl).response { (request, response, data, error) in
-                    // If data isnt nil...
-                    if(data != nil) {
-                        /// The downloaded image
-                        let image : NSImage? = NSImage(data: data!);
+                lastThumbnailDownloadRequests.append(Alamofire.download(currentResult.thumbnailUrl)
+                    .responseData { response in
                         
-                        // If image isnt nil...
-                        if(image != nil) {
-                            // If there are any items in booruCollectionViewArrayController...
-                            if((self.booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count > 0) {
-                                // For ever item in the Booru collection view...
-                                for currentIndex in 0...(self.booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count - 1 {
-                                    // If the current item's represented object is equal to the item we downloaded the thumbnail for...
-                                    if(((self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem) == item) {
-                                        // Update the image view of the item
-                                        (self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).imageView?.image = image!;
-                                        
-                                        // Set the item's model's thumbnail image
-                                        ((self.booruCollectionView.itemAtIndex(currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem).thumbnailImage = image!;
+                        let data = response.result.value;
+                        
+                        // If data isnt nil...
+                        if(data != nil) {
+                            /// The downloaded image
+                            let image : NSImage? = NSImage(data: data!);
+                            
+                            // If image isnt nil...
+                            if(image != nil) {
+                                // If there are any items in booruCollectionViewArrayController...
+                                if((self.booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count > 0) {
+                                    // For ever item in the Booru collection view...
+                                    for currentIndex in 0...(self.booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count - 1 {
+                                        // If the current item's represented object is equal to the item we downloaded the thumbnail for...
+                                        if(((self.booruCollectionView.item(at: currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem) == item) {
+                                            // Update the image view of the item
+                                            (self.booruCollectionView.item(at: currentIndex)! as! BCBooruCollectionViewCollectionViewItem).imageView?.image = image!;
+                                            
+                                            // Set the item's model's thumbnail image
+                                            ((self.booruCollectionView.item(at: currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem).thumbnailImage = image!;
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
                     });
                 
                 // Add the item
@@ -300,7 +311,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // If the results are empty and booruCollectionViewArrayController is empty...
         if(results.isEmpty && (booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).isEmpty) {
             // Show the no search results container
-            noSearchResultsContainerView.hidden = false;
+            noSearchResultsContainerView.isHidden = false;
         }
         // If just the results are empty and we havent added the no more results item...
         else if(results.isEmpty && !addedNoMoreResultsItem) {
@@ -334,17 +345,17 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// Updates the downloaded indicators for all the posts in the Booru collection view
     func reloadDownloadedIndicators() {
         // If we said to indicate downloaded posts...
-        if((NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.indicateDownloadedPosts) {
+        if((NSApplication.shared().delegate as! BCAppDelegate).preferences.indicateDownloadedPosts) {
             // For every item in the Booru collection view...
-            for(_, currentItem) in (booruCollectionViewArrayController.arrangedObjects as! [BCBooruCollectionViewItem]).enumerate() {
+            for(_, currentItem) in (booruCollectionViewArrayController.arrangedObjects as! [BCBooruCollectionViewItem]).enumerated() {
                 // Set the item's alpha value to downloadedPostAlphaValue if it has been downloaded
                 if(mainViewController.currentSelectedSearchingBooru!.hasDownloadedId(currentItem.representedPost!.id)) {
-                    currentItem.alphaValue = (NSApplication.sharedApplication().delegate as! BCAppDelegate).preferences.downloadedPostAlphaValue;
+                    currentItem.alphaValue = (NSApplication.shared().delegate as! BCAppDelegate).preferences.downloadedPostAlphaValue;
                 }
             }
             
             // Reload the collection view
-            booruCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateControllerWithIdentifier("booruCollectionViewItem") as! BCBooruCollectionViewCollectionViewItem;
+            booruCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: Bundle.main).instantiateController(withIdentifier: "booruCollectionViewItem") as! BCBooruCollectionViewCollectionViewItem;
         }
     }
     
@@ -358,7 +369,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     }
     
     /// Clears the Booru collection view, searches for the given tags and shows the results
-    func searchFor(searchString : String) {
+    func searchFor(_ searchString : String) {
         // Deselect all posts
         booruCollectionView.deselectAll(self);
         
@@ -366,10 +377,10 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         booruCollectionViewScrollView.reachedBottomAction = nil;
         
         // Hide the no search results container
-        noSearchResultsContainerView.hidden = true;
+        noSearchResultsContainerView.isHidden = true;
         
         // Clear the Booru collection view
-        booruCollectionViewArrayController.removeObjects(booruCollectionViewArrayController.arrangedObjects as! [AnyObject]);
+        booruCollectionViewArrayController.remove(contentsOf: booruCollectionViewArrayController.arrangedObjects as! [AnyObject]);
         
         // Say we havent added the no more results item
         addedNoMoreResultsItem = false;
@@ -378,7 +389,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         largeImageView.image = NSImage();
         
         // For every item in lastThumbnailDownloadRequests...
-        for(_, currentRequest) in lastThumbnailDownloadRequests.enumerate() {
+        for(_, currentRequest) in lastThumbnailDownloadRequests.enumerated() {
             // Cancel the current thumbnail download request
             currentRequest.cancel();
         }
@@ -399,7 +410,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         }
         
         // Enable the reached bottom action
-        booruCollectionViewScrollView.reachedBottomAction = Selector("reachedBottomOfBooruCollectionView");
+        booruCollectionViewScrollView.reachedBottomAction = #selector(BCGridStyleController.reachedBottomOfBooruCollectionView);
     }
     
     /// Is the tag list open?
@@ -425,13 +436,13 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// Hides the tag list
     func hideTagList() {
         // Hide the tag list
-        leftSplitView.subviews[1].hidden = true;
+        leftSplitView.subviews[1].isHidden = true;
     }
     
     /// Shows the tag list
     func showTagList() {
         // Show the tag list
-        leftSplitView.subviews[1].hidden = false;
+        leftSplitView.subviews[1].isHidden = false;
     }
     
     /// Is the info bar open?
@@ -457,7 +468,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// Hides the info bar
     func hideInfoBar() {
         // Hide the info bar
-        infoBarVisualEffectView.hidden = true;
+        infoBarVisualEffectView.isHidden = true;
         
         // Update the Booru collection view's minimum height
         booruCollectionViewContainerMinimumHeightConstraint.constant = 37;
@@ -469,7 +480,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// Shows the info bar
     func showInfoBar() {
         // Show the info bar
-        infoBarVisualEffectView.hidden = false;
+        infoBarVisualEffectView.isHidden = false;
         
         // Reset the Booru collection view's minimum height
         booruCollectionViewContainerMinimumHeightConstraint.constant = 59;
@@ -507,44 +518,44 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         booruCollectionViewPreviousSize = mainSplitView.subviews[0].frame.width;
         
         // Hide the Booru collection view
-        mainSplitView.subviews[0].hidden = true;
+        mainSplitView.subviews[0].isHidden = true;
         
         // Set the position of the Booru collection view divider to 0
-        mainSplitView.setPosition(0, ofDividerAtIndex: 0);
+        mainSplitView.setPosition(0, ofDividerAt: 0);
     }
     
     /// Shows the Booru collection view
     func showBooruCollectionView() {
         // Show the Booru collection view
-        mainSplitView.subviews[0].hidden = false;
+        mainSplitView.subviews[0].isHidden = false;
         
         // Restore the Booru collection view's size
-        mainSplitView.setPosition(booruCollectionViewPreviousSize, ofDividerAtIndex: 0);
+        mainSplitView.setPosition(booruCollectionViewPreviousSize, ofDividerAt: 0);
     }
     
     /// Sets up the menu items for this controller
     func setupMenuItems() {
         // Setup the menu items
         // Set the targets
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemTogglePostBrowser.target = self;
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleInfoBar.target = self;
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTagList.target = self;
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemZoomIn.target = self;
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemZoomOut.target = self;
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemResetZoom.target = self;
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemTogglePostBrowser.target = self;
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemToggleInfoBar.target = self;
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemToggleTagList.target = self;
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemZoomIn.target = self;
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemZoomOut.target = self;
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemResetZoom.target = self;
         
         // Set the actions
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemTogglePostBrowser.action = Selector("toggleBooruCollectionView");
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleInfoBar.action = Selector("toggleInfoBar");
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemToggleTagList.action = Selector("toggleTagList");
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemZoomIn.action = Selector("zoomIn");
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemZoomOut.action = Selector("zoomOut");
-        (NSApplication.sharedApplication().delegate as! BCAppDelegate).menuItemResetZoom.action = Selector("resetZoomWithAnimation");
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemTogglePostBrowser.action = #selector(BCGridStyleController.toggleBooruCollectionView);
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemToggleInfoBar.action = #selector(BCGridStyleController.toggleInfoBar);
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemToggleTagList.action = #selector(BCGridStyleController.toggleTagList);
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemZoomIn.action = #selector(BCGridStyleController.zoomIn);
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemZoomOut.action = #selector(BCGridStyleController.zoomOut);
+        (NSApplication.shared().delegate as! BCAppDelegate).menuItemResetZoom.action = #selector(BCGridStyleController.resetZoomWithAnimation);
     }
     
     func initialize() {
         // Set the Booru collection view's item prototype
-        booruCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateControllerWithIdentifier("booruCollectionViewItem") as! BCBooruCollectionViewCollectionViewItem;
+        booruCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: Bundle.main).instantiateController(withIdentifier: "booruCollectionViewItem") as! BCBooruCollectionViewCollectionViewItem;
         
         // Set the minimum and maximum item sizes
         booruCollectionView.minItemSize = NSSize(width: 150, height: 150);
@@ -554,28 +565,28 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         setupMenuItems();
         
         // Style the visual effect views
-        gridContainerView.state = .Active;
-        gridBackgroundVisualEffectView.material = .Dark;
+        gridContainerView.state = .active;
+        gridBackgroundVisualEffectView.material = .dark;
         gridBackgroundVisualEffectViewDarkenView.backgroundColor = NSColor(calibratedWhite: 0, alpha: 0.15);
         
         /// The options for the Booru collection view selection observing
-        let options = NSKeyValueObservingOptions([.New, .Old]);
+        let options = NSKeyValueObservingOptions([.new, .old]);
         
         // Subscribe to when the Booru collection view's selection changes
         self.booruCollectionView.addObserver(self, forKeyPath: "selectionIndexes", options: options, context: nil);
         
         // Set the target and action to use when the user reaches the bottom of the Booru collection view
         booruCollectionViewScrollView.reachedBottomTarget = self;
-        booruCollectionViewScrollView.reachedBottomAction = Selector("reachedBottomOfBooruCollectionView");
+        booruCollectionViewScrollView.reachedBottomAction = #selector(BCGridStyleController.reachedBottomOfBooruCollectionView);
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         // If the keyPath is the one for the Booru collection view selection...
         if(keyPath == "selectionIndexes") {
             // If we selected any items...
-            if(booruCollectionView.selectionIndexes.firstIndex != NSNotFound) {
+            if(booruCollectionView.selectionIndexes.first != nil) {
                 /// The selected post item
-                let selectedPostItem : BCBooruCollectionViewItem? = (booruCollectionView.itemAtIndex(booruCollectionView.selectionIndexes.firstIndex)?.representedObject as? BCBooruCollectionViewItem);
+                let selectedPostItem : BCBooruCollectionViewItem? = (booruCollectionView.item(at: booruCollectionView.selectionIndexes.first!)?.representedObject as? BCBooruCollectionViewItem);
                 
                 // Show the selected post item
                 displayPostItem(selectedPostItem);
