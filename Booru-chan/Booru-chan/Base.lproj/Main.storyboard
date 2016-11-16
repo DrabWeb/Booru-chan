@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Preferences Window Controller-->
@@ -33,20 +35,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="asw-Xf-nC5" userLabel="Background Visual Effect View">
+                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="behindWindow" material="dark" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="asw-Xf-nC5" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="500"/>
                                 <subviews>
-                                    <tabView focusRingType="none" drawsBackground="NO" initialItem="i0j-bP-K0r" translatesAutoresizingMaskIntoConstraints="NO" id="2U4-GX-ysg" userLabel="Preferences Tab View">
+                                    <tabView focusRingType="none" initialItem="i0j-bP-K0r" translatesAutoresizingMaskIntoConstraints="NO" id="2U4-GX-ysg" userLabel="Preferences Tab View">
                                         <rect key="frame" x="13" y="10" width="454" height="464"/>
                                         <font key="font" metaFont="system"/>
                                         <tabViewItems>
                                             <tabViewItem label="General" identifier="1" id="i0j-bP-K0r">
                                                 <view key="view" id="Ahl-6t-b41">
-                                                    <rect key="frame" x="10" y="33" width="434" height="422"/>
+                                                    <rect key="frame" x="10" y="33" width="434" height="418"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mbs-sr-nwX" userLabel="Image Saving Format Label">
-                                                            <rect key="frame" x="15" y="398" width="128" height="17"/>
+                                                            <rect key="frame" x="15" y="394" width="128" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="124" id="bXr-V1-x5W"/>
                                                                 <constraint firstAttribute="height" constant="17" id="xQ5-tb-awB"/>
@@ -58,7 +60,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NUB-dd-b8V" userLabel="Image Saving Format Text Field" customClass="BCAlwaysActiveTextField" customModule="Booru_chan" customModuleProvider="target">
-                                                            <rect key="frame" x="149" y="395" width="268" height="22"/>
+                                                            <rect key="frame" x="149" y="391" width="268" height="22"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="22" id="wRr-gY-iiU"/>
                                                             </constraints>
@@ -72,7 +74,7 @@
                                                             </connections>
                                                         </textField>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="Efe-qo-EnG" userLabel="Indicate Downloaded Posts Checkbox">
-                                                            <rect key="frame" x="15" y="372" width="404" height="18"/>
+                                                            <rect key="frame" x="15" y="368" width="404" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="HIc-Pt-U8Z"/>
                                                             </constraints>
@@ -85,7 +87,7 @@
                                                             </connections>
                                                         </button>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="l7s-BB-cZE" userLabel="Notify When Downloads Complete Checkbox">
-                                                            <rect key="frame" x="15" y="352" width="404" height="18"/>
+                                                            <rect key="frame" x="15" y="348" width="404" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="JvN-YF-03X"/>
                                                             </constraints>
@@ -126,7 +128,7 @@
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" selectionHighlightStyle="sourceList" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="31" viewBased="YES" id="ERs-GA-pGy" userLabel="Booru Table View">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="400" height="0.0"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <color key="backgroundColor" red="0.49547861728288273" green="0.61712742345916061" blue="0.78039199999999997" alpha="0.0" colorSpace="deviceRGB"/>
                                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -218,7 +220,6 @@
                                                                         </connections>
                                                                     </tableView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </clipView>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="200" id="Trd-vN-bEY"/>
@@ -428,7 +429,7 @@
                                     <constraint firstItem="2U4-GX-ysg" firstAttribute="top" secondItem="asw-Xf-nC5" secondAttribute="top" constant="32" id="zf2-g8-rL3"/>
                                 </constraints>
                             </visualEffectView>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Vgn-w2-Ilt" userLabel="Titlebar Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Vgn-w2-Ilt" userLabel="Titlebar Visual Effect View">
                                 <rect key="frame" x="0.0" y="478" width="480" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="d2Z-rn-ttI"/>
@@ -715,7 +716,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="dOC-CV-oj7" userLabel="Background Visual Effect View">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="dOC-CV-oj7" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
                                 <subviews>
                                     <splitView arrangesAllSubviews="NO" autosaveName="gridStyleSplitView" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xcD-Vz-nhG" userLabel="Grid Style Split View" customClass="BCNoDividerSplitView" customModule="Booru_chan" customModuleProvider="target">
@@ -732,7 +733,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="298" height="303"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 <subviews>
-                                                                    <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="cig-Oz-6iZ" userLabel="Grid Background Visual Effect View">
+                                                                    <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="cig-Oz-6iZ" userLabel="Grid Background Visual Effect View">
                                                                         <rect key="frame" x="0.0" y="0.0" width="298" height="303"/>
                                                                     </visualEffectView>
                                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="35B-nM-UAS" userLabel="Backgroud Darken View" customClass="BCColoredView" customModule="Booru_chan" customModuleProvider="target">
@@ -764,7 +765,7 @@
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                         </scroller>
                                                                     </scrollView>
-                                                                    <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="behindWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="y2Y-rw-rfC" userLabel="Info Bar Visual Effect View">
+                                                                    <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="y2Y-rw-rfC" userLabel="Info Bar Visual Effect View">
                                                                         <rect key="frame" x="0.0" y="0.0" width="298" height="22"/>
                                                                         <subviews>
                                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bQh-rP-zel" userLabel="Info Label">
@@ -840,7 +841,7 @@
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <subviews>
                                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="24" viewBased="YES" id="0gZ-l3-wpC" userLabel="Tags Table View">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="295" height="0.0"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="298" height="88"/>
                                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                                                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -994,7 +995,7 @@
                                     <constraint firstItem="xcD-Vz-nhG" firstAttribute="top" secondItem="dOC-CV-oj7" secondAttribute="top" id="iez-DZ-dhQ"/>
                                 </constraints>
                             </visualEffectView>
-                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="6cR-Qd-3On" userLabel="Titlebar Visual Effect View">
+                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="6cR-Qd-3On" userLabel="Titlebar Visual Effect View">
                                 <rect key="frame" x="0.0" y="363" width="600" height="37"/>
                                 <subviews>
                                     <splitView arrangesAllSubviews="NO" autosaveName="titlebarItemsSplitView" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NHl-dR-zxX" userLabel="Toolbar Items Split View" customClass="BCNoDividerSplitView" customModule="Booru_chan" customModuleProvider="target">

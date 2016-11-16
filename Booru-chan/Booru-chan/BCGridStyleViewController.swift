@@ -116,6 +116,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // Set ratingFirstLetter to the first letter in ratingFirstLetter
             ratingFirstLetter = ratingFirstLetter.substring(to: ratingFirstLetter.characters.index(after: ratingFirstLetter.startIndex));
             
+            // Capitalize ratingFirstLetter
+            ratingFirstLetter = ratingFirstLetter.uppercased();
+            
             // If we havent already downloaded the post's full size image...
             if(!postItem!.finishedLoadingImage) {
                 
