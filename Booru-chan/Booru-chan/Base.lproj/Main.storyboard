@@ -64,7 +64,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="22" id="wRr-gY-iiU"/>
                                                             </constraints>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" title="%id%(%booru%) - %tags%" bezelStyle="round" id="Po5-77-15E">
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" title="%md5%" placeholderString="%booru%, %tags%, %id%, %md5%" bezelStyle="round" id="Po5-77-15E">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -125,7 +125,7 @@
                                                             <rect key="frame" x="17" y="215" width="400" height="200"/>
                                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="5Y5-jd-Hfp">
                                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" selectionHighlightStyle="sourceList" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="31" viewBased="YES" id="ERs-GA-pGy" userLabel="Booru Table View">
                                                                         <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>

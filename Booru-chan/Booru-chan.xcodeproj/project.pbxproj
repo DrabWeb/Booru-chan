@@ -93,6 +93,7 @@
 		5F4FD8F272DEE171AFE7E6C5 /* Pods-Booru-chanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chanTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chanTests/Pods-Booru-chanTests.debug.xcconfig"; sourceTree = "<group>"; };
 		834CCAD73A440142898C1721 /* Pods_Booru_chan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA72CEBEF391F5FED42B629 /* Pods-Booru-chanUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chanUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chanUITests/Pods-Booru-chanUITests.release.xcconfig"; sourceTree = "<group>"; };
+		AE75E5161DDE678E00937817 /* Booru-chan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Booru-chan-Bridging-Header.h"; sourceTree = "<group>"; };
 		B6B031B9C7B964655AF51EC8 /* Pods_Booru_chanTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chanTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C9F1C05F609B24EF821597 /* Pods_Booru_chanUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chanUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -179,6 +180,7 @@
 				5D7CA38C1CCC0A6800B4A0A5 /* Views */,
 				5D7CA3921CCC128C00B4A0A5 /* Utilities */,
 				5D88CC101CCC14B2001FF12E /* Controllers */,
+				AE75E5161DDE678E00937817 /* Booru-chan-Bridging-Header.h */,
 				5D71B4991CCC06EA0011C281 /* Assets.xcassets */,
 				5D71B49E1CCC06EA0011C281 /* Info.plist */,
 			);
@@ -713,12 +715,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Booru-chan/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Booru-chan";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Booru-chan/Booru-chan-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -729,12 +734,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Booru-chan/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Booru-chan";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Booru-chan/Booru-chan-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

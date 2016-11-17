@@ -51,6 +51,20 @@ extension NSImage {
             }
         }
     }
+    
+    /// Returns the MD5 string of this image
+    func MD5() -> String? {
+        let imageData = self.tiffRepresentation;
+        var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
+        
+        _ = digestData.withUnsafeMutableBytes {digestBytes in
+            imageData?.withUnsafeBytes {messageBytes in
+                CC_MD5(messageBytes, CC_LONG((imageData?.count)!), digestBytes)
+            }
+        }
+        
+        return digestData.map { String(format: "%02hhx", $0) }.joined();
+    }
 }
 
 extension Int {

@@ -214,6 +214,9 @@ class BCViewController: NSViewController, NSWindowDelegate {
             // Remove all /'s in the file name
             imageFileName = imageFileName.replacingOccurrences(of: "/", with: " ");
             
+            // Replace %md5% with the MD5 hash of this file
+            imageFileName = imageFileName.replacingOccurrences(of: "%md5%", with: currentSaveItem.image.MD5()!);
+            
             // If imageFileName has over 250 characters...
             if(imageFileName.characters.count > 250) {
                 // Cut imageFileName down to 250 characters

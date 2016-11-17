@@ -18,7 +18,7 @@ class BCPreferencesObject: NSObject, NSCoding {
     ];
     
     /// The format for naming saved images
-    var imageSaveFormat : String = "%id%(%booru%) - %tags%";
+    var imageSaveFormat : String = "%md5%";
     
     /// The alpha value of a post that has already been downloaded
     var downloadedPostAlphaValue : CGFloat = 0.5;
