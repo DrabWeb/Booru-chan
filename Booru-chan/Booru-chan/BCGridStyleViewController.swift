@@ -121,9 +121,14 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             
             // If we havent already downloaded the post's full size image...
             if(!postItem!.finishedLoadingImage) {
+                /// The URL for the image
+                var imageUrl : String = postItem!.representedPost!.imageUrl;
+                
+                // Encode special characters in the image URL
+                imageUrl = imageUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
                 
                 // Download the post item's full size image
-                lastDisplayRequest = Alamofire.request(postItem!.representedPost!.imageUrl)
+                lastDisplayRequest = Alamofire.request(imageUrl)
                     .responseData { response in
                         // If data isnt nil...
                         if let data = response.result.value {
