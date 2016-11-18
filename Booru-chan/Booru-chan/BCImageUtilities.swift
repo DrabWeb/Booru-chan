@@ -18,19 +18,19 @@ class BCImageUtilities {
             // Set fileType to PNG
             fileType = NSBitmapImageFileType.PNG;
         }
-            // If the extension is GIF...
+        // If the extension is GIF...
         else if(fileExtension.lowercased() == "gif") {
             // Set fileType to GIF
             fileType = NSBitmapImageFileType.GIF;
         }
-            // If the extension is TIFF...
+        // If the extension is TIFF...
         else if(fileExtension.lowercased() == "tiff") {
-            // Set fileType to GIF
-            fileType = NSBitmapImageFileType.GIF;
+            // Set fileType to TIFF
+            fileType = NSBitmapImageFileType.TIFF;
         }
-            // If the extension is JPG or JPEG...
+        // If the extension is JPG or JPEG...
         else if(fileExtension.lowercased() == "jpg" || fileExtension.lowercased() == "jpeg") {
-            // Set fileType to GIF
+            // Set fileType to JPEG
             fileType = NSBitmapImageFileType.JPEG;
         }
         
