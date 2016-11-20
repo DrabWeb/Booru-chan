@@ -211,33 +211,33 @@ class BCViewController: NSViewController, NSWindowDelegate {
             // Replace %tags% with the tags string
             imageFileName = imageFileName.replacingOccurrences(of: "%tags%", with: tagsString);
             
-            // Remove all /'s in the file name
-            imageFileName = imageFileName.replacingOccurrences(of: "/", with: " ");
-            
-            // Replace %md5% with the MD5 hash of this image
-            imageFileName = imageFileName.replacingOccurrences(of: "%md5%", with: currentSaveItem.image.MD5()!);
-            
-            // If imageFileName has over 250 characters...
-            if(imageFileName.characters.count > 250) {
-                // Cut imageFileName down to 250 characters
-                imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: 250));
-                
-                /// The indexes of all the spaces in imageFileName
-                let indexesOfSpaceInImageFileName = imageFileName.characters.enumerated()
-                    .filter { $0.element == " " }
-                    .map { $0.offset }
-                
-                // Cut imageFileName down to the last space
-                imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: indexesOfSpaceInImageFileName.last!));
-            }
-            
-            // Add the extension onto the end
-            imageFileName += "." + NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension;
-            
             // If we have already downloaded the image...
             if(currentSaveItem.finishedLoadingImage) {
                 // Save the image asynchronously so it doesn't lag the interface
                 DispatchQueue.global(qos: DispatchQoS.default.qosClass).async {
+                    // Replace %md5% with the MD5 hash of this image
+                    imageFileName = imageFileName.replacingOccurrences(of: "%md5%", with: currentSaveItem.image.MD5()!);
+                    
+                    // Remove all /'s in the file name
+                    imageFileName = imageFileName.replacingOccurrences(of: "/", with: " ");
+                    
+                    // If imageFileName has over 250 characters...
+                    if(imageFileName.characters.count > 250) {
+                        // Cut imageFileName down to 250 characters
+                        imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: 250));
+                        
+                        /// The indexes of all the spaces in imageFileName
+                        let indexesOfSpaceInImageFileName = imageFileName.characters.enumerated()
+                            .filter { $0.element == " " }
+                            .map { $0.offset }
+                        
+                        // Cut imageFileName down to the last space
+                        imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: indexesOfSpaceInImageFileName.last!));
+                    }
+                    
+                    // Add the extension onto the end
+                    imageFileName += "." + NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension;
+                    
                     // Write the image to the chosen directory with the generated file name
                     currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
                     
@@ -271,6 +271,29 @@ class BCViewController: NSViewController, NSWindowDelegate {
                                 
                                 // Save the image asynchronously so it doesn't lag the interface
                                 DispatchQueue.global().async {
+                                    // Replace %md5% with the MD5 hash of this image
+                                    imageFileName = imageFileName.replacingOccurrences(of: "%md5%", with: currentSaveItem.image.MD5()!);
+                                    
+                                    // Remove all /'s in the file name
+                                    imageFileName = imageFileName.replacingOccurrences(of: "/", with: " ");
+                                    
+                                    // If imageFileName has over 250 characters...
+                                    if(imageFileName.characters.count > 250) {
+                                        // Cut imageFileName down to 250 characters
+                                        imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: 250));
+                                        
+                                        /// The indexes of all the spaces in imageFileName
+                                        let indexesOfSpaceInImageFileName = imageFileName.characters.enumerated()
+                                            .filter { $0.element == " " }
+                                            .map { $0.offset }
+                                        
+                                        // Cut imageFileName down to the last space
+                                        imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: indexesOfSpaceInImageFileName.last!));
+                                    }
+                                    
+                                    // Add the extension onto the end
+                                    imageFileName += "." + NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension;
+                                    
                                     // Write the image to the chosen directory with the generated file name
                                     currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
                                     
