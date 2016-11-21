@@ -471,7 +471,7 @@ class BCBooruUtilities {
             post?.thumbnailUrl = json!["preview_url"].stringValue;
             post?.thumbnailSize = NSSize(width: json!["actual_preview_width"].intValue, height: json!["actual_preview_height"].intValue);
             
-            post?.imageUrl = json!["file_url"].stringValue;
+            post?.imageUrl = json!["file_url"].stringValue.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
             post?.imageSize = NSSize(width: json!["width"].intValue, height: json!["height"].intValue);
             
             switch(json!["rating"]) {
@@ -507,7 +507,7 @@ class BCBooruUtilities {
             // Danbooru doesnt give you a thumbnail size
             post?.thumbnailSize = NSSize.zero;
             
-            post?.imageUrl = baseUrl + json!["file_url"].stringValue;
+            post?.imageUrl = baseUrl + json!["file_url"].stringValue.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
             post?.imageSize = NSSize(width: json!["width"].intValue, height: json!["height"].intValue);
             
             switch(json!["rating"]) {
@@ -552,7 +552,7 @@ class BCBooruUtilities {
             // Danbooru doesnt give you a thumbnail size
             post?.thumbnailSize = NSSize.zero;
             
-            post?.imageUrl = baseUrl + json!["file_url"].stringValue;
+            post?.imageUrl = baseUrl + json!["file_url"].stringValue.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
             post?.imageSize = NSSize(width: json!["image_width"].intValue, height: json!["image_height"].intValue);
             
             switch(json!["rating"]) {
@@ -590,7 +590,7 @@ class BCBooruUtilities {
             post?.thumbnailUrl = xml!.element!.allAttributes["preview_url"]!.text;
             post?.thumbnailSize = NSSize(width: NSString(string: xml!.element!.allAttributes["preview_width"]!.text).integerValue, height: NSString(string: xml!.element!.allAttributes["preview_height"]!.text).integerValue);
             
-            post?.imageUrl = xml!.element!.allAttributes["file_url"]!.text;
+            post?.imageUrl = xml!.element!.allAttributes["file_url"]!.text.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
             post?.imageSize = NSSize(width: NSString(string: xml!.element!.allAttributes["width"]!.text).integerValue, height: NSString(string: xml!.element!.allAttributes["height"]!.text).integerValue);
             
             switch(xml!.element!.allAttributes["rating"]!.text) {
