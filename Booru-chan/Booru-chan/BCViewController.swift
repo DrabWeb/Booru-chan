@@ -132,21 +132,22 @@ class BCViewController: NSViewController, NSWindowDelegate {
     func saveBooruItems(_ items : [BCBooruCollectionViewItem]) {
         // If there is at least one item in items...
         if(items.count > 0) {
-            /// The open panel to get the directory to save the images to
-            let saveDirectoryOpenPanel : NSOpenPanel = NSOpenPanel();
+            /// The save panel to get the directory to save the images to
+            let saveDirectorySavePanel : NSSavePanel = NSSavePanel();
             
-            // Only allow single folders
-            saveDirectoryOpenPanel.allowsMultipleSelection = false;
-            saveDirectoryOpenPanel.canChooseFiles = false;
-            saveDirectoryOpenPanel.canChooseDirectories = true;
+            // Set the name field default value to the image save format
+            saveDirectorySavePanel.nameFieldStringValue = (NSApplication.shared().delegate as! BCAppDelegate).preferences.imageSaveFormat;
             
             // Set the prompt to "Save"
-            saveDirectoryOpenPanel.prompt = "Save";
+            saveDirectorySavePanel.prompt = "Save";
             
             // Run the open panel, and if the user hits "Save"...
-            if(Bool(saveDirectoryOpenPanel.runModal() as NSNumber)) {
+            if(Bool(saveDirectorySavePanel.runModal() as NSNumber)) {
                 /// The directory we are saving the images to
-                let saveDirectory : String = saveDirectoryOpenPanel.url!.absoluteString.removingPercentEncoding!.replacingOccurrences(of: "file://", with: "");
+                var saveDirectory : String = saveDirectorySavePanel.url!.absoluteString.removingPercentEncoding!.replacingOccurrences(of: "file://", with: "");
+                
+                // Set saveDirectory to the folder of saveDirectory
+                saveDirectory = String(NSString(string: saveDirectory).deletingLastPathComponent) + "/";
                 
                 /// The items to download from items
                 var downloadItems : [BCBooruCollectionViewItem] = [];
@@ -166,7 +167,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     print("BCViewController: Saving \(items.count) image(s) to \"\(saveDirectory)\"");
                     
                     // Download the items
-                    self.downloadBooruItems(downloadItems, saveDirectory: saveDirectory, tags: titlebarSearchField.stringValue, count: downloadItems.count);
+                    self.downloadBooruItems(downloadItems, saveDirectory: saveDirectory, tags: titlebarSearchField.stringValue, count: downloadItems.count, filenameFormat: saveDirectorySavePanel.nameFieldStringValue, fileTags: (saveDirectorySavePanel.tagNames == nil) ? [] : saveDirectorySavePanel.tagNames!);
                 }
             }
         }
@@ -177,15 +178,15 @@ class BCViewController: NSViewController, NSWindowDelegate {
         }
     }
     
-    /// The actual downloading part of saveBooruItems, saves the given items to the given path, uses tags and count when showing the download completed notification
-    private func downloadBooruItems(_ items : [BCBooruCollectionViewItem], saveDirectory : String, tags : String, count : Int) -> Void {
+    /// The actual downloading part of saveBooruItems, saves the given items to the given path, uses tags and count when showing the download completed notification. filenameFormat is used as the format for the saved file's name, and fileTags are the tags that should be added to the saved files
+    private func downloadBooruItems(_ items : [BCBooruCollectionViewItem], saveDirectory : String, tags : String, count : Int, filenameFormat : String, fileTags : [String]) -> Void {
         var items = items
         if let currentSaveItem = items.popLast() {
             // Print what image we are saving
             print("BCViewController: Saving \(currentSaveItem.representedPost!.imageUrl)");
             
             /// The name of the image file
-            var imageFileName : String = (NSApplication.shared().delegate as! BCAppDelegate).preferences.imageSaveFormat;
+            var imageFileName : String = filenameFormat;
             
             // Replace %id% with the image's id
             imageFileName = imageFileName.replacingOccurrences(of: "%id%", with: String(currentSaveItem.representedPost!.id));
@@ -241,6 +242,16 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     // Write the image to the chosen directory with the generated file name
                     currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
                     
+                    // Add the file tags
+                    let fileUrl : NSURL = NSURL(fileURLWithPath: saveDirectory + imageFileName);
+                    
+                    do {
+                        try fileUrl.setResourceValue(fileTags as AnyObject?, forKey: URLResourceKey.tagNamesKey);
+                    }
+                    catch let error as NSError {
+                        print("BCViewController: Error setting tags for \"\(saveDirectory + imageFileName)\", \(error.description)");
+                    }
+                    
                     // Print that we saved the image
                     print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
                 }
@@ -251,7 +262,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     self.currentSelectedSearchingBooru?.addIDToDownloadHistory(currentSaveItem.representedPost!.id);
                     
                     // Download the next item
-                    self.downloadBooruItems(items, saveDirectory: saveDirectory, tags: tags, count: count);
+                    self.downloadBooruItems(items, saveDirectory: saveDirectory, tags: tags, count: count, filenameFormat: filenameFormat, fileTags: fileTags);
                 }
             }
             // If we have to download the image...
@@ -297,6 +308,16 @@ class BCViewController: NSViewController, NSWindowDelegate {
                                     // Write the image to the chosen directory with the generated file name
                                     currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
                                     
+                                    // Add the file tags
+                                    let fileUrl : NSURL = NSURL(fileURLWithPath: saveDirectory + imageFileName);
+                                    
+                                    do {
+                                        try fileUrl.setResourceValue(fileTags as AnyObject?, forKey: URLResourceKey.tagNamesKey);
+                                    }
+                                    catch let error as NSError {
+                                        print("BCViewController: Error setting tags for \"\(saveDirectory + imageFileName)\", \(error.description)");
+                                    }
+                                    
                                     // Print that we saved the image
                                     print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
                                 }
@@ -307,7 +328,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                                     self.currentSelectedSearchingBooru?.addIDToDownloadHistory(currentSaveItem.representedPost!.id);
                                     
                                     // Download the next item
-                                    self.downloadBooruItems(items, saveDirectory: saveDirectory, tags: tags, count: count);
+                                    self.downloadBooruItems(items, saveDirectory: saveDirectory, tags: tags, count: count, filenameFormat: filenameFormat, fileTags: fileTags);
                                 }
                             }
                         }

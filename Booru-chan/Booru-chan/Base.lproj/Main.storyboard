@@ -35,7 +35,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="behindWindow" material="dark" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="asw-Xf-nC5" userLabel="Background Visual Effect View">
+                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="behindWindow" material="dark" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="asw-Xf-nC5" userLabel="Background Visual Effect View">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="500"/>
                                 <subviews>
                                     <tabView focusRingType="none" initialItem="i0j-bP-K0r" translatesAutoresizingMaskIntoConstraints="NO" id="2U4-GX-ysg" userLabel="Preferences Tab View">
