@@ -158,7 +158,7 @@ class BCBooruUtilities {
                     // For every search result...
                     for(_, currentResult) in responseJson.enumerated() {
                         /// The BCBooruPost from currentResult
-                        let post : BCBooruPost = self.getPostFromData(currentResult.1, xml: nil)!;
+                        let post : BCBooruPost = self.getPostFromData(json: currentResult.1, xml: nil)!;
                         
                         /// Does the current post have a blacklisted tag?
                         var containsTagInBlacklist : Bool = false;
@@ -195,13 +195,61 @@ class BCBooruUtilities {
         }
         else if(type == .danbooruLegacy) {
             /// The URL to make the search request to
-            var requestUrl : String = (baseUrl + "/post/index.json?tags=" + search + ratingLimitString + "&page=" + String(page) + "&limit=" + String(limit));
+            var requestUrl : String = (baseUrl + "/post/index.xml?page=\(page)&limit=\(limit)&tags=\(search + ratingLimitString)");
             
             // Encode special characters in the request URL
             requestUrl = requestUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
             
             // Print what URL we are querying
             print("BCBooruUtilities: Using URL \"\(requestUrl)\" to search");
+            
+            // Make the get request to the Booru with the search string and rating limit...
+            request = Alamofire.request(requestUrl).response { (responseData) -> Void in
+                /// The string of XML that will be returned when the GET request finishes
+                let responseXmlString : NSString = NSString(data: responseData.data!, encoding: String.Encoding.utf8.rawValue)!;
+                
+                // If the the response data isnt nil...
+                if let dataFromResponseXmlString = responseXmlString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false) {
+                    /// The XML from the response string
+                    let responseXml = SWXMLHash.parse(dataFromResponseXmlString);
+                    
+                    // For every search result...
+                    for(_, currentResult) in responseXml["posts"].children.enumerated() {
+                        /// The BCBooruPost from currentResult
+                        let post : BCBooruPost = self.getPostFromData(json: nil, xml: currentResult)!;
+                        
+                        /// Does the current post have a blacklisted tag?
+                        var containsTagInBlacklist : Bool = false;
+                        
+                        // If the tag blacklist isn't empty(don't want to waste time when there's no possibility)...
+                        if(self.representedBooru!.tagBlacklist.count > 0) {
+                            // For every tag in the current post's tag...
+                            for(_, currentTag) in post.tags.enumerated() {
+                                // If the current tag is in the tag blacklist...
+                                if(self.representedBooru!.tagBlacklist.contains(currentTag)) {
+                                    // Say there was a blacklisted tag in this item
+                                    containsTagInBlacklist = true;
+                                    
+                                    // Print that this post was blacklisted
+                                    print("BCBooruUtilities: Blacklisted post \(post.id) from \(self.representedBooru!.name) for tag \"\(currentTag)\"");
+                                    
+                                    // Stop the loop
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        // If this post isn't blacklisted...
+                        if(!containsTagInBlacklist) {
+                            // Add the current post to the results
+                            results.append(post);
+                        }
+                    }
+                    
+                    // Call the completion handler with the results
+                    completionHandler(results);
+                }
+            }
             
             // Make the get request to the Booru with the search string and rating limit...
             request = Alamofire.request(requestUrl).responseJSON { (responseData) -> Void in
@@ -216,7 +264,7 @@ class BCBooruUtilities {
                     // For every search result...
                     for(_, currentResult) in responseJson.enumerated() {
                         /// The BCBooruPost from currentResult
-                        let post : BCBooruPost = self.getPostFromData(currentResult.1, xml: nil)!;
+                        let post : BCBooruPost = self.getPostFromData(json: currentResult.1, xml: nil)!;
                         
                         /// Does the current post have a blacklisted tag?
                         var containsTagInBlacklist : Bool = false;
@@ -274,7 +322,9 @@ class BCBooruUtilities {
                     // For every search result...
                     for(_, currentResult) in responseJson.enumerated() {
                         /// The BCBooruPost from currentResult
-                        let post : BCBooruPost = self.getPostFromData(currentResult.1, xml: nil)!;
+                        let post : BCBooruPost = self.getPostFromData(json: currentResult.1, xml: nil)!;
+                        
+                        print(currentResult.1);
                         
                         /// Does the current post have a blacklisted tag?
                         var containsTagInBlacklist : Bool = false;
@@ -332,7 +382,7 @@ class BCBooruUtilities {
                     // For every search result...
                     for(_, currentResult) in responseXml["posts"].children.enumerated() {
                         /// The BCBooruPost from currentResult
-                        let post : BCBooruPost = self.getPostFromData(nil, xml: currentResult)!;
+                        let post : BCBooruPost = self.getPostFromData(json: nil, xml: currentResult)!;
                         
                         /// Does the current post have a blacklisted tag?
                         var containsTagInBlacklist : Bool = false;
@@ -396,23 +446,26 @@ class BCBooruUtilities {
                     let responseJson = JSON(data: dataFromResponseJsonString);
                     
                     // Return the post from the JSON we got
-                    completionHandler(self.getPostFromData(responseJson[0], xml: nil));
+                    completionHandler(self.getPostFromData(json: responseJson[0], xml: nil));
                 }
             }
         }
         else if(type == .danbooruLegacy) {
             // Make the get request to the Booru with the post ID...
-            request = Alamofire.request(baseUrl + "/post/index.json?tags=id:" + String(id)).responseJSON { (responseData) -> Void in
+            request = Alamofire.request(baseUrl + "/post/index.xml?page=1&limit=1&tags=id:" + String(id)).responseJSON { (responseData) -> Void in
                 /// The string of JSON that will be returned when the GET request finishes
                 let responseJsonString : NSString = NSString(data: responseData.data!, encoding: String.Encoding.utf8.rawValue)!;
                 
                 // If the the response data isnt nil...
                 if let dataFromResponseJsonString = responseJsonString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false) {
-                    /// The JSON from the response string
-                    let responseJson = JSON(data: dataFromResponseJsonString);
+                    /// The XML from the response string
+                    let responseXml = SWXMLHash.parse(dataFromResponseJsonString);
                     
-                    // Return the post from the JSON we got
-                    completionHandler(self.getPostFromData(responseJson[0], xml: nil));
+                    // If there is a first element in the posts children...
+                    if(responseXml["posts"].children.count > 0) {
+                        // Return the post from the XML we got
+                        completionHandler(self.getPostFromData(json: nil, xml: responseXml["posts"].children[0]));
+                    }
                 }
             }
         }
@@ -428,7 +481,7 @@ class BCBooruUtilities {
                     let responseJson = JSON(data: dataFromResponseJsonString);
                     
                     // Return the post from the JSON we got
-                    completionHandler(self.getPostFromData(responseJson[0], xml: nil));
+                    completionHandler(self.getPostFromData(json: responseJson[0], xml: nil));
                 }
             }
         }
@@ -446,7 +499,7 @@ class BCBooruUtilities {
                     // If there is a first element in the posts children...
                     if(responseXml["posts"].children.count > 0) {
                         // Return the post from the XML we got
-                        completionHandler(self.getPostFromData(nil, xml: responseXml["posts"].children[0]));
+                        completionHandler(self.getPostFromData(json: nil, xml: responseXml["posts"].children[0]));
                     }
                 }
             }
@@ -457,7 +510,7 @@ class BCBooruUtilities {
     }
     
     /// Returns a BCBooruPOst from the given data(Can be nil)
-    func getPostFromData(_ json : JSON?, xml : XMLIndexer?) -> BCBooruPost? {
+    func getPostFromData(json : JSON?, xml : XMLIndexer?) -> BCBooruPost? {
         /// The post to return
         var post : BCBooruPost? = nil;
         
@@ -502,32 +555,31 @@ class BCBooruUtilities {
             // Make post a new BCBooruPost
             post = BCBooruPost();
             
-            post?.thumbnailUrl = baseUrl + json!["preview_url"].stringValue;
+            // Set the post's info
+            post?.thumbnailUrl = self.baseUrl + xml!.element!.allAttributes["preview_url"]!.text;
+            post?.thumbnailSize = NSSize(width: NSString(string: xml!.element!.allAttributes["width"]!.text).integerValue, height: NSString(string: xml!.element!.allAttributes["height"]!.text).integerValue);
             
-            // Danbooru doesnt give you a thumbnail size
-            post?.thumbnailSize = NSSize.zero;
+            post?.imageUrl = self.baseUrl + xml!.element!.allAttributes["file_url"]!.text.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
+            post?.imageSize = NSSize(width: NSString(string: xml!.element!.allAttributes["width"]!.text).integerValue, height: NSString(string: xml!.element!.allAttributes["height"]!.text).integerValue);
             
-            post?.imageUrl = baseUrl + json!["file_url"].stringValue.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
-            post?.imageSize = NSSize(width: json!["width"].intValue, height: json!["height"].intValue);
-            
-            switch(json!["rating"]) {
-                case "s":
-                    post?.rating = .safe;
-                    break;
-                case "q":
-                    post?.rating = .questionable;
-                    break;
-                case "e":
-                    post?.rating = .explicit;
-                    break;
-                default:
-                    print("BCBooruUtilities: Rating for post \(json!["id"])(\(json!["rating"])) is invalid");
-                    break;
+            switch(xml!.element!.allAttributes["rating"]!.text) {
+            case "s":
+                post?.rating = .safe;
+                break;
+            case "q":
+                post?.rating = .questionable;
+                break;
+            case "e":
+                post?.rating = .explicit;
+                break;
+            default:
+                print("BCBooruUtilities: Rating for post \(xml!.element!.allAttributes["id"]!.text)(\(xml!.element!.allAttributes["rating"]!.text)) is invalid");
+                break;
             }
             
-            post?.tags = json!["tags"].stringValue.components(separatedBy: " ");
+            post?.tags = xml!.element!.allAttributes["tags"]!.text.components(separatedBy: " ");
             
-            // For some reason the tags attribute on Gelbooru always starts with a space, and it creates a empty tag as the first element in the tags array. Check if it exists, and if it does, remove it(Also try with the last, just in case)
+            // For some reason the tags attribute on Gelbooru always starts with a space, and it creates a empty tag as the first element in the tags array. Check if it exists, and if it does, remove it(And it also does the same with the last)
             if(post?.tags[0] == "") {
                 post?.tags.removeFirst();
             }
@@ -538,7 +590,7 @@ class BCBooruUtilities {
             // Filter out any possibly empty tags from the tags
             post?.tags = post!.tags.filter({$0 != ""});
             
-            post?.id = json!["id"].intValue;
+            post?.id = NSString(string: xml!.element!.allAttributes["id"]!.text).integerValue;
             
             post?.url = self.baseUrl + "/posts/\(post!.id)";
         }

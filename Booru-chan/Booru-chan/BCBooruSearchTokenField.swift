@@ -100,7 +100,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
             _ = tokensChangedTarget!.perform(tokensChangedAction!);
         }
         
-        // Return the given tokens
+        // Return the given tokens	
         return tokens;
     }
     

@@ -12,7 +12,7 @@ class BCPreferencesObject: NSObject, NSCoding {
     // REMINDER: Set this back to init as [] when you can set your Boorus in preferences
     var booruHosts : [BCBooruHost] = [
         BCBooruHost(name: "Yande.re", type: .moebooru, pagePostLimit: 40, url: "http://yande.re/", maximumRating: .explicit),
-        BCBooruHost(name: "Danbooru", type: .danbooru, pagePostLimit: 40, url: "http://danbooru.donmai.us/", maximumRating: .explicit),
+        BCBooruHost(name: "Danbooru", type: .danbooruLegacy, pagePostLimit: 40, url: "http://danbooru.donmai.us/", maximumRating: .explicit),
         BCBooruHost(name: "Konachan", type: .moebooru, pagePostLimit: 40, url: "http://konachan.net/", maximumRating: .explicit),
         BCBooruHost(name: "Gelbooru", type: .gelbooru, pagePostLimit: 40, url: "http://gelbooru.com/", maximumRating: .explicit)
     ];

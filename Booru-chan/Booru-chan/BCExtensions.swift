@@ -52,7 +52,7 @@ extension NSImage {
         }
     }
     
-    /// Returns the MD5 string of this image
+    /// Returns the MD5 string of the TIFF representation of this image
     func MD5() -> String? {
         let imageData = self.tiffRepresentation;
         var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
