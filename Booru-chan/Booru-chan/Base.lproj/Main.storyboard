@@ -125,7 +125,7 @@
                                                             <rect key="frame" x="17" y="215" width="400" height="200"/>
                                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="5Y5-jd-Hfp">
                                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" selectionHighlightStyle="sourceList" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="31" viewBased="YES" id="ERs-GA-pGy" userLabel="Booru Table View">
                                                                         <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
@@ -995,7 +995,7 @@
                                     <constraint firstItem="xcD-Vz-nhG" firstAttribute="top" secondItem="dOC-CV-oj7" secondAttribute="top" id="iez-DZ-dhQ"/>
                                 </constraints>
                             </visualEffectView>
-                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="6cR-Qd-3On" userLabel="Titlebar Visual Effect View">
+                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="6cR-Qd-3On" userLabel="Titlebar Visual Effect View" customClass="BCTitlebarView" customModule="Booru_chan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="363" width="600" height="37"/>
                                 <subviews>
                                     <splitView arrangesAllSubviews="NO" autosaveName="titlebarItemsSplitView" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NHl-dR-zxX" userLabel="Toolbar Items Split View" customClass="BCNoDividerSplitView" customModule="Booru_chan" customModuleProvider="target">

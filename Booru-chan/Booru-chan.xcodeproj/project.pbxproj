@@ -33,6 +33,7 @@
 		5DAF1A5B1CDD23480090D654 /* BCImageUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAF1A5A1CDD23480090D654 /* BCImageUtilities.swift */; };
 		5DBB0A061CDBF427007B383B /* BCBooruCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBB0A051CDBF427007B383B /* BCBooruCollectionView.swift */; };
 		5DBDDD121CD910C00086E61D /* BCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBDDD111CD910C00086E61D /* BCExtensions.swift */; };
+		AECAD3191DF4A1DA00E846EB /* BCTitlebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAD3181DF4A1DA00E846EB /* BCTitlebarView.swift */; };
 		EEBFB95BB7348EBF996CBBCD /* Pods_Booru_chanTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6B031B9C7B964655AF51EC8 /* Pods_Booru_chanTests.framework */; };
 		FB6C1D77A47309096678320F /* Pods_Booru_chan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834CCAD73A440142898C1721 /* Pods_Booru_chan.framework */; };
 /* End PBXBuildFile section */
@@ -94,6 +95,7 @@
 		834CCAD73A440142898C1721 /* Pods_Booru_chan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA72CEBEF391F5FED42B629 /* Pods-Booru-chanUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chanUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chanUITests/Pods-Booru-chanUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AE75E5161DDE678E00937817 /* Booru-chan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Booru-chan-Bridging-Header.h"; sourceTree = "<group>"; };
+		AECAD3181DF4A1DA00E846EB /* BCTitlebarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCTitlebarView.swift; sourceTree = "<group>"; };
 		B6B031B9C7B964655AF51EC8 /* Pods_Booru_chanTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chanTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C9F1C05F609B24EF821597 /* Pods_Booru_chanUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chanUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -216,6 +218,7 @@
 				5D3288311CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift */,
 				5D47F5E21CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift */,
 				5D1CC5871DC591C100E3988D /* BCScaleToFitContentTokenField.swift */,
+				AECAD3181DF4A1DA00E846EB /* BCTitlebarView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 				5D02026A1CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift in Sources */,
 				5D47F5E31CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift in Sources */,
 				5D02026C1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift in Sources */,
+				AECAD3191DF4A1DA00E846EB /* BCTitlebarView.swift in Sources */,
 				5D1CC5881DC591C100E3988D /* BCScaleToFitContentTokenField.swift in Sources */,
 				5D3288321CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift in Sources */,
 				5D976B291CDA45B600191679 /* BCPreferencesViewController.swift in Sources */,
