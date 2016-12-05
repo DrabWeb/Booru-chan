@@ -250,54 +250,6 @@ class BCBooruUtilities {
                     completionHandler(results);
                 }
             }
-            
-            // Make the get request to the Booru with the search string and rating limit...
-            request = Alamofire.request(requestUrl).responseJSON { (responseData) -> Void in
-                /// The string of JSON that will be returned when the GET request finishes
-                let responseJsonString : NSString = NSString(data: responseData.data!, encoding: String.Encoding.utf8.rawValue)!;
-                
-                // If the the response data isnt nil...
-                if let dataFromResponseJsonString = responseJsonString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false) {
-                    /// The JSON from the response string
-                    let responseJson = JSON(data: dataFromResponseJsonString);
-                    
-                    // For every search result...
-                    for(_, currentResult) in responseJson.enumerated() {
-                        /// The BCBooruPost from currentResult
-                        let post : BCBooruPost = self.getPostFromData(json: currentResult.1, xml: nil)!;
-                        
-                        /// Does the current post have a blacklisted tag?
-                        var containsTagInBlacklist : Bool = false;
-                        
-                        // If the tag blacklist isn't empty(don't want to waste time when there's no possibility)...
-                        if(self.representedBooru!.tagBlacklist.count > 0) {
-                            // For every tag in the current post's tag...
-                            for(_, currentTag) in post.tags.enumerated() {
-                                // If the current tag is in the tag blacklist...
-                                if(self.representedBooru!.tagBlacklist.contains(currentTag)) {
-                                    // Say there was a blacklisted tag in this item
-                                    containsTagInBlacklist = true;
-                                    
-                                    // Print that this post was blacklisted
-                                    print("BCBooruUtilities: Blacklisted post \(post.id) from \(self.representedBooru!.name) for tag \"\(currentTag)\"");
-                                    
-                                    // Stop the loop
-                                    break;
-                                }
-                            }
-                        }
-                        
-                        // If this post isn't blacklisted...
-                        if(!containsTagInBlacklist) {
-                            // Add the current post to the results
-                            results.append(post);
-                        }
-                    }
-                    
-                    // Call the completion handler with the results
-                    completionHandler(results);
-                }
-            }
         }
         else if(type == .danbooru) {
             /// The URL to make the search request to

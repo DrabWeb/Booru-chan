@@ -16,7 +16,7 @@ class BCTitlebarView: NSVisualEffectView {
     }
     
     override func mouseDragged(with event: NSEvent) {
-        // Drag the window
+        // Drag the window with the drag event
         self.window?.performDrag(with: event);
     }
 }
