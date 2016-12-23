@@ -630,6 +630,21 @@ class BCBooruUtilities {
             post?.url = self.baseUrl + "/index.php?page=post&s=view&id=\(post!.id)";
         }
         
+        /// The protocol of this Booru's URL
+        let urlProtocol : String = self.representedBooru!.url.substring(to: self.representedBooru!.url.range(of: "//")!.lowerBound);
+        
+        // If the image URL doesn't have a protocol...
+        if(post?.imageUrl.hasPrefix("//") ?? false) {
+            // Fix the image URL to also have the protocol
+            post!.imageUrl = urlProtocol + post!.imageUrl;
+        }
+        
+        // If the thumbnail URL doesn't have a protocol...
+        if(post?.thumbnailUrl.hasPrefix("//") ?? false) {
+            // Fix the thumbnail URL to also have the protocol
+            post!.thumbnailUrl = urlProtocol + post!.thumbnailUrl;
+        }
+        
         // Return the post
         return post;
     }

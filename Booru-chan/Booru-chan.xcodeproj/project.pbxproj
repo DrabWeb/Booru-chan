@@ -352,7 +352,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = DrabWeb;
 				TargetAttributes = {
 					5D71B4911CCC06EA0011C281 = {
