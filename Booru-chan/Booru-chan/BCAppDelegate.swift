@@ -55,8 +55,15 @@ class BCAppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDe
     /// Window/Select Search Field (⌘F)
     @IBOutlet weak var menuItemSelectSearchField: NSMenuItem!
     
+    /// Window/Open Booru Popup (⌃1)
+    @IBOutlet weak var menuItemOpenBooruPopup: NSMenuItem!
+    
     /// Window/Select Post Browser (⌘B)
     @IBOutlet weak var menuItemSelectPostBrowser: NSMenuItem!
+    
+    @IBAction func newWindowForTab(_ sender: Any?) {
+        
+    }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
@@ -65,6 +72,9 @@ class BCAppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDe
         
         // Set the notification center delegate
         NSUserNotificationCenter.default.delegate = self;
+        
+        // Setup the menu items
+        setupMenuItems();
     }
     
     func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
@@ -95,6 +105,28 @@ class BCAppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDe
                 print("BCAppDelegate: Error creating caches folder, \(error.description)");
             }
         }
+    }
+    
+    /// Sets up all the menu items
+    func setupMenuItems() {
+        // Setup the menu items
+        self.menuItemSaveSelectedImages.action = #selector(BCViewController.saveSelectedImages);
+        self.menuItemOpenSelectedPostsInBrowser.action = #selector(BCViewController.openSelectedPostsInBrowser);
+        self.menuItemCopyUrlsOfSelectedPosts.action = #selector(BCViewController.copyUrlsOfSelectedPosts);
+        self.menuItemCopyImageUrlsOfSelectedPosts.action = #selector(BCViewController.copyImageUrlsOfSelectedPosts);
+        self.menuItemCopyAllPreviouslyCopiedPostUrls.action = #selector(BCViewController.copyPreviouslyCopiedPostUrls);
+        self.menuItemCopyAllPreviouslyCopiedImageUrls.action = #selector(BCViewController.copyPreviouslyCopiedImageUrls);
+        self.menuItemToggleTitlebar.action = #selector(BCViewController.toggleTitlebar);
+        self.menuItemSelectSearchField.action = #selector(BCViewController.selectSearchField);
+        self.menuItemOpenBooruPopup.action = #selector(BCViewController.openBooruPopup);
+        self.menuItemSelectPostBrowser.action = #selector(BCViewController.selectPostBrowser);
+        
+        self.menuItemTogglePostBrowser.action = #selector(BCGridStyleController.toggleBooruCollectionView);
+        self.menuItemToggleInfoBar.action = #selector(BCGridStyleController.toggleInfoBar);
+        self.menuItemToggleTagList.action = #selector(BCGridStyleController.toggleTagList);
+        self.menuItemZoomIn.action = #selector(BCGridStyleController.zoomIn);
+        self.menuItemZoomOut.action = #selector(BCGridStyleController.zoomOut);
+        self.menuItemResetZoom.action = #selector(BCGridStyleController.resetZoomWithAnimation);
     }
     
     /// Saves the preferences

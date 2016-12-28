@@ -116,7 +116,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
             // If lastDownloadedTags is empty...
             if(lastDownloadedTags == []) {
                 // If there is already a cache file for this search...
-                if(FileManager.default.fileExists(atPath: tokenBooru!.cacheFolderPath + substring + ".json")) {
+                if(FileManager.default.fileExists(atPath: ((tokenBooru?.cacheFolderPath) ?? "") + substring + ".json")) {
                     // Load the results from that file
                     // Print that we are loading results from a cache file
                     Swift.print("BCBooruSearchTokenField: Loading search results cache from \"\(tokenBooru!.cacheFolderPath + substring + ".json")\"");
@@ -133,7 +133,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
                 // If there isnt a cache file for this search...
                 else {
                     // Search for any tags with the current substring as a prefix
-                    _ = tokenBooru?.utilties.getTagsMatchingSearch(substring + "*", completionHandler: finishedDownloadingTags);
+                    _ = tokenBooru?.utilties?.getTagsMatchingSearch(substring + "*", completionHandler: finishedDownloadingTags);
                 }
                 
                 // Set lastDownloadSearch

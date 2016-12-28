@@ -34,7 +34,7 @@ class BCGridStyleTagListTableViewController: NSObject {
             var tagBeingSearchedBy : Bool = false;
             
             // If the search field has the current tag in it's tokens...
-            if(mainViewController.titlebarSearchField.tokens.contains(currentTag)) {
+            if(mainViewController.toolbarSearchField.tokens.contains(currentTag)) {
                 // Say we are searching by this tag
                 tagBeingSearchedBy = true;
             }
@@ -79,7 +79,7 @@ class BCGridStyleTagListTableViewController: NSObject {
             print("BCGridStyleController: Adding \"\(changedData.tagName)\" to the search field");
             
             // Add the given token to the search field
-            mainViewController.titlebarSearchField.addToken(changedData.tagName);
+            mainViewController.toolbarSearchField.addToken(changedData.tagName);
         }
         // If we now want to remove the tag from the search...
         else {
@@ -87,7 +87,7 @@ class BCGridStyleTagListTableViewController: NSObject {
             print("BCGridStyleController: Removing \"\(changedData.tagName)\" from the search field");
             
             // Remove the given token from the search field
-            mainViewController.titlebarSearchField.removeToken(changedData.tagName);
+            mainViewController.toolbarSearchField.removeToken(changedData.tagName);
         }
     }
 }

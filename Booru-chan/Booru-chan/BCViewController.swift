@@ -29,29 +29,23 @@ class BCViewController: NSViewController, NSWindowDelegate {
     /// The  controller for browsing boorus in Grid|Image mode
     @IBOutlet var gridStyleController: BCGridStyleController!
     
-    /// The visual effect view for the window's titlebar
-    @IBOutlet var titlebarVisualEffectView: NSVisualEffectView!
-    
     /// The visual effect view for the window's background
     @IBOutlet var backgroundVisualEffectView: NSVisualEffectView!
     
-    /// The constraint for the toolbar items for what the minium size of the left container can be
-    @IBOutlet var titlebarItemsSplitViewLeftMinimumWidthConstraint: NSLayoutConstraint!
+    /// The booru choosing popup for the toolbar of this browser
+    weak var toolbarBooruPopup : NSPopUpButton!
     
-    /// The popup button for choosing which Booru to search in
-    @IBOutlet var titlebarBooruPickerPopupButton: NSPopUpButton!
-    
-    /// When we select an item in titlebarBooruPickerPopupButton...
-    @IBAction func titlebarBooruPickerPopupButtonItemSelected(_ sender: AnyObject) {
+    /// When we select an item in `toolbarBooruPopup`...
+    @IBAction func toolbarBooruPopupItemSelected(_ sender: AnyObject) {
         // Update the searching Booru
         updateSelectedSearchingBooru();
     }
     
-    /// The token field in the titlebar for searching
-    @IBOutlet var titlebarSearchField: BCBooruSearchTokenField!
+    /// The search field for the toolbar of this browser
+    weak var toolbarSearchField : BCBooruSearchTokenField!
     
-    /// When the user enters text into titlebarSearchField...
-    @IBAction func titlebarSearchFieldTextEntered(_ sender: NSTokenField) {
+    /// When the user enters text into `toolbarSearchField`...
+    @IBAction func toolbarSearchFieldTextEntered(_ sender: BCBooruSearchTokenField) {
         // Search for the entered text(It replaces commas with spaces because when NSTokenField gives you it's stringValue, there is a comma in between each token)
         gridStyleController.searchFor(sender.stringValue.replacingOccurrences(of: ",", with: " "));
         
@@ -81,24 +75,58 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // Style the window
         styleWindow();
         
-        // Setup the menu items
-        setupMenuItems();
-        
         // Add the preferences updated observer
         NotificationCenter.default.addObserver(self, selector: #selector(BCViewController.preferencesUpdated), name: NSNotification.Name(rawValue: "BCPreferences.Updated"), object: nil);
         
-        // Set the target and action for the titlebar search field's tokens changed event
-        titlebarSearchField.tokensChangedTarget = self;
-        titlebarSearchField.tokensChangedAction = #selector(BCViewController.searchTokensChanged);
-        
         // Initialize everything
         gridStyleController.initialize();
+    }
+    
+    override var representedObject: Any? {
+        didSet {
+            // Update the view, if already loaded.
+        }
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear();
+        
+        // Restore the window frame from autosave
+        self.window.setFrameUsingName(self.window.frameAutosaveName);
+        
+        // Get all the toolbar items
+        for(_, currentItem) in self.window.toolbar!.items.enumerated() {
+            switch(currentItem.itemIdentifier) {
+            case "BooruSelector":
+                self.toolbarBooruPopup = (currentItem.view as! NSPopUpButton);
+                break;
+                
+            case "SearchField":
+                self.toolbarSearchField = (currentItem.view as! BCBooruSearchTokenField);
+                break;
+                
+            default:
+                break;
+            }
+        }
+        
+        // Set the target and action for the toolbar search field's tokens changed event
+        toolbarSearchField.tokensChangedTarget = self;
+        toolbarSearchField.tokensChangedAction = #selector(BCViewController.searchTokensChanged);
         
         // Update the Booru picker popup button
         updateBooruPickerPopupButton();
     }
     
-    /// Called when the tokens from titlebarSearchField change
+    override func viewWillDisappear() {
+        super.viewWillDisappear();
+        
+        // Save the window frame
+        self.window.saveFrame(usingName: self.window.frameAutosaveName);
+        UserDefaults.standard.synchronize();
+    }
+    
+    /// Called when the tokens from toolbarSearchField change
     func searchTokensChanged() {
         // Update the tag display list
         gridStyleController.tagListController.displayTagsFromPost(gridStyleController.tagListController.lastDisplayedPost);
@@ -110,21 +138,21 @@ class BCViewController: NSViewController, NSWindowDelegate {
         var selectionIndex : Int = 0;
         
         // If the selection item isnt nil...
-        if(titlebarBooruPickerPopupButton.selectedItem != nil) {
+        if(toolbarBooruPopup.selectedItem != nil) {
             // Set selection index to the index of the selected item
-            selectionIndex = titlebarBooruPickerPopupButton.index(of: titlebarBooruPickerPopupButton.selectedItem!);
+            selectionIndex = toolbarBooruPopup.index(of: toolbarBooruPopup.selectedItem!);
         }
         
         // Update the Searching Boorus
         updateBooruPickerPopupButton();
         
         // Reselect the previous item
-        titlebarBooruPickerPopupButton.selectItem(at: selectionIndex);
+        toolbarBooruPopup.selectItem(at: selectionIndex);
         
         // If the selected item is now nil...
-        if(titlebarBooruPickerPopupButton.selectedItem == nil) {
-            // Select the last item in titlebarBooruPickerPopupButton
-            titlebarBooruPickerPopupButton.selectItem(at: titlebarBooruPickerPopupButton.index(of: titlebarBooruPickerPopupButton.lastItem!));
+        if(toolbarBooruPopup.selectedItem == nil) {
+            // Select the last item in toolbarBooruPopup
+            toolbarBooruPopup.selectItem(at: toolbarBooruPopup.index(of: toolbarBooruPopup.lastItem!));
         }
     }
     
@@ -167,7 +195,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     print("BCViewController: Saving \(items.count) image(s) to \"\(saveDirectory)\"");
                     
                     // Download the items
-                    self.downloadBooruItems(downloadItems, saveDirectory: saveDirectory, tags: titlebarSearchField.stringValue, count: downloadItems.count, filenameFormat: saveDirectorySavePanel.nameFieldStringValue, fileTags: (saveDirectorySavePanel.tagNames == nil) ? [] : saveDirectorySavePanel.tagNames!);
+                    self.downloadBooruItems(downloadItems, saveDirectory: saveDirectory, tags: toolbarSearchField.stringValue, count: downloadItems.count, filenameFormat: saveDirectorySavePanel.nameFieldStringValue, fileTags: (saveDirectorySavePanel.tagNames == nil) ? [] : saveDirectorySavePanel.tagNames!);
                 }
             }
         }
@@ -484,15 +512,15 @@ class BCViewController: NSViewController, NSWindowDelegate {
         NSPasteboard.general().setString(copyString, forType: NSStringPboardType);
     }
     
-    /// Updates currentSelectedSearchingBooru to match the selected item in titlebarBooruPickerPopupButton
+    /// Updates currentSelectedSearchingBooru to match the selected item in toolbarBooruPopup
     func updateSelectedSearchingBooru() {
         // Clear the current searching Booru's last search
-        currentSelectedSearchingBooru?.utilties.lastSearch = "";
+        currentSelectedSearchingBooru?.utilties?.lastSearch = "";
         
-        // If there isnt one item with a title of "No Boorus Added" in titlebarBooruPickerPopupButton...
-        if(titlebarBooruPickerPopupButton.itemArray.count != 1 && titlebarBooruPickerPopupButton.itemArray[0].title != "No Boorus Added") {
+        // If there isnt one item with a title of "No Boorus Added" in toolbarBooruPopup...
+        if(toolbarBooruPopup.itemArray.count != 1 && toolbarBooruPopup.itemArray[0].title != "No Boorus Added") {
             // Set the selected searching Booru to the selected Booru
-            currentSelectedSearchingBooru = (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts[titlebarBooruPickerPopupButton.index(of: titlebarBooruPickerPopupButton.selectedItem!)];
+            currentSelectedSearchingBooru = (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts[toolbarBooruPopup.index(of: toolbarBooruPopup.selectedItem!)];
         }
         else {
             // Set currentSelectedSearchingBooru to nil
@@ -511,56 +539,28 @@ class BCViewController: NSViewController, NSWindowDelegate {
         }
         
         // Set the search field's token Booru
-        titlebarSearchField.tokenBooru = currentSelectedSearchingBooru;
+        toolbarSearchField.tokenBooru = currentSelectedSearchingBooru;
     }
     
-    /// Updates titlebarBooruPickerPopupButton to match the Boorus listed in the user's added Boorus
+    /// Updates toolbarBooruPopup to match the Boorus listed in the user's added Boorus
     func updateBooruPickerPopupButton() {
-        // Clear all the current items in titlebarBooruPickerPopupButton
-        titlebarBooruPickerPopupButton.removeAllItems();
+        // Clear all the current items in toolbarBooruPopup
+        toolbarBooruPopup.removeAllItems();
         
         // For every Booru in the user's Boorus...
         for(_, currentBooruHost) in (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts.enumerated() {
-            // Add the current item to titlebarBooruPickerPopupButton
-            titlebarBooruPickerPopupButton.addItem(withTitle: currentBooruHost.name);
+            // Add the current item to toolbarBooruPopup
+            toolbarBooruPopup.addItem(withTitle: currentBooruHost.name);
         }
         
-        // If there arent any items in titlebarBooruPickerPopupButton...
-        if(titlebarBooruPickerPopupButton.menu?.items.count < 1) {
-            // Add an item saying "No Boorus Added" to titlebarBooruPickerPopupButton
-            titlebarBooruPickerPopupButton.addItem(withTitle: "");
+        // If there arent any items in toolbarBooruPopup...
+        if(toolbarBooruPopup.menu?.items.count < 1) {
+            // Add an item saying "No Boorus Added" to toolbarBooruPopup
+            toolbarBooruPopup.addItem(withTitle: "");
         }
         
         // Update the searching Booru
         updateSelectedSearchingBooru();
-    }
-    
-    func windowWillEnterFullScreen(_ notification: Notification) {
-        // Hide the toolbar
-        window.toolbar?.isVisible = false;
-        
-        // Set the window's appearance to vibrant dark so the fullscreen toolbar is dark
-        window.appearance = NSAppearance(named: NSAppearanceNameVibrantDark);
-        
-        // Update the titlebar items split view left side minimum width
-        titlebarItemsSplitViewLeftMinimumWidthConstraint.constant = 166;
-    }
-    
-    func windowDidExitFullScreen(_ notification: Notification) {
-        // Show the toolbar
-        window.toolbar?.isVisible = true;
-        
-        // Set back the window's appearance
-        window.appearance = NSAppearance(named: NSAppearanceNameAqua);
-        
-        // Update the titlebar items split view left side minimum width
-        titlebarItemsSplitViewLeftMinimumWidthConstraint.constant = 236;
-        
-        // If we are hiding the titlebar...
-        if(!titlebarVisible) {
-            // Hide the OSX titlebar
-            window.standardWindowButton(.closeButton)?.superview?.superview?.isHidden = true;
-        }
     }
     
     /// Is the titlebar visible?
@@ -585,18 +585,11 @@ class BCViewController: NSViewController, NSWindowDelegate {
     
     /// Hides the titlebar
     func hideTitlebar() {
-        // Hide the titlebar visual effect view
-        titlebarVisualEffectView.isHidden = true;
-        
         // If we arent in fullscreen...
         if(!(window.styleMask.contains(NSFullScreenWindowMask))) {
             // Hide the OSX titlebar
             window.standardWindowButton(.closeButton)?.superview?.superview?.isHidden = true;
         }
-        
-        // Update constraints/content insets
-        gridStyleController.largeImageViewTopConstraint.constant = 0;
-        gridStyleController.booruCollectionViewScrollView.contentInsets.top = 0;
         
         // Redraw the window's content view so we dont get odd vibrancy artifacts
         window.contentView?.needsDisplay = true;
@@ -604,15 +597,8 @@ class BCViewController: NSViewController, NSWindowDelegate {
     
     /// Shows the titlebar
     func showTitlebar() {
-        // Show the titlebar visual effect view
-        titlebarVisualEffectView.isHidden = false;
-        
         // Show the OSX titlebar
         window.standardWindowButton(.closeButton)?.superview?.superview?.isHidden = false;
-        
-        // Update constraints/content insets
-        gridStyleController.largeImageViewTopConstraint.constant = 37;
-        gridStyleController.booruCollectionViewScrollView.contentInsets.top = 37;
         
         // Redraw the window's content view so we dont get odd vibrancy artifacts
         window.contentView?.needsDisplay = true;
@@ -624,25 +610,22 @@ class BCViewController: NSViewController, NSWindowDelegate {
         window.makeFirstResponder(gridStyleController.booruCollectionView);
     }
     
-    /// Makes titlebarSearchField the first responder
-    func selectSearchField() {
-        // Make titlebarSearchField the first responder
-        window.makeFirstResponder(titlebarSearchField);
+    /// Opens the popup for toolbarBooruPopup
+    func openBooruPopup() {
+        toolbarBooruPopup.performClick(self);
     }
     
-    /// Sets up the menu items for this controller
-    func setupMenuItems() {
-        // Setup the menu items
-        // Set the actions
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemSaveSelectedImages.action = #selector(BCViewController.saveSelectedImages);
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemOpenSelectedPostsInBrowser.action = #selector(BCViewController.openSelectedPostsInBrowser);
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemCopyUrlsOfSelectedPosts.action = #selector(BCViewController.copyUrlsOfSelectedPosts);
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemCopyImageUrlsOfSelectedPosts.action = #selector(BCViewController.copyImageUrlsOfSelectedPosts);
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemCopyAllPreviouslyCopiedPostUrls.action = #selector(BCViewController.copyPreviouslyCopiedPostUrls);
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemCopyAllPreviouslyCopiedImageUrls.action = #selector(BCViewController.copyPreviouslyCopiedImageUrls);
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemToggleTitlebar.action = #selector(BCViewController.toggleTitlebar);
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemSelectSearchField.action = #selector(BCViewController.selectSearchField);
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemSelectPostBrowser.action = #selector(BCViewController.selectPostBrowser);
+    /// Makes toolbarSearchField the first responder
+    func selectSearchField() {
+        // Make toolbarSearchField the first responder
+        window.makeFirstResponder(toolbarSearchField);
+    }
+    
+    func windowShouldClose(_ sender: Any) -> Bool {
+        // Deinit
+        self.gridStyleController.booruCollectionViewArrayController.remove(self);
+        
+        return true;
     }
     
     /// Styles the window
@@ -650,18 +633,24 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // Get the window
         window = NSApplication.shared().windows.last!;
         
+        // Tell the window controller not to cascade so positions can be restored
+        window.windowController!.shouldCascadeWindows = false;
+        
+        // Restore the window's autosave name
+        window.setFrameAutosaveName("BooruChanBrowser");
+        
         // Set the window's delegate
         window.delegate = self;
         
-        // Style the titlebar
-        window.titlebarAppearsTransparent = true;
-        window.titleVisibility = .hidden;
+        // Set the window's appearance
+        window.appearance = NSAppearance(named: NSAppearanceNameVibrantDark);
         
+        // Style the titlebar
+        window.titleVisibility = .hidden;
         window.styleMask.insert(NSFullSizeContentViewWindowMask);
         window.toolbar?.showsBaselineSeparator = false;
         
         // Set the visual effects views' materials
-        titlebarVisualEffectView.material = .dark;
         backgroundVisualEffectView.material = .dark;
     }
 }

@@ -12,7 +12,7 @@ import SWXMLHash
 
 class BCBooruUtilities {
     /// The BCBooruHost this booru utilities represents
-    var representedBooru : BCBooruHost? = nil;
+    weak var representedBooru : BCBooruHost? = nil;
     
     /// The type of Booru to use for this Booru Utilities
     var type : BCBooruType = .unchosen;
@@ -731,7 +731,7 @@ class BCBooruHost: NSObject, NSCoding {
     var tagBlacklist : [String] = [];
     
     /// The BCBooruUtilities for this host
-    var utilties : BCBooruUtilities = BCBooruUtilities();
+    var utilties : BCBooruUtilities!;
     
     /// Adds the given tag to this Booru's tag search history
     func addTagToHistory(_ tag : String) {

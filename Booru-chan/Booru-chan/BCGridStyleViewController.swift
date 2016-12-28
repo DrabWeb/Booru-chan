@@ -64,9 +64,6 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// The image view on the right for displaying the current selected image in full size
     @IBOutlet weak var largeImageView: NSImageView!
     
-    /// The constraint for the top space for largeImageView
-    @IBOutlet weak var largeImageViewTopConstraint: NSLayoutConstraint!
-    
     /// The last full size image download request made by displayPostItem
     var lastDisplayRequest : Request? = nil;
     
@@ -359,7 +356,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // If the last search of the current searching Booru isnt blank...
         if((booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count > 0) {
             // Add the next page of results to the Booru collection view
-            _ = mainViewController.currentSelectedSearchingBooru!.utilties.getPostsFromSearch(mainViewController.currentSelectedSearchingBooru!.utilties.lastSearch, limit: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchLimit, page: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchPage + 1, completionHandler: searchFinished);
+            _ = mainViewController.currentSelectedSearchingBooru!.utilties?.getPostsFromSearch(mainViewController.currentSelectedSearchingBooru!.utilties.lastSearch, limit: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchLimit, page: mainViewController.currentSelectedSearchingBooru!.utilties.lastSearchPage + 1, completionHandler: searchFinished);
         }
     }
     
@@ -396,7 +393,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // If currentSelectedSearchingBooru isnt nil...
         if(mainViewController.currentSelectedSearchingBooru != nil) {
             // Search for the given tags
-            _ = mainViewController.currentSelectedSearchingBooru!.utilties.getPostsFromSearch(searchString, limit: mainViewController.currentSelectedSearchingBooru!.pagePostLimit, page: 1, completionHandler: searchFinished);
+            _ = mainViewController.currentSelectedSearchingBooru!.utilties?.getPostsFromSearch(searchString, limit: mainViewController.currentSelectedSearchingBooru!.pagePostLimit, page: 1, completionHandler: searchFinished);
         }
         // If currentSelectedSearchingBooru is nil...
         else {
@@ -528,26 +525,6 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         mainSplitView.setPosition(booruCollectionViewPreviousSize, ofDividerAt: 0);
     }
     
-    /// Sets up the menu items for this controller
-    func setupMenuItems() {
-        // Setup the menu items
-        // Set the targets
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemTogglePostBrowser.target = self;
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemToggleInfoBar.target = self;
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemToggleTagList.target = self;
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemZoomIn.target = self;
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemZoomOut.target = self;
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemResetZoom.target = self;
-        
-        // Set the actions
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemTogglePostBrowser.action = #selector(BCGridStyleController.toggleBooruCollectionView);
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemToggleInfoBar.action = #selector(BCGridStyleController.toggleInfoBar);
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemToggleTagList.action = #selector(BCGridStyleController.toggleTagList);
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemZoomIn.action = #selector(BCGridStyleController.zoomIn);
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemZoomOut.action = #selector(BCGridStyleController.zoomOut);
-        (NSApplication.shared().delegate as! BCAppDelegate).menuItemResetZoom.action = #selector(BCGridStyleController.resetZoomWithAnimation);
-    }
-    
     func initialize() {
         // Set the Booru collection view's item prototype
         booruCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: Bundle.main).instantiateController(withIdentifier: "booruCollectionViewItem") as! BCBooruCollectionViewCollectionViewItem;
@@ -555,9 +532,6 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // Set the minimum and maximum item sizes
         booruCollectionView.minItemSize = NSSize(width: 150, height: 150);
         booruCollectionView.maxItemSize = NSSize(width: 200, height: 200);
-        
-        // Setup the menu items
-        setupMenuItems();
         
         // Style the visual effect views
         gridContainerView.state = .active;
