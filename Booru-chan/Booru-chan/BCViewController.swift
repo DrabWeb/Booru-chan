@@ -67,6 +67,9 @@ class BCViewController: NSViewController, NSWindowDelegate {
     /// The log of copied image URLs
     var imageUrlCopyLog : [String] = [];
     
+    /// The constraint for the top of gridStyleController.imageViewScrollView
+    private var imageViewScrollViewTopConstraint : NSLayoutConstraint? = nil;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -103,8 +106,20 @@ class BCViewController: NSViewController, NSWindowDelegate {
         toolbarSearchField.tokensChangedTarget = self;
         toolbarSearchField.tokensChangedAction = #selector(BCViewController.searchTokensChanged);
         
+        // Add the constraint for the top of the image view so it centers relative to the visible frame, not the whole window
+        createImageViewScrollViewConstraints(relativeTo: window.standardWindowButton(.closeButton)!.superview!.superview!, attribute: .bottom);
+        
         updateBooruPickerPopupButton();
         updateTitle();
+    }
+    
+    private func createImageViewScrollViewConstraints(relativeTo : NSView, attribute : NSLayoutAttribute) {
+        if(imageViewScrollViewTopConstraint != nil) {
+            window.contentView?.superview?.removeConstraint(imageViewScrollViewTopConstraint!);
+        }
+        
+        imageViewScrollViewTopConstraint = NSLayoutConstraint(item: gridStyleController.imageViewScrollView, attribute: .top, relatedBy: .equal, toItem: relativeTo, attribute: attribute, multiplier: 1, constant: 0)
+        window.contentView?.superview?.addConstraint(imageViewScrollViewTopConstraint!);
     }
     
     override func viewWillDisappear() {
@@ -553,7 +568,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
     func toggleTitlebar() {
         titlebarVisible = !titlebarVisible;
 
-        if (titlebarVisible) {
+        if(titlebarVisible) {
             showTitlebar();
         }
         else {
@@ -562,15 +577,22 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     func hideTitlebar() {
-        if (!window.styleMask.contains(NSFullScreenWindowMask)) {
+        if(!window.styleMask.contains(NSFullScreenWindowMask)) {
             window.standardWindowButton(.closeButton)?.superview?.superview?.isHidden = true;
         }
+        
+        gridStyleController.booruCollectionViewScrollView.automaticallyAdjustsContentInsets = false;
+        gridStyleController.booruCollectionViewScrollView.contentInsets = NSEdgeInsetsZero;
+        createImageViewScrollViewConstraints(relativeTo: window.contentView!, attribute: .top);
         
         window.contentView?.needsDisplay = true;
     }
     
     func showTitlebar() {
         window.standardWindowButton(.closeButton)?.superview?.superview?.isHidden = false;
+        gridStyleController.booruCollectionViewScrollView.automaticallyAdjustsContentInsets = true;
+        createImageViewScrollViewConstraints(relativeTo: window.standardWindowButton(.closeButton)!.superview!.superview!, attribute: .bottom);
+        
         window.contentView?.needsDisplay = true;
     }
     

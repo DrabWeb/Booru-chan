@@ -560,14 +560,14 @@
                                                 <rect key="frame" x="300" y="0.0" width="300" height="400"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zhb-km-PfA">
-                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="363"/>
+                                                    <scrollView placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="400" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" minMagnification="1" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zhb-km-PfA">
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
                                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="k2X-Hk-ENA">
-                                                            <rect key="frame" x="0.0" y="0.0" width="300" height="363"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="n1B-nT-Sml">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="363"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="qrs-Ga-n48"/>
                                                                     </constraints>
@@ -584,18 +584,17 @@
                                                         </clipView>
                                                         <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="nIS-sh-Cph">
-                                                            <rect key="frame" x="0.0" y="347" width="300" height="16"/>
+                                                            <rect key="frame" x="0.0" y="384" width="300" height="16"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="Kqt-5q-UpG">
-                                                            <rect key="frame" x="284" y="0.0" width="16" height="363"/>
+                                                            <rect key="frame" x="284" y="0.0" width="16" height="400"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                     </scrollView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="Zhb-km-PfA" secondAttribute="trailing" id="VbD-Hj-Cr4"/>
-                                                    <constraint firstItem="Zhb-km-PfA" firstAttribute="top" secondItem="ubM-px-bhh" secondAttribute="top" constant="37" id="eoQ-hl-97v"/>
                                                     <constraint firstItem="Zhb-km-PfA" firstAttribute="leading" secondItem="ubM-px-bhh" secondAttribute="leading" id="vvV-Cr-m44"/>
                                                     <constraint firstAttribute="bottom" secondItem="Zhb-km-PfA" secondAttribute="bottom" id="zxm-8b-ftR"/>
                                                 </constraints>
