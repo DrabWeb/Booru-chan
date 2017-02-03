@@ -113,12 +113,12 @@ class BCViewController: NSViewController, NSWindowDelegate {
         updateTitle();
     }
     
-    private func createImageViewScrollViewConstraints(relativeTo : NSView, attribute : NSLayoutAttribute) {
+    private func createImageViewScrollViewConstraints(relativeTo : NSView, attribute : NSLayoutAttribute, constant : CGFloat = 0) {
         if(imageViewScrollViewTopConstraint != nil) {
             window.contentView?.superview?.removeConstraint(imageViewScrollViewTopConstraint!);
         }
         
-        imageViewScrollViewTopConstraint = NSLayoutConstraint(item: gridStyleController.imageViewScrollView, attribute: .top, relatedBy: .equal, toItem: relativeTo, attribute: attribute, multiplier: 1, constant: 0)
+        imageViewScrollViewTopConstraint = NSLayoutConstraint(item: gridStyleController.imageViewScrollView, attribute: .top, relatedBy: .equal, toItem: relativeTo, attribute: attribute, multiplier: 1, constant: constant);
         window.contentView?.superview?.addConstraint(imageViewScrollViewTopConstraint!);
     }
     
@@ -128,6 +128,20 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // Save the window frame
         self.window.saveFrame(usingName: self.window.frameAutosaveName);
         UserDefaults.standard.synchronize();
+    }
+    
+    func windowWillEnterFullScreen(_ notification: Notification) {
+        if(!titlebarVisible) {
+            showTitlebar();
+        }
+    }
+    
+    func windowDidEnterFullScreen(_ notification: Notification) {
+        createImageViewScrollViewConstraints(relativeTo: view, attribute: .top, constant: 37);
+    }
+    
+    func windowDidExitFullScreen(_ notification: Notification) {
+        createImageViewScrollViewConstraints(relativeTo: window.standardWindowButton(.closeButton)!.superview!.superview!, attribute: .bottom);
     }
     
     /// Called when the tokens from toolbarSearchField change
@@ -586,6 +600,8 @@ class BCViewController: NSViewController, NSWindowDelegate {
         createImageViewScrollViewConstraints(relativeTo: window.contentView!, attribute: .top);
         
         window.contentView?.needsDisplay = true;
+        
+        titlebarVisible = false;
     }
     
     func showTitlebar() {
@@ -594,6 +610,8 @@ class BCViewController: NSViewController, NSWindowDelegate {
         createImageViewScrollViewConstraints(relativeTo: window.standardWindowButton(.closeButton)!.superview!.superview!, attribute: .bottom);
         
         window.contentView?.needsDisplay = true;
+        
+        titlebarVisible = true;
     }
     
     func selectPostBrowser() {
