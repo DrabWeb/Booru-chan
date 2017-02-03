@@ -121,12 +121,12 @@ class BCAppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDe
         self.menuItemOpenBooruPopup.action = #selector(BCViewController.openBooruPopup);
         self.menuItemSelectPostBrowser.action = #selector(BCViewController.selectPostBrowser);
         
-        self.menuItemTogglePostBrowser.action = #selector(BCGridStyleController.toggleBooruCollectionView);
-        self.menuItemToggleInfoBar.action = #selector(BCGridStyleController.toggleInfoBar);
-        self.menuItemToggleTagList.action = #selector(BCGridStyleController.toggleTagList);
-        self.menuItemZoomIn.action = #selector(BCGridStyleController.zoomIn);
-        self.menuItemZoomOut.action = #selector(BCGridStyleController.zoomOut);
-        self.menuItemResetZoom.action = #selector(BCGridStyleController.resetZoomWithAnimation);
+        self.menuItemTogglePostBrowser.action = #selector(BCViewController.toggleBooruCollectionView);
+        self.menuItemToggleInfoBar.action = #selector(BCViewController.toggleInfoBar);
+        self.menuItemToggleTagList.action = #selector(BCViewController.toggleTagList);
+        self.menuItemZoomIn.action = #selector(BCViewController.zoomIn);
+        self.menuItemZoomOut.action = #selector(BCViewController.zoomOut);
+        self.menuItemResetZoom.action = #selector(BCViewController.resetZoomWithAnimation);
     }
     
     /// Saves the preferences

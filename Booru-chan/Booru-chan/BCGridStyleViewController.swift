@@ -25,9 +25,6 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// The visual effect view for the background of the grid
     @IBOutlet weak var gridBackgroundVisualEffectView: NSVisualEffectView!
     
-    /// The view for darkening gridBackgroundVisualEffectView
-    @IBOutlet weak var gridBackgroundVisualEffectViewDarkenView: BCColoredView!
-    
     /// The scroll view for booruCollectionView
     @IBOutlet weak var booruCollectionViewScrollView: BCActionOnScrollToBottomScrollView!
     
@@ -36,6 +33,9 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     
     /// The minimum height constraint for booruCollectionView
     @IBOutlet weak var booruCollectionViewContainerMinimumHeightConstraint: NSLayoutConstraint!
+    
+    /// The bottom constraint for booruCollectionViewScrollView
+    @IBOutlet weak var booruCollectionViewScrollViewBottomConstraint: NSLayoutConstraint!
     
     /// The container for the views to show when there are no search results
     @IBOutlet weak var noSearchResultsContainerView: NSView!
@@ -55,14 +55,11 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// The items from booruCollectionViewArrayController
     var booruCollectionViewArrayControllerItems: NSMutableArray = NSMutableArray();
     
-    /// The container view for largeImageView
-    @IBOutlet weak var largeImageViewContainer: NSView!
-    
-    /// The scroll view for largeImageView
-    @IBOutlet weak var largeImageViewScrollView: NSScrollView!
+    /// The scroll view for imageView
+    @IBOutlet weak var imageViewScrollView: NSScrollView!
     
     /// The image view on the right for displaying the current selected image in full size
-    @IBOutlet weak var largeImageView: NSImageView!
+    @IBOutlet weak var imageView: NSImageView!
     
     /// The last full size image download request made by displayPostItem
     var lastDisplayRequest : Request? = nil;
@@ -93,7 +90,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                             // If image isnt nil...
                             if(image != nil) {
                                 // Show the thumbnail image in the full size image view
-                                self.largeImageView.image = image!;
+                                self.imageView.image = image!;
                             
                                 // Cache the image in the post item
                                 postItem!.thumbnailImage = image!;
@@ -104,7 +101,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // If we already loaded the thumbnail...
             else {
                 // Show the thumbnail image in the full size image view
-                self.largeImageView.image = postItem!.thumbnailImage;
+                self.imageView.image = postItem!.thumbnailImage;
             }
             
             /// The first letter in the post item's rating
@@ -131,14 +128,14 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                                 // If we finished loading the image...
                                 if(postItem!.finishedLoadingImage) {
                                     // Show the image in the full size image view
-                                    self.largeImageView.image = image!;
+                                    self.imageView.image = image!;
                                     
                                     // Cache the image in the post item
                                     postItem!.image = image!;
                                     
                                     // Enable/disable animated GIF displaying based on if the image is animated
-                                    self.largeImageView.canDrawSubviewsIntoLayer = postItem!.representedPost!.animated;
-                                    self.largeImageView.animates = postItem!.representedPost!.animated;
+                                    self.imageView.canDrawSubviewsIntoLayer = postItem!.representedPost!.animated;
+                                    self.imageView.animates = postItem!.representedPost!.animated;
                                 }
                             }
                         }
@@ -163,11 +160,11 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // If we have already downloaded the post item's full size image...
             else {
                 // Show the cached image in the full size image view
-                self.largeImageView.image = postItem!.image;
+                self.imageView.image = postItem!.image;
                 
                 // Enable/disable animated GIF displaying based on if the image is animated
-                largeImageView.canDrawSubviewsIntoLayer = postItem!.representedPost!.animated;
-                largeImageView.animates = postItem!.representedPost!.animated;
+                imageView.canDrawSubviewsIntoLayer = postItem!.representedPost!.animated;
+                imageView.animates = postItem!.representedPost!.animated;
             }
             
             // Update the info label(Only called here in case the download doesnt start)
@@ -185,7 +182,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             infoBarInfoLabel.stringValue = "No Posts Selected";
             
             // Show a blank image in the full size image view
-            largeImageView.image = NSImage();
+            imageView.image = NSImage();
         }
         
         // If the post item and it's post arent nil...
@@ -203,13 +200,13 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// Zooms in on the large image view
     func zoomIn() {
         // Zoom in
-        largeImageViewScrollView.magnification += 0.5;
+        imageViewScrollView.magnification += 0.5;
     }
     
     /// Zooms out of the large image view
     func zoomOut() {
         // Zoom out
-        largeImageViewScrollView.magnification -= 0.5;
+        imageViewScrollView.magnification -= 0.5;
     }
     
     /// Resets the zoom on the large image view(Animates if animate is true)
@@ -217,12 +214,12 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // If we said to animate...
         if(animate) {
             // Reset the zoom with the animation
-            largeImageViewScrollView.animator().magnification = 0;
+            imageViewScrollView.animator().magnification = 0;
         }
         // If we said not to animate...
         else {
             // Reset the zoom without the animation
-            largeImageViewScrollView.magnification = 0;
+            imageViewScrollView.magnification = 0;
         }
     }
     
@@ -378,7 +375,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         addedNoMoreResultsItem = false;
         
         // Clear the full size image view
-        largeImageView.image = NSImage();
+        imageView.image = NSImage();
         
         // For every item in lastThumbnailDownloadRequests...
         for(_, currentRequest) in lastThumbnailDownloadRequests.enumerated() {
@@ -437,48 +434,29 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         leftSplitView.subviews[1].isHidden = false;
     }
     
-    /// Is the info bar open?
     var infoBarOpen : Bool = true;
     
-    /// Toggles the visibility of the info bar
     func toggleInfoBar() {
-        // Toggle infoBarOpen
         infoBarOpen = !infoBarOpen;
         
-        // If the info bar is now open...
         if(infoBarOpen) {
-            // Show the info bar
             showInfoBar();
         }
-        // If the info bar is now closed...
         else {
-            // Hide the info bar
             hideInfoBar();
         }
     }
     
-    /// Hides the info bar
     func hideInfoBar() {
-        // Hide the info bar
         infoBarVisualEffectView.isHidden = true;
-        
-        // Update the Booru collection view's minimum height
         booruCollectionViewContainerMinimumHeightConstraint.constant = 37;
-        
-        // Adjust the Booru collection view's bottom scroll inset
-        booruCollectionViewScrollView.contentInsets.bottom = 0;
+        booruCollectionViewScrollViewBottomConstraint.constant = -22;
     }
     
-    /// Shows the info bar
     func showInfoBar() {
-        // Show the info bar
         infoBarVisualEffectView.isHidden = false;
-        
-        // Reset the Booru collection view's minimum height
         booruCollectionViewContainerMinimumHeightConstraint.constant = 59;
-        
-        // Reset the Booru collection view's bottom scroll inset
-        booruCollectionViewScrollView.contentInsets.bottom = 22;
+        booruCollectionViewScrollViewBottomConstraint.constant = 0;
     }
     
     /// Is the Booru collection view open?
@@ -533,11 +511,6 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         booruCollectionView.minItemSize = NSSize(width: 150, height: 150);
         booruCollectionView.maxItemSize = NSSize(width: 200, height: 200);
         
-        // Style the visual effect views
-        gridContainerView.state = .active;
-        gridBackgroundVisualEffectView.material = .dark;
-        gridBackgroundVisualEffectViewDarkenView.backgroundColor = NSColor(calibratedWhite: 0, alpha: 0.15);
-        
         /// The options for the Booru collection view selection observing
         let options = NSKeyValueObservingOptions([.new, .old]);
         
@@ -565,6 +538,8 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                 // Show a nil post item
                 displayPostItem(nil);
             }
+            
+            mainViewController.updateTitle();
         }
     }
 }

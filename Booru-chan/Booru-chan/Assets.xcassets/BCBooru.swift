@@ -660,12 +660,7 @@ class BCBooruUtilities {
         self.type = booru.type;
         
         // Set the host
-        if(booru.url.substring(from: booru.url.characters.index(before: booru.url.endIndex)) == "/") {
-            self.baseUrl = booru.url.substring(to: booru.url.characters.index(before: booru.url.endIndex));
-        }
-        else {
-            self.baseUrl = booru.url;
-        }
+        self.baseUrl = booru.url;
         
         // Set the maximum rating
         self.maximumRating = booru.maximumRating;

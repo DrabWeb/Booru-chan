@@ -20,6 +20,9 @@ class BCPreferencesObject: NSObject, NSCoding {
     /// The format for naming saved images
     var imageSaveFormat : String = "%md5%";
     
+    /// The theme for booru browsers
+    var theme : BCTheme = .dark;
+    
     /// The alpha value of a post that has already been downloaded
     var downloadedPostAlphaValue : CGFloat = 0.5;
     
@@ -33,6 +36,7 @@ class BCPreferencesObject: NSObject, NSCoding {
         // Encode the preferences
         coder.encode(booruHosts, forKey: "booruHosts");
         coder.encode(imageSaveFormat, forKey: "imageSaveFormat");
+        coder.encode(theme.rawValue, forKey: "theme");
         coder.encode(indicateDownloadedPosts, forKey: "indicateDownloadedPosts");
         coder.encode(notifyWhenDownloadsFinished, forKey: "notifyWhenDownloadsFinished");
     }
@@ -49,6 +53,7 @@ class BCPreferencesObject: NSObject, NSCoding {
             self.imageSaveFormat = decoder.decodeObject(forKey: "imageSaveFormat") as! String;
         }
         
+        self.theme = BCTheme(rawValue: decoder.decodeInteger(forKey: "theme"))!;
         self.indicateDownloadedPosts = decoder.decodeBool(forKey: "indicateDownloadedPosts");
         self.notifyWhenDownloadsFinished = decoder.decodeBool(forKey: "notifyWhenDownloadsFinished");
     }

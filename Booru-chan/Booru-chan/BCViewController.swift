@@ -7,6 +7,7 @@
 
 import Cocoa
 import Alamofire
+
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -67,25 +68,13 @@ class BCViewController: NSViewController, NSWindowDelegate {
     var imageUrlCopyLog : [String] = [];
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
-        // Tell BCAppDelegate to load the preferences
+        super.viewDidLoad();
+        
         (NSApplication.shared().delegate as! BCAppDelegate).loadPreferences();
-        
-        // Style the window
-        styleWindow();
-        
-        // Add the preferences updated observer
         NotificationCenter.default.addObserver(self, selector: #selector(BCViewController.preferencesUpdated), name: NSNotification.Name(rawValue: "BCPreferences.Updated"), object: nil);
         
-        // Initialize everything
+        initialize();
         gridStyleController.initialize();
-    }
-    
-    override var representedObject: Any? {
-        didSet {
-            // Update the view, if already loaded.
-        }
     }
     
     override func viewWillAppear() {
@@ -114,8 +103,8 @@ class BCViewController: NSViewController, NSWindowDelegate {
         toolbarSearchField.tokensChangedTarget = self;
         toolbarSearchField.tokensChangedAction = #selector(BCViewController.searchTokensChanged);
         
-        // Update the Booru picker popup button
         updateBooruPickerPopupButton();
+        updateTitle();
     }
     
     override func viewWillDisappear() {
@@ -134,26 +123,8 @@ class BCViewController: NSViewController, NSWindowDelegate {
     
     /// Called when the preferences are updated
     func preferencesUpdated() {
-        /// The index of the item to select after the Boorus are updated
-        var selectionIndex : Int = 0;
-        
-        // If the selection item isnt nil...
-        if(toolbarBooruPopup.selectedItem != nil) {
-            // Set selection index to the index of the selected item
-            selectionIndex = toolbarBooruPopup.index(of: toolbarBooruPopup.selectedItem!);
-        }
-        
-        // Update the Searching Boorus
-        updateBooruPickerPopupButton();
-        
-        // Reselect the previous item
-        toolbarBooruPopup.selectItem(at: selectionIndex);
-        
-        // If the selected item is now nil...
-        if(toolbarBooruPopup.selectedItem == nil) {
-            // Select the last item in toolbarBooruPopup
-            toolbarBooruPopup.selectItem(at: toolbarBooruPopup.index(of: toolbarBooruPopup.lastItem!));
-        }
+//        updateBooruPickerPopupButton();
+        applyTheme((NSApp.delegate as! BCAppDelegate).preferences.theme);
     }
     
     /// Saves the given BCBooruCollectionViewItems
@@ -530,12 +501,17 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // If currentSelectedSearchingBooru isnt nil...
         if(currentSelectedSearchingBooru != nil) {
             // Print what the new searching Booru is
-            print("BCViewController: Changed searching Booru to \(currentSelectedSearchingBooru!.name)");
+            print("BCViewController: Changed searching booru to \(currentSelectedSearchingBooru!.name)");
         }
         // If currentSelectedSearchingBooru is nil...
         else {
             // Print that the user has no Boorus added
-            print("BCViewController: Tried to change searching Boorus, but the user doesnt have any");
+            print("BCViewController: Tried to change searching boorus, but the user doesnt have any");
+        }
+        
+        // Only update the title if the user hasn't searched for anything yet
+        if(gridStyleController.booruCollectionViewArrayControllerItems.count == 0) {
+            updateTitle();
         }
         
         // Set the search field's token Booru
@@ -563,94 +539,102 @@ class BCViewController: NSViewController, NSWindowDelegate {
         updateSelectedSearchingBooru();
     }
     
-    /// Is the titlebar visible?
-    var titlebarVisible : Bool = true;
+    private var titlebarVisible : Bool = true;
     
-    /// Toggles the visibility of the titlebar
     func toggleTitlebar() {
-        // Toggle titlebarVisible
         titlebarVisible = !titlebarVisible;
-        
-        // If blank is now visible...
-        if(titlebarVisible) {
-            // Show the titlebar
+
+        if (titlebarVisible) {
             showTitlebar();
         }
-        // If the titlebar is now hidden...
         else {
-            // Hide the titlebar
             hideTitlebar();
         }
     }
     
-    /// Hides the titlebar
     func hideTitlebar() {
-        // If we arent in fullscreen...
-        if(!(window.styleMask.contains(NSFullScreenWindowMask))) {
-            // Hide the OSX titlebar
+        if (!window.styleMask.contains(NSFullScreenWindowMask)) {
             window.standardWindowButton(.closeButton)?.superview?.superview?.isHidden = true;
         }
         
-        // Redraw the window's content view so we dont get odd vibrancy artifacts
         window.contentView?.needsDisplay = true;
     }
     
-    /// Shows the titlebar
     func showTitlebar() {
-        // Show the OSX titlebar
         window.standardWindowButton(.closeButton)?.superview?.superview?.isHidden = false;
-        
-        // Redraw the window's content view so we dont get odd vibrancy artifacts
         window.contentView?.needsDisplay = true;
     }
     
-    /// Makes the post browser the first responder
     func selectPostBrowser() {
-        // Make booruCollectionView the first responder
         window.makeFirstResponder(gridStyleController.booruCollectionView);
     }
     
-    /// Opens the popup for toolbarBooruPopup
     func openBooruPopup() {
         toolbarBooruPopup.performClick(self);
     }
     
-    /// Makes toolbarSearchField the first responder
     func selectSearchField() {
-        // Make toolbarSearchField the first responder
         window.makeFirstResponder(toolbarSearchField);
     }
     
+    func toggleBooruCollectionView() {
+        gridStyleController.toggleBooruCollectionView();
+    }
+    
+    func toggleInfoBar() {
+        gridStyleController.toggleInfoBar();
+    }
+    
+    func toggleTagList() {
+        gridStyleController.toggleTagList();
+    }
+    
+    func zoomIn() {
+        gridStyleController.zoomIn();
+    }
+    
+    func zoomOut() {
+        gridStyleController.zoomOut();
+    }
+    
+    func resetZoomWithAnimation() {
+        gridStyleController.resetZoomWithAnimation();
+    }
+    
     func windowShouldClose(_ sender: Any) -> Bool {
-        // Deinit
-        self.gridStyleController.booruCollectionViewArrayController.remove(self);
-        
+        gridStyleController.booruCollectionViewArrayController.remove(gridStyleController.booruCollectionViewArrayController.arrangedObjects);
         return true;
     }
     
-    /// Styles the window
-    func styleWindow() {
-        // Get the window
-        window = NSApplication.shared().windows.last!;
-        
-        // Tell the window controller not to cascade so positions can be restored
-        window.windowController!.shouldCascadeWindows = false;
-        
-        // Restore the window's autosave name
-        window.setFrameAutosaveName("BooruChanBrowser");
-        
-        // Set the window's delegate
-        window.delegate = self;
-        
-        // Set the window's appearance
-        window.appearance = NSAppearance(named: NSAppearanceNameVibrantDark);
-        
-        // Style the titlebar
-        window.titleVisibility = .hidden;
-        window.styleMask.insert(NSFullSizeContentViewWindowMask);
-        window.toolbar?.showsBaselineSeparator = false;
-        
-        // Set the visual effects views' materials
-        backgroundVisualEffectView.material = .dark;
+    func updateTitle() {
+        // "tag1 tag2 tag3" - Booru name
+        window.title = "\(((toolbarSearchField.stringValue == "") ? "" : "\"\(toolbarSearchField.stringValue)\" - ").replacingOccurrences(of: ",", with: " "))\(currentSelectedSearchingBooru?.name ?? "Booru-chan")";
     }
+    
+    func initialize() {
+        window = NSApplication.shared().windows.last!;
+        window.windowController!.shouldCascadeWindows = false;
+        window.delegate = self;
+        window.styleMask.insert(NSFullSizeContentViewWindowMask);
+        window.titleVisibility = .hidden;
+        applyTheme((NSApp.delegate as! BCAppDelegate).preferences.theme);
+    }
+    
+    private var currentTheme : BCTheme = .dark;
+    
+    func applyTheme(_ theme : BCTheme) {
+        if(theme == currentTheme) { return; }
+        currentTheme = theme;
+        
+        window.appearance = NSAppearance(named: (theme == .dark) ? NSAppearanceNameVibrantDark : NSAppearanceNameVibrantLight);
+        window.toolbar?.showsBaselineSeparator = (theme == .light);
+        backgroundVisualEffectView.material = (theme == .dark) ? .dark : .selection;
+        
+        // Redraw the booru collection view(selection box needs to be updated)
+        gridStyleController.booruCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: Bundle.main).instantiateController(withIdentifier: "booruCollectionViewItem") as! BCBooruCollectionViewCollectionViewItem;
+    }
+}
+
+enum BCTheme: Int {
+    case dark, light
 }

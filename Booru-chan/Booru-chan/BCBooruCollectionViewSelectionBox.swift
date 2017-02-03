@@ -9,20 +9,22 @@ import Cocoa
 
 class BCBooruCollectionViewSelectionBox: NSBox {
 
-    override func awakeFromNib() {
-        // Set it to be a custom box
-        self.boxType = NSBoxType.custom;
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect);
         
-        // Set the corner radius to 5
+        self.boxType = NSBoxType.custom;
         self.cornerRadius = 5;
         
-        // Set the alpha value to 0.2
-        self.alphaValue = 0.2;
+        // Cheaty way to check if the view is light/dark, because NSCompositeAppearance is private
+        var light : Bool = false;
+        for (_, appearance) in (effectiveAppearance.value(forKey: "appearances") as! [NSAppearance]).enumerated() {
+            if(appearance.name == "NSAppearanceNameVibrantLight") {
+                light = true;
+            }
+        }
         
-        // Set the box to have no border
-        self.borderType = NSBorderType.noBorder;
-        
-        // Set the background color to black
+        self.alphaValue = light ? 0.1 : 0.2;
         self.fillColor = NSColor.black;
+        self.borderType = NSBorderType.noBorder;
     }
 }
