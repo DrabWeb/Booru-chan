@@ -730,8 +730,8 @@ class BCBooruHost: NSObject, NSCoding {
     
     /// Adds the given tag to this Booru's tag search history
     func addTagToHistory(_ tag : String) {
-        // If tagHistory doesnt have the given tag...
-        if(!tagHistory.contains(tag)) {
+        // If tagHistory doesnt have the given tag and it isn't blank...
+        if(!tagHistory.contains(tag) && tag != "") {
             // Add the given tag to tagHistory
             tagHistory.append(tag);
             

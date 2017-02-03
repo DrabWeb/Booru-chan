@@ -97,8 +97,6 @@ class BCPreferencesBoorusViewController: NSViewController {
         for(_, currentTag) in host.tagBlacklist.enumerated() {
             tagBlacklistTokenField.addToken(currentTag);
         }
-        
-        save();
     }
     
     /// Called when the user changes the name of a Booru list item

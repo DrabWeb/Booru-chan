@@ -123,7 +123,11 @@ class BCViewController: NSViewController, NSWindowDelegate {
     
     /// Called when the preferences are updated
     func preferencesUpdated() {
-//        updateBooruPickerPopupButton();
+        // Restore the selected searching booru
+        updateBooruPickerPopupButton(updateSearching: false);
+        toolbarBooruPopup.selectItem(at: lastPickedBooruIndex);
+        updateSelectedSearchingBooru();
+        
         applyTheme((NSApp.delegate as! BCAppDelegate).preferences.theme);
     }
     
@@ -518,8 +522,12 @@ class BCViewController: NSViewController, NSWindowDelegate {
         toolbarSearchField.tokenBooru = currentSelectedSearchingBooru;
     }
     
+    private var lastPickedBooruIndex : Int = -1;
+    
     /// Updates toolbarBooruPopup to match the Boorus listed in the user's added Boorus
-    func updateBooruPickerPopupButton() {
+    func updateBooruPickerPopupButton(updateSearching : Bool = true) {
+        lastPickedBooruIndex = toolbarBooruPopup.indexOfSelectedItem;
+        
         // Clear all the current items in toolbarBooruPopup
         toolbarBooruPopup.removeAllItems();
         
@@ -535,8 +543,9 @@ class BCViewController: NSViewController, NSWindowDelegate {
             toolbarBooruPopup.addItem(withTitle: "");
         }
         
-        // Update the searching Booru
-        updateSelectedSearchingBooru();
+        if(updateSearching) {
+            updateSelectedSearchingBooru();
+        }
     }
     
     private var titlebarVisible : Bool = true;
