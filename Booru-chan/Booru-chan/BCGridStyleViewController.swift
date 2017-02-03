@@ -211,16 +211,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     
     /// Resets the zoom on the large image view(Animates if animate is true)
     func resetZoom(_ animate : Bool) {
-        // If we said to animate...
-        if(animate) {
-            // Reset the zoom with the animation
-            imageViewScrollView.animator().magnification = 0;
-        }
-        // If we said not to animate...
-        else {
-            // Reset the zoom without the animation
-            imageViewScrollView.magnification = 0;
-        }
+        (animate ? imageViewScrollView.animator() : imageViewScrollView).magnification = 1;
     }
     
     /// Calls resetZoom(true)

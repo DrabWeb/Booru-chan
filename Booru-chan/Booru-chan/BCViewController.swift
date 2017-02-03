@@ -629,7 +629,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         applyTheme((NSApp.delegate as! BCAppDelegate).preferences.theme);
     }
     
-    private var currentTheme : BCTheme = .dark;
+    private var currentTheme : BCTheme = .none;
     
     func applyTheme(_ theme : BCTheme) {
         if(theme == currentTheme) { return; }
@@ -645,5 +645,5 @@ class BCViewController: NSViewController, NSWindowDelegate {
 }
 
 enum BCTheme: Int {
-    case dark, light
+    case none = -1, dark = 0, light = 1
 }

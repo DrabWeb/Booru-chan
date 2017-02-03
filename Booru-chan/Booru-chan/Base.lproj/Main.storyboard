@@ -163,6 +163,26 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="View" id="6Oc-if-HNL" userLabel="View">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="View" id="BgW-DA-riQ">
+                                    <items>
+                                        <menuItem title="Show Toolbar" keyEquivalent="t" id="jS5-eF-RCn">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="toggleToolbarShown:" target="Ady-hI-5gd" id="1Rr-s7-M2E"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="Eh7-q2-XXT"/>
+                                        <menuItem title="Enter Full Screen" keyEquivalent="f" id="bZX-CF-gvz">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="toggleFullScreen:" target="Ady-hI-5gd" id="gXN-hc-eln"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -179,7 +199,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="9k1-Jh-E3P"/>
-                                        <menuItem title="Toggle Titlebar" keyEquivalent="t" id="ZMD-8W-SMq">
+                                        <menuItem title="Toggle Titlebar" keyEquivalent="T" id="ZMD-8W-SMq">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                         </menuItem>
                                         <menuItem title="Toggle Post Browser" keyEquivalent="b" id="D1L-8u-R3F">
@@ -258,6 +278,7 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="550" y="405" width="600" height="400"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="300" height="200"/>
                         <toolbar key="toolbar" implicitIdentifier="1863C849-E395-4A11-BAAB-8210016ABBF9" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="biy-dr-Aki">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="41C31CBF-4038-4830-8B94-399409883A83" explicitItemIdentifier="BooruSelector" label="Booru Selector" paletteLabel="Booru Selector" id="RkP-uJ-bfN">
@@ -539,53 +560,44 @@
                                                 <rect key="frame" x="300" y="0.0" width="300" height="400"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="10" minMagnification="1" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNB-oq-FU8" userLabel="Scroll View - Image View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
-                                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="tId-t5-OJ5">
-                                                            <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
+                                                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zhb-km-PfA">
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="363"/>
+                                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="k2X-Hk-ENA">
+                                                            <rect key="frame" x="0.0" y="0.0" width="300" height="363"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <view translatesAutoresizingMaskIntoConstraints="NO" id="joM-1J-AsK">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
-                                                                    <subviews>
-                                                                        <imageView horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="VMB-43-6UP">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="BCo-92-aq9"/>
-                                                                            </constraints>
-                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="Uxr-pl-F3M"/>
-                                                                        </imageView>
-                                                                    </subviews>
+                                                                <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="n1B-nT-Sml">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="363"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="trailing" secondItem="VMB-43-6UP" secondAttribute="trailing" id="AhF-6d-dMX"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="VMB-43-6UP" secondAttribute="bottom" id="bKc-6G-BJa"/>
-                                                                        <constraint firstItem="VMB-43-6UP" firstAttribute="top" secondItem="joM-1J-AsK" secondAttribute="top" id="bjg-Jz-Ufr"/>
-                                                                        <constraint firstItem="VMB-43-6UP" firstAttribute="leading" secondItem="joM-1J-AsK" secondAttribute="leading" id="nBA-eq-d2l"/>
+                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="qrs-Ga-n48"/>
                                                                     </constraints>
-                                                                </view>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="VTu-qX-HZG"/>
+                                                                </imageView>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="bottom" secondItem="joM-1J-AsK" secondAttribute="bottom" id="9fe-3w-KyC"/>
-                                                                <constraint firstAttribute="trailing" secondItem="joM-1J-AsK" secondAttribute="trailing" id="jCB-7R-g7q"/>
-                                                                <constraint firstItem="joM-1J-AsK" firstAttribute="leading" secondItem="tId-t5-OJ5" secondAttribute="leading" id="vfI-Od-d5e"/>
-                                                                <constraint firstItem="joM-1J-AsK" firstAttribute="top" secondItem="tId-t5-OJ5" secondAttribute="top" id="yiU-oZ-qzK"/>
+                                                                <constraint firstItem="n1B-nT-Sml" firstAttribute="leading" secondItem="k2X-Hk-ENA" secondAttribute="leading" id="UuZ-6G-SSf"/>
+                                                                <constraint firstAttribute="bottom" secondItem="n1B-nT-Sml" secondAttribute="bottom" id="cWC-Sh-q8h"/>
+                                                                <constraint firstAttribute="trailing" secondItem="n1B-nT-Sml" secondAttribute="trailing" id="hqc-tj-Jg0"/>
+                                                                <constraint firstItem="n1B-nT-Sml" firstAttribute="top" secondItem="k2X-Hk-ENA" secondAttribute="top" id="l4j-UO-2Wz"/>
                                                             </constraints>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </clipView>
-                                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="vBd-Zw-6RV">
-                                                            <rect key="frame" x="0.0" y="384" width="300" height="16"/>
+                                                        <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="nIS-sh-Cph">
+                                                            <rect key="frame" x="0.0" y="347" width="300" height="16"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
-                                                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="djK-pk-69N">
-                                                            <rect key="frame" x="284" y="0.0" width="16" height="400"/>
+                                                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="Kqt-5q-UpG">
+                                                            <rect key="frame" x="284" y="0.0" width="16" height="363"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                     </scrollView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="sNB-oq-FU8" secondAttribute="trailing" id="TLh-R8-LEB"/>
-                                                    <constraint firstAttribute="bottom" secondItem="sNB-oq-FU8" secondAttribute="bottom" id="bkl-95-N0J"/>
-                                                    <constraint firstItem="sNB-oq-FU8" firstAttribute="top" secondItem="ubM-px-bhh" secondAttribute="top" id="sKB-nv-KGI"/>
-                                                    <constraint firstItem="sNB-oq-FU8" firstAttribute="leading" secondItem="ubM-px-bhh" secondAttribute="leading" id="w6A-zq-SXv"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Zhb-km-PfA" secondAttribute="trailing" id="VbD-Hj-Cr4"/>
+                                                    <constraint firstItem="Zhb-km-PfA" firstAttribute="top" secondItem="ubM-px-bhh" secondAttribute="top" constant="37" id="eoQ-hl-97v"/>
+                                                    <constraint firstItem="Zhb-km-PfA" firstAttribute="leading" secondItem="ubM-px-bhh" secondAttribute="leading" id="vvV-Cr-m44"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Zhb-km-PfA" secondAttribute="bottom" id="zxm-8b-ftR"/>
                                                 </constraints>
                                             </customView>
                                         </subviews>
@@ -625,8 +637,8 @@
                         <outlet property="booruCollectionViewScrollViewBottomConstraint" destination="MND-bT-RFc" id="9wx-lA-C65"/>
                         <outlet property="gridBackgroundVisualEffectView" destination="cig-Oz-6iZ" id="uTR-Pd-hdn"/>
                         <outlet property="gridContainerView" destination="9Ys-Ye-hfe" id="X4a-qy-pnR"/>
-                        <outlet property="imageView" destination="VMB-43-6UP" id="cvU-dy-Zbr"/>
-                        <outlet property="imageViewScrollView" destination="sNB-oq-FU8" id="wmv-km-2ZA"/>
+                        <outlet property="imageView" destination="n1B-nT-Sml" id="gzt-mG-x2o"/>
+                        <outlet property="imageViewScrollView" destination="Zhb-km-PfA" id="zAg-81-E4f"/>
                         <outlet property="infoBarInfoLabel" destination="bQh-rP-zel" id="Mau-P5-RJJ"/>
                         <outlet property="infoBarVisualEffectView" destination="y2Y-rw-rfC" id="WMg-n6-sXq"/>
                         <outlet property="leftSplitView" destination="yLl-h0-mSF" id="ODA-Jg-DcU"/>
@@ -941,12 +953,12 @@
                                     <constraint firstAttribute="height" constant="21" id="gSj-vQ-Jrl"/>
                                     <constraint firstAttribute="width" constant="217" id="lhk-wq-DEP"/>
                                 </constraints>
-                                <popUpButtonCell key="cell" type="push" title="Moebooru" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" focusRingType="none" tag="1" imageScaling="proportionallyDown" inset="2" id="8zp-Q2-tem">
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="8zp-Q2-tem">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="Wbj-Mm-W4G">
                                         <items>
-                                            <menuItem title="Moebooru" state="on" tag="1" id="4jQ-SY-4L9"/>
+                                            <menuItem title="Moebooru" tag="1" id="4jQ-SY-4L9"/>
                                             <menuItem title="Danbooru 1.x" tag="2" id="pwJ-GT-dKJ">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
@@ -1008,12 +1020,12 @@
                                     <constraint firstAttribute="height" constant="21" id="7fU-Fo-FTy"/>
                                     <constraint firstAttribute="width" constant="112" id="C1g-5z-7HQ"/>
                                 </constraints>
-                                <popUpButtonCell key="cell" type="push" title="Safe" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="gRg-q3-XUL" userLabel="Popup Button Cell">
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="gRg-q3-XUL" userLabel="Popup Button Cell">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="soK-Cg-h8c">
                                         <items>
-                                            <menuItem title="Safe" state="on" id="k8B-Og-otv"/>
+                                            <menuItem title="Safe" id="k8B-Og-otv"/>
                                             <menuItem title="Questionable" tag="1" id="Mnz-0h-JwW"/>
                                             <menuItem title="Explicit" tag="2" id="FA8-ZE-Puk"/>
                                         </items>
