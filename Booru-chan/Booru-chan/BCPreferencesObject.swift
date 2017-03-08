@@ -9,7 +9,6 @@ import Cocoa
 
 class BCPreferencesObject: NSObject, NSCoding {
     /// The Booru hosts the user has added
-    // REMINDER: Set this back to init as [] when you can set your Boorus in preferences
     var booruHosts : [BCBooruHost] = [
         BCBooruHost(name: "Yande.re", type: .moebooru, pagePostLimit: 40, url: "http://yande.re/", maximumRating: .explicit),
         BCBooruHost(name: "Danbooru", type: .danbooruLegacy, pagePostLimit: 40, url: "http://danbooru.donmai.us/", maximumRating: .explicit),

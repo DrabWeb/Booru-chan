@@ -383,10 +383,8 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // Search for the given tags
             _ = mainViewController.currentSelectedSearchingBooru!.utilties?.getPostsFromSearch(searchString, limit: mainViewController.currentSelectedSearchingBooru!.pagePostLimit, page: 1, completionHandler: searchFinished);
         }
-        // If currentSelectedSearchingBooru is nil...
         else {
-            // Print that currentSelectedSearchingBooru is nil
-            print("BCGridStyleViewController: currentSelectedSearchingBooru is nil, cant search");
+            print("BCGridStyleViewController: currentSelectedSearchingBooru is nil, can't search");
         }
         
         // Enable the reached bottom action

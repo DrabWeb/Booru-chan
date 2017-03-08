@@ -521,13 +521,17 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // Clear the current searching Booru's last search
         currentSelectedSearchingBooru?.utilties?.lastSearch = "";
         
-        // If there isnt one item with a title of "No Boorus Added" in toolbarBooruPopup...
-        if(toolbarBooruPopup.itemArray.count != 1 && toolbarBooruPopup.itemArray[0].title != "No Boorus Added") {
-            // Set the selected searching Booru to the selected Booru
-            currentSelectedSearchingBooru = (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts[toolbarBooruPopup.index(of: toolbarBooruPopup.selectedItem!)];
+        if(toolbarBooruPopup.itemArray.count > 0) {
+            // If there isnt one item with a title of "No Boorus Added" in toolbarBooruPopup...
+            if(toolbarBooruPopup.itemArray.count != 1 && toolbarBooruPopup.itemArray[0].title != "No Boorus Added") {
+                // Set the selected searching Booru to the selected Booru
+                currentSelectedSearchingBooru = (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts[toolbarBooruPopup.index(of: toolbarBooruPopup.selectedItem!)];
+            }
+            else {
+                currentSelectedSearchingBooru = nil;
+            }
         }
         else {
-            // Set currentSelectedSearchingBooru to nil
             currentSelectedSearchingBooru = nil;
         }
         
