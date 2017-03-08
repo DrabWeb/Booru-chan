@@ -1,6 +1,10 @@
 # Booru-chan
 
-<img src="https://github.com/DrabWeb/Booru-chan/blob/master/Icon/icon_512x512.png?raw=true" width=256>
+![](https://my.mixtape.moe/exekfp.png)
+![](https://my.mixtape.moe/ottwje.png)
+![](https://my.mixtape.moe/kmxodj.png)
+![](https://my.mixtape.moe/vsywwf.png)
+
 
 A Booru browser for macOS
 
