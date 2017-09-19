@@ -508,10 +508,10 @@ class BCBooruUtilities {
             post = BCBooruPost();
             
             // Set the post's info
-            post?.thumbnailUrl = self.baseUrl + xml!.element!.allAttributes["preview_url"]!.text;
+            post?.thumbnailUrl = self.baseUrl + (xml?.element?.allAttributes["preview_url"]?.text ?? "");
             post?.thumbnailSize = NSSize(width: NSString(string: xml!.element!.allAttributes["width"]!.text).integerValue, height: NSString(string: xml!.element!.allAttributes["height"]!.text).integerValue);
             
-            post?.imageUrl = self.baseUrl + xml!.element!.allAttributes["file_url"]!.text.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
+            post?.imageUrl = self.baseUrl + (xml?.element?.allAttributes["file_url"]?.text ?? "").addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
             post?.imageSize = NSSize(width: NSString(string: xml!.element!.allAttributes["width"]!.text).integerValue, height: NSString(string: xml!.element!.allAttributes["height"]!.text).integerValue);
             
             switch(xml!.element!.allAttributes["rating"]!.text) {

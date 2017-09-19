@@ -11,9 +11,9 @@ class BCPreferencesObject: NSObject, NSCoding {
     /// The Booru hosts the user has added
     var booruHosts : [BCBooruHost] = [
         BCBooruHost(name: "Yande.re", type: .moebooru, pagePostLimit: 40, url: "http://yande.re/", maximumRating: .explicit),
-        BCBooruHost(name: "Danbooru", type: .danbooruLegacy, pagePostLimit: 40, url: "http://danbooru.donmai.us/", maximumRating: .explicit),
+        BCBooruHost(name: "Danbooru", type: .danbooru, pagePostLimit: 40, url: "http://danbooru.donmai.us/", maximumRating: .explicit),
         BCBooruHost(name: "Konachan", type: .moebooru, pagePostLimit: 40, url: "http://konachan.net/", maximumRating: .explicit),
-        BCBooruHost(name: "Gelbooru", type: .gelbooru, pagePostLimit: 40, url: "http://gelbooru.com/", maximumRating: .explicit)
+        BCBooruHost(name: "Gelbooru", type: .gelbooru, pagePostLimit: 40, url: "https://gelbooru.com/", maximumRating: .explicit)
     ];
     
     /// The format for naming saved images
