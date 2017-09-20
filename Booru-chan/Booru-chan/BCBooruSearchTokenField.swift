@@ -188,11 +188,20 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
             
             do {
                 // Print where we are saving the JSON
-                Swift.print("BCBooruSearchTokenField: Writing search cache to \"\((tokenBooru?.cacheFolderPath)! + tags[0].substring(to: tags[0].characters.index(after: tags[0].startIndex)) + ".json"))\"");
+                var name = "";
+                let t = tags.filter { $0 != "" }.first!;
+                if t.characters.count > 1 {
+                    name = t.substring(to: t.characters.index(after: t.startIndex));
+                }
+                else {
+                    name = t;
+                }
                 
-                // POTENTIONALLY BROKEN
+                let path = "\(tokenBooru!.cacheFolderPath + name).json";
+                Swift.print("BCBooruSearchTokenField: Writing search cache to \"\(path)\"");
+
                 // Write the JSON to a JSON file in the Token Booru's cache folder(With the name of the first character in the first item of tags)
-                try String(describing: tagsJson).write(toFile: (tokenBooru?.cacheFolderPath)! + tags[0].substring(to: tags[0].index(after: tags[0].startIndex)) + ".json", atomically: true, encoding: String.Encoding.utf8);
+                try String(describing: tagsJson).write(toFile: path, atomically: true, encoding: String.Encoding.utf8);
             }
             catch let error as NSError {
                 // Print the error
