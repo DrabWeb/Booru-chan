@@ -1,5 +1,5 @@
 //
-//  BCScaleToFitContentTokenField.swift
+//  ScaleToFitContentTokenField.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-10-29.
@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class BCScaleToFitContentTokenField: NSTokenField {
+class ScaleToFitContentTokenField: NSTokenField {
     
     override var intrinsicContentSize : NSSize {
         /// The intrinsic size to return, set as the size of this token field fit to the super view's width

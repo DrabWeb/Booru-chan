@@ -1,5 +1,5 @@
 //
-//  BCAppDelegate
+//  AppDelegate.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-04-23.
@@ -8,10 +8,10 @@
 import Cocoa
 
 @NSApplicationMain
-class BCAppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
 
     /// The global preferences object
-    var preferences : BCPreferencesObject = BCPreferencesObject();
+    var preferences : PreferencesObject = PreferencesObject();
     
     /// File/Save Selected Images (⌘S)
     @IBOutlet weak var menuItemSaveSelectedImages: NSMenuItem!
@@ -90,7 +90,7 @@ class BCAppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDe
             }
             catch let error as NSError {
                 // Print the error
-                print("BCAppDelegate: Error creating Application Support folder, \(error.description)");
+                print("AppDelegate: Error creating Application Support folder, \(error.description)");
             }
         }
         
@@ -102,7 +102,7 @@ class BCAppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDe
             }
             catch let error as NSError {
                 // Print the error
-                print("BCAppDelegate: Error creating caches folder, \(error.description)");
+                print("AppDelegate: Error creating caches folder, \(error.description)");
             }
         }
     }
@@ -110,23 +110,23 @@ class BCAppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDe
     /// Sets up all the menu items
     func setupMenuItems() {
         // Setup the menu items
-        self.menuItemSaveSelectedImages.action = #selector(BCViewController.saveSelectedImages);
-        self.menuItemOpenSelectedPostsInBrowser.action = #selector(BCViewController.openSelectedPostsInBrowser);
-        self.menuItemCopyUrlsOfSelectedPosts.action = #selector(BCViewController.copyUrlsOfSelectedPosts);
-        self.menuItemCopyImageUrlsOfSelectedPosts.action = #selector(BCViewController.copyImageUrlsOfSelectedPosts);
-        self.menuItemCopyAllPreviouslyCopiedPostUrls.action = #selector(BCViewController.copyPreviouslyCopiedPostUrls);
-        self.menuItemCopyAllPreviouslyCopiedImageUrls.action = #selector(BCViewController.copyPreviouslyCopiedImageUrls);
-        self.menuItemToggleTitlebar.action = #selector(BCViewController.toggleTitlebar);
-        self.menuItemSelectSearchField.action = #selector(BCViewController.selectSearchField);
-        self.menuItemOpenBooruPopup.action = #selector(BCViewController.openBooruPopup);
-        self.menuItemSelectPostBrowser.action = #selector(BCViewController.selectPostBrowser);
+        self.menuItemSaveSelectedImages.action = #selector(BooruViewController.saveSelectedImages);
+        self.menuItemOpenSelectedPostsInBrowser.action = #selector(BooruViewController.openSelectedPostsInBrowser);
+        self.menuItemCopyUrlsOfSelectedPosts.action = #selector(BooruViewController.copyUrlsOfSelectedPosts);
+        self.menuItemCopyImageUrlsOfSelectedPosts.action = #selector(BooruViewController.copyImageUrlsOfSelectedPosts);
+        self.menuItemCopyAllPreviouslyCopiedPostUrls.action = #selector(BooruViewController.copyPreviouslyCopiedPostUrls);
+        self.menuItemCopyAllPreviouslyCopiedImageUrls.action = #selector(BooruViewController.copyPreviouslyCopiedImageUrls);
+        self.menuItemToggleTitlebar.action = #selector(BooruViewController.toggleTitlebar);
+        self.menuItemSelectSearchField.action = #selector(BooruViewController.selectSearchField);
+        self.menuItemOpenBooruPopup.action = #selector(BooruViewController.openBooruPopup);
+        self.menuItemSelectPostBrowser.action = #selector(BooruViewController.selectPostBrowser);
         
-        self.menuItemTogglePostBrowser.action = #selector(BCViewController.toggleBooruCollectionView);
-        self.menuItemToggleInfoBar.action = #selector(BCViewController.toggleInfoBar);
-        self.menuItemToggleTagList.action = #selector(BCViewController.toggleTagList);
-        self.menuItemZoomIn.action = #selector(BCViewController.zoomIn);
-        self.menuItemZoomOut.action = #selector(BCViewController.zoomOut);
-        self.menuItemResetZoom.action = #selector(BCViewController.resetZoomWithAnimation);
+        self.menuItemTogglePostBrowser.action = #selector(BooruViewController.toggleBooruCollectionView);
+        self.menuItemToggleInfoBar.action = #selector(BooruViewController.toggleInfoBar);
+        self.menuItemToggleTagList.action = #selector(BooruViewController.toggleTagList);
+        self.menuItemZoomIn.action = #selector(BooruViewController.zoomIn);
+        self.menuItemZoomOut.action = #selector(BooruViewController.zoomOut);
+        self.menuItemResetZoom.action = #selector(BooruViewController.resetZoomWithAnimation);
     }
     
     /// Saves the preferences
@@ -146,7 +146,7 @@ class BCAppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDe
         // If we have any data to load...
         if let data = UserDefaults.standard.object(forKey: "preferences") as? Data {
             // Set the preferences object to the loaded object
-            preferences = (NSKeyedUnarchiver.unarchiveObject(with: data) as! BCPreferencesObject);
+            preferences = (NSKeyedUnarchiver.unarchiveObject(with: data) as! PreferencesObject);
         }
     }
 

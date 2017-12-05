@@ -1,6 +1,6 @@
 
 //
-//  BCExtensions.swift
+//  Extensions.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-05-03.

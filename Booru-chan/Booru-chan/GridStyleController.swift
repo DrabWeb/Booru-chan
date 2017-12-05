@@ -1,5 +1,5 @@
 //
-//  BCGridStyleViewController.swift
+//  GridStyleController.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-04-23.
@@ -9,15 +9,15 @@ import Cocoa
 import Alamofire
 
 /// Controls the Grid on left and Image on right style for Booru browsing
-class BCGridStyleController: NSObject, NSCollectionViewDelegate {
+class GridStyleController: NSObject, NSCollectionViewDelegate {
     /// A reference to the main view controller
-    @IBOutlet weak var mainViewController: BCViewController!
+    @IBOutlet weak var mainViewController: BooruViewController!
     
     /// The controller for the tag list table view
-    @IBOutlet weak var tagListController: BCGridStyleTagListTableViewController!
+    @IBOutlet weak var tagListController: TagListTableViewController!
     
     /// The main split view for the Grid|Image style browser
-    @IBOutlet weak var mainSplitView: BCNoDividerSplitView!
+    @IBOutlet weak var mainSplitView: NoDividerSplitView!
     
     /// The container view for the grid of thumbnails
     @IBOutlet weak var gridContainerView: NSVisualEffectView!
@@ -26,7 +26,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     @IBOutlet weak var gridBackgroundVisualEffectView: NSVisualEffectView!
     
     /// The scroll view for booruCollectionView
-    @IBOutlet weak var booruCollectionViewScrollView: BCActionOnScrollToBottomScrollView!
+    @IBOutlet weak var booruCollectionViewScrollView: BottomActionScrollView!
     
     /// The collection view for showing Booru items
     @IBOutlet weak var booruCollectionView: NSCollectionView!
@@ -50,7 +50,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     @IBOutlet weak var booruCollectionViewArrayController: NSArrayController!
     
     /// The split view for the left items(The Booru collection view and the tag list)
-    @IBOutlet weak var leftSplitView: BCNoDividerSplitView!
+    @IBOutlet weak var leftSplitView: NoDividerSplitView!
     
     /// The items from booruCollectionViewArrayController
     @objc var booruCollectionViewArrayControllerItems: NSMutableArray = NSMutableArray();
@@ -65,7 +65,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     var lastDisplayRequest : Request? = nil;
     
     /// Displays the given BCBooruCollectionViewItem in the full size image view and shows it's info in the info bar. If passed nil it will but a blank iamge in the full size image view and update the info label to say "No Posts Selected"
-    func displayPostItem(_ postItem : BCBooruCollectionViewItem?) {
+    func displayPostItem(_ postItem : BooruCollectionViewItemData?) {
         // If lastDisplayRequest isnt nil...
         if(lastDisplayRequest != nil) {
             // Cancel the last request so the image view doesnt get updated with previous requests when looking at new requests
@@ -193,7 +193,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         // If the post item or post is nil...
         else {
             // Display a blank item in the tag list(So it just clears the table view)
-            tagListController.displayTagsFromPost(BCBooruPost());
+            tagListController.displayTagsFromPost(BooruPost());
         }
     }
     
@@ -220,14 +220,14 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     }
     
     /// Returns the selected BCBooruCollectionViewItems from the Booru collection view
-    func getSelectedBooruItems() -> [BCBooruCollectionViewItem] {
+    func getSelectedBooruItems() -> [BooruCollectionViewItemData] {
         /// The selected BCBooruCollectionViewItems
-        var selectedItems : [BCBooruCollectionViewItem] = [];
+        var selectedItems : [BooruCollectionViewItemData] = [];
         
         // For every selection index...
         for(_, currentSelectionIndex) in booruCollectionView.selectionIndexes.enumerated() {
             // Add the item at the current index to selectedItems
-            selectedItems.append((booruCollectionViewArrayController.arrangedObjects as! [BCBooruCollectionViewItem])[currentSelectionIndex]);
+            selectedItems.append((booruCollectionViewArrayController.arrangedObjects as! [BooruCollectionViewItemData])[currentSelectionIndex]);
         }
         
         // Return the selected items
@@ -241,11 +241,11 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     var addedNoMoreResultsItem : Bool = false;
     
     /// Called when a search is finished
-    func searchFinished(_ results: [BCBooruPost]) {
+    func searchFinished(_ results: [BooruPost]) {
         // For every item in the search results...
         for(_, currentResult) in results.enumerated() {
             /// The new item to add to the booru collection view
-            let item : BCBooruCollectionViewItem = BCBooruCollectionViewItem();
+            let item : BooruCollectionViewItemData = BooruCollectionViewItemData();
             
             // Set the item's represented post to the current result
             item.representedPost = currentResult;
@@ -270,12 +270,12 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
                                     // For ever item in the Booru collection view...
                                     for currentIndex in 0...(self.booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count - 1 {
                                         // If the current item's represented object is equal to the item we downloaded the thumbnail for...
-                                        if(((self.booruCollectionView.item(at: currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem) == item) {
+                                        if(((self.booruCollectionView.item(at: currentIndex)! as! BooruCollectionViewItem).representedObject as! BooruCollectionViewItemData) == item) {
                                             // Update the image view of the item
-                                            (self.booruCollectionView.item(at: currentIndex)! as! BCBooruCollectionViewCollectionViewItem).imageView?.image = image!;
+                                            (self.booruCollectionView.item(at: currentIndex)! as! BooruCollectionViewItem).imageView?.image = image!;
                                             
                                             // Set the item's model's thumbnail image
-                                            ((self.booruCollectionView.item(at: currentIndex)! as! BCBooruCollectionViewCollectionViewItem).representedObject as! BCBooruCollectionViewItem).thumbnailImage = image!;
+                                            ((self.booruCollectionView.item(at: currentIndex)! as! BooruCollectionViewItem).representedObject as! BooruCollectionViewItemData).thumbnailImage = image!;
                                         }
                                     }
                                 }
@@ -297,10 +297,10 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         else if(results.isEmpty && !addedNoMoreResultsItem) {
             // Add the no more results item to the end of the Booru collection view
             /// The item to show the no more results item
-            let item: BCBooruCollectionViewItem = BCBooruCollectionViewItem();
+            let item: BooruCollectionViewItemData = BooruCollectionViewItemData();
             
             // Set the item's post to a blank post
-            item.representedPost = BCBooruPost();
+            item.representedPost = BooruPost();
             
             // Say the image has been loaded so it doesnt waste anything trying to load nothing
             item.finishedLoadingImage = true;
@@ -325,17 +325,17 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// Updates the downloaded indicators for all the posts in the Booru collection view
     func reloadDownloadedIndicators() {
         // If we said to indicate downloaded posts...
-        if((NSApplication.shared.delegate as! BCAppDelegate).preferences.indicateDownloadedPosts) {
+        if((NSApplication.shared.delegate as! AppDelegate).preferences.indicateDownloadedPosts) {
             // For every item in the Booru collection view...
-            for(_, currentItem) in (booruCollectionViewArrayController.arrangedObjects as! [BCBooruCollectionViewItem]).enumerated() {
+            for(_, currentItem) in (booruCollectionViewArrayController.arrangedObjects as! [BooruCollectionViewItemData]).enumerated() {
                 // Set the item's alpha value to downloadedPostAlphaValue if it has been downloaded
                 if(mainViewController.currentSelectedSearchingBooru!.hasDownloadedId(currentItem.representedPost!.id)) {
-                    currentItem.alphaValue = (NSApplication.shared.delegate as! BCAppDelegate).preferences.downloadedPostAlphaValue;
+                    currentItem.alphaValue = (NSApplication.shared.delegate as! AppDelegate).preferences.downloadedPostAlphaValue;
                 }
             }
             
             // Reload the collection view
-            booruCollectionView.itemPrototype = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: Bundle.main).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "booruCollectionViewItem")) as! BCBooruCollectionViewCollectionViewItem;
+            booruCollectionView.itemPrototype = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: Bundle.main).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "booruCollectionViewItem")) as! BooruCollectionViewItem;
         }
     }
     
@@ -384,11 +384,11 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             _ = mainViewController.currentSelectedSearchingBooru!.utilties?.getPostsFromSearch(searchString, limit: mainViewController.currentSelectedSearchingBooru!.pagePostLimit, page: 1, completionHandler: searchFinished);
         }
         else {
-            print("BCGridStyleViewController: currentSelectedSearchingBooru is nil, can't search");
+            print("GridStyleController: currentSelectedSearchingBooru is nil, can't search");
         }
         
         // Enable the reached bottom action
-        booruCollectionViewScrollView.reachedBottomAction = #selector(BCGridStyleController.reachedBottomOfBooruCollectionView);
+        booruCollectionViewScrollView.reachedBottomAction = #selector(GridStyleController.reachedBottomOfBooruCollectionView);
     }
     
     /// Is the tag list open?
@@ -494,7 +494,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     
     func initialize() {
         // Set the Booru collection view's item prototype
-        booruCollectionView.itemPrototype = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: Bundle.main).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "booruCollectionViewItem")) as! BCBooruCollectionViewCollectionViewItem;
+        booruCollectionView.itemPrototype = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: Bundle.main).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "booruCollectionViewItem")) as! BooruCollectionViewItem;
         
         // Set the minimum and maximum item sizes
         booruCollectionView.minItemSize = NSSize(width: 150, height: 150);
@@ -508,7 +508,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
         
         // Set the target and action to use when the user reaches the bottom of the Booru collection view
         booruCollectionViewScrollView.reachedBottomTarget = self;
-        booruCollectionViewScrollView.reachedBottomAction = #selector(BCGridStyleController.reachedBottomOfBooruCollectionView);
+        booruCollectionViewScrollView.reachedBottomAction = #selector(GridStyleController.reachedBottomOfBooruCollectionView);
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -517,7 +517,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             // If we selected any items...
             if(booruCollectionView.selectionIndexes.first != nil) {
                 /// The selected post item
-                let selectedPostItem : BCBooruCollectionViewItem? = (booruCollectionView.item(at: booruCollectionView.selectionIndexes.first!)?.representedObject as? BCBooruCollectionViewItem);
+                let selectedPostItem : BooruCollectionViewItemData? = (booruCollectionView.item(at: booruCollectionView.selectionIndexes.first!)?.representedObject as? BooruCollectionViewItemData);
                 
                 // Show the selected post item
                 displayPostItem(selectedPostItem);
@@ -533,7 +533,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     }
 }
 
-class BCBooruCollectionViewItem: NSObject {
+class BooruCollectionViewItemData: NSObject {
     /// The thumbnail image for this item
     @objc var thumbnailImage : NSImage = NSImage();
     
@@ -550,5 +550,5 @@ class BCBooruCollectionViewItem: NSObject {
     var noMoreResultsItem : Bool = false;
     
     /// The post this item represents
-    var representedPost : BCBooruPost? = nil;
+    var representedPost : BooruPost? = nil;
 }

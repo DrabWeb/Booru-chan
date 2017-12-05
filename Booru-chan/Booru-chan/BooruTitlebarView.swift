@@ -1,5 +1,5 @@
 //
-//  BCTitlebarView.swift
+//  BooruTitlebarView.swift
 //  Booru-chan
 //
 //  Created by Ushio on 12/4/16.
@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class BCTitlebarView: NSVisualEffectView {
+class BooruTitlebarView: NSVisualEffectView {
 
     // Cancel out the mouse triggering views behind the titlebar
     

@@ -1,5 +1,5 @@
 //
-//  BCPreferencesGeneralViewController.swift
+//  PreferencesGeneralViewController.swift
 //  Booru-chan
 //
 //  Created by Ushio on 2/3/17.
@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class BCPreferencesGeneralViewController: NSViewController {
+class PreferencesGeneralViewController: NSViewController {
     
     @IBOutlet weak var imageSavingFormatTextField: NSTextField!
     @IBAction func imageSavingFormatTextField(_ sender: NSTextField) {
@@ -29,8 +29,8 @@ class BCPreferencesGeneralViewController: NSViewController {
         save();
     }
     
-    private var preferences : BCPreferencesObject {
-        return (NSApp.delegate as! BCAppDelegate).preferences;
+    private var preferences : PreferencesObject {
+        return (NSApp.delegate as! AppDelegate).preferences;
     }
     
     override func viewDidLoad() {
@@ -54,10 +54,10 @@ class BCPreferencesGeneralViewController: NSViewController {
     
     private func save() {
         preferences.imageSaveFormat = imageSavingFormatTextField.stringValue;
-        preferences.theme = BCTheme(rawValue: themePopUpButton.selectedTag())!;
+        preferences.theme = Theme(rawValue: themePopUpButton.selectedTag())!;
         preferences.indicateDownloadedPosts = indicateDownloadedPostsCheckbox.state.rawValue == 1;
         preferences.notifyWhenDownloadsFinished = notifyWhenDownloadsFinishCheckbox.state.rawValue == 1;
         
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "BCPreferences.Updated"), object: nil);
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "Preferences.Updated"), object: nil);
     }
 }

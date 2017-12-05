@@ -1,5 +1,5 @@
 //
-//  BCViewController.swift
+//  BooruViewController.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-04-23.
@@ -22,13 +22,13 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class BCViewController: NSViewController, NSWindowDelegate {
+class BooruViewController: NSViewController, NSWindowDelegate {
     
     /// The main window of this view controller
     var window : NSWindow = NSWindow();
     
     /// The  controller for browsing boorus in Grid|Image mode
-    @IBOutlet var gridStyleController: BCGridStyleController!
+    @IBOutlet var gridStyleController: GridStyleController!
     
     /// The visual effect view for the window's background
     @IBOutlet var backgroundVisualEffectView: NSVisualEffectView!
@@ -43,10 +43,10 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     /// The search field for the toolbar of this browser
-    weak var toolbarSearchField : BCBooruSearchTokenField!
+    weak var toolbarSearchField : BooruSearchTokenField!
     
     /// When the user enters text into `toolbarSearchField`...
-    @IBAction func toolbarSearchFieldTextEntered(_ sender: BCBooruSearchTokenField) {
+    @IBAction func toolbarSearchFieldTextEntered(_ sender: BooruSearchTokenField) {
         // Search for the entered text(It replaces commas with spaces because when NSTokenField gives you it's stringValue, there is a comma in between each token)
         gridStyleController.searchFor(sender.stringValue.replacingOccurrences(of: ",", with: " "));
         
@@ -59,7 +59,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     /// The current Booru the user selected to search from
-    var currentSelectedSearchingBooru : BCBooruHost? = nil;
+    var currentSelectedSearchingBooru : BooruHost? = nil;
     
     /// The log of copied post URLs
     var postUrlCopyLog : [String] = [];
@@ -70,8 +70,8 @@ class BCViewController: NSViewController, NSWindowDelegate {
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        (NSApplication.shared.delegate as! BCAppDelegate).loadPreferences();
-        NotificationCenter.default.addObserver(self, selector: #selector(BCViewController.preferencesUpdated), name: NSNotification.Name(rawValue: "BCPreferences.Updated"), object: nil);
+        (NSApplication.shared.delegate as! AppDelegate).loadPreferences();
+        NotificationCenter.default.addObserver(self, selector: #selector(BooruViewController.preferencesUpdated), name: NSNotification.Name(rawValue: "Preferences.Updated"), object: nil);
         
         initialize();
         gridStyleController.initialize();
@@ -91,7 +91,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                 break;
                 
             case "SearchField":
-                self.toolbarSearchField = (currentItem.view as! BCBooruSearchTokenField);
+                self.toolbarSearchField = (currentItem.view as! BooruSearchTokenField);
                 break;
                 
             default:
@@ -101,7 +101,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         
         // Set the target and action for the toolbar search field's tokens changed event
         toolbarSearchField.tokensChangedTarget = self;
-        toolbarSearchField.tokensChangedAction = #selector(BCViewController.searchTokensChanged);
+        toolbarSearchField.tokensChangedAction = #selector(BooruViewController.searchTokensChanged);
         
         updateBooruPickerPopupButton();
         updateTitle();
@@ -134,18 +134,18 @@ class BCViewController: NSViewController, NSWindowDelegate {
         toolbarBooruPopup.selectItem(at: lastPickedBooruIndex);
         updateSelectedSearchingBooru();
         
-        applyTheme((NSApp.delegate as! BCAppDelegate).preferences.theme);
+        applyTheme((NSApp.delegate as! AppDelegate).preferences.theme);
     }
     
-    /// Saves the given BCBooruCollectionViewItems
-    func saveBooruItems(_ items : [BCBooruCollectionViewItem]) {
+    /// Saves the given BooruCollectionViewItemDatas
+    func saveBooruItems(_ items : [BooruCollectionViewItemData]) {
         // If there is at least one item in items...
         if(items.count > 0) {
             /// The save panel to get the directory to save the images to
             let saveDirectorySavePanel : NSSavePanel = NSSavePanel();
             
             // Set the name field default value to the image save format
-            saveDirectorySavePanel.nameFieldStringValue = (NSApplication.shared.delegate as! BCAppDelegate).preferences.imageSaveFormat;
+            saveDirectorySavePanel.nameFieldStringValue = (NSApplication.shared.delegate as! AppDelegate).preferences.imageSaveFormat;
             
             // Set the prompt to "Save"
             saveDirectorySavePanel.prompt = "Save";
@@ -159,7 +159,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                 saveDirectory = String(NSString(string: saveDirectory).deletingLastPathComponent) + "/";
                 
                 /// The items to download from items
-                var downloadItems : [BCBooruCollectionViewItem] = [];
+                var downloadItems : [BooruCollectionViewItemData] = [];
                 
                 // For every item in items...
                 for(_, currentItem) in items.enumerated() {
@@ -173,7 +173,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                 // If downloadItems isn't empty...
                 if(downloadItems.count > 0) {
                     // Print how many images we are saving and where
-                    print("BCViewController: Saving \(items.count) image(s) to \"\(saveDirectory)\"");
+                    print("BooruViewController: Saving \(items.count) image(s) to \"\(saveDirectory)\"");
                     
                     // Download the items
                     self.downloadBooruItems(downloadItems, saveDirectory: saveDirectory, tags: toolbarSearchField.stringValue, count: downloadItems.count, filenameFormat: saveDirectorySavePanel.nameFieldStringValue, fileTags: (saveDirectorySavePanel.tagNames == nil) ? [] : saveDirectorySavePanel.tagNames!);
@@ -183,16 +183,16 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // If items is blank...
         else {
             // Print that there were no passed items to save
-            print("BCViewController: Cant save empty array of BCBooruCollectionViewItems");
+            print("BooruViewController: Cant save empty array of BooruCollectionViewItemData");
         }
     }
     
     /// The actual downloading part of saveBooruItems, saves the given items to the given path, uses tags and count when showing the download completed notification. filenameFormat is used as the format for the saved file's name, and fileTags are the tags that should be added to the saved files
-    private func downloadBooruItems(_ items : [BCBooruCollectionViewItem], saveDirectory : String, tags : String, count : Int, filenameFormat : String, fileTags : [String]) -> Void {
+    private func downloadBooruItems(_ items : [BooruCollectionViewItemData], saveDirectory : String, tags : String, count : Int, filenameFormat : String, fileTags : [String]) -> Void {
         var items = items
         if let currentSaveItem = items.popLast() {
             // Print what image we are saving
-            print("BCViewController: Saving \(currentSaveItem.representedPost!.imageUrl)");
+            print("BooruViewController: Saving \(currentSaveItem.representedPost!.imageUrl)");
             
             /// The name of the image file
             var imageFileName : String = filenameFormat;
@@ -249,7 +249,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     imageFileName += "." + NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension;
                     
                     // Write the image to the chosen directory with the generated file name
-                    currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
+                    currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: ImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
                     
                     // Add the file tags
                     let fileUrl : NSURL = NSURL(fileURLWithPath: saveDirectory + imageFileName);
@@ -258,11 +258,11 @@ class BCViewController: NSViewController, NSWindowDelegate {
                         try fileUrl.setResourceValue(fileTags as AnyObject?, forKey: URLResourceKey.tagNamesKey);
                     }
                     catch let error as NSError {
-                        print("BCViewController: Error setting tags for \"\(saveDirectory + imageFileName)\", \(error.description)");
+                        print("BooruViewController: Error setting tags for \"\(saveDirectory + imageFileName)\", \(error.description)");
                     }
                     
                     // Print that we saved the image
-                    print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
+                    print("BooruViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
                 }
                 
                 // Save the image to disk, asynchronously
@@ -315,7 +315,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
                                     imageFileName += "." + NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension;
                                     
                                     // Write the image to the chosen directory with the generated file name
-                                    currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: BCImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
+                                    currentSaveItem.image.saveTo(saveDirectory + imageFileName, fileType: ImageUtilities().fileTypeFromExtension((NSString(string: currentSaveItem.representedPost!.imageUrl).pathExtension))!);
                                     
                                     // Add the file tags
                                     let fileUrl : NSURL = NSURL(fileURLWithPath: saveDirectory + imageFileName);
@@ -324,11 +324,11 @@ class BCViewController: NSViewController, NSWindowDelegate {
                                         try fileUrl.setResourceValue(fileTags as AnyObject?, forKey: URLResourceKey.tagNamesKey);
                                     }
                                     catch let error as NSError {
-                                        print("BCViewController: Error setting tags for \"\(saveDirectory + imageFileName)\", \(error.description)");
+                                        print("BooruViewController: Error setting tags for \"\(saveDirectory + imageFileName)\", \(error.description)");
                                     }
                                     
                                     // Print that we saved the image
-                                    print("BCViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
+                                    print("BooruViewController: Saved image to \"\(saveDirectory + imageFileName)\"");
                                 }
                                 
                                 // Dispatch onto the main queue
@@ -349,7 +349,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
             self.gridStyleController.reloadDownloadedIndicators();
             
             // If the user has downloads finished notifications on and we downloaded more than one image...
-            if((NSApplication.shared.delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished && count > 1) {
+            if((NSApplication.shared.delegate as! AppDelegate).preferences.notifyWhenDownloadsFinished && count > 1) {
                 /// The notification to tell the user that tells the user their downloads have finished
                 let downloadsFinishedNotification : NSUserNotification = NSUserNotification();
                 
@@ -502,7 +502,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
             // If there isnt one item with a title of "No Boorus Added" in toolbarBooruPopup...
             if(toolbarBooruPopup.itemArray.count != 1 && toolbarBooruPopup.itemArray[0].title != "No Boorus Added") {
                 // Set the selected searching Booru to the selected Booru
-                currentSelectedSearchingBooru = (NSApplication.shared.delegate as! BCAppDelegate).preferences.booruHosts[toolbarBooruPopup.index(of: toolbarBooruPopup.selectedItem!)];
+                currentSelectedSearchingBooru = (NSApplication.shared.delegate as! AppDelegate).preferences.booruHosts[toolbarBooruPopup.index(of: toolbarBooruPopup.selectedItem!)];
             }
             else {
                 currentSelectedSearchingBooru = nil;
@@ -515,12 +515,12 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // If currentSelectedSearchingBooru isnt nil...
         if(currentSelectedSearchingBooru != nil) {
             // Print what the new searching Booru is
-            print("BCViewController: Changed searching booru to \(currentSelectedSearchingBooru!.name)");
+            print("BooruViewController: Changed searching booru to \(currentSelectedSearchingBooru!.name)");
         }
         // If currentSelectedSearchingBooru is nil...
         else {
             // Print that the user has no Boorus added
-            print("BCViewController: Tried to change searching boorus, but the user doesnt have any");
+            print("BooruViewController: Tried to change searching boorus, but the user doesnt have any");
         }
         
         // Only update the title if the user hasn't searched for anything yet
@@ -542,7 +542,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         toolbarBooruPopup.removeAllItems();
         
         // For every Booru in the user's Boorus...
-        for(_, currentBooruHost) in (NSApplication.shared.delegate as! BCAppDelegate).preferences.booruHosts.enumerated() {
+        for(_, currentBooruHost) in (NSApplication.shared.delegate as! AppDelegate).preferences.booruHosts.enumerated() {
             // Add the current item to toolbarBooruPopup
             toolbarBooruPopup.addItem(withTitle: currentBooruHost.name);
         }
@@ -643,12 +643,12 @@ class BCViewController: NSViewController, NSWindowDelegate {
         window = NSApplication.shared.windows.last!;
         window.delegate = self;
         window.titleVisibility = .hidden;
-        applyTheme((NSApp.delegate as! BCAppDelegate).preferences.theme);
+        applyTheme((NSApp.delegate as! AppDelegate).preferences.theme);
     }
     
-    private var currentTheme : BCTheme = .none;
+    private var currentTheme : Theme = .none;
     
-    func applyTheme(_ theme : BCTheme) {
+    func applyTheme(_ theme : Theme) {
         if(theme == currentTheme) { return; }
         currentTheme = theme;
         
@@ -657,10 +657,10 @@ class BCViewController: NSViewController, NSWindowDelegate {
         backgroundVisualEffectView.material = (theme == .dark) ? .dark : .selection;
         
         // Redraw the booru collection view(selection box needs to be updated)
-        gridStyleController.booruCollectionView.itemPrototype = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: Bundle.main).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "booruCollectionViewItem")) as! BCBooruCollectionViewCollectionViewItem;
+        gridStyleController.booruCollectionView.itemPrototype = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: Bundle.main).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "booruCollectionViewItem")) as! BooruCollectionViewItem;
     }
 }
 
-enum BCTheme: Int {
+enum Theme: Int {
     case none = -1, dark = 0, light = 1
 }

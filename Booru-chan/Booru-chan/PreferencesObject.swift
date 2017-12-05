@@ -1,5 +1,5 @@
 //
-//  BCPreferencesObject.swift
+//  PreferencesObject.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-04-25.
@@ -7,20 +7,20 @@
 
 import Cocoa
 
-class BCPreferencesObject: NSObject, NSCoding {
+class PreferencesObject: NSObject, NSCoding {
     /// The Booru hosts the user has added
-    var booruHosts : [BCBooruHost] = [
-        BCBooruHost(name: "Yande.re", type: .moebooru, pagePostLimit: 40, url: "http://yande.re/", maximumRating: .explicit),
-        BCBooruHost(name: "Danbooru", type: .danbooru, pagePostLimit: 40, url: "http://danbooru.donmai.us/", maximumRating: .explicit),
-        BCBooruHost(name: "Konachan", type: .moebooru, pagePostLimit: 40, url: "http://konachan.net/", maximumRating: .explicit),
-        BCBooruHost(name: "Gelbooru", type: .gelbooru, pagePostLimit: 40, url: "https://gelbooru.com/", maximumRating: .explicit)
+    var booruHosts : [BooruHost] = [
+        BooruHost(name: "Yande.re", type: .moebooru, pagePostLimit: 40, url: "http://yande.re/", maximumRating: .explicit),
+        BooruHost(name: "Danbooru", type: .danbooru, pagePostLimit: 40, url: "http://danbooru.donmai.us/", maximumRating: .explicit),
+        BooruHost(name: "Konachan", type: .moebooru, pagePostLimit: 40, url: "http://konachan.net/", maximumRating: .explicit),
+        BooruHost(name: "Gelbooru", type: .gelbooru, pagePostLimit: 40, url: "https://gelbooru.com/", maximumRating: .explicit)
     ];
     
     /// The format for naming saved images
     var imageSaveFormat : String = "%md5%";
     
     /// The theme for booru browsers
-    var theme : BCTheme = .dark;
+    var theme : Theme = .dark;
     
     /// The alpha value of a post that has already been downloaded
     var downloadedPostAlphaValue : CGFloat = 0.5;
@@ -44,15 +44,15 @@ class BCPreferencesObject: NSObject, NSCoding {
         self.init();
         
         // Decode and load the preferences
-        if((decoder.decodeObject(forKey: "booruHosts") as? [BCBooruHost]) != nil) {
-            self.booruHosts = decoder.decodeObject(forKey: "booruHosts") as! [BCBooruHost];
+        if((decoder.decodeObject(forKey: "booruHosts") as? [BooruHost]) != nil) {
+            self.booruHosts = decoder.decodeObject(forKey: "booruHosts") as! [BooruHost];
         }
         
         if((decoder.decodeObject(forKey: "imageSaveFormat") as? String) != nil) {
             self.imageSaveFormat = decoder.decodeObject(forKey: "imageSaveFormat") as! String;
         }
         
-        self.theme = BCTheme(rawValue: decoder.decodeInteger(forKey: "theme"))!;
+        self.theme = Theme(rawValue: decoder.decodeInteger(forKey: "theme"))!;
         self.indicateDownloadedPosts = decoder.decodeBool(forKey: "indicateDownloadedPosts");
         self.notifyWhenDownloadsFinished = decoder.decodeBool(forKey: "notifyWhenDownloadsFinished");
     }

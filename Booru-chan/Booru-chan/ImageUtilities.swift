@@ -1,5 +1,5 @@
 //
-//  BCImageUtilities.swift
+//  ImageUtilities.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-05-06.
@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class BCImageUtilities {
+class ImageUtilities {
     /// Returns the NSBitmapImageFileType from the given extension
     func fileTypeFromExtension(_ fileExtension : String) -> NSBitmapImageRep.FileType? {
         /// The file type to return

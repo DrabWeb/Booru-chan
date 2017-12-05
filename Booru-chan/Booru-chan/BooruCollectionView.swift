@@ -1,5 +1,5 @@
 //
-//  BCBooruCollectionView.swift
+//  BooruCollectionView.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-05-05.
@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class BCBooruCollectionView: NSCollectionView {
+class BooruCollectionView: NSCollectionView {
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)

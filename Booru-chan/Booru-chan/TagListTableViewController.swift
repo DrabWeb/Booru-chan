@@ -1,5 +1,5 @@
 //
-//  BCGridStyleTagListTableViewController.swift
+//  TagListTableViewController.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-05-03.
@@ -7,12 +7,12 @@
 
 import Cocoa
 
-class BCGridStyleTagListTableViewController: NSObject {
+class TagListTableViewController: NSObject {
     /// A reference to the main view controller
-    @IBOutlet weak var mainViewController: BCViewController!
+    @IBOutlet weak var mainViewController: BooruViewController!
     
     /// The tag list items to show in the tag list table view
-    var tagListItems : [BCGridStyleTagListTableViewItemData] = [];
+    var tagListItems : [TagListTableViewData] = [];
     
     /// The scroll view for tagsTableView
     @IBOutlet weak var tagsTableViewScrollView: NSScrollView!
@@ -21,10 +21,10 @@ class BCGridStyleTagListTableViewController: NSObject {
     @IBOutlet weak var tagsTableView: NSTableView!
     
     /// The last post passed to displayTagsFromPost
-    var lastDisplayedPost : BCBooruPost = BCBooruPost();
+    var lastDisplayedPost : BooruPost = BooruPost();
     
     /// Displays the tags from the given post in the tags table view
-    func displayTagsFromPost(_ post: BCBooruPost) {
+    func displayTagsFromPost(_ post: BooruPost) {
         // Clear all the current items
         tagListItems.removeAll();
         
@@ -40,7 +40,7 @@ class BCGridStyleTagListTableViewController: NSObject {
             }
             
             // Add the current tag to the tags table view
-            tagListItems.append(BCGridStyleTagListTableViewItemData(tagName: currentTag, tagBeingSearchedBy: tagBeingSearchedBy));
+            tagListItems.append(TagListTableViewData(tagName: currentTag, tagBeingSearchedBy: tagBeingSearchedBy));
         }
         
         // Reload the tags table view
@@ -57,9 +57,9 @@ class BCGridStyleTagListTableViewController: NSObject {
     }
     
     /// Called when the user presses a checkbox in the tag list
-    @objc func tagListItemChanged(_ data: [BCGridStyleTagListTableViewItemData : Bool]) {
+    @objc func tagListItemChanged(_ data: [TagListTableViewData : Bool]) {
         /// The BCGridStyleTagListTableViewItemData from data
-        var changedData : BCGridStyleTagListTableViewItemData = BCGridStyleTagListTableViewItemData();
+        var changedData : TagListTableViewData = TagListTableViewData();
         
         /// The state we changed to for the tag
         var changedState : Bool = false;
@@ -76,7 +76,7 @@ class BCGridStyleTagListTableViewController: NSObject {
         // If we now want to add the tag to the search...
         if(changedState) {
             // Print what we are doing
-            print("BCGridStyleController: Adding \"\(changedData.tagName)\" to the search field");
+            print("TagListTableViewController: Adding \"\(changedData.tagName)\" to the search field");
             
             // Add the given token to the search field
             mainViewController.toolbarSearchField.addToken(changedData.tagName);
@@ -84,7 +84,7 @@ class BCGridStyleTagListTableViewController: NSObject {
         // If we now want to remove the tag from the search...
         else {
             // Print what we are doing
-            print("BCGridStyleController: Removing \"\(changedData.tagName)\" from the search field");
+            print("TagListTableViewController: Removing \"\(changedData.tagName)\" from the search field");
             
             // Remove the given token from the search field
             mainViewController.toolbarSearchField.removeToken(changedData.tagName);
@@ -92,7 +92,7 @@ class BCGridStyleTagListTableViewController: NSObject {
     }
 }
 
-extension BCGridStyleTagListTableViewController: NSTableViewDataSource {
+extension TagListTableViewController: NSTableViewDataSource {
     func numberOfRows(in aTableView: NSTableView) -> Int {
         // Return the amount of items in tagListItems
         return self.tagListItems.count;
@@ -105,10 +105,10 @@ extension BCGridStyleTagListTableViewController: NSTableViewDataSource {
         // If this is the main column...
         if(tableColumn!.identifier.rawValue == "Main Column") {
             /// cellView as a BCGridStyleTagListTableViewCellView
-            let cellViewTagListCellView : BCGridStyleTagListTableViewCellView = cellView as! BCGridStyleTagListTableViewCellView;
+            let cellViewTagListCellView : TagListTableViewCell = cellView as! TagListTableViewCell;
             
             /// The data for this cell
-            let cellData : BCGridStyleTagListTableViewItemData = tagListItems[row];
+            let cellData : TagListTableViewData = tagListItems[row];
             
             // Set the cell's data and display it
             cellViewTagListCellView.data = cellData;
@@ -117,7 +117,7 @@ extension BCGridStyleTagListTableViewController: NSTableViewDataSource {
             
             // Setup the target and action
             cellViewTagListCellView.changedTarget = self;
-            cellViewTagListCellView.changedAction = #selector(BCGridStyleTagListTableViewController.tagListItemChanged(_:));
+            cellViewTagListCellView.changedAction = #selector(TagListTableViewController.tagListItemChanged(_:));
             
             // Return the modified cell view
             return cellViewTagListCellView as NSTableCellView;
@@ -128,6 +128,6 @@ extension BCGridStyleTagListTableViewController: NSTableViewDataSource {
     }
 }
 
-extension BCGridStyleTagListTableViewController: NSTableViewDelegate {
+extension TagListTableViewController: NSTableViewDelegate {
     
 }

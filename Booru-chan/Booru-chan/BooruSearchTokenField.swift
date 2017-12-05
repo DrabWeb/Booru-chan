@@ -1,5 +1,5 @@
 //
-//  BCSBooruSearchTokenField.swift
+//  BooruSearchTokenField.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-04-26.
@@ -10,10 +10,10 @@ import SwiftyJSON
 import Alamofire
 
 /// The custom NSTokenField for tag search fields
-class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
+class BooruSearchTokenField: AlwaysActiveTokenField, NSTokenFieldDelegate {
     
     /// The Booru to use to get the autocompletion suggestions
-    var tokenBooru : BCBooruHost? = nil;
+    var tokenBooru : BooruHost? = nil;
     
     /// The object to perform tokensChangedAction
     var tokensChangedTarget : AnyObject? = nil;
@@ -119,7 +119,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
                 if(FileManager.default.fileExists(atPath: ((tokenBooru?.cacheFolderPath) ?? "") + substring + ".json")) {
                     // Load the results from that file
                     // Print that we are loading results from a cache file
-                    Swift.print("BCBooruSearchTokenField: Loading search results cache from \"\(tokenBooru!.cacheFolderPath + substring + ".json")\"");
+                    Swift.print("BooruSearchTokenField: Loading search results cache from \"\(tokenBooru!.cacheFolderPath + substring + ".json")\"");
                     
                     // Asynchronously load the cached file
                     DispatchQueue.main.async {
@@ -169,7 +169,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
     /// Called when the tag download finishes for autocompletion suggestions
     func finishedDownloadingTags(_ tags : [String]) {
         // Print what tags we downloaded
-        Swift.print("BCBooruSearchTokenField: Downloaded \(tags.count) tags for completion.");
+        Swift.print("BooruSearchTokenField: Downloaded \(tags.count) tags for completion.");
         
         // If lastDownloadedTags is empty...
         if(lastDownloadedTags == []) {
@@ -198,14 +198,14 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
                 }
                 
                 let path = "\(tokenBooru!.cacheFolderPath + name).json";
-                Swift.print("BCBooruSearchTokenField: Writing search cache to \"\(path)\"");
+                Swift.print("BooruSearchTokenField: Writing search cache to \"\(path)\"");
 
                 // Write the JSON to a JSON file in the Token Booru's cache folder(With the name of the first character in the first item of tags)
                 try String(describing: tagsJson).write(toFile: path, atomically: true, encoding: String.Encoding.utf8);
             }
             catch let error as NSError {
                 // Print the error
-                Swift.print("BCBooruSearchTokenField: Failed to write JSON cache file, \(error.description)");
+                Swift.print("BooruSearchTokenField: Failed to write JSON cache file, \(error.description)");
             }
         }
     }

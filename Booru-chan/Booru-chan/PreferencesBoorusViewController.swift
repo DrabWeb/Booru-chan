@@ -1,5 +1,5 @@
 //
-//  BCPreferencesBoorusViewController.swift
+//  PreferencesBoorusViewController.swift
 //  Booru-chan
 //
 //  Created by Ushio on 2/3/17.
@@ -7,25 +7,25 @@
 
 import Cocoa
 
-class BCPreferencesBoorusViewController: NSViewController {
+class PreferencesBoorusViewController: NSViewController {
     
     @IBOutlet weak var tableView: NSTableView!
     
     @IBOutlet weak var typePopUpButton: NSPopUpButton!
     @IBAction func typePopUpButton(_ sender: NSPopUpButton) {
-        currentEditingHost.type = BCBooruType(rawValue: sender.selectedTag())!;
+        currentEditingHost.type = BooruType(rawValue: sender.selectedTag())!;
         save();
     }
     
-    @IBOutlet weak var postsPerPageTextField: BCAlwaysActiveTextField!
-    @IBAction func postsPerPageTextField(_ sender: BCAlwaysActiveTextField) {
+    @IBOutlet weak var postsPerPageTextField: AlwaysActiveTextField!
+    @IBAction func postsPerPageTextField(_ sender: AlwaysActiveTextField) {
         currentEditingHost.pagePostLimit = sender.integerValue;
         save();
     }
     
     @IBOutlet weak var maximumRatingPopUpButton: NSPopUpButton!
     @IBAction func maximumRatingPopUpButton(_ sender: NSPopUpButton) {
-        currentEditingHost.maximumRating = BCRating(rawValue: sender.selectedTag())!;
+        currentEditingHost.maximumRating = Rating(rawValue: sender.selectedTag())!;
         save();
     }
     
@@ -41,7 +41,7 @@ class BCPreferencesBoorusViewController: NSViewController {
     
     @IBOutlet weak var addButton: NSButton!
     @IBAction func addButton(_ sender: NSButton) {
-        preferences.booruHosts.append(BCBooruHost(name: "Name", type: BCBooruType.moebooru, pagePostLimit: 40, url: "URL", maximumRating: BCRating.explicit));
+        preferences.booruHosts.append(BooruHost(name: "Name", type: BooruType.moebooru, pagePostLimit: 40, url: "URL", maximumRating: Rating.explicit));
         
         tableView.reloadData();
         tableView.deselectAll(self);
@@ -68,10 +68,10 @@ class BCPreferencesBoorusViewController: NSViewController {
         save();
     }
     
-    var currentEditingHost : BCBooruHost = BCBooruHost();
+    var currentEditingHost : BooruHost = BooruHost();
     
-    var preferences : BCPreferencesObject {
-        return (NSApp.delegate as! BCAppDelegate).preferences;
+    var preferences : PreferencesObject {
+        return (NSApp.delegate as! AppDelegate).preferences;
     }
     
     override func viewDidLoad() {
@@ -86,7 +86,7 @@ class BCPreferencesBoorusViewController: NSViewController {
         save();
     }
     
-    func displayInfo(from host : BCBooruHost) {
+    func displayInfo(from host : BooruHost) {
         currentEditingHost = host;
         
         postsPerPageTextField.integerValue = host.pagePostLimit;
@@ -101,7 +101,7 @@ class BCPreferencesBoorusViewController: NSViewController {
     
     /// Called when the user changes the name of a Booru list item
     @objc func booruNameTextFieldEdited(_ sender: NSTextField) {
-        print("BCPreferencesViewController: Changing name of \"\(currentEditingHost.name)\" to \"\(sender.stringValue)\"");
+        print("PreferencesBoorusViewController: Changing name of \"\(currentEditingHost.name)\" to \"\(sender.stringValue)\"");
         
         preferences.booruHosts[sender.tag].name = sender.stringValue;
         save();
@@ -110,7 +110,7 @@ class BCPreferencesBoorusViewController: NSViewController {
     
     /// Called when the user changes the URL of a Booru list item
     @objc func booruUrlTextFieldEdited(_ sender: NSTextField) {
-        print("BCPreferencesViewController: Changing URL of \"\(currentEditingHost.name)\" to \"\(sender.stringValue)\"");
+        print("PreferencesBoorusViewController: Changing URL of \"\(currentEditingHost.name)\" to \"\(sender.stringValue)\"");
         
         // Guarantee a trailing slash on the URL
         if(!sender.stringValue.hasSuffix("/")) {
@@ -128,18 +128,18 @@ class BCPreferencesBoorusViewController: NSViewController {
     
     private func save() {
         currentEditingHost.refreshUtilities();
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "BCPreferences.Updated"), object: nil);
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "Preferences.Updated"), object: nil);
     }
 }
 
-extension BCPreferencesBoorusViewController: NSTableViewDataSource {
+extension PreferencesBoorusViewController: NSTableViewDataSource {
     func numberOfRows(in aTableView: NSTableView) -> Int {
         return preferences.booruHosts.count;
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cellView: NSTableCellView = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: nil) as! NSTableCellView;
-        let cellData : BCBooruHost = preferences.booruHosts[row];
+        let cellData : BooruHost = preferences.booruHosts[row];
         
         cellView.textField?.tag = row;
         
@@ -147,7 +147,7 @@ extension BCPreferencesBoorusViewController: NSTableViewDataSource {
             cellView.textField?.stringValue = cellData.name;
             
             cellView.textField?.target = self;
-            cellView.textField?.action = #selector(BCPreferencesBoorusViewController.booruNameTextFieldEdited(_:));
+            cellView.textField?.action = #selector(PreferencesBoorusViewController.booruNameTextFieldEdited(_:));
             
             return cellView;
         }
@@ -155,7 +155,7 @@ extension BCPreferencesBoorusViewController: NSTableViewDataSource {
             cellView.textField?.stringValue = cellData.url;
             
             cellView.textField?.target = self;
-            cellView.textField?.action = #selector(BCPreferencesBoorusViewController.booruUrlTextFieldEdited(_:));
+            cellView.textField?.action = #selector(PreferencesBoorusViewController.booruUrlTextFieldEdited(_:));
             
             return cellView;
         }
@@ -165,7 +165,7 @@ extension BCPreferencesBoorusViewController: NSTableViewDataSource {
     }
 }
 
-extension BCPreferencesBoorusViewController: NSTableViewDelegate {
+extension PreferencesBoorusViewController: NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
         let selectedRow : Int = (notification.object as! NSTableView).selectedRow;
         currentEditingHost.tagBlacklist = tagBlacklistTokenField.tokens;

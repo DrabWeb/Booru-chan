@@ -1,5 +1,5 @@
 //
-//  BCGridStyleTagListTableViewCellView.swift
+//  TagListTableViewCell.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-05-03.
@@ -7,9 +7,9 @@
 
 import Cocoa
 
-class BCGridStyleTagListTableViewCellView: NSTableCellView {
+class TagListTableViewCell: NSTableCellView {
     /// The data this item represents
-    var data : BCGridStyleTagListTableViewItemData = BCGridStyleTagListTableViewItemData();
+    var data : TagListTableViewData = TagListTableViewData();
     
     /// The checkbox button for this cell
     @IBOutlet var checkbox: NSButton!
@@ -25,7 +25,7 @@ class BCGridStyleTagListTableViewCellView: NSTableCellView {
         // If changedTarget and changedAction arent nil...
         if(changedTarget != nil && changedAction != nil) {
             // Perform the selector with this cells data and the new state
-            _ = changedTarget!.perform(changedAction!, with: [data : Bool(checkbox.state as NSNumber)]);
+            _ = changedTarget!.perform(changedAction!, with: [data : Bool(truncating: checkbox.state as NSNumber)]);
         }
     }
 }

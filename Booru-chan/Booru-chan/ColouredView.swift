@@ -1,5 +1,5 @@
 //
-//  BCColoredView.swift
+//  ColouredView.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-04-23.
@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class BCColoredView: NSView {
+class ColouredView: NSView {
     
     /// The background color of the view
     var backgroundColor : NSColor = NSColor.clear;

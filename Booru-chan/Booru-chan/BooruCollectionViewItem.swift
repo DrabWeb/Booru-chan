@@ -1,5 +1,5 @@
 //
-//  BCBooruCollectionViewCollectionViewItem.swift
+//  BooruCollectionViewItem.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-04-24.
@@ -7,16 +7,16 @@
 
 import Cocoa
 
-class BCBooruCollectionViewCollectionViewItem: NSCollectionViewItem {
+class BooruCollectionViewItem: NSCollectionViewItem {
     
     /// Returns the URL to this post
     var getUrl : String {
-        return (self.representedObject as! BCBooruCollectionViewItem).representedPost!.url;
+        return (self.representedObject as! BooruCollectionViewItemData).representedPost!.url;
     }
     
     /// Returns the URL to this post's image
     var getImageUrl : String {
-        return (self.representedObject as! BCBooruCollectionViewItem).representedPost!.imageUrl;
+        return (self.representedObject as! BooruCollectionViewItemData).representedPost!.imageUrl;
     }
     
     override func rightMouseDown(with theEvent: NSEvent) {
@@ -30,9 +30,9 @@ class BCBooruCollectionViewCollectionViewItem: NSCollectionViewItem {
         self.isSelected = true;
         
         // Add the menu items to the menu
-        menu.addItem(withTitle: "Open In Browser", action: #selector(BCBooruCollectionViewCollectionViewItem.openInBrowser), keyEquivalent: "");
-        menu.addItem(withTitle: "Copy URL", action: #selector(BCBooruCollectionViewCollectionViewItem.copyUrlToClipboard), keyEquivalent: "");
-        menu.addItem(withTitle: "Copy Image URL", action: #selector(BCBooruCollectionViewCollectionViewItem.copyImageUrlToClipboard), keyEquivalent: "");
+        menu.addItem(withTitle: "Open In Browser", action: #selector(BooruCollectionViewItem.openInBrowser), keyEquivalent: "");
+        menu.addItem(withTitle: "Copy URL", action: #selector(BooruCollectionViewItem.copyUrlToClipboard), keyEquivalent: "");
+        menu.addItem(withTitle: "Copy Image URL", action: #selector(BooruCollectionViewItem.copyImageUrlToClipboard), keyEquivalent: "");
         
         // Show the menu
         NSMenu.popUpContextMenu(menu, with: theEvent, for: self.view);

@@ -1,5 +1,5 @@
 //
-//  BCBooru.swift
+//  Booru.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-04-23.
@@ -10,12 +10,12 @@ import Alamofire
 import SwiftyJSON
 import SWXMLHash
 
-class BCBooruUtilities {
-    /// The BCBooruHost this booru utilities represents
-    weak var representedBooru : BCBooruHost? = nil;
+class BooruUtilities {
+    /// The BooruHost this booru utilities represents
+    weak var representedBooru : BooruHost? = nil;
     
     /// The type of Booru to use for this Booru Utilities
-    var type : BCBooruType = .unchosen;
+    var type : BooruType = .unchosen;
     
     /// The base URL of this Booru(Without a trailing slash)
     var baseUrl : String = "";
@@ -30,12 +30,12 @@ class BCBooruUtilities {
     var lastSearchPage = -1;
     
     /// The maximum rating of post to show when searching
-    var maximumRating : BCRating = .explicit;
+    var maximumRating : Rating = .explicit;
     
     /// Returns an array of Strings containing all the tags that matched the passed query(You can do things like *query, query* and *query*)
     func getTagsMatchingSearch(_ search : String, completionHandler: @escaping ([String]) -> ()) -> Request? {
         // Print what we are searching for
-        print("BCBooruUtilities: Searching for tags matching \"\(search)\" on \"\(self.baseUrl)\"");
+        print("BooruUtilities: Searching for tags matching \"\(search)\" on \"\(self.baseUrl)\"");
         
         /// The request that will be made, and then returned
         var request : Request? = nil;
@@ -48,7 +48,7 @@ class BCBooruUtilities {
         if(type == .moebooru) {
             // baseUrl/tag.json?name=search
             // Print what URL we are using
-            print("BCBooruUtilities: Using URL \((baseUrl + "/tag.json?name=" + search + "&limit=0")) to search for tags");
+            print("BooruUtilities: Using URL \((baseUrl + "/tag.json?name=" + search + "&limit=0")) to search for tags");
             
             // Make the request to get the tags
             request = Alamofire.request((baseUrl + "/tag.json?name=" + search + "&limit=0").replacingOccurrences(of: " ", with: "%20")).responseJSON { (responseData) -> Void in
@@ -74,7 +74,7 @@ class BCBooruUtilities {
         else if(type == .danbooru || type == .danbooruLegacy) {
             /// baseUrl/tags.json?search[name_matches]=search
             // Print what URL we are using
-            print("BCBooruUtilities: Using URL \((baseUrl + "/tags.json?search[name_matches]=" + search + "&limit=1000")) to search for tags");
+            print("BooruUtilities: Using URL \((baseUrl + "/tags.json?search[name_matches]=" + search + "&limit=1000")) to search for tags");
             
             // Make the request to get the tags(It seems Danbooru has a tag request limit of 1000(Using 0 gives you none), so I use 1000 here)
             request = Alamofire.request((baseUrl + "/tags.json?search[name_matches]=" + search + "&limit=1000").replacingOccurrences(of: " ", with: "%20")).responseJSON { (responseData) -> Void in
@@ -106,12 +106,12 @@ class BCBooruUtilities {
     }
     
     /// Searches for the given string and returns the results as and array of BCBooruPosts
-    func getPostsFromSearch(_ search : String, limit : Int, page : Int, completionHandler: @escaping ([BCBooruPost]) -> ()) -> Request? {
+    func getPostsFromSearch(_ search : String, limit : Int, page : Int, completionHandler: @escaping ([BooruPost]) -> ()) -> Request? {
         // Print what we are searching for
-        print("BCBooruUtilities: Searching for \"\(search)\"(Limit \(limit), page \(page)) on \"\(self.baseUrl)\"");
+        print("BooruUtilities: Searching for \"\(search)\"(Limit \(limit), page \(page)) on \"\(self.baseUrl)\"");
         
         /// The search results to pass to the completion handler
-        var results : [BCBooruPost] = [];
+        var results : [BooruPost] = [];
         
         /// The request that will be made, and then returned
         var request : Request? = nil;
@@ -143,7 +143,7 @@ class BCBooruUtilities {
             requestUrl = requestUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
             
             // Print what URL we are querying
-            print("BCBooruUtilities: Using URL \"\(requestUrl)\" to search");
+            print("BooruUtilities: Using URL \"\(requestUrl)\" to search");
             
             // Make the get request to the Booru with the search string and rating limit...
             request = Alamofire.request(requestUrl).responseJSON { (responseData) -> Void in
@@ -158,7 +158,7 @@ class BCBooruUtilities {
                     // For every search result...
                     for(_, currentResult) in responseJson.enumerated() {
                         /// The BCBooruPost from currentResult
-                        let post : BCBooruPost = self.getPostFromData(json: currentResult.1, xml: nil)!;
+                        let post : BooruPost = self.getPostFromData(json: currentResult.1, xml: nil)!;
                         
                         /// Does the current post have a blacklisted tag?
                         var containsTagInBlacklist : Bool = false;
@@ -173,7 +173,7 @@ class BCBooruUtilities {
                                     containsTagInBlacklist = true;
                                     
                                     // Print that this post was blacklisted
-                                    print("BCBooruUtilities: Blacklisted post \(post.id) from \(self.representedBooru!.name) for tag \"\(currentTag)\"");
+                                    print("BooruUtilities: Blacklisted post \(post.id) from \(self.representedBooru!.name) for tag \"\(currentTag)\"");
                                     
                                     // Stop the loop
                                     break;
@@ -201,7 +201,7 @@ class BCBooruUtilities {
             requestUrl = requestUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
             
             // Print what URL we are querying
-            print("BCBooruUtilities: Using URL \"\(requestUrl)\" to search");
+            print("BooruUtilities: Using URL \"\(requestUrl)\" to search");
             
             // Make the get request to the Booru with the search string and rating limit...
             request = Alamofire.request(requestUrl).response { (responseData) -> Void in
@@ -216,7 +216,7 @@ class BCBooruUtilities {
                     // For every search result...
                     for(_, currentResult) in responseXml["posts"].children.enumerated() {
                         /// The BCBooruPost from currentResult
-                        let post : BCBooruPost = self.getPostFromData(json: nil, xml: currentResult)!;
+                        let post : BooruPost = self.getPostFromData(json: nil, xml: currentResult)!;
                         
                         /// Does the current post have a blacklisted tag?
                         var containsTagInBlacklist : Bool = false;
@@ -231,7 +231,7 @@ class BCBooruUtilities {
                                     containsTagInBlacklist = true;
                                     
                                     // Print that this post was blacklisted
-                                    print("BCBooruUtilities: Blacklisted post \(post.id) from \(self.representedBooru!.name) for tag \"\(currentTag)\"");
+                                    print("BooruUtilities: Blacklisted post \(post.id) from \(self.representedBooru!.name) for tag \"\(currentTag)\"");
                                     
                                     // Stop the loop
                                     break;
@@ -259,7 +259,7 @@ class BCBooruUtilities {
             requestUrl = requestUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
             
             // Print what URL we are querying
-            print("BCBooruUtilities: Using URL \"\(requestUrl)\" to search");
+            print("BooruUtilities: Using URL \"\(requestUrl)\" to search");
             
             // Make the get request to the Booru with the search string and rating limit...
             request = Alamofire.request(requestUrl).responseJSON { (responseData) -> Void in
@@ -274,7 +274,7 @@ class BCBooruUtilities {
                     // For every search result...
                     for(_, currentResult) in responseJson.enumerated() {
                         /// The BCBooruPost from currentResult
-                        let post : BCBooruPost = self.getPostFromData(json: currentResult.1, xml: nil)!;
+                        let post : BooruPost = self.getPostFromData(json: currentResult.1, xml: nil)!;
                         
                         /// Does the current post have a blacklisted tag?
                         var containsTagInBlacklist : Bool = false;
@@ -289,7 +289,7 @@ class BCBooruUtilities {
                                     containsTagInBlacklist = true;
                                     
                                     // Print that this post was blacklisted
-                                    print("BCBooruUtilities: Blacklisted post \(post.id) from \(self.representedBooru!.name) for tag \"\(currentTag)\"");
+                                    print("BooruUtilities: Blacklisted post \(post.id) from \(self.representedBooru!.name) for tag \"\(currentTag)\"");
                                     
                                     // Stop the loop
                                     break;
@@ -317,7 +317,7 @@ class BCBooruUtilities {
             requestUrl = requestUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
             
             // Print what URL we are querying
-            print("BCBooruUtilities: Using URL \"\(requestUrl)\" to search");
+            print("BooruUtilities: Using URL \"\(requestUrl)\" to search");
             
             // Make the get request to the Booru with the search string and rating limit...
             request = Alamofire.request(requestUrl).response { (responseData) -> Void in
@@ -332,7 +332,7 @@ class BCBooruUtilities {
                     // For every search result...
                     for(_, currentResult) in responseXml["posts"].children.enumerated() {
                         /// The BCBooruPost from currentResult
-                        let post : BCBooruPost = self.getPostFromData(json: nil, xml: currentResult)!;
+                        let post : BooruPost = self.getPostFromData(json: nil, xml: currentResult)!;
                         
                         /// Does the current post have a blacklisted tag?
                         var containsTagInBlacklist : Bool = false;
@@ -347,7 +347,7 @@ class BCBooruUtilities {
                                     containsTagInBlacklist = true;
                                     
                                     // Print that this post was blacklisted
-                                    print("BCBooruUtilities: Blacklisted post \(post.id) from \(self.representedBooru!.name) for tag \"\(currentTag)\"");
+                                    print("BooruUtilities: Blacklisted post \(post.id) from \(self.representedBooru!.name) for tag \"\(currentTag)\"");
                                     
                                     // Stop the loop
                                     break;
@@ -378,7 +378,7 @@ class BCBooruUtilities {
     }
     
     /// Gets the post at the given ID and returns a BCBooruPost(Can be nil)
-    func getPostFromId(_ id : Int, completionHandler: @escaping (BCBooruPost?) -> ()) -> Request? {
+    func getPostFromId(_ id : Int, completionHandler: @escaping (BooruPost?) -> ()) -> Request? {
         /// The request that will be made, and then returned
         var request : Request? = nil;
         
@@ -460,15 +460,15 @@ class BCBooruUtilities {
     }
     
     /// Returns a BCBooruPOst from the given data(Can be nil)
-    func getPostFromData(json : JSON?, xml : XMLIndexer?) -> BCBooruPost? {
+    func getPostFromData(json : JSON?, xml : XMLIndexer?) -> BooruPost? {
         /// The post to return
-        var post : BCBooruPost? = nil;
+        var post : BooruPost? = nil;
         
         // Get the post
         // Depending on which Booru API we are using...
         if(type == .moebooru) {
             // Make post a new BCBooruPost
-            post = BCBooruPost();
+            post = BooruPost();
             
             // Set the post's info
             post?.thumbnailUrl = json!["preview_url"].stringValue;
@@ -488,7 +488,7 @@ class BCBooruUtilities {
                     post?.rating = .explicit;
                     break;
                 default:
-                    print("BCBooruUtilities: Rating for post \(json!["id"])(\(json!["rating"])) is invalid");
+                    print("BooruUtilities: Rating for post \(json!["id"])(\(json!["rating"])) is invalid");
                     break;
             }
             
@@ -503,7 +503,7 @@ class BCBooruUtilities {
         }
         else if(type == .danbooruLegacy) {
             // Make post a new BCBooruPost
-            post = BCBooruPost();
+            post = BooruPost();
             
             // Set the post's info
             post?.thumbnailUrl = self.baseUrl + (xml?.element?.allAttributes["preview_url"]?.text ?? "");
@@ -523,7 +523,7 @@ class BCBooruUtilities {
                 post?.rating = .explicit;
                 break;
             default:
-                print("BCBooruUtilities: Rating for post \(xml!.element!.allAttributes["id"]!.text)(\(xml!.element!.allAttributes["rating"]!.text)) is invalid");
+                print("BooruUtilities: Rating for post \(xml!.element!.allAttributes["id"]!.text)(\(xml!.element!.allAttributes["rating"]!.text)) is invalid");
                 break;
             }
             
@@ -546,7 +546,7 @@ class BCBooruUtilities {
         }
         else if(type == .danbooru) {
             // Make post a new BCBooruPost
-            post = BCBooruPost();
+            post = BooruPost();
             
             // Set the post's info
             post?.thumbnailUrl = baseUrl + json!["preview_file_url"].stringValue;
@@ -568,7 +568,7 @@ class BCBooruUtilities {
                 post?.rating = .explicit;
                 break;
             default:
-                print("BCBooruUtilities: Rating for post \(json!["id"])(\(json!["rating"])) is invalid");
+                print("BooruUtilities: Rating for post \(json!["id"])(\(json!["rating"])) is invalid");
                 break;
             }
             
@@ -586,7 +586,7 @@ class BCBooruUtilities {
         }
         else if(type == .gelbooru) {
             // Make post a new BCBooruPost
-            post = BCBooruPost();
+            post = BooruPost();
             
             // Set the post's info
             post?.thumbnailUrl = xml!.element!.allAttributes["preview_url"]!.text;
@@ -606,7 +606,7 @@ class BCBooruUtilities {
                     post?.rating = .explicit;
                     break;
                 default:
-                    print("BCBooruUtilities: Rating for post \(xml!.element!.allAttributes["id"]!.text)(\(xml!.element!.allAttributes["rating"]!.text)) is invalid");
+                    print("BooruUtilities: Rating for post \(xml!.element!.allAttributes["id"]!.text)(\(xml!.element!.allAttributes["rating"]!.text)) is invalid");
                     break;
             }
             
@@ -648,7 +648,7 @@ class BCBooruUtilities {
     }
     
     // Init with a Booru host
-    convenience init(booru : BCBooruHost) {
+    convenience init(booru : BooruHost) {
         self.init();
         
         // Set representedBooru
@@ -666,7 +666,7 @@ class BCBooruUtilities {
 }
 
 /// A post made on a Booru
-class BCBooruPost {
+class BooruPost {
     /// The URL to this post's thumbnail image
     var thumbnailUrl : String = "";
     
@@ -683,7 +683,7 @@ class BCBooruPost {
     var tags : [String] = [];
     
     /// The rating of this post
-    var rating : BCRating = BCRating.safe;
+    var rating : Rating = Rating.safe;
     
     /// The ID of this post
     var id : Int = -1;
@@ -698,18 +698,18 @@ class BCBooruPost {
     }
 }
 
-class BCBooruHost: NSObject, NSCoding {
+class BooruHost: NSObject, NSCoding {
     /// The display name of this Booru
     var name : String = "";
     
     /// What type of Booru this is
-    var type : BCBooruType = .unchosen;
+    var type : BooruType = .unchosen;
     
     /// How many posts to show per page
     var pagePostLimit : Int = 40;
     
     /// The maximum rating of post to show on this Booru
-    var maximumRating : BCRating = .explicit;
+    var maximumRating : Rating = .explicit;
     
     /// The tags the user has entered into this Booru for searching before
     var tagHistory : [String] = [];
@@ -723,8 +723,8 @@ class BCBooruHost: NSObject, NSCoding {
     /// The tag blacklist for this booru, filters out any posts that has any of these tags when returning search results
     var tagBlacklist : [String] = [];
     
-    /// The BCBooruUtilities for this host
-    var utilties : BCBooruUtilities!;
+    /// The BooruUtilities for this host
+    var utilties : BooruUtilities!;
     
     /// Adds the given tag to this Booru's tag search history
     func addTagToHistory(_ tag : String) {
@@ -734,7 +734,7 @@ class BCBooruHost: NSObject, NSCoding {
             tagHistory.append(tag);
             
             // Print what tag we added to the tag history
-            print("BCBooruHost(\(self.name)): Added tag \"\(tag)\" to tag history");
+            print("BooruHost(\(self.name)): Added tag \"\(tag)\" to tag history");
         }
     }
     
@@ -746,7 +746,7 @@ class BCBooruHost: NSObject, NSCoding {
             downloadedPosts.append(id);
             
             // Print what ID we added to the download history
-            print("BCBooruHost(\(self.name)): Added post \(id) to download history");
+            print("BooruHost(\(self.name)): Added post \(id) to download history");
         }
     }
     
@@ -772,7 +772,7 @@ class BCBooruHost: NSObject, NSCoding {
             }
             catch let error as NSError {
                 // Print the error
-                print("BCBooruHost(\(self.name)): Failed to create cache folder, \(error.description)");
+                print("BooruHost(\(self.name)): Failed to create cache folder, \(error.description)");
             }
         }
     }
@@ -780,11 +780,11 @@ class BCBooruHost: NSObject, NSCoding {
     /// Updates utilties to match the current host info
     func refreshUtilities() {
         // Update utilities
-        self.utilties = BCBooruUtilities(booru: self);
+        self.utilties = BooruUtilities(booru: self);
     }
     
     // Init with a name, type, page post limit and URL
-    convenience init(name : String, type : BCBooruType, pagePostLimit : Int, url : String, maximumRating : BCRating) {
+    convenience init(name : String, type : BooruType, pagePostLimit : Int, url : String, maximumRating : Rating) {
         self.init();
         
         self.name = name;
@@ -793,7 +793,7 @@ class BCBooruHost: NSObject, NSCoding {
         self.pagePostLimit = pagePostLimit;
         self.maximumRating = maximumRating;
         
-        self.utilties = BCBooruUtilities(booru: self);
+        self.utilties = BooruUtilities(booru: self);
     }
     
     func encode(with coder: NSCoder) {
@@ -816,14 +816,14 @@ class BCBooruHost: NSObject, NSCoding {
             self.name = decoder.decodeObject(forKey: "name") as! String;
         }
         
-        self.type = BCBooruType(rawValue: decoder.decodeInteger(forKey: "type"))!;
+        self.type = BooruType(rawValue: decoder.decodeInteger(forKey: "type"))!;
         self.pagePostLimit = decoder.decodeInteger(forKey: "pagePostLimit");
         
         if((decoder.decodeObject(forKey: "url") as? String) != nil) {
             self.url = decoder.decodeObject(forKey: "url") as! String;
         }
         
-        self.maximumRating = BCRating(rawValue: decoder.decodeInteger(forKey: "maximumRating"))!;
+        self.maximumRating = Rating(rawValue: decoder.decodeInteger(forKey: "maximumRating"))!;
         
         if((decoder.decodeObject(forKey: "tagHistory") as? [String]) != nil) {
             self.tagHistory = decoder.decodeObject(forKey: "tagHistory") as! [String]!;
@@ -837,12 +837,12 @@ class BCBooruHost: NSObject, NSCoding {
             self.tagBlacklist = decoder.decodeObject(forKey: "tagBlacklist") as! [String]!;
         }
         
-        self.utilties = BCBooruUtilities(booru: self);
+        self.utilties = BooruUtilities(booru: self);
     }
 }
 
 /// The different types of Booru Booru-chan can use
-enum BCBooruType: Int {
+enum BooruType: Int {
     /// Used for placeholders/variable initiation
     case unchosen
     
@@ -860,7 +860,7 @@ enum BCBooruType: Int {
 }
 
 /// The different ratings a post can have
-enum BCRating: Int {
+enum Rating: Int {
     /// Safe
     case safe
     

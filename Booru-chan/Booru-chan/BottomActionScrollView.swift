@@ -1,5 +1,5 @@
 //
-//  BCActionOnScrollToBottomScrollView.swift
+//  BottomActionScrollView.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-04-25.
@@ -31,7 +31,7 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class BCActionOnScrollToBottomScrollView: NSScrollView {
+class BottomActionScrollView: NSScrollView {
     
     /// Are we at the bottom of the scroll view?(Used so it isnt spammed when reaching the bottom)
     fileprivate var atBottom : Bool = false;

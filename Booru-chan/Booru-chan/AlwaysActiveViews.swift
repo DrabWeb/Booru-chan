@@ -1,5 +1,5 @@
 //
-//  BCAlwaysActiveTextField.swift
+//  AlwaysActiveViews.swift
 //  Booru-chan
 //
 //  Created by Seth on 2016-04-23.
@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class BCAlwaysActiveTextField: NSTextField {
+class AlwaysActiveTextField: NSTextField {
 
     // Override acceptsFirstResponder so it is always in the active graphical state
     override var acceptsFirstResponder : Bool {
@@ -22,7 +22,7 @@ class BCAlwaysActiveTextField: NSTextField {
     
 }
 
-class BCAlwaysActiveTokenField: NSTokenField {
+class AlwaysActiveTokenField: NSTokenField {
     
     // Override acceptsFirstResponder so it is always in the active graphical state
     override var acceptsFirstResponder : Bool {
