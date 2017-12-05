@@ -57,7 +57,7 @@ class BCGridStyleTagListTableViewController: NSObject {
     }
     
     /// Called when the user presses a checkbox in the tag list
-    func tagListItemChanged(_ data: [BCGridStyleTagListTableViewItemData : Bool]) {
+    @objc func tagListItemChanged(_ data: [BCGridStyleTagListTableViewItemData : Bool]) {
         /// The BCGridStyleTagListTableViewItemData from data
         var changedData : BCGridStyleTagListTableViewItemData = BCGridStyleTagListTableViewItemData();
         
@@ -100,10 +100,10 @@ extension BCGridStyleTagListTableViewController: NSTableViewDataSource {
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         /// The cell view for the cell we want to modify
-        let cellView: NSTableCellView = tableView.make(withIdentifier: tableColumn!.identifier, owner: nil) as! NSTableCellView;
+        let cellView: NSTableCellView = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: nil) as! NSTableCellView;
         
         // If this is the main column...
-        if(tableColumn!.identifier == "Main Column") {
+        if(tableColumn!.identifier.rawValue == "Main Column") {
             /// cellView as a BCGridStyleTagListTableViewCellView
             let cellViewTagListCellView : BCGridStyleTagListTableViewCellView = cellView as! BCGridStyleTagListTableViewCellView;
             
@@ -112,7 +112,7 @@ extension BCGridStyleTagListTableViewController: NSTableViewDataSource {
             
             // Set the cell's data and display it
             cellViewTagListCellView.data = cellData;
-            cellViewTagListCellView.checkbox.state = Int.fromBool(bool: cellData.tagBeingSearchedBy);
+            cellViewTagListCellView.checkbox.state = NSControl.StateValue(rawValue: Int.fromBool(bool: cellData.tagBeingSearchedBy));
             cellViewTagListCellView.checkbox.title = cellData.tagName;
             
             // Setup the target and action

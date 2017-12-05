@@ -66,14 +66,11 @@ class BCViewController: NSViewController, NSWindowDelegate {
     
     /// The log of copied image URLs
     var imageUrlCopyLog : [String] = [];
-    
-    /// The constraint for the top of gridStyleController.imageViewScrollView
-    private var imageViewScrollViewTopConstraint : NSLayoutConstraint? = nil;
-    
+
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        (NSApplication.shared().delegate as! BCAppDelegate).loadPreferences();
+        (NSApplication.shared.delegate as! BCAppDelegate).loadPreferences();
         NotificationCenter.default.addObserver(self, selector: #selector(BCViewController.preferencesUpdated), name: NSNotification.Name(rawValue: "BCPreferences.Updated"), object: nil);
         
         initialize();
@@ -88,7 +85,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         
         // Get all the toolbar items
         for(_, currentItem) in self.window.toolbar!.items.enumerated() {
-            switch(currentItem.itemIdentifier) {
+            switch(currentItem.itemIdentifier.rawValue) {
             case "BooruSelector":
                 self.toolbarBooruPopup = (currentItem.view as! NSPopUpButton);
                 break;
@@ -106,20 +103,8 @@ class BCViewController: NSViewController, NSWindowDelegate {
         toolbarSearchField.tokensChangedTarget = self;
         toolbarSearchField.tokensChangedAction = #selector(BCViewController.searchTokensChanged);
         
-        // Add the constraint for the top of the image view so it centers relative to the visible frame, not the whole window
-        createImageViewScrollViewConstraints(relativeTo: window.standardWindowButton(.closeButton)!.superview!.superview!, attribute: .bottom);
-        
         updateBooruPickerPopupButton();
         updateTitle();
-    }
-    
-    private func createImageViewScrollViewConstraints(relativeTo : NSView, attribute : NSLayoutAttribute, constant : CGFloat = 0) {
-        if(imageViewScrollViewTopConstraint != nil) {
-            window.contentView?.superview?.removeConstraint(imageViewScrollViewTopConstraint!);
-        }
-        
-        imageViewScrollViewTopConstraint = NSLayoutConstraint(item: gridStyleController.imageViewScrollView, attribute: .top, relatedBy: .equal, toItem: relativeTo, attribute: attribute, multiplier: 1, constant: constant);
-        window.contentView?.superview?.addConstraint(imageViewScrollViewTopConstraint!);
     }
     
     override func viewWillDisappear() {
@@ -136,22 +121,14 @@ class BCViewController: NSViewController, NSWindowDelegate {
         }
     }
     
-    func windowDidEnterFullScreen(_ notification: Notification) {
-        createImageViewScrollViewConstraints(relativeTo: view, attribute: .top, constant: 37);
-    }
-    
-    func windowDidExitFullScreen(_ notification: Notification) {
-        createImageViewScrollViewConstraints(relativeTo: window.standardWindowButton(.closeButton)!.superview!.superview!, attribute: .bottom);
-    }
-    
     /// Called when the tokens from toolbarSearchField change
-    func searchTokensChanged() {
+    @objc func searchTokensChanged() {
         // Update the tag display list
         gridStyleController.tagListController.displayTagsFromPost(gridStyleController.tagListController.lastDisplayedPost);
     }
     
     /// Called when the preferences are updated
-    func preferencesUpdated() {
+    @objc func preferencesUpdated() {
         // Restore the selected searching booru
         updateBooruPickerPopupButton(updateSearching: false);
         toolbarBooruPopup.selectItem(at: lastPickedBooruIndex);
@@ -168,13 +145,13 @@ class BCViewController: NSViewController, NSWindowDelegate {
             let saveDirectorySavePanel : NSSavePanel = NSSavePanel();
             
             // Set the name field default value to the image save format
-            saveDirectorySavePanel.nameFieldStringValue = (NSApplication.shared().delegate as! BCAppDelegate).preferences.imageSaveFormat;
+            saveDirectorySavePanel.nameFieldStringValue = (NSApplication.shared.delegate as! BCAppDelegate).preferences.imageSaveFormat;
             
             // Set the prompt to "Save"
             saveDirectorySavePanel.prompt = "Save";
             
             // Run the open panel, and if the user hits "Save"...
-            if(Bool(saveDirectorySavePanel.runModal() as NSNumber)) {
+            if(Bool(truncating: saveDirectorySavePanel.runModal() as NSNumber)) {
                 /// The directory we are saving the images to
                 var saveDirectory : String = saveDirectorySavePanel.url!.absoluteString.removingPercentEncoding!.replacingOccurrences(of: "file://", with: "");
                 
@@ -238,7 +215,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
             // If tagsString isnt blank...
             if(tagsString != "") {
                 // Remove the trailing space that was added from adding the tags
-                tagsString = tagsString.substring(to: tagsString.characters.index(before: tagsString.endIndex));
+                tagsString = String(tagsString[..<tagsString.index(before: tagsString.endIndex)]);
             }
             
             // Replace %tags% with the tags string
@@ -255,17 +232,17 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     imageFileName = imageFileName.replacingOccurrences(of: "/", with: " ");
                     
                     // If imageFileName has over 250 characters...
-                    if(imageFileName.characters.count > 250) {
+                    if(imageFileName.count > 250) {
                         // Cut imageFileName down to 250 characters
-                        imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: 250));
+                        imageFileName = String(imageFileName[..<imageFileName.index(imageFileName.startIndex, offsetBy: 250)]);
                         
                         /// The indexes of all the spaces in imageFileName
-                        let indexesOfSpaceInImageFileName = imageFileName.characters.enumerated()
+                        let indexesOfSpaceInImageFileName = imageFileName.enumerated()
                             .filter { $0.element == " " }
                             .map { $0.offset }
                         
                         // Cut imageFileName down to the last space
-                        imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: indexesOfSpaceInImageFileName.last!));
+                        imageFileName = String(imageFileName[..<imageFileName.index(imageFileName.startIndex, offsetBy: indexesOfSpaceInImageFileName.last!)]);
                     }
                     
                     // Add the extension onto the end
@@ -321,17 +298,17 @@ class BCViewController: NSViewController, NSWindowDelegate {
                                     imageFileName = imageFileName.replacingOccurrences(of: "/", with: " ");
                                     
                                     // If imageFileName has over 250 characters...
-                                    if(imageFileName.characters.count > 250) {
+                                    if(imageFileName.count > 250) {
                                         // Cut imageFileName down to 250 characters
-                                        imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: 250));
+                                        imageFileName = String(imageFileName[..<imageFileName.index(imageFileName.startIndex, offsetBy: 250)]);
                                         
                                         /// The indexes of all the spaces in imageFileName
-                                        let indexesOfSpaceInImageFileName = imageFileName.characters.enumerated()
+                                        let indexesOfSpaceInImageFileName = imageFileName.enumerated()
                                             .filter { $0.element == " " }
                                             .map { $0.offset }
                                         
                                         // Cut imageFileName down to the last space
-                                        imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: indexesOfSpaceInImageFileName.last!));
+                                        imageFileName = String(imageFileName[..<imageFileName.index(imageFileName.startIndex, offsetBy: indexesOfSpaceInImageFileName.last!)]);
                                     }
                                     
                                     // Add the extension onto the end
@@ -372,7 +349,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
             self.gridStyleController.reloadDownloadedIndicators();
             
             // If the user has downloads finished notifications on and we downloaded more than one image...
-            if((NSApplication.shared().delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished && count > 1) {
+            if((NSApplication.shared.delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished && count > 1) {
                 /// The notification to tell the user that tells the user their downloads have finished
                 let downloadsFinishedNotification : NSUserNotification = NSUserNotification();
                 
@@ -386,22 +363,22 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     /// Saves the selected Booru post images
-    func saveSelectedImages() {
+    @objc func saveSelectedImages() {
         // Save the selected items
         saveBooruItems(gridStyleController.getSelectedBooruItems());
     }
     
     /// Opens the selected posts in the browser
-    func openSelectedPostsInBrowser() {
+    @objc func openSelectedPostsInBrowser() {
         // For every selected post...
         for(_, currentSelectedPost) in gridStyleController.getSelectedBooruItems().enumerated() {
             // Open the selected post in the browser
-            NSWorkspace.shared().open(URL(string: currentSelectedPost.representedPost!.url)!);
+            NSWorkspace.shared.open(URL(string: currentSelectedPost.representedPost!.url)!);
         }
     }
     
     /// Copys the URLs of the selected posts
-    func copyUrlsOfSelectedPosts() {
+    @objc func copyUrlsOfSelectedPosts() {
         /// The string to copy to the pasteboard
         var copyString : String = "";
         
@@ -427,14 +404,14 @@ class BCViewController: NSViewController, NSWindowDelegate {
         
         // Copy copyString
         // Add the string type to the general pasteboard
-        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general.declareTypes([NSPasteboard.PasteboardType.string], owner: nil);
         
         // Set the string of the general pasteboard to copyString
-        NSPasteboard.general().setString(copyString, forType: NSStringPboardType);
+        NSPasteboard.general.setString(copyString, forType: NSPasteboard.PasteboardType.string);
     }
     
     /// Copies all the URLs in postUrlCopyLog
-    func copyPreviouslyCopiedPostUrls() {
+    @objc func copyPreviouslyCopiedPostUrls() {
         /// The string to copy
         var copyString : String = "";
         
@@ -447,19 +424,19 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // If copyString isnt empty...
         if(copyString != "") {
             // Remove the final new line from copyString
-            copyString = copyString.substring(to: copyString.characters.index(before: copyString.endIndex));
+            copyString = String(copyString[..<copyString.index(before: copyString.endIndex)]);
         }
         
         // Copy copyString
         // Add the string type to the general pasteboard
-        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general.declareTypes([NSPasteboard.PasteboardType.string], owner: nil);
         
         // Set the string of the general pasteboard to copyString
-        NSPasteboard.general().setString(copyString, forType: NSStringPboardType);
+        NSPasteboard.general.setString(copyString, forType: NSPasteboard.PasteboardType.string);
     }
     
     /// Copys the image URLs of the selected posts
-    func copyImageUrlsOfSelectedPosts() {
+    @objc func copyImageUrlsOfSelectedPosts() {
         /// The string to copy to the pasteboard
         var copyString : String = "";
         
@@ -485,14 +462,14 @@ class BCViewController: NSViewController, NSWindowDelegate {
         
         // Copy copyString
         // Add the string type to the general pasteboard
-        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general.declareTypes([NSPasteboard.PasteboardType.string], owner: nil);
         
         // Set the string of the general pasteboard to copyString
-        NSPasteboard.general().setString(copyString, forType: NSStringPboardType);
+        NSPasteboard.general.setString(copyString, forType: NSPasteboard.PasteboardType.string);
     }
     
     /// Copies all the URLs in imageUrlCopyLog
-    func copyPreviouslyCopiedImageUrls() {
+    @objc func copyPreviouslyCopiedImageUrls() {
         /// The string to copy
         var copyString : String = "";
         
@@ -505,15 +482,15 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // If copyString isnt empty...
         if(copyString != "") {
             // Remove the final new line from copyString
-            copyString = copyString.substring(to: copyString.characters.index(before: copyString.endIndex));
+            copyString = String(copyString[..<copyString.index(before: copyString.endIndex)]);
         }
         
         // Copy copyString
         // Add the string type to the general pasteboard
-        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general.declareTypes([NSPasteboard.PasteboardType.string], owner: nil);
         
         // Set the string of the general pasteboard to copyString
-        NSPasteboard.general().setString(copyString, forType: NSStringPboardType);
+        NSPasteboard.general.setString(copyString, forType: NSPasteboard.PasteboardType.string);
     }
     
     /// Updates currentSelectedSearchingBooru to match the selected item in toolbarBooruPopup
@@ -525,7 +502,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
             // If there isnt one item with a title of "No Boorus Added" in toolbarBooruPopup...
             if(toolbarBooruPopup.itemArray.count != 1 && toolbarBooruPopup.itemArray[0].title != "No Boorus Added") {
                 // Set the selected searching Booru to the selected Booru
-                currentSelectedSearchingBooru = (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts[toolbarBooruPopup.index(of: toolbarBooruPopup.selectedItem!)];
+                currentSelectedSearchingBooru = (NSApplication.shared.delegate as! BCAppDelegate).preferences.booruHosts[toolbarBooruPopup.index(of: toolbarBooruPopup.selectedItem!)];
             }
             else {
                 currentSelectedSearchingBooru = nil;
@@ -565,7 +542,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         toolbarBooruPopup.removeAllItems();
         
         // For every Booru in the user's Boorus...
-        for(_, currentBooruHost) in (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts.enumerated() {
+        for(_, currentBooruHost) in (NSApplication.shared.delegate as! BCAppDelegate).preferences.booruHosts.enumerated() {
             // Add the current item to toolbarBooruPopup
             toolbarBooruPopup.addItem(withTitle: currentBooruHost.name);
         }
@@ -583,7 +560,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
     
     private var titlebarVisible : Bool = true;
     
-    func toggleTitlebar() {
+    @objc func toggleTitlebar() {
         titlebarVisible = !titlebarVisible;
 
         if(titlebarVisible) {
@@ -595,13 +572,12 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     func hideTitlebar() {
-        if(!window.styleMask.contains(NSFullScreenWindowMask)) {
+        if(!window.styleMask.contains(NSWindow.StyleMask.fullScreen)) {
             window.standardWindowButton(.closeButton)?.superview?.superview?.isHidden = true;
         }
         
         gridStyleController.booruCollectionViewScrollView.automaticallyAdjustsContentInsets = false;
         gridStyleController.booruCollectionViewScrollView.contentInsets = NSEdgeInsetsZero;
-        createImageViewScrollViewConstraints(relativeTo: window.contentView!, attribute: .top);
         
         window.contentView?.needsDisplay = true;
         
@@ -611,50 +587,49 @@ class BCViewController: NSViewController, NSWindowDelegate {
     func showTitlebar() {
         window.standardWindowButton(.closeButton)?.superview?.superview?.isHidden = false;
         gridStyleController.booruCollectionViewScrollView.automaticallyAdjustsContentInsets = true;
-        createImageViewScrollViewConstraints(relativeTo: window.standardWindowButton(.closeButton)!.superview!.superview!, attribute: .bottom);
         
         window.contentView?.needsDisplay = true;
         
         titlebarVisible = true;
     }
     
-    func selectPostBrowser() {
+    @objc func selectPostBrowser() {
         window.makeFirstResponder(gridStyleController.booruCollectionView);
     }
     
-    func openBooruPopup() {
+    @objc func openBooruPopup() {
         toolbarBooruPopup.performClick(self);
     }
     
-    func selectSearchField() {
+    @objc func selectSearchField() {
         window.makeFirstResponder(toolbarSearchField);
     }
     
-    func toggleBooruCollectionView() {
+    @objc func toggleBooruCollectionView() {
         gridStyleController.toggleBooruCollectionView();
     }
     
-    func toggleInfoBar() {
+    @objc func toggleInfoBar() {
         gridStyleController.toggleInfoBar();
     }
     
-    func toggleTagList() {
+    @objc func toggleTagList() {
         gridStyleController.toggleTagList();
     }
     
-    func zoomIn() {
+    @objc func zoomIn() {
         gridStyleController.zoomIn();
     }
     
-    func zoomOut() {
+    @objc func zoomOut() {
         gridStyleController.zoomOut();
     }
     
-    func resetZoomWithAnimation() {
+    @objc func resetZoomWithAnimation() {
         gridStyleController.resetZoomWithAnimation();
     }
     
-    func windowShouldClose(_ sender: Any) -> Bool {
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
         gridStyleController.booruCollectionViewArrayController.remove(gridStyleController.booruCollectionViewArrayController.arrangedObjects);
         return true;
     }
@@ -665,10 +640,8 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     func initialize() {
-        window = NSApplication.shared().windows.last!;
-        window.windowController!.shouldCascadeWindows = false;
+        window = NSApplication.shared.windows.last!;
         window.delegate = self;
-        window.styleMask.insert(NSFullSizeContentViewWindowMask);
         window.titleVisibility = .hidden;
         applyTheme((NSApp.delegate as! BCAppDelegate).preferences.theme);
     }
@@ -679,12 +652,12 @@ class BCViewController: NSViewController, NSWindowDelegate {
         if(theme == currentTheme) { return; }
         currentTheme = theme;
         
-        window.appearance = NSAppearance(named: (theme == .dark) ? NSAppearanceNameVibrantDark : NSAppearanceNameVibrantLight);
+        window.appearance = NSAppearance(named: (theme == .dark) ? NSAppearance.Name.vibrantDark : NSAppearance.Name.vibrantLight);
         window.toolbar?.showsBaselineSeparator = (theme == .light);
         backgroundVisualEffectView.material = (theme == .dark) ? .dark : .selection;
         
         // Redraw the booru collection view(selection box needs to be updated)
-        gridStyleController.booruCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: Bundle.main).instantiateController(withIdentifier: "booruCollectionViewItem") as! BCBooruCollectionViewCollectionViewItem;
+        gridStyleController.booruCollectionView.itemPrototype = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: Bundle.main).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "booruCollectionViewItem")) as! BCBooruCollectionViewCollectionViewItem;
     }
 }
 

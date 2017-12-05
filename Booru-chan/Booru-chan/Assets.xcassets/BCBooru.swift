@@ -58,7 +58,7 @@ class BCBooruUtilities {
                 // If the the response data isnt nil...
                 if let dataFromResponseJsonString = responseJsonString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false) {
                     /// The JSON from the response string
-                    let responseJson = JSON(data: dataFromResponseJsonString);
+                    let responseJson = try! JSON(data: dataFromResponseJsonString);
                     
                     // For evert tag in responseJson...
                     for(_, currentTag) in responseJson.enumerated() {
@@ -84,7 +84,7 @@ class BCBooruUtilities {
                 // If the the response data isnt nil...
                 if let dataFromResponseJsonString = responseJsonString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false) {
                     /// The JSON from the response string
-                    let responseJson = JSON(data: dataFromResponseJsonString);
+                    let responseJson = try! JSON(data: dataFromResponseJsonString);
                     
                     // For evert tag in responseJson...
                     for(_, currentTag) in responseJson.enumerated() {
@@ -153,7 +153,7 @@ class BCBooruUtilities {
                 // If the the response data isnt nil...
                 if let dataFromResponseJsonString = responseJsonString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false) {
                     /// The JSON from the response string
-                    let responseJson = JSON(data: dataFromResponseJsonString);
+                    let responseJson = try! JSON(data: dataFromResponseJsonString);
                     
                     // For every search result...
                     for(_, currentResult) in responseJson.enumerated() {
@@ -269,7 +269,7 @@ class BCBooruUtilities {
                 // If the the response data isnt nil...
                 if let dataFromResponseJsonString = responseJsonString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false) {
                     /// The JSON from the response string
-                    let responseJson = JSON(data: dataFromResponseJsonString);
+                    let responseJson = try! JSON(data: dataFromResponseJsonString);
                     
                     // For every search result...
                     for(_, currentResult) in responseJson.enumerated() {
@@ -395,7 +395,7 @@ class BCBooruUtilities {
                 // If the the response data isnt nil...
                 if let dataFromResponseJsonString = responseJsonString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false) {
                     /// The JSON from the response string
-                    let responseJson = JSON(data: dataFromResponseJsonString);
+                    let responseJson = try! JSON(data: dataFromResponseJsonString);
                     
                     // Return the post from the JSON we got
                     completionHandler(self.getPostFromData(json: responseJson[0], xml: nil));
@@ -430,7 +430,7 @@ class BCBooruUtilities {
                 // If the the response data isnt nil...
                 if let dataFromResponseJsonString = responseJsonString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false) {
                     /// The JSON from the response string
-                    let responseJson = JSON(data: dataFromResponseJsonString);
+                    let responseJson = try! JSON(data: dataFromResponseJsonString);
                     
                     // Return the post from the JSON we got
                     completionHandler(self.getPostFromData(json: responseJson[0], xml: nil));
@@ -631,7 +631,7 @@ class BCBooruUtilities {
         }
         
         /// The protocol of this Booru's URL
-        let urlProtocol : String = self.representedBooru!.url.substring(to: self.representedBooru!.url.range(of: "//")!.lowerBound);
+        let urlProtocol : String = String(self.representedBooru!.url[..<self.representedBooru!.url.range(of: "//")!.lowerBound]);
         
         // If the image URL doesn't have a protocol...
         if(post?.imageUrl.hasPrefix("//") ?? false) {

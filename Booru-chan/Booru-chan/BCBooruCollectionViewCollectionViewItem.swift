@@ -24,7 +24,7 @@ class BCBooruCollectionViewCollectionViewItem: NSCollectionViewItem {
         let menu : NSMenu = NSMenu();
         
         // Deselect all the items in the Booru collection view
-        self.collectionView.deselectAll(self);
+        self.collectionView?.deselectAll(self);
         
         // Select this item
         self.isSelected = true;
@@ -39,33 +39,33 @@ class BCBooruCollectionViewCollectionViewItem: NSCollectionViewItem {
     }
     
     /// Opens this post in the browser
-    func openInBrowser() {
+    @objc func openInBrowser() {
         // Open this item's post's URL in the browser
-        NSWorkspace.shared().open(URL(string: getUrl)!);
+        NSWorkspace.shared.open(URL(string: getUrl)!);
     }
     
     /// Copys the URL of this post to the clipboard
-    func copyUrlToClipboard() {
+    @objc func copyUrlToClipboard() {
         // Add the string type to the general pasteboard
-        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general.declareTypes([NSPasteboard.PasteboardType.string], owner: nil);
         
         // Set the string of the general pasteboard to this item's post's URL
-        NSPasteboard.general().setString(getUrl, forType: NSStringPboardType);
+        NSPasteboard.general.setString(getUrl, forType: NSPasteboard.PasteboardType.string);
     }
     
     /// Copys the URL of this post to the clipboard
-    func copyImageUrlToClipboard() {
+    @objc func copyImageUrlToClipboard() {
         // Add the string type to the general pasteboard
-        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general.declareTypes([NSPasteboard.PasteboardType.string], owner: nil);
         
         // Set the string of the general pasteboard to this item's post's image's URL
-        NSPasteboard.general().setString(getImageUrl, forType: NSStringPboardType);
+        NSPasteboard.general.setString(getImageUrl, forType: NSPasteboard.PasteboardType.string);
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         // Bind the alpha value
-        self.imageView?.bind("alphaValue", to: self, withKeyPath: "representedObject.alphaValue", options: nil);
+        self.imageView?.bind(NSBindingName(rawValue: "alphaValue"), to: self, withKeyPath: "representedObject.alphaValue", options: nil);
     }
 }

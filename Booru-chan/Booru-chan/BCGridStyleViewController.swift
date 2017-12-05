@@ -53,7 +53,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     @IBOutlet weak var leftSplitView: BCNoDividerSplitView!
     
     /// The items from booruCollectionViewArrayController
-    var booruCollectionViewArrayControllerItems: NSMutableArray = NSMutableArray();
+    @objc var booruCollectionViewArrayControllerItems: NSMutableArray = NSMutableArray();
     
     /// The scroll view for imageView
     @IBOutlet weak var imageViewScrollView: NSScrollView!
@@ -108,7 +108,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             var ratingFirstLetter : String = String(describing: postItem!.representedPost!.rating);
             
             // Set ratingFirstLetter to the first letter in ratingFirstLetter
-            ratingFirstLetter = ratingFirstLetter.substring(to: ratingFirstLetter.characters.index(after: ratingFirstLetter.startIndex));
+            ratingFirstLetter = String(ratingFirstLetter[..<ratingFirstLetter.index(after: ratingFirstLetter.startIndex)]);
             
             // Capitalize ratingFirstLetter
             ratingFirstLetter = ratingFirstLetter.uppercased();
@@ -306,7 +306,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
             item.finishedLoadingImage = true;
             
             // Set the item's thumbnail image to the no more results image
-            item.thumbnailImage = NSImage(named: "No More Results")!;
+            item.thumbnailImage = NSImage(named: NSImage.Name(rawValue: "No More Results"))!;
             
             // Set that the item is a "No More Results" item
             item.noMoreResultsItem = true;
@@ -325,22 +325,22 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     /// Updates the downloaded indicators for all the posts in the Booru collection view
     func reloadDownloadedIndicators() {
         // If we said to indicate downloaded posts...
-        if((NSApplication.shared().delegate as! BCAppDelegate).preferences.indicateDownloadedPosts) {
+        if((NSApplication.shared.delegate as! BCAppDelegate).preferences.indicateDownloadedPosts) {
             // For every item in the Booru collection view...
             for(_, currentItem) in (booruCollectionViewArrayController.arrangedObjects as! [BCBooruCollectionViewItem]).enumerated() {
                 // Set the item's alpha value to downloadedPostAlphaValue if it has been downloaded
                 if(mainViewController.currentSelectedSearchingBooru!.hasDownloadedId(currentItem.representedPost!.id)) {
-                    currentItem.alphaValue = (NSApplication.shared().delegate as! BCAppDelegate).preferences.downloadedPostAlphaValue;
+                    currentItem.alphaValue = (NSApplication.shared.delegate as! BCAppDelegate).preferences.downloadedPostAlphaValue;
                 }
             }
             
             // Reload the collection view
-            booruCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: Bundle.main).instantiateController(withIdentifier: "booruCollectionViewItem") as! BCBooruCollectionViewCollectionViewItem;
+            booruCollectionView.itemPrototype = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: Bundle.main).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "booruCollectionViewItem")) as! BCBooruCollectionViewCollectionViewItem;
         }
     }
     
     /// When we reach the bottom of the Booru collection view...
-    func reachedBottomOfBooruCollectionView() {
+    @objc func reachedBottomOfBooruCollectionView() {
         // If the last search of the current searching Booru isnt blank...
         if((booruCollectionViewArrayController.arrangedObjects as! [AnyObject]).count > 0) {
             // Add the next page of results to the Booru collection view
@@ -494,7 +494,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     
     func initialize() {
         // Set the Booru collection view's item prototype
-        booruCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: Bundle.main).instantiateController(withIdentifier: "booruCollectionViewItem") as! BCBooruCollectionViewCollectionViewItem;
+        booruCollectionView.itemPrototype = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: Bundle.main).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "booruCollectionViewItem")) as! BCBooruCollectionViewCollectionViewItem;
         
         // Set the minimum and maximum item sizes
         booruCollectionView.minItemSize = NSSize(width: 150, height: 150);
@@ -535,7 +535,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
 
 class BCBooruCollectionViewItem: NSObject {
     /// The thumbnail image for this item
-    var thumbnailImage : NSImage = NSImage();
+    @objc var thumbnailImage : NSImage = NSImage();
     
     /// The full size image(Only set if the user selected this item and it was fully loaded)
     var image : NSImage = NSImage();
@@ -544,7 +544,7 @@ class BCBooruCollectionViewItem: NSObject {
     var finishedLoadingImage : Bool = false;
     
     /// How opaque this item should be in the grid(Used to represent when you have downloaded something before)
-    var alphaValue : CGFloat = 1;
+    @objc var alphaValue : CGFloat = 1;
     
     /// Is this an item that shows that there is no more results?
     var noMoreResultsItem : Bool = false;

@@ -156,4 +156,3 @@ class BCAppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDe
         savePreferences();
     }
 }
-

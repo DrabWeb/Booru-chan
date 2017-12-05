@@ -41,7 +41,7 @@ extension NSTokenField {
 
 extension NSImage {
     /// Saves this image to the given path with the given file type
-    func saveTo(_ filePath : String, fileType : NSBitmapImageFileType) {
+    func saveTo(_ filePath : String, fileType : NSBitmapImageRep.FileType) {
         // If the bitmap representation isnt nil...
         if let imageRepresentation = self.representations[0] as? NSBitmapImageRep {
             // If the data using the given file type isnt nil...

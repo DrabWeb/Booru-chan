@@ -17,7 +17,7 @@ class BCWindowController: NSWindowController {
         // Tabbing is only on 10.12+
         if #available(OSX 10.12, *) {
             /// The new `BCWindowController`
-            let windowController : BCWindowController = self.storyboard!.instantiateController(withIdentifier: "BrowserWindowController") as! BCWindowController;
+            let windowController : BCWindowController = self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "BrowserWindowController")) as! BCWindowController;
             
             // Add `windowController` as a tab to this window controller
             self.window?.addTabbedWindow(windowController.window!, ordered: .above);

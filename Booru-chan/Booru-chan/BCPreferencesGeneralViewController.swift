@@ -48,15 +48,15 @@ class BCPreferencesGeneralViewController: NSViewController {
     private func load() {
         imageSavingFormatTextField.stringValue = preferences.imageSaveFormat;
         themePopUpButton.selectItem(withTag: preferences.theme.rawValue);
-        indicateDownloadedPostsCheckbox.state = Int(preferences.indicateDownloadedPosts as NSNumber);
-        notifyWhenDownloadsFinishCheckbox.state = Int(preferences.notifyWhenDownloadsFinished as NSNumber);
+        indicateDownloadedPostsCheckbox.state = NSControl.StateValue(rawValue: Int(truncating: preferences.indicateDownloadedPosts as NSNumber));
+        notifyWhenDownloadsFinishCheckbox.state = NSControl.StateValue(rawValue: Int(truncating: preferences.notifyWhenDownloadsFinished as NSNumber));
     }
     
     private func save() {
         preferences.imageSaveFormat = imageSavingFormatTextField.stringValue;
         preferences.theme = BCTheme(rawValue: themePopUpButton.selectedTag())!;
-        preferences.indicateDownloadedPosts = indicateDownloadedPostsCheckbox.state == 1;
-        preferences.notifyWhenDownloadsFinished = notifyWhenDownloadsFinishCheckbox.state == 1;
+        preferences.indicateDownloadedPosts = indicateDownloadedPostsCheckbox.state.rawValue == 1;
+        preferences.notifyWhenDownloadsFinished = notifyWhenDownloadsFinishCheckbox.state.rawValue == 1;
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: "BCPreferences.Updated"), object: nil);
     }
