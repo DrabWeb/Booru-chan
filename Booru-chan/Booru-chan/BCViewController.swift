@@ -66,10 +66,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
     
     /// The log of copied image URLs
     var imageUrlCopyLog : [String] = [];
-    
-    /// The constraint for the top of gridStyleController.imageViewScrollView
-    private var imageViewScrollViewTopConstraint : NSLayoutConstraint? = nil;
-    
+
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -106,20 +103,8 @@ class BCViewController: NSViewController, NSWindowDelegate {
         toolbarSearchField.tokensChangedTarget = self;
         toolbarSearchField.tokensChangedAction = #selector(BCViewController.searchTokensChanged);
         
-        // Add the constraint for the top of the image view so it centers relative to the visible frame, not the whole window
-        createImageViewScrollViewConstraints(relativeTo: window.standardWindowButton(.closeButton)!.superview!.superview!, attribute: .bottom);
-        
         updateBooruPickerPopupButton();
         updateTitle();
-    }
-    
-    private func createImageViewScrollViewConstraints(relativeTo : NSView, attribute : NSLayoutConstraint.Attribute, constant : CGFloat = 0) {
-        if(imageViewScrollViewTopConstraint != nil) {
-            window.contentView?.superview?.removeConstraint(imageViewScrollViewTopConstraint!);
-        }
-        
-        imageViewScrollViewTopConstraint = NSLayoutConstraint(item: gridStyleController.imageViewScrollView, attribute: .top, relatedBy: .equal, toItem: relativeTo, attribute: attribute, multiplier: 1, constant: constant);
-//        window.contentView?.superview?.addConstraint(imageViewScrollViewTopConstraint!);
     }
     
     override func viewWillDisappear() {
@@ -134,14 +119,6 @@ class BCViewController: NSViewController, NSWindowDelegate {
         if(!titlebarVisible) {
             showTitlebar();
         }
-    }
-    
-    func windowDidEnterFullScreen(_ notification: Notification) {
-        createImageViewScrollViewConstraints(relativeTo: view, attribute: .top, constant: 37);
-    }
-    
-    func windowDidExitFullScreen(_ notification: Notification) {
-        createImageViewScrollViewConstraints(relativeTo: window.standardWindowButton(.closeButton)!.superview!.superview!, attribute: .bottom);
     }
     
     /// Called when the tokens from toolbarSearchField change
@@ -601,7 +578,6 @@ class BCViewController: NSViewController, NSWindowDelegate {
         
         gridStyleController.booruCollectionViewScrollView.automaticallyAdjustsContentInsets = false;
         gridStyleController.booruCollectionViewScrollView.contentInsets = NSEdgeInsetsZero;
-        createImageViewScrollViewConstraints(relativeTo: window.contentView!, attribute: .top);
         
         window.contentView?.needsDisplay = true;
         
@@ -611,7 +587,6 @@ class BCViewController: NSViewController, NSWindowDelegate {
     func showTitlebar() {
         window.standardWindowButton(.closeButton)?.superview?.superview?.isHidden = false;
         gridStyleController.booruCollectionViewScrollView.automaticallyAdjustsContentInsets = true;
-        createImageViewScrollViewConstraints(relativeTo: window.standardWindowButton(.closeButton)!.superview!.superview!, attribute: .bottom);
         
         window.contentView?.needsDisplay = true;
         
@@ -666,9 +641,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
     
     func initialize() {
         window = NSApplication.shared.windows.last!;
-        window.windowController!.shouldCascadeWindows = false;
         window.delegate = self;
-        window.styleMask.insert(NSWindow.StyleMask.fullScreen);
         window.titleVisibility = .hidden;
         applyTheme((NSApp.delegate as! BCAppDelegate).preferences.theme);
     }

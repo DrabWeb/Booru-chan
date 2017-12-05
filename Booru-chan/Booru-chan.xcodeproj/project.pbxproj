@@ -34,6 +34,7 @@
 		5DBDDD121CD910C00086E61D /* BCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBDDD111CD910C00086E61D /* BCExtensions.swift */; };
 		AE329EC61E44C179003812FB /* BCPreferencesGeneralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC51E44C179003812FB /* BCPreferencesGeneralViewController.swift */; };
 		AE329EC81E44C186003812FB /* BCPreferencesBoorusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC71E44C186003812FB /* BCPreferencesBoorusViewController.swift */; };
+		AE9A56EE1FD72DFA0099D09E /* BCWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9A56ED1FD72DFA0099D09E /* BCWindow.swift */; };
 		AEA5A2171E13851400599CC5 /* BCWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5A2161E13851400599CC5 /* BCWindowController.swift */; };
 		AECAD3191DF4A1DA00E846EB /* BCTitlebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAD3181DF4A1DA00E846EB /* BCTitlebarView.swift */; };
 		EEBFB95BB7348EBF996CBBCD /* Pods_Booru_chanTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6B031B9C7B964655AF51EC8 /* Pods_Booru_chanTests.framework */; };
@@ -98,6 +99,7 @@
 		AE329EC51E44C179003812FB /* BCPreferencesGeneralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCPreferencesGeneralViewController.swift; sourceTree = "<group>"; };
 		AE329EC71E44C186003812FB /* BCPreferencesBoorusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCPreferencesBoorusViewController.swift; sourceTree = "<group>"; };
 		AE75E5161DDE678E00937817 /* Booru-chan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Booru-chan-Bridging-Header.h"; sourceTree = "<group>"; };
+		AE9A56ED1FD72DFA0099D09E /* BCWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCWindow.swift; sourceTree = "<group>"; };
 		AEA5A2161E13851400599CC5 /* BCWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCWindowController.swift; sourceTree = "<group>"; };
 		AECAD3181DF4A1DA00E846EB /* BCTitlebarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCTitlebarView.swift; sourceTree = "<group>"; };
 		B6B031B9C7B964655AF51EC8 /* Pods_Booru_chanTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chanTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,6 +184,7 @@
 				5D71B4951CCC06EA0011C281 /* BCAppDelegate.swift */,
 				5D71B4971CCC06EA0011C281 /* BCViewController.swift */,
 				AEA5A2161E13851400599CC5 /* BCWindowController.swift */,
+				AE9A56ED1FD72DFA0099D09E /* BCWindow.swift */,
 				5D7CA38D1CCC0A6E00B4A0A5 /* Storyboards */,
 				5D3288331CCE95580029A57F /* Objects */,
 				5D7CA38C1CCC0A6800B4A0A5 /* Views */,
@@ -603,6 +606,7 @@
 				5DBDDD121CD910C00086E61D /* BCExtensions.swift in Sources */,
 				5D7CA38F1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift in Sources */,
 				5D7CA3911CCC0AFD00B4A0A5 /* BCAlwaysActiveViews.swift in Sources */,
+				AE9A56EE1FD72DFA0099D09E /* BCWindow.swift in Sources */,
 				5DBB0A061CDBF427007B383B /* BCBooruCollectionView.swift in Sources */,
 				5DAD293A1CCD68CB00C3C747 /* BCRasterizedViews.swift in Sources */,
 				AE329EC61E44C179003812FB /* BCPreferencesGeneralViewController.swift in Sources */,

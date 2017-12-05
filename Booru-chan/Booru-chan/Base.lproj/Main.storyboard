@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,6 +15,9 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="229" y="254" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1600" height="900"/>
+                        <connections>
+                            <outlet property="delegate" destination="1PR-32-MJF" id="u3P-eb-Xr1"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="06l-1X-w4g" kind="relationship" relationship="window.shadowedContentViewController" id="zou-Pf-KFI"/>
@@ -273,7 +276,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController storyboardIdentifier="BrowserWindowController" id="B8D-0N-5wS" customClass="BCWindowController" customModule="Booru_chan" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Booru-chan" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="BooruChanBrowser" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Booru-chan" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="BooruChanBrowser" animationBehavior="default" id="IQv-IB-iLA" customClass="BCWindow" customModule="Booru_chan" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="550" y="405" width="600" height="400"/>
@@ -313,7 +316,7 @@
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="96" height="22"/>
                                     <size key="maxSize" width="500" height="22"/>
-                                    <tokenField key="view" focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" id="knT-xx-qni" customClass="BCBooruSearchTokenField" customModule="Booru_chan" customModuleProvider="target">
+                                    <tokenField key="view" focusRingType="none" verticalHuggingPriority="750" id="knT-xx-qni" customClass="BCBooruSearchTokenField" customModule="Booru_chan" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="14" width="96" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Search..." allowsEditingTextAttributes="YES" bezelStyle="round" tokenStyle="rounded" id="r6F-1j-rMB">
@@ -335,6 +338,9 @@
                                 <toolbarItem reference="ezc-Vb-bD7"/>
                             </defaultToolbarItems>
                         </toolbar>
+                        <connections>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="5Xm-pK-K4R"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
@@ -400,7 +406,7 @@
                                                                     <visualEffectView wantsLayer="YES" blendingMode="behindWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="y2Y-rw-rfC" userLabel="Info Bar Visual Effect View">
                                                                         <rect key="frame" x="0.0" y="0.0" width="290" height="22"/>
                                                                         <subviews>
-                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bQh-rP-zel" userLabel="Info Label">
+                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bQh-rP-zel" userLabel="Info Label">
                                                                                 <rect key="frame" x="3" y="3" width="284" height="17"/>
                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" alignment="center" title="No Posts Selected" id="Gev-xm-tfe">
                                                                                     <font key="font" metaFont="system"/>
@@ -420,7 +426,7 @@
                                                                     <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d4m-oo-UgF" userLabel="No Results Container View">
                                                                         <rect key="frame" x="0.0" y="0.0" width="290" height="303"/>
                                                                         <subviews>
-                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" alphaValue="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="MXW-qz-3uu" userLabel="No Results Label">
+                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" alphaValue="0.25" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MXW-qz-3uu" userLabel="No Results Label">
                                                                                 <rect key="frame" x="-2" y="137" width="294" height="29"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="29" id="1YC-xi-zY2"/>
@@ -582,7 +588,6 @@
                                                             </constraints>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </clipView>
-                                                        <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="nIS-sh-Cph">
                                                             <rect key="frame" x="0.0" y="384" width="300" height="16"/>
                                                             <autoresizingMask key="autoresizingMask"/>
@@ -595,6 +600,7 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="Zhb-km-PfA" secondAttribute="trailing" id="VbD-Hj-Cr4"/>
+                                                    <constraint firstItem="Zhb-km-PfA" firstAttribute="top" secondItem="ubM-px-bhh" secondAttribute="top" id="npA-Dy-kGF"/>
                                                     <constraint firstItem="Zhb-km-PfA" firstAttribute="leading" secondItem="ubM-px-bhh" secondAttribute="leading" id="vvV-Cr-m44"/>
                                                     <constraint firstAttribute="bottom" secondItem="Zhb-km-PfA" secondAttribute="bottom" id="zxm-8b-ftR"/>
                                                 </constraints>
@@ -680,8 +686,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <font key="font" metaFont="message"/>
                         <tabViewItems/>
+                        <connections>
+                            <outlet property="delegate" destination="06l-1X-w4g" id="SWB-dE-V2j"/>
+                        </connections>
                     </tabView>
                     <connections>
+                        <outlet property="tabView" destination="adv-Ce-pCQ" id="Kbm-nP-Fdr"/>
                         <segue destination="CzB-5j-0V1" kind="relationship" relationship="tabItems" id="VQU-5S-vUf"/>
                         <segue destination="lGz-QM-Grz" kind="relationship" relationship="tabItems" id="qDw-Wh-Jer"/>
                     </connections>
@@ -705,7 +715,7 @@
                                     <constraint firstAttribute="height" constant="222" id="diU-U1-vLY"/>
                                 </constraints>
                             </customView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MSG-Jw-jW8" userLabel="Image Saving Format Header">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MSG-Jw-jW8" userLabel="Image Saving Format Header">
                                 <rect key="frame" x="18" y="185" width="131" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="127" id="fr3-h4-fYu"/>
@@ -717,7 +727,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lYV-uz-XuS" userLabel="Image Saving Format Text Field">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lYV-uz-XuS" userLabel="Image Saving Format Text Field">
                                 <rect key="frame" x="48" y="155" width="384" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="%booru%, %tags%, %id%, %md5%" bezelStyle="round" id="drW-fQ-ESy">
                                     <font key="font" metaFont="system"/>
@@ -728,7 +738,7 @@
                                     <action selector="imageSavingFormatTextField:" target="CzB-5j-0V1" id="ifn-QS-KWb"/>
                                 </connections>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJp-e4-9w5" userLabel="Theme Header">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hJp-e4-9w5" userLabel="Theme Header">
                                 <rect key="frame" x="18" y="115" width="46" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="42" id="Occ-OF-XHw"/>
@@ -866,7 +876,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="180" height="31"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="2nX-W3-nYM" userLabel="Name Label">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2nX-W3-nYM" userLabel="Name Label">
                                                                     <rect key="frame" x="5" y="8" width="170" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="klz-N9-yyN"/>
@@ -906,7 +916,7 @@
                                                             <rect key="frame" x="180" y="0.0" width="258" height="31"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="uGb-5o-prg" userLabel="URL Label">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uGb-5o-prg" userLabel="URL Label">
                                                                     <rect key="frame" x="5" y="8" width="248" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="O9i-gV-yOe"/>
@@ -970,7 +980,7 @@
                                     <action selector="typePopUpButton:" target="lGz-QM-Grz" id="yA5-Me-87N"/>
                                 </connections>
                             </popUpButton>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="X7w-NI-u7z" userLabel="Posts Per Page Label">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X7w-NI-u7z" userLabel="Posts Per Page Label">
                                 <rect key="frame" x="18" y="166" width="95" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="91" id="NaO-9N-WOf"/>
@@ -982,7 +992,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yg7-U3-0dv" userLabel="Posts Per Page Text Field" customClass="BCAlwaysActiveTextField" customModule="Booru_chan" customModuleProvider="target">
+                            <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yg7-U3-0dv" userLabel="Posts Per Page Text Field" customClass="BCAlwaysActiveTextField" customModule="Booru_chan" customModuleProvider="target">
                                 <rect key="frame" x="125" y="163" width="112" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="112" id="KnH-cs-G9U"/>
@@ -1001,7 +1011,7 @@
                                     <action selector="postsPerPageTextField:" target="lGz-QM-Grz" id="5RJ-U9-rHj"/>
                                 </connections>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YUI-Vs-6t3">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YUI-Vs-6t3">
                                 <rect key="frame" x="18" y="132" width="101" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="97" id="HOq-11-P86"/>
@@ -1090,7 +1100,7 @@
                                     <action selector="clearTagHistoryButton:" target="lGz-QM-Grz" id="fFf-2f-AZI"/>
                                 </connections>
                             </button>
-                            <tokenField focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="6ho-eL-BU2" userLabel="Tag Blacklist Token Field">
+                            <tokenField focusRingType="none" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ho-eL-BU2" userLabel="Tag Blacklist Token Field">
                                 <rect key="frame" x="20" y="20" width="440" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="90" id="wiu-Zh-ARG"/>

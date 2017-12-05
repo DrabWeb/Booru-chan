@@ -53,7 +53,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
     @IBOutlet weak var leftSplitView: BCNoDividerSplitView!
     
     /// The items from booruCollectionViewArrayController
-    var booruCollectionViewArrayControllerItems: NSMutableArray = NSMutableArray();
+    @objc var booruCollectionViewArrayControllerItems: NSMutableArray = NSMutableArray();
     
     /// The scroll view for imageView
     @IBOutlet weak var imageViewScrollView: NSScrollView!
