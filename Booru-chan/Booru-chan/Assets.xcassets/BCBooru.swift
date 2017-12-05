@@ -631,7 +631,7 @@ class BCBooruUtilities {
         }
         
         /// The protocol of this Booru's URL
-        let urlProtocol : String = self.representedBooru!.url.substring(to: self.representedBooru!.url.range(of: "//")!.lowerBound);
+        let urlProtocol : String = String(self.representedBooru!.url[..<self.representedBooru!.url.range(of: "//")!.lowerBound]);
         
         // If the image URL doesn't have a protocol...
         if(post?.imageUrl.hasPrefix("//") ?? false) {

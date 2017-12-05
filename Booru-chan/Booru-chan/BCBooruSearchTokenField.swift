@@ -80,7 +80,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         // If pasteString isnt empty...
         if(pasteString != "") {
             // Remove the final trailing space from pasteString
-            pasteString = pasteString.substring(to: pasteString.characters.index(before: pasteString.endIndex));
+            pasteString = String(pasteString[..<pasteString.index(before: pasteString.endIndex)]);
         }
         
         // Paste pasteString to the pasteboard
@@ -104,7 +104,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         return tokens;
     }
     
-    func tokenField(_ tokenField: NSTokenField, completionsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<UnsafeMutablePointer<Int>>?) -> [Any]? {
+    func tokenField(_ tokenField: NSTokenField, completionsForSubstring substring: String, indexOfToken tokenIndex: Int, indexOfSelectedItem selectedIndex: UnsafeMutablePointer<Int>?) -> [Any]? {
         /// The completions for this substring
         var completions : [String] = [];
         
@@ -190,8 +190,8 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
                 // Print where we are saving the JSON
                 var name = "";
                 let t = tags.filter { $0 != "" }.first!;
-                if t.characters.count > 1 {
-                    name = t.substring(to: t.characters.index(after: t.startIndex));
+                if t.count > 1 {
+                    name = String(t[..<t.index(after: t.startIndex)]);
                 }
                 else {
                     name = t;

@@ -119,7 +119,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         }
         
         imageViewScrollViewTopConstraint = NSLayoutConstraint(item: gridStyleController.imageViewScrollView, attribute: .top, relatedBy: .equal, toItem: relativeTo, attribute: attribute, multiplier: 1, constant: constant);
-        window.contentView?.superview?.addConstraint(imageViewScrollViewTopConstraint!);
+//        window.contentView?.superview?.addConstraint(imageViewScrollViewTopConstraint!);
     }
     
     override func viewWillDisappear() {
@@ -174,7 +174,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
             saveDirectorySavePanel.prompt = "Save";
             
             // Run the open panel, and if the user hits "Save"...
-            if(Bool(saveDirectorySavePanel.runModal() as NSNumber)) {
+            if(Bool(truncating: saveDirectorySavePanel.runModal() as NSNumber)) {
                 /// The directory we are saving the images to
                 var saveDirectory : String = saveDirectorySavePanel.url!.absoluteString.removingPercentEncoding!.replacingOccurrences(of: "file://", with: "");
                 
@@ -238,7 +238,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
             // If tagsString isnt blank...
             if(tagsString != "") {
                 // Remove the trailing space that was added from adding the tags
-                tagsString = tagsString.substring(to: tagsString.characters.index(before: tagsString.endIndex));
+                tagsString = String(tagsString[..<tagsString.index(before: tagsString.endIndex)]);
             }
             
             // Replace %tags% with the tags string
@@ -255,17 +255,17 @@ class BCViewController: NSViewController, NSWindowDelegate {
                     imageFileName = imageFileName.replacingOccurrences(of: "/", with: " ");
                     
                     // If imageFileName has over 250 characters...
-                    if(imageFileName.characters.count > 250) {
+                    if(imageFileName.count > 250) {
                         // Cut imageFileName down to 250 characters
-                        imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: 250));
+                        imageFileName = String(imageFileName[..<imageFileName.index(imageFileName.startIndex, offsetBy: 250)]);
                         
                         /// The indexes of all the spaces in imageFileName
-                        let indexesOfSpaceInImageFileName = imageFileName.characters.enumerated()
+                        let indexesOfSpaceInImageFileName = imageFileName.enumerated()
                             .filter { $0.element == " " }
                             .map { $0.offset }
                         
                         // Cut imageFileName down to the last space
-                        imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: indexesOfSpaceInImageFileName.last!));
+                        imageFileName = String(imageFileName[..<imageFileName.index(imageFileName.startIndex, offsetBy: indexesOfSpaceInImageFileName.last!)]);
                     }
                     
                     // Add the extension onto the end
@@ -321,17 +321,17 @@ class BCViewController: NSViewController, NSWindowDelegate {
                                     imageFileName = imageFileName.replacingOccurrences(of: "/", with: " ");
                                     
                                     // If imageFileName has over 250 characters...
-                                    if(imageFileName.characters.count > 250) {
+                                    if(imageFileName.count > 250) {
                                         // Cut imageFileName down to 250 characters
-                                        imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: 250));
+                                        imageFileName = String(imageFileName[..<imageFileName.index(imageFileName.startIndex, offsetBy: 250)]);
                                         
                                         /// The indexes of all the spaces in imageFileName
-                                        let indexesOfSpaceInImageFileName = imageFileName.characters.enumerated()
+                                        let indexesOfSpaceInImageFileName = imageFileName.enumerated()
                                             .filter { $0.element == " " }
                                             .map { $0.offset }
                                         
                                         // Cut imageFileName down to the last space
-                                        imageFileName = imageFileName.substring(to: imageFileName.characters.index(imageFileName.startIndex, offsetBy: indexesOfSpaceInImageFileName.last!));
+                                        imageFileName = String(imageFileName[..<imageFileName.index(imageFileName.startIndex, offsetBy: indexesOfSpaceInImageFileName.last!)]);
                                     }
                                     
                                     // Add the extension onto the end
@@ -386,13 +386,13 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     /// Saves the selected Booru post images
-    func saveSelectedImages() {
+    @objc func saveSelectedImages() {
         // Save the selected items
         saveBooruItems(gridStyleController.getSelectedBooruItems());
     }
     
     /// Opens the selected posts in the browser
-    func openSelectedPostsInBrowser() {
+    @objc func openSelectedPostsInBrowser() {
         // For every selected post...
         for(_, currentSelectedPost) in gridStyleController.getSelectedBooruItems().enumerated() {
             // Open the selected post in the browser
@@ -401,7 +401,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     /// Copys the URLs of the selected posts
-    func copyUrlsOfSelectedPosts() {
+    @objc func copyUrlsOfSelectedPosts() {
         /// The string to copy to the pasteboard
         var copyString : String = "";
         
@@ -434,7 +434,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     /// Copies all the URLs in postUrlCopyLog
-    func copyPreviouslyCopiedPostUrls() {
+    @objc func copyPreviouslyCopiedPostUrls() {
         /// The string to copy
         var copyString : String = "";
         
@@ -447,7 +447,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // If copyString isnt empty...
         if(copyString != "") {
             // Remove the final new line from copyString
-            copyString = copyString.substring(to: copyString.index(before: copyString.endIndex));
+            copyString = String(copyString[..<copyString.index(before: copyString.endIndex)]);
         }
         
         // Copy copyString
@@ -459,7 +459,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     /// Copys the image URLs of the selected posts
-    func copyImageUrlsOfSelectedPosts() {
+    @objc func copyImageUrlsOfSelectedPosts() {
         /// The string to copy to the pasteboard
         var copyString : String = "";
         
@@ -492,7 +492,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     /// Copies all the URLs in imageUrlCopyLog
-    func copyPreviouslyCopiedImageUrls() {
+    @objc func copyPreviouslyCopiedImageUrls() {
         /// The string to copy
         var copyString : String = "";
         
@@ -505,7 +505,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // If copyString isnt empty...
         if(copyString != "") {
             // Remove the final new line from copyString
-            copyString = copyString.substring(to: copyString.characters.index(before: copyString.endIndex));
+            copyString = String(copyString[..<copyString.index(before: copyString.endIndex)]);
         }
         
         // Copy copyString
@@ -583,7 +583,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
     
     private var titlebarVisible : Bool = true;
     
-    func toggleTitlebar() {
+    @objc func toggleTitlebar() {
         titlebarVisible = !titlebarVisible;
 
         if(titlebarVisible) {
@@ -618,39 +618,39 @@ class BCViewController: NSViewController, NSWindowDelegate {
         titlebarVisible = true;
     }
     
-    func selectPostBrowser() {
+    @objc func selectPostBrowser() {
         window.makeFirstResponder(gridStyleController.booruCollectionView);
     }
     
-    func openBooruPopup() {
+    @objc func openBooruPopup() {
         toolbarBooruPopup.performClick(self);
     }
     
-    func selectSearchField() {
+    @objc func selectSearchField() {
         window.makeFirstResponder(toolbarSearchField);
     }
     
-    func toggleBooruCollectionView() {
+    @objc func toggleBooruCollectionView() {
         gridStyleController.toggleBooruCollectionView();
     }
     
-    func toggleInfoBar() {
+    @objc func toggleInfoBar() {
         gridStyleController.toggleInfoBar();
     }
     
-    func toggleTagList() {
+    @objc func toggleTagList() {
         gridStyleController.toggleTagList();
     }
     
-    func zoomIn() {
+    @objc func zoomIn() {
         gridStyleController.zoomIn();
     }
     
-    func zoomOut() {
+    @objc func zoomOut() {
         gridStyleController.zoomOut();
     }
     
-    func resetZoomWithAnimation() {
+    @objc func resetZoomWithAnimation() {
         gridStyleController.resetZoomWithAnimation();
     }
     
