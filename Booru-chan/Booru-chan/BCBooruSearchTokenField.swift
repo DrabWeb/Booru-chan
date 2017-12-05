@@ -169,7 +169,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
     /// Called when the tag download finishes for autocompletion suggestions
     func finishedDownloadingTags(_ tags : [String]) {
         // Print what tags we downloaded
-        Swift.print("BCBooruSearchTokenField: Downloaded tags for completion: \(tags)");
+        Swift.print("BCBooruSearchTokenField: Downloaded \(tags.count) tags for completion.");
         
         // If lastDownloadedTags is empty...
         if(lastDownloadedTags == []) {

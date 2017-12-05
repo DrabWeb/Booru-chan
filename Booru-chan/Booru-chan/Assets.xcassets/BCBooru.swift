@@ -276,8 +276,6 @@ class BCBooruUtilities {
                         /// The BCBooruPost from currentResult
                         let post : BCBooruPost = self.getPostFromData(json: currentResult.1, xml: nil)!;
                         
-                        print(currentResult.1);
-                        
                         /// Does the current post have a blacklisted tag?
                         var containsTagInBlacklist : Bool = false;
                         
