@@ -42,6 +42,7 @@
 		AED6F5921FD7514F0036EDE8 /* TagListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F5911FD7514F0036EDE8 /* TagListController.swift */; };
 		AED6F5941FD7515A0036EDE8 /* InfoBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F5931FD7515A0036EDE8 /* InfoBarController.swift */; };
 		AED6F5961FD751680036EDE8 /* PostsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F5951FD751680036EDE8 /* PostsController.swift */; };
+		AED6F59A1FD754DF0036EDE8 /* IThemeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F5991FD754DF0036EDE8 /* IThemeable.swift */; };
 		EEBFB95BB7348EBF996CBBCD /* Pods_Booru_chanTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6B031B9C7B964655AF51EC8 /* Pods_Booru_chanTests.framework */; };
 		FB6C1D77A47309096678320F /* Pods_Booru_chan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834CCAD73A440142898C1721 /* Pods_Booru_chan.framework */; };
 /* End PBXBuildFile section */
@@ -112,6 +113,7 @@
 		AED6F5911FD7514F0036EDE8 /* TagListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListController.swift; sourceTree = "<group>"; };
 		AED6F5931FD7515A0036EDE8 /* InfoBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBarController.swift; sourceTree = "<group>"; };
 		AED6F5951FD751680036EDE8 /* PostsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsController.swift; sourceTree = "<group>"; };
+		AED6F5991FD754DF0036EDE8 /* IThemeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IThemeable.swift; sourceTree = "<group>"; };
 		B6B031B9C7B964655AF51EC8 /* Pods_Booru_chanTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chanTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C9F1C05F609B24EF821597 /* Pods_Booru_chanUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chanUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -197,6 +199,7 @@
 				AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */,
 				5D7CA38D1CCC0A6E00B4A0A5 /* Storyboards */,
 				5D3288331CCE95580029A57F /* Objects */,
+				AED6F5981FD754C10036EDE8 /* Protocols */,
 				5D7CA38C1CCC0A6800B4A0A5 /* Views */,
 				5D7CA3921CCC128C00B4A0A5 /* Utilities */,
 				5D88CC101CCC14B2001FF12E /* Controllers */,
@@ -310,6 +313,14 @@
 				AED6F58F1FD7513C0036EDE8 /* ViewerController.swift */,
 			);
 			name = Browser;
+			sourceTree = "<group>";
+		};
+		AED6F5981FD754C10036EDE8 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				AED6F5991FD754DF0036EDE8 /* IThemeable.swift */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -624,6 +635,7 @@
 				AED6F5961FD751680036EDE8 /* PostsController.swift in Sources */,
 				AED6F58C1FD750D30036EDE8 /* BooruController.swift in Sources */,
 				AECAD3191DF4A1DA00E846EB /* BooruTitlebarView.swift in Sources */,
+				AED6F59A1FD754DF0036EDE8 /* IThemeable.swift in Sources */,
 				5D1CC5881DC591C100E3988D /* ScaleToFitContentTokenField.swift in Sources */,
 				5D3288321CCE80D10029A57F /* BottomActionScrollView.swift in Sources */,
 				5D88CC151CCC177B001FF12E /* ColouredView.swift in Sources */,

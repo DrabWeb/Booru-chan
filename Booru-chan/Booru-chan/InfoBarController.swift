@@ -7,6 +7,8 @@
 
 import Cocoa
 
-class InfoBarController: NSViewController {
+class InfoBarController: NSViewController, IThemeable {
+    func applyTheme(theme: Theme) {
 
+    }
 }

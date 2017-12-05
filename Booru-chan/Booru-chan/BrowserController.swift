@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class BrowserController: NSSplitViewController {
+class BrowserController: NSSplitViewController, IThemeable {
     @IBOutlet weak var postsItem: NSSplitViewItem!
     private var postsController: PostsController {
         get {
@@ -27,5 +27,11 @@ class BrowserController: NSSplitViewController {
         get {
             return tagListItem.viewController as! TagListController;
         }
+    }
+
+    func applyTheme(theme: Theme) {
+        postsController.applyTheme(theme: theme);
+        infoBarController.applyTheme(theme: theme);
+        tagListController.applyTheme(theme: theme);
     }
 }

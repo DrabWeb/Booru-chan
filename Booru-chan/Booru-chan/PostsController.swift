@@ -7,6 +7,8 @@
 
 import Cocoa
 
-class PostsController: NSViewController {
+class PostsController: NSViewController, IThemeable {
+    func applyTheme(theme: Theme) {
 
+    }
 }

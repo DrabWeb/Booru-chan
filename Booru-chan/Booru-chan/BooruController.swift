@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class BooruController: NSSplitViewController {
+class BooruController: NSSplitViewController, IThemeable {
     @IBOutlet private weak var browserItem: NSSplitViewItem!
     private var browserController: BrowserController {
         get {
@@ -20,5 +20,9 @@ class BooruController: NSSplitViewController {
         get {
             return viewerItem.viewController as! ViewerController;
         }
+    }
+
+    func applyTheme(theme: Theme) {
+        browserController.applyTheme(theme: theme);
     }
 }
