@@ -73,7 +73,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        (NSApplication.shared().delegate as! BCAppDelegate).loadPreferences();
+        (NSApplication.shared.delegate as! BCAppDelegate).loadPreferences();
         NotificationCenter.default.addObserver(self, selector: #selector(BCViewController.preferencesUpdated), name: NSNotification.Name(rawValue: "BCPreferences.Updated"), object: nil);
         
         initialize();
@@ -88,7 +88,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         
         // Get all the toolbar items
         for(_, currentItem) in self.window.toolbar!.items.enumerated() {
-            switch(currentItem.itemIdentifier) {
+            switch(currentItem.itemIdentifier.rawValue) {
             case "BooruSelector":
                 self.toolbarBooruPopup = (currentItem.view as! NSPopUpButton);
                 break;
@@ -113,7 +113,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         updateTitle();
     }
     
-    private func createImageViewScrollViewConstraints(relativeTo : NSView, attribute : NSLayoutAttribute, constant : CGFloat = 0) {
+    private func createImageViewScrollViewConstraints(relativeTo : NSView, attribute : NSLayoutConstraint.Attribute, constant : CGFloat = 0) {
         if(imageViewScrollViewTopConstraint != nil) {
             window.contentView?.superview?.removeConstraint(imageViewScrollViewTopConstraint!);
         }
@@ -145,13 +145,13 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     /// Called when the tokens from toolbarSearchField change
-    func searchTokensChanged() {
+    @objc func searchTokensChanged() {
         // Update the tag display list
         gridStyleController.tagListController.displayTagsFromPost(gridStyleController.tagListController.lastDisplayedPost);
     }
     
     /// Called when the preferences are updated
-    func preferencesUpdated() {
+    @objc func preferencesUpdated() {
         // Restore the selected searching booru
         updateBooruPickerPopupButton(updateSearching: false);
         toolbarBooruPopup.selectItem(at: lastPickedBooruIndex);
@@ -168,7 +168,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
             let saveDirectorySavePanel : NSSavePanel = NSSavePanel();
             
             // Set the name field default value to the image save format
-            saveDirectorySavePanel.nameFieldStringValue = (NSApplication.shared().delegate as! BCAppDelegate).preferences.imageSaveFormat;
+            saveDirectorySavePanel.nameFieldStringValue = (NSApplication.shared.delegate as! BCAppDelegate).preferences.imageSaveFormat;
             
             // Set the prompt to "Save"
             saveDirectorySavePanel.prompt = "Save";
@@ -372,7 +372,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
             self.gridStyleController.reloadDownloadedIndicators();
             
             // If the user has downloads finished notifications on and we downloaded more than one image...
-            if((NSApplication.shared().delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished && count > 1) {
+            if((NSApplication.shared.delegate as! BCAppDelegate).preferences.notifyWhenDownloadsFinished && count > 1) {
                 /// The notification to tell the user that tells the user their downloads have finished
                 let downloadsFinishedNotification : NSUserNotification = NSUserNotification();
                 
@@ -396,7 +396,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // For every selected post...
         for(_, currentSelectedPost) in gridStyleController.getSelectedBooruItems().enumerated() {
             // Open the selected post in the browser
-            NSWorkspace.shared().open(URL(string: currentSelectedPost.representedPost!.url)!);
+            NSWorkspace.shared.open(URL(string: currentSelectedPost.representedPost!.url)!);
         }
     }
     
@@ -427,10 +427,10 @@ class BCViewController: NSViewController, NSWindowDelegate {
         
         // Copy copyString
         // Add the string type to the general pasteboard
-        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general.declareTypes([NSPasteboard.PasteboardType.string], owner: nil);
         
         // Set the string of the general pasteboard to copyString
-        NSPasteboard.general().setString(copyString, forType: NSStringPboardType);
+        NSPasteboard.general.setString(copyString, forType: NSPasteboard.PasteboardType.string);
     }
     
     /// Copies all the URLs in postUrlCopyLog
@@ -447,15 +447,15 @@ class BCViewController: NSViewController, NSWindowDelegate {
         // If copyString isnt empty...
         if(copyString != "") {
             // Remove the final new line from copyString
-            copyString = copyString.substring(to: copyString.characters.index(before: copyString.endIndex));
+            copyString = copyString.substring(to: copyString.index(before: copyString.endIndex));
         }
         
         // Copy copyString
         // Add the string type to the general pasteboard
-        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general.declareTypes([NSPasteboard.PasteboardType.string], owner: nil);
         
         // Set the string of the general pasteboard to copyString
-        NSPasteboard.general().setString(copyString, forType: NSStringPboardType);
+        NSPasteboard.general.setString(copyString, forType: NSPasteboard.PasteboardType.string);
     }
     
     /// Copys the image URLs of the selected posts
@@ -485,10 +485,10 @@ class BCViewController: NSViewController, NSWindowDelegate {
         
         // Copy copyString
         // Add the string type to the general pasteboard
-        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general.declareTypes([NSPasteboard.PasteboardType.string], owner: nil);
         
         // Set the string of the general pasteboard to copyString
-        NSPasteboard.general().setString(copyString, forType: NSStringPboardType);
+        NSPasteboard.general.setString(copyString, forType: NSPasteboard.PasteboardType.string);
     }
     
     /// Copies all the URLs in imageUrlCopyLog
@@ -510,10 +510,10 @@ class BCViewController: NSViewController, NSWindowDelegate {
         
         // Copy copyString
         // Add the string type to the general pasteboard
-        NSPasteboard.general().declareTypes([NSStringPboardType], owner: nil);
+        NSPasteboard.general.declareTypes([NSPasteboard.PasteboardType.string], owner: nil);
         
         // Set the string of the general pasteboard to copyString
-        NSPasteboard.general().setString(copyString, forType: NSStringPboardType);
+        NSPasteboard.general.setString(copyString, forType: NSPasteboard.PasteboardType.string);
     }
     
     /// Updates currentSelectedSearchingBooru to match the selected item in toolbarBooruPopup
@@ -525,7 +525,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
             // If there isnt one item with a title of "No Boorus Added" in toolbarBooruPopup...
             if(toolbarBooruPopup.itemArray.count != 1 && toolbarBooruPopup.itemArray[0].title != "No Boorus Added") {
                 // Set the selected searching Booru to the selected Booru
-                currentSelectedSearchingBooru = (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts[toolbarBooruPopup.index(of: toolbarBooruPopup.selectedItem!)];
+                currentSelectedSearchingBooru = (NSApplication.shared.delegate as! BCAppDelegate).preferences.booruHosts[toolbarBooruPopup.index(of: toolbarBooruPopup.selectedItem!)];
             }
             else {
                 currentSelectedSearchingBooru = nil;
@@ -565,7 +565,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         toolbarBooruPopup.removeAllItems();
         
         // For every Booru in the user's Boorus...
-        for(_, currentBooruHost) in (NSApplication.shared().delegate as! BCAppDelegate).preferences.booruHosts.enumerated() {
+        for(_, currentBooruHost) in (NSApplication.shared.delegate as! BCAppDelegate).preferences.booruHosts.enumerated() {
             // Add the current item to toolbarBooruPopup
             toolbarBooruPopup.addItem(withTitle: currentBooruHost.name);
         }
@@ -595,7 +595,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     func hideTitlebar() {
-        if(!window.styleMask.contains(NSFullScreenWindowMask)) {
+        if(!window.styleMask.contains(NSWindow.StyleMask.fullScreen)) {
             window.standardWindowButton(.closeButton)?.superview?.superview?.isHidden = true;
         }
         
@@ -654,7 +654,7 @@ class BCViewController: NSViewController, NSWindowDelegate {
         gridStyleController.resetZoomWithAnimation();
     }
     
-    func windowShouldClose(_ sender: Any) -> Bool {
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
         gridStyleController.booruCollectionViewArrayController.remove(gridStyleController.booruCollectionViewArrayController.arrangedObjects);
         return true;
     }
@@ -665,10 +665,10 @@ class BCViewController: NSViewController, NSWindowDelegate {
     }
     
     func initialize() {
-        window = NSApplication.shared().windows.last!;
+        window = NSApplication.shared.windows.last!;
         window.windowController!.shouldCascadeWindows = false;
         window.delegate = self;
-        window.styleMask.insert(NSFullSizeContentViewWindowMask);
+        window.styleMask.insert(NSWindow.StyleMask.fullScreen);
         window.titleVisibility = .hidden;
         applyTheme((NSApp.delegate as! BCAppDelegate).preferences.theme);
     }
@@ -679,12 +679,12 @@ class BCViewController: NSViewController, NSWindowDelegate {
         if(theme == currentTheme) { return; }
         currentTheme = theme;
         
-        window.appearance = NSAppearance(named: (theme == .dark) ? NSAppearanceNameVibrantDark : NSAppearanceNameVibrantLight);
+        window.appearance = NSAppearance(named: (theme == .dark) ? NSAppearance.Name.vibrantDark : NSAppearance.Name.vibrantLight);
         window.toolbar?.showsBaselineSeparator = (theme == .light);
         backgroundVisualEffectView.material = (theme == .dark) ? .dark : .selection;
         
         // Redraw the booru collection view(selection box needs to be updated)
-        gridStyleController.booruCollectionView.itemPrototype = NSStoryboard(name: "Main", bundle: Bundle.main).instantiateController(withIdentifier: "booruCollectionViewItem") as! BCBooruCollectionViewCollectionViewItem;
+        gridStyleController.booruCollectionView.itemPrototype = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: Bundle.main).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "booruCollectionViewItem")) as! BCBooruCollectionViewCollectionViewItem;
     }
 }
 

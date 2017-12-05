@@ -100,7 +100,7 @@ class BCPreferencesBoorusViewController: NSViewController {
     }
     
     /// Called when the user changes the name of a Booru list item
-    func booruNameTextFieldEdited(_ sender: NSTextField) {
+    @objc func booruNameTextFieldEdited(_ sender: NSTextField) {
         print("BCPreferencesViewController: Changing name of \"\(currentEditingHost.name)\" to \"\(sender.stringValue)\"");
         
         preferences.booruHosts[sender.tag].name = sender.stringValue;
@@ -109,7 +109,7 @@ class BCPreferencesBoorusViewController: NSViewController {
     
     
     /// Called when the user changes the URL of a Booru list item
-    func booruUrlTextFieldEdited(_ sender: NSTextField) {
+    @objc func booruUrlTextFieldEdited(_ sender: NSTextField) {
         print("BCPreferencesViewController: Changing URL of \"\(currentEditingHost.name)\" to \"\(sender.stringValue)\"");
         
         // Guarantee a trailing slash on the URL
@@ -138,12 +138,12 @@ extension BCPreferencesBoorusViewController: NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cellView: NSTableCellView = tableView.make(withIdentifier: tableColumn!.identifier, owner: nil) as! NSTableCellView;
+        let cellView: NSTableCellView = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: nil) as! NSTableCellView;
         let cellData : BCBooruHost = preferences.booruHosts[row];
         
         cellView.textField?.tag = row;
         
-        if(tableColumn!.identifier == "names") {
+        if(tableColumn!.identifier.rawValue == "names") {
             cellView.textField?.stringValue = cellData.name;
             
             cellView.textField?.target = self;
@@ -151,7 +151,7 @@ extension BCPreferencesBoorusViewController: NSTableViewDataSource {
             
             return cellView;
         }
-        else if(tableColumn!.identifier == "urls") {
+        else if(tableColumn!.identifier.rawValue == "urls") {
             cellView.textField?.stringValue = cellData.url;
             
             cellView.textField?.target = self;

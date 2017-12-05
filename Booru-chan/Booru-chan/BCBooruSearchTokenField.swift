@@ -61,12 +61,12 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
     
     func tokenField(_ tokenField: NSTokenField, readFrom pboard: NSPasteboard) -> [Any]? {
         // Return the text from pboard split at every space
-        return (pboard.string(forType: NSStringPboardType)?.components(separatedBy: " "));
+        return (pboard.string(forType: NSPasteboard.PasteboardType.string)?.components(separatedBy: " "));
     }
     
     func tokenField(_ tokenField: NSTokenField, writeRepresentedObjects objects: [Any], to pboard: NSPasteboard) -> Bool {
         // Add the string type to the pasteboard
-        pboard.declareTypes([NSStringPboardType], owner: nil);
+        pboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil);
         
         /// The string to paste to the pasteboard
         var pasteString : String = "";
@@ -84,7 +84,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         }
         
         // Paste pasteString to the pasteboard
-        pboard.setString(pasteString, forType: NSStringPboardType);
+        pboard.setString(pasteString, forType: NSPasteboard.PasteboardType.string);
         
         // Always allow copying tokens
         return true;
@@ -112,7 +112,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
         tokenBooru?.createCacheFolder();
         
         // If we typed in one character and its not a space or blank...
-        if(substring.characters.count == 1 && substring != " " && substring != "") {
+        if(substring.count == 1 && substring != " " && substring != "") {
             // If lastDownloadedTags is empty...
             if(lastDownloadedTags == []) {
                 // If there is already a cache file for this search...
@@ -124,7 +124,7 @@ class BCBooruSearchTokenField: BCAlwaysActiveTokenField, NSTokenFieldDelegate {
                     // Asynchronously load the cached file
                     DispatchQueue.main.async {
                         /// The JSON from the results cache file
-                        let resultsCacheJson : JSON = JSON(data: FileManager.default.contents(atPath: self.tokenBooru!.cacheFolderPath + substring + ".json")!);
+                        let resultsCacheJson : JSON = try! JSON(data: FileManager.default.contents(atPath: self.tokenBooru!.cacheFolderPath + substring + ".json")!);
                         
                         // Set lastDownloadedTags to the cached results
                         self.lastDownloadedTags = resultsCacheJson["results"].arrayObject as! [String];
