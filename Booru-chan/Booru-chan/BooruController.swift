@@ -8,6 +8,8 @@
 import Cocoa
 
 class BooruController: NSSplitViewController, IThemeable {
+    private var window: NSWindow!
+
     @IBOutlet private weak var browserItem: NSSplitViewItem!
     private var browserController: BrowserController {
         get {
@@ -23,6 +25,15 @@ class BooruController: NSSplitViewController, IThemeable {
     }
 
     func applyTheme(theme: Theme) {
+        window.appearance = theme.appearance;
+
         browserController.applyTheme(theme: theme);
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad();
+
+        window = NSApp.windows.last!;
+        applyTheme(theme: .light);
     }
 }

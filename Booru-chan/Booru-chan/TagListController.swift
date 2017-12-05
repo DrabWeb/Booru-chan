@@ -7,8 +7,6 @@
 
 import Cocoa
 
-class TagListController: NSViewController, IThemeable {
-    func applyTheme(theme: Theme) {
+class TagListController: NSViewController {
 
-    }
 }

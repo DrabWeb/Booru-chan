@@ -10,7 +10,7 @@
         <scene sceneID="iiA-MQ-abs">
             <objects>
                 <windowController showSeguePresentationStyle="single" id="1PR-32-MJF" userLabel="Preferences Window Controller" sceneMemberID="viewController">
-                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="PreferencesWindow" animationBehavior="default" id="ywU-k3-c46">
+                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="PreferencesWindow" animationBehavior="default" id="ywU-k3-c46" customClass="BooruWindow" customModule="Booru_chan" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="229" y="254" width="480" height="270"/>
@@ -358,7 +358,7 @@
                         <splitViewItem id="mfZ-pZ-DA9"/>
                         <splitViewItem id="Qrb-6U-pQU"/>
                     </splitViewItems>
-                    <splitView key="splitView" misplaced="YES" dividerStyle="thin" vertical="YES" id="Vzx-r6-XHA">
+                    <splitView key="splitView" misplaced="YES" dividerStyle="thin" vertical="YES" id="Vzx-r6-XHA" customClass="NoDividerSplitView" customModule="Booru_chan" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
@@ -386,7 +386,7 @@
                         <splitViewItem id="ykY-IW-45i"/>
                         <splitViewItem id="UJ1-Ng-cpS"/>
                     </splitViewItems>
-                    <splitView key="splitView" dividerStyle="thin" id="pR9-RR-EuQ">
+                    <splitView key="splitView" dividerStyle="thin" id="pR9-RR-EuQ" customClass="NoDividerSplitView" customModule="Booru_chan" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
@@ -414,6 +414,17 @@
                     <view key="view" id="b5L-eg-bmd">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <visualEffectView blendingMode="behindWindow" material="menu" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="ARL-TA-xSP">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                            </visualEffectView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="ARL-TA-xSP" secondAttribute="bottom" id="OAJ-No-48V"/>
+                            <constraint firstItem="ARL-TA-xSP" firstAttribute="leading" secondItem="b5L-eg-bmd" secondAttribute="leading" id="QGQ-cf-6Gj"/>
+                            <constraint firstAttribute="trailing" secondItem="ARL-TA-xSP" secondAttribute="trailing" id="oWv-9A-HGz"/>
+                            <constraint firstItem="ARL-TA-xSP" firstAttribute="top" secondItem="b5L-eg-bmd" secondAttribute="top" id="xIU-Ei-3Y3"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="H9x-c9-kbb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -427,6 +438,17 @@
                     <view key="view" id="Wti-C8-YYQ">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="160"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <visualEffectView blendingMode="behindWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="Dth-iT-dWy">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="160"/>
+                            </visualEffectView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Dth-iT-dWy" secondAttribute="trailing" id="Cib-1k-8wt"/>
+                            <constraint firstAttribute="bottom" secondItem="Dth-iT-dWy" secondAttribute="bottom" id="MfD-uY-6rM"/>
+                            <constraint firstItem="Dth-iT-dWy" firstAttribute="leading" secondItem="Wti-C8-YYQ" secondAttribute="leading" id="PG5-dD-blb"/>
+                            <constraint firstItem="Dth-iT-dWy" firstAttribute="top" secondItem="Wti-C8-YYQ" secondAttribute="top" id="X3k-hD-7de"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="2fz-W0-iqj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -440,6 +462,20 @@
                     <view key="view" id="xtc-wr-Da4">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="22"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <visualEffectView blendingMode="behindWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="5hH-P8-39k">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="R9x-bc-cDC"/>
+                                </constraints>
+                            </visualEffectView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="5hH-P8-39k" secondAttribute="trailing" id="ZQ8-K3-DXy"/>
+                            <constraint firstItem="5hH-P8-39k" firstAttribute="top" secondItem="xtc-wr-Da4" secondAttribute="top" id="e4n-Xy-bar"/>
+                            <constraint firstAttribute="bottom" secondItem="5hH-P8-39k" secondAttribute="bottom" id="gKD-qc-xFS"/>
+                            <constraint firstItem="5hH-P8-39k" firstAttribute="leading" secondItem="xtc-wr-Da4" secondAttribute="leading" id="oCE-HT-IlY"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="q2d-hG-qOU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -453,6 +489,17 @@
                     <view key="view" id="2Vx-ou-8fP">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <visualEffectView blendingMode="behindWindow" material="selection" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="a4P-hL-UQc">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                            </visualEffectView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="a4P-hL-UQc" secondAttribute="bottom" id="0kC-wS-vde"/>
+                            <constraint firstAttribute="trailing" secondItem="a4P-hL-UQc" secondAttribute="trailing" id="Zoz-bu-feh"/>
+                            <constraint firstItem="a4P-hL-UQc" firstAttribute="leading" secondItem="2Vx-ou-8fP" secondAttribute="leading" id="d3f-Y1-cPm"/>
+                            <constraint firstItem="a4P-hL-UQc" firstAttribute="top" secondItem="2Vx-ou-8fP" secondAttribute="top" id="x68-Xt-gnm"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="HdZ-ti-F4s" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

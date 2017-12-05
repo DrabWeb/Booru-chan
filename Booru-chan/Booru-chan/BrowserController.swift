@@ -30,8 +30,6 @@ class BrowserController: NSSplitViewController, IThemeable {
     }
 
     func applyTheme(theme: Theme) {
-        postsController.applyTheme(theme: theme);
-        infoBarController.applyTheme(theme: theme);
-        tagListController.applyTheme(theme: theme);
+
     }
 }
