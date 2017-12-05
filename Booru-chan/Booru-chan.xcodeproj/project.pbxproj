@@ -36,6 +36,12 @@
 		AE9A56EE1FD72DFA0099D09E /* BooruWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */; };
 		AEA5A2171E13851400599CC5 /* BooruWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5A2161E13851400599CC5 /* BooruWindowController.swift */; };
 		AECAD3191DF4A1DA00E846EB /* BooruTitlebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAD3181DF4A1DA00E846EB /* BooruTitlebarView.swift */; };
+		AED6F58C1FD750D30036EDE8 /* BooruController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F58B1FD750D30036EDE8 /* BooruController.swift */; };
+		AED6F58E1FD751280036EDE8 /* BrowserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F58D1FD751280036EDE8 /* BrowserController.swift */; };
+		AED6F5901FD7513C0036EDE8 /* ViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F58F1FD7513C0036EDE8 /* ViewerController.swift */; };
+		AED6F5921FD7514F0036EDE8 /* TagListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F5911FD7514F0036EDE8 /* TagListController.swift */; };
+		AED6F5941FD7515A0036EDE8 /* InfoBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F5931FD7515A0036EDE8 /* InfoBarController.swift */; };
+		AED6F5961FD751680036EDE8 /* PostsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F5951FD751680036EDE8 /* PostsController.swift */; };
 		EEBFB95BB7348EBF996CBBCD /* Pods_Booru_chanTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6B031B9C7B964655AF51EC8 /* Pods_Booru_chanTests.framework */; };
 		FB6C1D77A47309096678320F /* Pods_Booru_chan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834CCAD73A440142898C1721 /* Pods_Booru_chan.framework */; };
 /* End PBXBuildFile section */
@@ -100,6 +106,12 @@
 		AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruWindow.swift; sourceTree = "<group>"; };
 		AEA5A2161E13851400599CC5 /* BooruWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooruWindowController.swift; sourceTree = "<group>"; };
 		AECAD3181DF4A1DA00E846EB /* BooruTitlebarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooruTitlebarView.swift; sourceTree = "<group>"; };
+		AED6F58B1FD750D30036EDE8 /* BooruController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruController.swift; sourceTree = "<group>"; };
+		AED6F58D1FD751280036EDE8 /* BrowserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserController.swift; sourceTree = "<group>"; };
+		AED6F58F1FD7513C0036EDE8 /* ViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewerController.swift; path = Assets.xcassets/ViewerController.swift; sourceTree = "<group>"; };
+		AED6F5911FD7514F0036EDE8 /* TagListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListController.swift; sourceTree = "<group>"; };
+		AED6F5931FD7515A0036EDE8 /* InfoBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBarController.swift; sourceTree = "<group>"; };
+		AED6F5951FD751680036EDE8 /* PostsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsController.swift; sourceTree = "<group>"; };
 		B6B031B9C7B964655AF51EC8 /* Pods_Booru_chanTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chanTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C9F1C05F609B24EF821597 /* Pods_Booru_chanUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chanUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -251,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				5D976B271CDA45A400191679 /* Preferences */,
+				AED6F58A1FD7507B0036EDE8 /* Browser */,
 				5D88CC111CCC14C1001FF12E /* Grid Style Controller */,
 			);
 			name = Controllers;
@@ -284,6 +297,19 @@
 				C0C9F1C05F609B24EF821597 /* Pods_Booru_chanUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AED6F58A1FD7507B0036EDE8 /* Browser */ = {
+			isa = PBXGroup;
+			children = (
+				AED6F58B1FD750D30036EDE8 /* BooruController.swift */,
+				AED6F58D1FD751280036EDE8 /* BrowserController.swift */,
+				AED6F5951FD751680036EDE8 /* PostsController.swift */,
+				AED6F5931FD7515A0036EDE8 /* InfoBarController.swift */,
+				AED6F5911FD7514F0036EDE8 /* TagListController.swift */,
+				AED6F58F1FD7513C0036EDE8 /* ViewerController.swift */,
+			);
+			name = Browser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -584,13 +610,19 @@
 			files = (
 				AEA5A2171E13851400599CC5 /* BooruWindowController.swift in Sources */,
 				5D71B4981CCC06EA0011C281 /* BooruViewController.swift in Sources */,
+				AED6F5921FD7514F0036EDE8 /* TagListController.swift in Sources */,
 				5DAF1A5B1CDD23480090D654 /* ImageUtilities.swift in Sources */,
 				5DAD29371CCD5EB300C3C747 /* BooruCollectionViewItem.swift in Sources */,
+				AED6F58E1FD751280036EDE8 /* BrowserController.swift in Sources */,
 				5D3288351CCE95710029A57F /* PreferencesObject.swift in Sources */,
 				5D71B4961CCC06EA0011C281 /* AppDelegate.swift in Sources */,
 				5D02026A1CD8EEE000A6E5D5 /* TagListTableViewController.swift in Sources */,
 				5D47F5E31CCFE54D00FF8AA9 /* BooruSearchTokenField.swift in Sources */,
 				5D02026C1CD8F22300A6E5D5 /* TagListTableViewCell.swift in Sources */,
+				AED6F5941FD7515A0036EDE8 /* InfoBarController.swift in Sources */,
+				AED6F5901FD7513C0036EDE8 /* ViewerController.swift in Sources */,
+				AED6F5961FD751680036EDE8 /* PostsController.swift in Sources */,
+				AED6F58C1FD750D30036EDE8 /* BooruController.swift in Sources */,
 				AECAD3191DF4A1DA00E846EB /* BooruTitlebarView.swift in Sources */,
 				5D1CC5881DC591C100E3988D /* ScaleToFitContentTokenField.swift in Sources */,
 				5D3288321CCE80D10029A57F /* BottomActionScrollView.swift in Sources */,

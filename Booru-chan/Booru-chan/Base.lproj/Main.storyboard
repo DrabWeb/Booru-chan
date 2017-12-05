@@ -277,7 +277,7 @@
             <objects>
                 <windowController storyboardIdentifier="BrowserWindowController" id="B8D-0N-5wS" customClass="BooruWindowController" customModule="Booru_chan" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Booru-chan" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="BooruChanBrowser" animationBehavior="default" id="IQv-IB-iLA" customClass="BooruWindow" customModule="Booru_chan" customModuleProvider="target">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="550" y="405" width="600" height="400"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -343,12 +343,121 @@
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
+                        <segue destination="izn-wc-Ddx" kind="relationship" relationship="window.shadowedContentViewController" id="24x-ee-UPS"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="264"/>
+        </scene>
+        <!--Booru-->
+        <scene sceneID="eTP-IE-Kst">
+            <objects>
+                <splitViewController id="izn-wc-Ddx" userLabel="Booru" customClass="BooruController" customModule="Booru_chan" customModuleProvider="target" sceneMemberID="viewController">
+                    <splitViewItems>
+                        <splitViewItem id="mfZ-pZ-DA9"/>
+                        <splitViewItem id="Qrb-6U-pQU"/>
+                    </splitViewItems>
+                    <splitView key="splitView" misplaced="YES" dividerStyle="thin" vertical="YES" id="Vzx-r6-XHA">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="delegate" destination="izn-wc-Ddx" id="dwM-Sq-Y76"/>
+                        </connections>
+                    </splitView>
+                    <connections>
+                        <outlet property="browserItem" destination="mfZ-pZ-DA9" id="ugW-ui-T64"/>
+                        <outlet property="splitView" destination="Vzx-r6-XHA" id="JFz-aq-mqO"/>
+                        <outlet property="viewerItem" destination="Qrb-6U-pQU" id="Lw5-gh-f7t"/>
+                        <segue destination="UOq-Lm-vTf" kind="relationship" relationship="splitItems" id="t1A-Ed-S4g"/>
+                        <segue destination="OTU-EG-AJY" kind="relationship" relationship="splitItems" id="fWI-1N-6J8"/>
+                    </connections>
+                </splitViewController>
+                <customObject id="A73-tr-hIn" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75" y="798"/>
+        </scene>
+        <!--Browser-->
+        <scene sceneID="ail-MJ-w2T">
+            <objects>
+                <splitViewController id="UOq-Lm-vTf" userLabel="Browser" customClass="BrowserController" customModule="Booru_chan" customModuleProvider="target" sceneMemberID="viewController">
+                    <splitViewItems>
+                        <splitViewItem id="SPp-SR-aDa"/>
+                        <splitViewItem id="ykY-IW-45i"/>
+                        <splitViewItem id="UJ1-Ng-cpS"/>
+                    </splitViewItems>
+                    <splitView key="splitView" dividerStyle="thin" id="pR9-RR-EuQ">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="delegate" destination="UOq-Lm-vTf" id="amy-zJ-XlH"/>
+                        </connections>
+                    </splitView>
+                    <connections>
+                        <outlet property="infoBarItem" destination="ykY-IW-45i" id="fbb-IX-DBb"/>
+                        <outlet property="postsItem" destination="SPp-SR-aDa" id="W1u-rz-sci"/>
+                        <outlet property="splitView" destination="pR9-RR-EuQ" id="mbx-8d-8SZ"/>
+                        <outlet property="tagListItem" destination="UJ1-Ng-cpS" id="Tyb-hK-ay7"/>
+                        <segue destination="KF8-Zy-7H4" kind="relationship" relationship="splitItems" id="h2M-5G-MDW"/>
+                        <segue destination="e1g-EZ-zo8" kind="relationship" relationship="splitItems" id="MOm-Ad-Cvr"/>
+                        <segue destination="hvN-Q7-urI" kind="relationship" relationship="splitItems" id="pBc-WS-5hr"/>
+                    </connections>
+                </splitViewController>
+                <customObject id="3s3-sL-QJC" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-191" y="1358"/>
+        </scene>
+        <!--Posts-->
+        <scene sceneID="RdE-xz-v5g">
+            <objects>
+                <viewController id="KF8-Zy-7H4" userLabel="Posts" customClass="PostsController" customModule="Booru_chan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="b5L-eg-bmd">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="H9x-c9-kbb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-191" y="1766"/>
+        </scene>
+        <!--Tags-->
+        <scene sceneID="W3T-Qw-AoN">
+            <objects>
+                <viewController id="hvN-Q7-urI" userLabel="Tags" customClass="TagListController" customModule="Booru_chan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="Wti-C8-YYQ">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="160"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="2fz-W0-iqj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-191" y="2190"/>
+        </scene>
+        <!--Info Bar-->
+        <scene sceneID="NYX-q6-ANm">
+            <objects>
+                <viewController id="e1g-EZ-zo8" userLabel="Info Bar" customClass="InfoBarController" customModule="Booru_chan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="xtc-wr-Da4">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="22"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="q2d-hG-qOU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-191" y="2013"/>
+        </scene>
+        <!--Image-->
+        <scene sceneID="Etx-tQ-jgY">
+            <objects>
+                <viewController id="OTU-EG-AJY" userLabel="Image" customClass="ViewerController" customModule="Booru_chan" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="2Vx-ou-8fP">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="HdZ-ti-F4s" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="349" y="1358"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -670,7 +779,7 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="75" y="788"/>
+            <point key="canvasLocation" x="749" y="264"/>
         </scene>
         <!--Preferences Tab View Controller-->
         <scene sceneID="MLv-tg-fB1">

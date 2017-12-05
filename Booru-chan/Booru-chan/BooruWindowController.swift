@@ -32,4 +32,10 @@ class BooruWindowController: NSWindowController {
             windowController.window?.makeKey();
         }
     }
+
+    override func windowDidLoad() {
+        super.windowDidLoad();
+
+        window!.titleVisibility = .hidden;
+    }
 }
