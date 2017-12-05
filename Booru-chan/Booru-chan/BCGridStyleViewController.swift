@@ -535,7 +535,7 @@ class BCGridStyleController: NSObject, NSCollectionViewDelegate {
 
 class BCBooruCollectionViewItem: NSObject {
     /// The thumbnail image for this item
-    var thumbnailImage : NSImage = NSImage();
+    @objc var thumbnailImage : NSImage = NSImage();
     
     /// The full size image(Only set if the user selected this item and it was fully loaded)
     var image : NSImage = NSImage();
@@ -544,7 +544,7 @@ class BCBooruCollectionViewItem: NSObject {
     var finishedLoadingImage : Bool = false;
     
     /// How opaque this item should be in the grid(Used to represent when you have downloaded something before)
-    var alphaValue : CGFloat = 1;
+    @objc var alphaValue : CGFloat = 1;
     
     /// Is this an item that shows that there is no more results?
     var noMoreResultsItem : Bool = false;
