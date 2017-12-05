@@ -384,7 +384,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="290" height="281"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <subviews>
-                                                                                <collectionView selectable="YES" allowsMultipleSelection="YES" id="vAV-me-trS" userLabel="Booru Collection View" customClass="BooruCollectionView" customModule="Booru_chan" customModuleProvider="target">
+                                                                                <collectionView selectable="YES" allowsMultipleSelection="YES" id="vAV-me-trS" userLabel="Booru Collection View">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="290" height="281"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
