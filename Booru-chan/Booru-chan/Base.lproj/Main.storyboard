@@ -465,8 +465,21 @@
                         <subviews>
                             <visualEffectView blendingMode="behindWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="5hH-P8-39k">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="22"/>
+                                <subviews>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="T18-30-DNz">
+                                        <rect key="frame" x="-2" y="2" width="454" height="17"/>
+                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="0x0 [R] 0%" id="FWH-Tn-W2B">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
                                 <constraints>
+                                    <constraint firstItem="T18-30-DNz" firstAttribute="centerY" secondItem="5hH-P8-39k" secondAttribute="centerY" id="5Vd-aB-5Rk"/>
+                                    <constraint firstAttribute="trailing" secondItem="T18-30-DNz" secondAttribute="trailing" id="8HN-Ed-7Ym"/>
                                     <constraint firstAttribute="height" constant="22" id="R9x-bc-cDC"/>
+                                    <constraint firstItem="T18-30-DNz" firstAttribute="leading" secondItem="5hH-P8-39k" secondAttribute="leading" id="TGI-ag-g71"/>
                                 </constraints>
                             </visualEffectView>
                         </subviews>
@@ -477,6 +490,9 @@
                             <constraint firstItem="5hH-P8-39k" firstAttribute="leading" secondItem="xtc-wr-Da4" secondAttribute="leading" id="oCE-HT-IlY"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="label" destination="T18-30-DNz" id="bqd-la-8Rv"/>
+                    </connections>
                 </viewController>
                 <customObject id="q2d-hG-qOU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
