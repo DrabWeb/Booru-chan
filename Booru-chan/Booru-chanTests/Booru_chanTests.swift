@@ -2,7 +2,7 @@
 //  Booru_chanTests.swift
 //  Booru-chanTests
 //
-//  Created by Seth on 2016-04-23.
+//  Created by Ushio on 2016-04-23.
 //
 
 import XCTest

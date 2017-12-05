@@ -2,7 +2,7 @@
 //  BottomActionScrollView.swift
 //  Booru-chan
 //
-//  Created by Seth on 2016-04-25.
+//  Created by Ushio on 2016-04-25.
 //
 
 import Cocoa

@@ -2,7 +2,7 @@
 //  AlwaysActiveViews.swift
 //  Booru-chan
 //
-//  Created by Seth on 2016-04-23.
+//  Created by Ushio on 2016-04-23.
 //
 
 import Cocoa

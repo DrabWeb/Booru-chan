@@ -2,7 +2,7 @@
 //  TagListTableViewController.swift
 //  Booru-chan
 //
-//  Created by Seth on 2016-05-03.
+//  Created by Ushio on 2016-05-03.
 //
 
 import Cocoa

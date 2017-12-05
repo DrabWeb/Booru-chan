@@ -2,7 +2,7 @@
 //  ImageUtilities.swift
 //  Booru-chan
 //
-//  Created by Seth on 2016-05-06.
+//  Created by Ushio on 2016-05-06.
 //
 
 import Cocoa

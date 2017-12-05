@@ -2,7 +2,7 @@
 //  BooruCollectionViewSelectionBox.swift
 //  Booru-chan
 //
-//  Created by Seth on 2016-04-24.
+//  Created by Ushio on 2016-04-24.
 //
 
 import Cocoa

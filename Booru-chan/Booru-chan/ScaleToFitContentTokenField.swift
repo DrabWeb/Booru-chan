@@ -2,7 +2,7 @@
 //  ScaleToFitContentTokenField.swift
 //  Booru-chan
 //
-//  Created by Seth on 2016-10-29.
+//  Created by Ushio on 2016-10-29.
 //
 
 import Cocoa
