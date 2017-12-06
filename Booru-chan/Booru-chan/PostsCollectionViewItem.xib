@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PostsCollectionViewItem" customModule="Booru_chan" customModuleProvider="target">
+            <connections>
+                <outlet property="imageView" destination="LxH-ts-fHD" id="LDr-x2-SA2"/>
+                <outlet property="selectionBox" destination="glG-56-Rwm" id="oCE-cu-uyg"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="glG-56-Rwm" userLabel="Selection Box" customClass="BooruCollectionViewSelectionBox" customModule="Booru_chan" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                </customView>
+                <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Nv-44-gIS" userLabel="Content Container">
+                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                    <subviews>
+                        <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LxH-ts-fHD" customClass="RasterizedImageView" customModule="Booru_chan" customModuleProvider="target">
+                            <rect key="frame" x="20" y="20" width="110" height="110"/>
+                            <shadow key="shadow" blurRadius="6">
+                                <size key="offset" width="0.0" height="-6"/>
+                                <color key="color" white="0.0" alpha="0.39532208590000001" colorSpace="calibratedWhite"/>
+                            </shadow>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSCaution" id="XnJ-Vj-ZbM"/>
+                        </imageView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="LxH-ts-fHD" firstAttribute="top" secondItem="2Nv-44-gIS" secondAttribute="top" constant="20" id="BvR-qM-rqt"/>
+                        <constraint firstItem="LxH-ts-fHD" firstAttribute="leading" secondItem="2Nv-44-gIS" secondAttribute="leading" constant="20" id="gei-Rc-251"/>
+                        <constraint firstAttribute="bottom" secondItem="LxH-ts-fHD" secondAttribute="bottom" constant="20" id="o6e-Ab-ShF"/>
+                        <constraint firstAttribute="trailing" secondItem="LxH-ts-fHD" secondAttribute="trailing" constant="20" id="udS-fW-ZkG"/>
+                    </constraints>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="glG-56-Rwm" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="9DU-Qf-rtb"/>
+                <constraint firstAttribute="trailing" secondItem="2Nv-44-gIS" secondAttribute="trailing" id="LCF-DO-i5k"/>
+                <constraint firstItem="2Nv-44-gIS" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="LRg-r4-HkJ"/>
+                <constraint firstAttribute="bottom" secondItem="glG-56-Rwm" secondAttribute="bottom" id="QHr-Qj-f36"/>
+                <constraint firstItem="glG-56-Rwm" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="U7D-gV-peE"/>
+                <constraint firstAttribute="bottom" secondItem="2Nv-44-gIS" secondAttribute="bottom" id="ZgV-kr-nWf"/>
+                <constraint firstItem="2Nv-44-gIS" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="xBB-SI-aYb"/>
+                <constraint firstAttribute="trailing" secondItem="glG-56-Rwm" secondAttribute="trailing" id="zD2-zq-fvI"/>
+            </constraints>
+        </customView>
+        <collectionViewItem id="FXi-Po-4y3" customClass="PostsCollectionViewItem" customModule="Booru_chan" customModuleProvider="target"/>
+    </objects>
+    <resources>
+        <image name="NSCaution" width="32" height="32"/>
+    </resources>
+</document>

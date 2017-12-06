@@ -43,6 +43,8 @@
 		AED6F5941FD7515A0036EDE8 /* InfoBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F5931FD7515A0036EDE8 /* InfoBarController.swift */; };
 		AED6F5961FD751680036EDE8 /* PostsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F5951FD751680036EDE8 /* PostsController.swift */; };
 		AED6F59A1FD754DF0036EDE8 /* IThemeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F5991FD754DF0036EDE8 /* IThemeable.swift */; };
+		AED6F59D1FD76A620036EDE8 /* PostsCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F59B1FD76A620036EDE8 /* PostsCollectionViewItem.swift */; };
+		AED6F59E1FD76A620036EDE8 /* PostsCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = AED6F59C1FD76A620036EDE8 /* PostsCollectionViewItem.xib */; };
 		EEBFB95BB7348EBF996CBBCD /* Pods_Booru_chanTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6B031B9C7B964655AF51EC8 /* Pods_Booru_chanTests.framework */; };
 		FB6C1D77A47309096678320F /* Pods_Booru_chan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834CCAD73A440142898C1721 /* Pods_Booru_chan.framework */; };
 /* End PBXBuildFile section */
@@ -114,6 +116,8 @@
 		AED6F5931FD7515A0036EDE8 /* InfoBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBarController.swift; sourceTree = "<group>"; };
 		AED6F5951FD751680036EDE8 /* PostsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsController.swift; sourceTree = "<group>"; };
 		AED6F5991FD754DF0036EDE8 /* IThemeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IThemeable.swift; sourceTree = "<group>"; };
+		AED6F59B1FD76A620036EDE8 /* PostsCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCollectionViewItem.swift; sourceTree = "<group>"; };
+		AED6F59C1FD76A620036EDE8 /* PostsCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostsCollectionViewItem.xib; sourceTree = "<group>"; };
 		B6B031B9C7B964655AF51EC8 /* Pods_Booru_chanTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chanTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C9F1C05F609B24EF821597 /* Pods_Booru_chanUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chanUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -308,6 +312,8 @@
 				AED6F58B1FD750D30036EDE8 /* BooruController.swift */,
 				AED6F58D1FD751280036EDE8 /* BrowserController.swift */,
 				AED6F5951FD751680036EDE8 /* PostsController.swift */,
+				AED6F59B1FD76A620036EDE8 /* PostsCollectionViewItem.swift */,
+				AED6F59C1FD76A620036EDE8 /* PostsCollectionViewItem.xib */,
 				AED6F5931FD7515A0036EDE8 /* InfoBarController.swift */,
 				AED6F5911FD7514F0036EDE8 /* TagListController.swift */,
 				AED6F58F1FD7513C0036EDE8 /* ViewerController.swift */,
@@ -439,6 +445,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AED6F59E1FD76A620036EDE8 /* PostsCollectionViewItem.xib in Resources */,
 				5D71B49A1CCC06EA0011C281 /* Assets.xcassets in Resources */,
 				5D71B49D1CCC06EA0011C281 /* Main.storyboard in Resources */,
 			);
@@ -626,6 +633,7 @@
 				5DAD29371CCD5EB300C3C747 /* BooruCollectionViewItem.swift in Sources */,
 				AED6F58E1FD751280036EDE8 /* BrowserController.swift in Sources */,
 				5D3288351CCE95710029A57F /* PreferencesObject.swift in Sources */,
+				AED6F59D1FD76A620036EDE8 /* PostsCollectionViewItem.swift in Sources */,
 				5D71B4961CCC06EA0011C281 /* AppDelegate.swift in Sources */,
 				5D02026A1CD8EEE000A6E5D5 /* TagListTableViewController.swift in Sources */,
 				5D47F5E31CCFE54D00FF8AA9 /* BooruSearchTokenField.swift in Sources */,

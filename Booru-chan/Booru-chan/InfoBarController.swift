@@ -40,4 +40,13 @@ class InfoBarController: NSViewController {
 
         label.stringValue = "\(size) [\(rating)] \(progress)%";
     }
+
+    override func awakeFromNib() {
+        super.awakeFromNib();
+
+        // hide the label initially
+        imageSize = nil;
+        rating = nil;
+        loadingProgress = nil;
+    }
 }
