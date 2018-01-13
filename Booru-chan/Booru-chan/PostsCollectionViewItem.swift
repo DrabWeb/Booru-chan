@@ -12,7 +12,7 @@ class PostsCollectionViewItem: NSCollectionViewItem {
 
     @IBOutlet private weak var selectionBox: BooruCollectionViewSelectionBox!
 
-    private var request: Request?
+    private var request: ImageDownloader?
 
     var representedPost: BooruPost? {
         didSet {
@@ -20,21 +20,11 @@ class PostsCollectionViewItem: NSCollectionViewItem {
                 return;
             }
 
-            request = Alamofire.request(representedPost!.thumbnailUrl)
-                .responseData { r in
-                    if (r.response?.statusCode ?? -1) != 200 {
-                        self.imageView!.image = NSImage(named: NSImage.Name.caution);
-                        self.imageView!.toolTip = "Status code " + String(r.response?.statusCode ?? -1);
-                        return;
-                    };
-
-                    if let d = r.result.value {
-                        if let image = NSImage(data: d) {
-                            self.imageView!.image = image;
-                            self.view.layer!.shouldRasterize = true;
-                        }
-                    }
-                }
+            request = ImageDownloader(url: URL(string: representedPost!.thumbnailUrl)!);
+            request!.download(complete: { image in
+                self.imageView!.image = image;
+                self.view.layer!.shouldRasterize = true;
+            });
         }
     }
 
@@ -42,6 +32,10 @@ class PostsCollectionViewItem: NSCollectionViewItem {
         didSet {
             selectionBox.isHidden = !isSelected;
         }
+    }
+
+    deinit {
+        request?.cancel();
     }
 }
 

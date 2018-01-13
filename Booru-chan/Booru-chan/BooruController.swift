@@ -52,7 +52,7 @@ class BooruController: NSSplitViewController, IThemeable {
         browserController.applyTheme(theme: theme);
     }
 
-    let booru = BooruHost(name: "Yande.re", type: .moebooru, pagePostLimit: 40, url: "http://yande.re/", maximumRating: .explicit);
+    let booru = BooruHost(name: "Danbooru", type: .danbooru, pagePostLimit: 40, url: "http://danbooru.donmai.us/", maximumRating: .explicit);
     override func viewDidLoad() {
         super.viewDidLoad();
 
@@ -61,6 +61,6 @@ class BooruController: NSSplitViewController, IThemeable {
         applyTheme(theme: .light);
 
         let utils = BooruUtilities(booru: booru);
-        _ = utils.getPostsFromSearch("rating:safe", limit: 40, page: 1, completionHandler: { self.browserController.postsController.items = $0 });
+        _ = utils.getPostsFromSearch("", limit: 40, page: 1, completionHandler: { self.browserController.postsController.items = $0 });
     }
 }

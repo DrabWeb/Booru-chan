@@ -31,10 +31,9 @@
 		5DAD293D1CCD6AD400C3C747 /* BooruCollectionViewSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD293C1CCD6AD400C3C747 /* BooruCollectionViewSelectionBox.swift */; };
 		5DAF1A5B1CDD23480090D654 /* ImageUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAF1A5A1CDD23480090D654 /* ImageUtilities.swift */; };
 		5DBDDD121CD910C00086E61D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBDDD111CD910C00086E61D /* Extensions.swift */; };
+		AE23007B2009BFF800D6218D /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE23007A2009BFF800D6218D /* ImageDownloader.swift */; };
 		AE329EC61E44C179003812FB /* PreferencesGeneralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC51E44C179003812FB /* PreferencesGeneralViewController.swift */; };
 		AE329EC81E44C186003812FB /* PreferencesBoorusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC71E44C186003812FB /* PreferencesBoorusViewController.swift */; };
-		AE53830C1FD79133000DBA69 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE53830B1FD79133000DBA69 /* DownloadManager.swift */; };
-		AE53830E1FD79146000DBA69 /* DownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE53830D1FD79146000DBA69 /* DownloadRequest.swift */; };
 		AE9A56EE1FD72DFA0099D09E /* BooruWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */; };
 		AEA5A2171E13851400599CC5 /* BooruWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5A2161E13851400599CC5 /* BooruWindowController.swift */; };
 		AECAD3191DF4A1DA00E846EB /* BooruTitlebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAD3181DF4A1DA00E846EB /* BooruTitlebarView.swift */; };
@@ -105,10 +104,9 @@
 		5F4FD8F272DEE171AFE7E6C5 /* Pods-Booru-chanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chanTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chanTests/Pods-Booru-chanTests.debug.xcconfig"; sourceTree = "<group>"; };
 		834CCAD73A440142898C1721 /* Pods_Booru_chan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA72CEBEF391F5FED42B629 /* Pods-Booru-chanUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chanUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chanUITests/Pods-Booru-chanUITests.release.xcconfig"; sourceTree = "<group>"; };
+		AE23007A2009BFF800D6218D /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		AE329EC51E44C179003812FB /* PreferencesGeneralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesGeneralViewController.swift; sourceTree = "<group>"; };
 		AE329EC71E44C186003812FB /* PreferencesBoorusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesBoorusViewController.swift; sourceTree = "<group>"; };
-		AE53830B1FD79133000DBA69 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
-		AE53830D1FD79146000DBA69 /* DownloadRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadRequest.swift; sourceTree = "<group>"; };
 		AE75E5161DDE678E00937817 /* Booru-chan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Booru-chan-Bridging-Header.h"; sourceTree = "<group>"; };
 		AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruWindow.swift; sourceTree = "<group>"; };
 		AEA5A2161E13851400599CC5 /* BooruWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooruWindowController.swift; sourceTree = "<group>"; };
@@ -172,8 +170,7 @@
 			children = (
 				5D3288341CCE95710029A57F /* PreferencesObject.swift */,
 				5D0202671CD8EE3300A6E5D5 /* TagListTableViewData.swift */,
-				AE53830B1FD79133000DBA69 /* DownloadManager.swift */,
-				AE53830D1FD79146000DBA69 /* DownloadRequest.swift */,
+				AE23007A2009BFF800D6218D /* ImageDownloader.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -633,7 +630,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEA5A2171E13851400599CC5 /* BooruWindowController.swift in Sources */,
-				AE53830C1FD79133000DBA69 /* DownloadManager.swift in Sources */,
 				5D71B4981CCC06EA0011C281 /* BooruViewController.swift in Sources */,
 				AED6F5921FD7514F0036EDE8 /* TagListController.swift in Sources */,
 				5DAF1A5B1CDD23480090D654 /* ImageUtilities.swift in Sources */,
@@ -661,11 +657,11 @@
 				5D88CC131CCC14DC001FF12E /* GridStyleController.swift in Sources */,
 				5DBDDD121CD910C00086E61D /* Extensions.swift in Sources */,
 				5D7CA38F1CCC0A8500B4A0A5 /* NoDividerSplitView.swift in Sources */,
+				AE23007B2009BFF800D6218D /* ImageDownloader.swift in Sources */,
 				5D7CA3911CCC0AFD00B4A0A5 /* AlwaysActiveViews.swift in Sources */,
 				AE9A56EE1FD72DFA0099D09E /* BooruWindow.swift in Sources */,
 				5DAD293A1CCD68CB00C3C747 /* RasterizedViews.swift in Sources */,
 				AE329EC61E44C179003812FB /* PreferencesGeneralViewController.swift in Sources */,
-				AE53830E1FD79146000DBA69 /* DownloadRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

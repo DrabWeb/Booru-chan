@@ -36,7 +36,7 @@ class InfoBarController: NSViewController {
 
         let size = imageSize == nil ? "?x?" : "\(Int(imageSize.width))x\(Int(imageSize.height))";
         let rating = self.rating == nil ? "?" : "\(String(String(describing: self.rating!).first!).uppercased())";
-        let progress = loadingProgress == nil ? "?" : "\(Int((loadingProgress * 100).rounded()))";
+        let progress = loadingProgress == nil ? "0" : "\(Int((loadingProgress * 100).rounded()))";
 
         label.stringValue = "\(size) [\(rating)] \(progress)%";
     }
