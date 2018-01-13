@@ -22,6 +22,12 @@ class PostsCollectionViewItem: NSCollectionViewItem {
 
             request = Alamofire.request(representedPost!.thumbnailUrl)
                 .responseData { r in
+                    if (r.response?.statusCode ?? -1) != 200 {
+                        self.imageView!.image = NSImage(named: NSImage.Name.caution);
+                        self.imageView!.toolTip = "Status code " + String(r.response?.statusCode ?? -1);
+                        return;
+                    };
+
                     if let d = r.result.value {
                         if let image = NSImage(data: d) {
                             self.imageView!.image = image;
