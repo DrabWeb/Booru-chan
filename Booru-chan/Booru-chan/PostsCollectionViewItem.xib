@@ -31,7 +31,7 @@
                                 <size key="offset" width="0.0" height="-6"/>
                                 <color key="color" white="0.0" alpha="0.39532208590000001" colorSpace="calibratedWhite"/>
                             </shadow>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSCaution" id="XnJ-Vj-ZbM"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="XnJ-Vj-ZbM"/>
                         </imageView>
                     </subviews>
                     <constraints>
@@ -55,7 +55,4 @@
         </customView>
         <collectionViewItem id="FXi-Po-4y3" customClass="PostsCollectionViewItem" customModule="Booru_chan" customModuleProvider="target"/>
     </objects>
-    <resources>
-        <image name="NSCaution" width="32" height="32"/>
-    </resources>
 </document>

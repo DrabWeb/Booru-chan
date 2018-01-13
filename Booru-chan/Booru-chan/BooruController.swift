@@ -24,16 +24,43 @@ class BooruController: NSSplitViewController, IThemeable {
         }
     }
 
+    private var selectedPosts: [BooruPost] = [] {
+        didSet {
+            let i = browserController.infoBarController;
+
+            if selectedPosts.count == 1 {
+                let p = selectedPosts.first!;
+
+                i.imageSize = p.imageSize;
+                i.rating = p.rating;
+                viewerController.displayPost(post: p, progressHandler: { progress in
+                    i.loadingProgress = progress;
+                });
+            }
+            else {
+                i.imageSize = nil;
+                i.rating = nil;
+                i.loadingProgress = nil;
+                viewerController.displayPost(post: nil, progressHandler: nil);
+            }
+        }
+    }
+
     func applyTheme(theme: Theme) {
         window.appearance = theme.appearance;
 
         browserController.applyTheme(theme: theme);
     }
 
+    let booru = BooruHost(name: "Yande.re", type: .moebooru, pagePostLimit: 40, url: "http://yande.re/", maximumRating: .explicit);
     override func viewDidLoad() {
         super.viewDidLoad();
 
         window = NSApp.windows.last!;
+        browserController.postsController.onSelect = { self.selectedPosts = $0 };
         applyTheme(theme: .light);
+
+        let utils = BooruUtilities(booru: booru);
+        _ = utils.getPostsFromSearch("rating:safe", limit: 40, page: 1, completionHandler: { self.browserController.postsController.items = $0 });
     }
 }

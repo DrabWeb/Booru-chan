@@ -22,7 +22,7 @@ class InfoBarController: NSViewController {
         }
     }
 
-    var loadingProgress: Float! {
+    var loadingProgress: Double! {
         didSet {
             updateLabel();
         }

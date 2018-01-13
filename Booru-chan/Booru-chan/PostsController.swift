@@ -11,6 +11,8 @@ class PostsController: NSViewController {
     @IBOutlet private weak var scrollView: BottomActionScrollView!
     @IBOutlet private weak var collectionView: NSCollectionView!
 
+    var onSelect: (([BooruPost]) -> Void)? = nil;
+
     var items: [BooruPost] = [] {
         didSet {
             collectionView.reloadData();
@@ -19,10 +21,6 @@ class PostsController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad();
-
-        for _ in 0..<50 {
-            items.append(BooruPost());
-        }
     }
 }
 
@@ -43,5 +41,11 @@ extension PostsController: NSCollectionViewDataSource {
 
         collectionViewItem.representedPost = items[indexPath.item];
         return item;
+    }
+}
+
+extension PostsController: NSCollectionViewDelegate {
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        onSelect?(collectionView.selectionIndexes.map { items[$0] });
     }
 }

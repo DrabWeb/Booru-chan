@@ -434,6 +434,7 @@
                                                     <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                                     <connections>
                                                         <outlet property="dataSource" destination="KF8-Zy-7H4" id="gp1-QU-ukX"/>
+                                                        <outlet property="delegate" destination="KF8-Zy-7H4" id="arY-AM-Jvk"/>
                                                     </connections>
                                                 </collectionView>
                                             </subviews>
@@ -551,14 +552,52 @@
                             <visualEffectView blendingMode="behindWindow" material="selection" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="a4P-hL-UQc">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                             </visualEffectView>
+                            <scrollView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="400" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" minMagnification="1" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvC-FH-N0G">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="fBt-gh-L8x">
+                                    <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <imageView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XPp-jZ-SQl">
+                                            <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="zuP-cm-hEs"/>
+                                            </constraints>
+                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="Gyo-Dd-LFE"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="XPp-jZ-SQl" firstAttribute="top" secondItem="fBt-gh-L8x" secondAttribute="top" id="3O0-jA-HbB"/>
+                                        <constraint firstAttribute="trailing" secondItem="XPp-jZ-SQl" secondAttribute="trailing" id="EbX-TI-CNT"/>
+                                        <constraint firstItem="XPp-jZ-SQl" firstAttribute="leading" secondItem="fBt-gh-L8x" secondAttribute="leading" id="fcu-cG-8Or"/>
+                                        <constraint firstAttribute="bottom" secondItem="XPp-jZ-SQl" secondAttribute="bottom" id="jR7-SR-gi9"/>
+                                    </constraints>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="fy4-Oe-pPc">
+                                    <rect key="frame" x="0.0" y="284" width="450" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="bdj-Rb-HrE">
+                                    <rect key="frame" x="434" y="0.0" width="16" height="300"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="a4P-hL-UQc" secondAttribute="bottom" id="0kC-wS-vde"/>
+                            <constraint firstAttribute="trailing" secondItem="UvC-FH-N0G" secondAttribute="trailing" id="3zH-CC-VId"/>
+                            <constraint firstItem="UvC-FH-N0G" firstAttribute="top" secondItem="2Vx-ou-8fP" secondAttribute="top" id="EP5-mk-Os0"/>
+                            <constraint firstAttribute="bottom" secondItem="UvC-FH-N0G" secondAttribute="bottom" id="ZFJ-gg-oZ3"/>
                             <constraint firstAttribute="trailing" secondItem="a4P-hL-UQc" secondAttribute="trailing" id="Zoz-bu-feh"/>
                             <constraint firstItem="a4P-hL-UQc" firstAttribute="leading" secondItem="2Vx-ou-8fP" secondAttribute="leading" id="d3f-Y1-cPm"/>
+                            <constraint firstItem="UvC-FH-N0G" firstAttribute="leading" secondItem="2Vx-ou-8fP" secondAttribute="leading" id="wjh-g2-7i9"/>
                             <constraint firstItem="a4P-hL-UQc" firstAttribute="top" secondItem="2Vx-ou-8fP" secondAttribute="top" id="x68-Xt-gnm"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="XPp-jZ-SQl" id="T23-Bd-3d9"/>
+                    </connections>
                 </viewController>
                 <customObject id="HdZ-ti-F4s" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

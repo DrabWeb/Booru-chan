@@ -9,21 +9,21 @@ import Cocoa
 
 class BrowserController: NSSplitViewController, IThemeable {
     @IBOutlet private weak var postsItem: NSSplitViewItem!
-    private var postsController: PostsController {
+    var postsController: PostsController {
         get {
             return postsItem.viewController as! PostsController;
         }
     }
 
     @IBOutlet private weak var infoBarItem: NSSplitViewItem!
-    private var infoBarController: InfoBarController {
+    var infoBarController: InfoBarController {
         get {
             return infoBarItem.viewController as! InfoBarController;
         }
     }
 
     @IBOutlet private weak var tagListItem: NSSplitViewItem!
-    private var tagListController: TagListController {
+    var tagListController: TagListController {
         get {
             return tagListItem.viewController as! TagListController;
         }
