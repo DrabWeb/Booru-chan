@@ -46,14 +46,14 @@ class PreferencesGeneralController: NSViewController {
     }
     
     private func load() {
-        imageSavingFormatTextField.stringValue = preferences.imageSaveFormat;
+        imageSavingFormatTextField.stringValue = preferences.imageFilenameFormat;
         themePopUpButton.selectItem(withTag: preferences.theme.rawValue);
         indicateDownloadedPostsCheckbox.state = NSControl.StateValue(rawValue: Int(truncating: preferences.indicateDownloadedPosts as NSNumber));
         notifyWhenDownloadsFinishCheckbox.state = NSControl.StateValue(rawValue: Int(truncating: preferences.notifyWhenDownloadsFinished as NSNumber));
     }
     
     private func save() {
-        preferences.imageSaveFormat = imageSavingFormatTextField.stringValue;
+        preferences.imageFilenameFormat = imageSavingFormatTextField.stringValue;
         preferences.theme = Theme(rawValue: themePopUpButton.selectedTag())!;
         preferences.indicateDownloadedPosts = indicateDownloadedPostsCheckbox.state.rawValue == 1;
         preferences.notifyWhenDownloadsFinished = notifyWhenDownloadsFinishCheckbox.state.rawValue == 1;
