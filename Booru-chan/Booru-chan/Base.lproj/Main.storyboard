@@ -765,7 +765,7 @@
                                             <color key="backgroundColor" red="0.49547861729999998" green="0.61712742350000005" blue="0.78039199999999997" alpha="0.0" colorSpace="deviceRGB"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="names" width="180" minWidth="40" maxWidth="38109238091823" id="3lP-h3-XYP">
+                                                <tableColumn identifier="Name" width="180" minWidth="40" maxWidth="38109238091823" id="3lP-h3-XYP" userLabel="Name">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -792,6 +792,9 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <action selector="booruNameEdited:" target="lGz-QM-Grz" id="xKG-bc-0vu"/>
+                                                                    </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -805,7 +808,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="urls" width="258" minWidth="10" maxWidth="1000" id="dZQ-zf-Fxp">
+                                                <tableColumn identifier="URL" width="258" minWidth="10" maxWidth="1000" id="dZQ-zf-Fxp" userLabel="URL">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -832,6 +835,9 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <action selector="booruUrlEdited:" target="lGz-QM-Grz" id="haI-8K-2sj"/>
+                                                                    </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -862,12 +868,12 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <popUpButton focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hlq-2d-XcP" userLabel="Booru Type Popup Button">
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hlq-2d-XcP" userLabel="Booru Type Popup Button">
                                 <rect key="frame" x="19" y="194" width="240" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="235" id="lhk-wq-DEP"/>
                                 </constraints>
-                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="8zp-Q2-tem">
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="8zp-Q2-tem">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="Wbj-Mm-W4G">
@@ -882,7 +888,7 @@
                                     </menu>
                                 </popUpButtonCell>
                                 <connections>
-                                    <action selector="typePopUpButton:" target="lGz-QM-Grz" id="yA5-Me-87N"/>
+                                    <action selector="applyChanges:" target="lGz-QM-Grz" id="eCk-nf-vQN"/>
                                 </connections>
                             </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X7w-NI-u7z" userLabel="Posts Per Page Label">
@@ -896,9 +902,9 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yg7-U3-0dv" userLabel="Posts Per Page Text Field">
+                            <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yg7-U3-0dv" userLabel="Posts Per Page Text Field">
                                 <rect key="frame" x="126" y="163" width="130" height="22"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" title="40" placeholderString="" bezelStyle="round" id="8OW-tT-7kp" userLabel="Text Field Cell">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="40" placeholderString="" bezelStyle="round" id="8OW-tT-7kp" userLabel="Text Field Cell">
                                     <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="URa-04-gdL">
                                         <real key="minimum" value="15"/>
                                         <real key="maximum" value="100"/>
@@ -908,7 +914,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <action selector="postsPerPageTextField:" target="lGz-QM-Grz" id="5RJ-U9-rHj"/>
+                                    <action selector="applyChanges:" target="lGz-QM-Grz" id="l2R-vz-i0j"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YUI-Vs-6t3">
@@ -936,31 +942,31 @@
                                     </menu>
                                 </popUpButtonCell>
                                 <connections>
-                                    <action selector="maximumRatingPopUpButton:" target="lGz-QM-Grz" id="Z0u-U9-0g7"/>
+                                    <action selector="applyChanges:" target="lGz-QM-Grz" id="eRS-fu-sQf"/>
                                 </connections>
                             </popUpButton>
-                            <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f8b-Rf-QmF" userLabel="Remove Button">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f8b-Rf-QmF" userLabel="Remove Button">
                                 <rect key="frame" x="411" y="200" width="20" height="20"/>
-                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="WrB-rn-iiB">
+                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="WrB-rn-iiB">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="removeButton:" target="lGz-QM-Grz" id="Irj-hj-zeE"/>
+                                    <action selector="removeSelectedBooru:" target="lGz-QM-Grz" id="G50-61-aaT"/>
                                 </connections>
                             </button>
-                            <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RYv-od-wYf" userLabel="Add Button">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RYv-od-wYf" userLabel="Add Button">
                                 <rect key="frame" x="439" y="200" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="Pfa-8x-WVE"/>
                                     <constraint firstAttribute="width" constant="20" id="poi-ac-HTz"/>
                                 </constraints>
-                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Uxw-yZ-tyQ">
+                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="Uxw-yZ-tyQ">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="addButton:" target="lGz-QM-Grz" id="VTb-Bs-qbR"/>
+                                    <action selector="addNewBooru:" target="lGz-QM-Grz" id="vgv-7N-Scf"/>
                                 </connections>
                             </button>
                             <button toolTip="Clears the download history for this Booru" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sH3-6y-sP2" userLabel="Clear Download History Button">
@@ -973,7 +979,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="clearDownloadHistoryButton:" target="lGz-QM-Grz" id="RsP-ef-HTR"/>
+                                    <action selector="clearDownloadHistory:" target="lGz-QM-Grz" id="P5W-Qf-D2q"/>
                                 </connections>
                             </button>
                             <button toolTip="Clears the tag history for this Booru" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kCb-dM-Yj0" userLabel="Clear Tag History Button">
@@ -983,21 +989,21 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="clearTagHistoryButton:" target="lGz-QM-Grz" id="fFf-2f-AZI"/>
+                                    <action selector="clearTagHistory:" target="lGz-QM-Grz" id="tHB-7j-WhR"/>
                                 </connections>
                             </button>
-                            <tokenField focusRingType="none" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ho-eL-BU2" userLabel="Tag Blacklist Token Field">
+                            <tokenField allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ho-eL-BU2" userLabel="Tag Blacklist Token Field">
                                 <rect key="frame" x="21" y="20" width="438" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="90" id="wiu-Zh-ARG"/>
                                 </constraints>
-                                <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" alignment="left" placeholderString="Tag blacklist" drawsBackground="YES" allowsEditingTextAttributes="YES" id="lOD-5a-bvm">
+                                <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="Tag blacklist" drawsBackground="YES" allowsEditingTextAttributes="YES" id="lOD-5a-bvm">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </tokenFieldCell>
                                 <connections>
-                                    <action selector="tagBlacklistTokenField:" target="lGz-QM-Grz" id="kHc-Vi-hHm"/>
+                                    <action selector="applyChanges:" target="lGz-QM-Grz" id="q8C-Iw-Rvg"/>
                                 </connections>
                             </tokenField>
                         </subviews>
@@ -1040,13 +1046,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="addButton" destination="RYv-od-wYf" id="PNF-3M-4xu"/>
-                        <outlet property="clearDownloadHistoryButton" destination="sH3-6y-sP2" id="asd-v7-Xpx"/>
-                        <outlet property="clearTagHistoryButton" destination="kCb-dM-Yj0" id="jGN-Uu-If2"/>
+                        <outlet property="booruTableView" destination="e1N-9X-4q9" id="GRx-aT-w90"/>
                         <outlet property="maximumRatingPopUpButton" destination="3Ep-pN-CKZ" id="4Vg-85-3oj"/>
                         <outlet property="postsPerPageTextField" destination="yg7-U3-0dv" id="Qqz-Tu-XWh"/>
                         <outlet property="removeButton" destination="f8b-Rf-QmF" id="I5v-ZB-Mdq"/>
-                        <outlet property="tableView" destination="e1N-9X-4q9" id="GRx-aT-w90"/>
                         <outlet property="tagBlacklistTokenField" destination="6ho-eL-BU2" id="st1-1h-r9W"/>
                         <outlet property="typePopUpButton" destination="hlq-2d-XcP" id="25J-EL-f8Q"/>
                     </connections>

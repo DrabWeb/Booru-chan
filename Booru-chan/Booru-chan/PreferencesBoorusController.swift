@@ -8,85 +8,92 @@
 import Cocoa
 
 class PreferencesBoorusController: NSViewController {
+
+    private var currentEditingHost: BooruHost!
+
+    private var preferences: Preferences {
+        return (NSApp.delegate as! AppDelegate).preferences;
+    }
     
-    @IBOutlet weak var tableView: NSTableView!
-    
+    @IBOutlet weak var booruTableView: NSTableView!
     @IBOutlet weak var typePopUpButton: NSPopUpButton!
-    @IBAction func typePopUpButton(_ sender: NSPopUpButton) {
-        currentEditingHost.type = BooruType(rawValue: sender.selectedTag())!;
-        save();
-    }
-    
-    @IBOutlet weak var postsPerPageTextField: NSTextField!
-    @IBAction func postsPerPageTextField(_ sender: NSTextField) {
-        currentEditingHost.pagePostLimit = sender.integerValue;
-        save();
-    }
-    
-    @IBOutlet weak var maximumRatingPopUpButton: NSPopUpButton!
-    @IBAction func maximumRatingPopUpButton(_ sender: NSPopUpButton) {
-        currentEditingHost.maximumRating = Rating(rawValue: sender.selectedTag())!;
-        save();
-    }
-    
     @IBOutlet weak var removeButton: NSButton!
-    @IBAction func removeButton(_ sender: NSButton) {
-        // Don't allow the user to have zero hosts
-        if(preferences.booruHosts.count > 1) {
-            preferences.booruHosts.remove(at: tableView.selectedRow);
-            tableView.reloadData();
-            save();
-        }
-    }
-    
-    @IBOutlet weak var addButton: NSButton!
-    @IBAction func addButton(_ sender: NSButton) {
-        preferences.booruHosts.append(BooruHost(name: "Name", type: BooruType.moebooru, pagePostLimit: 40, url: "URL", maximumRating: Rating.explicit));
-        
-        tableView.reloadData();
-        tableView.deselectAll(self);
-        tableView.selectRowIndexes(IndexSet(integer: preferences.booruHosts.count - 1), byExtendingSelection: false);
-        
+    @IBOutlet weak var postsPerPageTextField: NSTextField!
+    @IBOutlet weak var maximumRatingPopUpButton: NSPopUpButton!
+    @IBOutlet weak var tagBlacklistTokenField: NSTokenField!
+
+    @IBAction func removeSelectedBooru(_ sender: NSButton) {
+        let row = booruTableView.selectedRow;
+
+        preferences.booruHosts.remove(at: row);
+        booruTableView.reloadData();
+        booruTableView.selectRowIndexes([min(row, preferences.booruHosts.count - 1)], byExtendingSelection: false);
+        updateRemoveButton();
+
         save();
     }
-    
-    @IBOutlet weak var clearDownloadHistoryButton: NSButton!
-    @IBAction func clearDownloadHistoryButton(_ sender: Any) {
+
+    @IBAction func addNewBooru(_ sender: NSButton) {
+        preferences.booruHosts.append(BooruHost(name: "Name", type: BooruType.moebooru, pagePostLimit: 40, url: "http://new.booru/url/", maximumRating: Rating.explicit));
+        
+        booruTableView.reloadData();
+        booruTableView.deselectAll(self);
+        booruTableView.selectRowIndexes(IndexSet(integer: preferences.booruHosts.count - 1), byExtendingSelection: false);
+
+        updateRemoveButton();
+        save();
+    }
+
+    @IBAction func clearDownloadHistory(_ sender: Any) {
         currentEditingHost.downloadedPosts = [];
         save();
     }
-    
-    @IBOutlet weak var clearTagHistoryButton: NSButton!
-    @IBAction func clearTagHistoryButton(_ sender: NSButton) {
+
+    @IBAction func clearTagHistory(_ sender: NSButton) {
         currentEditingHost.tagHistory = [];
         save();
     }
-    
-    @IBOutlet weak var tagBlacklistTokenField: NSTokenField!
-    @IBAction func tagBlacklistTokenField(_ sender: NSTokenField) {
-        currentEditingHost.tagBlacklist = sender.tokens;
+
+    @IBAction func applyChanges(_ sender: Any!) {
+        currentEditingHost.type = BooruType(rawValue: typePopUpButton.selectedTag())!;
+        currentEditingHost.pagePostLimit = postsPerPageTextField.integerValue;
+        currentEditingHost.maximumRating = Rating(rawValue: maximumRatingPopUpButton.selectedTag())!;
+        currentEditingHost.tagBlacklist = tagBlacklistTokenField.tokens;
+
         save();
     }
-    
-    var currentEditingHost : BooruHost = BooruHost();
-    
-    var preferences : Preferences {
-        return (NSApp.delegate as! AppDelegate).preferences;
+
+    @IBAction func booruNameEdited(_ sender: NSTextField!) {
+        print("PreferencesBoorusController: Changing name of \"\(currentEditingHost.name)\" to \"\(sender.stringValue)\"");
+
+        preferences.booruHosts[sender.tag].name = sender.stringValue;
+        save();
+    }
+
+    @IBAction func booruUrlEdited(_ sender: NSTextField!) {
+        if !sender.stringValue.hasSuffix("/") {
+            sender.stringValue = "\(sender.stringValue)/";
+        }
+
+        print("PreferencesBoorusController: Changing URL of \"\(currentEditingHost.name)\" to \"\(sender.stringValue)\"");
+
+        preferences.booruHosts[sender.tag].url = sender.stringValue;
+        save();
     }
     
     override func viewDidLoad() {
         super.viewDidLoad();
         
         load();
+        updateRemoveButton();
     }
     
     override func viewWillDisappear() {
         super.viewWillDisappear();
-        
         save();
     }
     
-    func displayInfo(from host : BooruHost) {
+    private func edit(host: BooruHost) {
         currentEditingHost = host;
         
         postsPerPageTextField.integerValue = host.pagePostLimit;
@@ -94,41 +101,23 @@ class PreferencesBoorusController: NSViewController {
         maximumRatingPopUpButton.selectItem(withTag: host.maximumRating.rawValue);
         
         tagBlacklistTokenField.stringValue = "";
-        for(_, currentTag) in host.tagBlacklist.enumerated() {
+        for (_, currentTag) in host.tagBlacklist.enumerated() {
             tagBlacklistTokenField.addToken(currentTag);
         }
     }
-    
-    /// Called when the user changes the name of a Booru list item
-    @objc func booruNameTextFieldEdited(_ sender: NSTextField) {
-        print("PreferencesBoorusViewController: Changing name of \"\(currentEditingHost.name)\" to \"\(sender.stringValue)\"");
-        
-        preferences.booruHosts[sender.tag].name = sender.stringValue;
-        save();
-    }
-    
-    
-    /// Called when the user changes the URL of a Booru list item
-    @objc func booruUrlTextFieldEdited(_ sender: NSTextField) {
-        print("PreferencesBoorusViewController: Changing URL of \"\(currentEditingHost.name)\" to \"\(sender.stringValue)\"");
-        
-        // Guarantee a trailing slash on the URL
-        if(!sender.stringValue.hasSuffix("/")) {
-            sender.stringValue = sender.stringValue + "/";
-        }
-        
-        preferences.booruHosts[sender.tag].url = sender.stringValue;
-        save();
-    }
-    
+
     private func load() {
         currentEditingHost = preferences.booruHosts[0];
-        displayInfo(from: currentEditingHost);
+        edit(host: currentEditingHost);
     }
-    
+
     private func save() {
         currentEditingHost.refreshUtilities();
         NotificationCenter.default.post(name: Notification.Name(rawValue: "Preferences.Updated"), object: nil);
+    }
+
+    private func updateRemoveButton() {
+        removeButton.isEnabled = preferences.booruHosts.count > 1;
     }
 }
 
@@ -138,37 +127,29 @@ extension PreferencesBoorusController: NSTableViewDataSource {
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cellView: NSTableCellView = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: nil) as! NSTableCellView;
-        let cellData : BooruHost = preferences.booruHosts[row];
-        
-        cellView.textField?.tag = row;
-        
-        if(tableColumn!.identifier.rawValue == "names") {
-            cellView.textField?.stringValue = cellData.name;
-            
-            cellView.textField?.target = self;
-            cellView.textField?.action = #selector(PreferencesBoorusController.booruNameTextFieldEdited(_:));
-            
-            return cellView;
+        let cellView = tableView.makeView(withIdentifier: tableColumn!.identifier, owner: nil) as! NSTableCellView;
+        let cellData = preferences.booruHosts[row];
+        let t = cellView.textField!;
+
+        t.tag = row;
+
+        switch tableColumn!.identifier.rawValue {
+            case "Name":
+                t.stringValue = cellData.name;
+                return cellView;
+            case "URL":
+                t.stringValue = cellData.url;
+                return cellView;
+            default:
+                return cellView;
         }
-        else if(tableColumn!.identifier.rawValue == "urls") {
-            cellView.textField?.stringValue = cellData.url;
-            
-            cellView.textField?.target = self;
-            cellView.textField?.action = #selector(PreferencesBoorusController.booruUrlTextFieldEdited(_:));
-            
-            return cellView;
-        }
-        
-        // Return the unmodified cell view, we dont need to do anything
-        return cellView;
     }
 }
 
 extension PreferencesBoorusController: NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
-        let selectedRow : Int = (notification.object as! NSTableView).selectedRow;
+        let selectedRow = (notification.object as! NSTableView).selectedRow;
         currentEditingHost.tagBlacklist = tagBlacklistTokenField.tokens;
-        displayInfo(from: preferences.booruHosts[selectedRow]);
+        edit(host: preferences.booruHosts[selectedRow]);
     }
 }
