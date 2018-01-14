@@ -33,7 +33,7 @@ class ImageDownloader {
                 }
 
                 complete(nil);
-        }
+            }
     }
 
     func cancel() {
