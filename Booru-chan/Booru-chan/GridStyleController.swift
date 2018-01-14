@@ -354,8 +354,8 @@ class GridStyleController: NSObject, NSCollectionViewDelegate {
         booruCollectionView.deselectAll(self);
         
         // Disable the reached bottom action from being called
-        booruCollectionViewScrollView.reachedBottomAction = nil;
-        
+//        booruCollectionViewScrollView.reachedBottomAction = nil;
+
         // Hide the no search results container
         noSearchResultsContainerView.isHidden = true;
         
@@ -388,7 +388,7 @@ class GridStyleController: NSObject, NSCollectionViewDelegate {
         }
         
         // Enable the reached bottom action
-        booruCollectionViewScrollView.reachedBottomAction = #selector(GridStyleController.reachedBottomOfBooruCollectionView);
+//        booruCollectionViewScrollView.reachedBottomAction = #selector(GridStyleController.reachedBottomOfBooruCollectionView);
     }
     
     /// Is the tag list open?
@@ -507,8 +507,8 @@ class GridStyleController: NSObject, NSCollectionViewDelegate {
         self.booruCollectionView.addObserver(self, forKeyPath: "selectionIndexes", options: options, context: nil);
         
         // Set the target and action to use when the user reaches the bottom of the Booru collection view
-        booruCollectionViewScrollView.reachedBottomTarget = self;
-        booruCollectionViewScrollView.reachedBottomAction = #selector(GridStyleController.reachedBottomOfBooruCollectionView);
+//        booruCollectionViewScrollView.reachedBottomTarget = self;
+//        booruCollectionViewScrollView.reachedBottomAction = #selector(GridStyleController.reachedBottomOfBooruCollectionView);
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

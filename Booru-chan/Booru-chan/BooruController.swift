@@ -19,17 +19,11 @@ class BooruController: NSSplitViewController, IThemeable {
             }
 
             lastBooru = currentBooru;
-            currentUtils = BooruUtilities(booru: currentBooru);
-        }
-    }
-
-    private var currentUtils: BooruUtilities! {
-        didSet {
             browserController.postsController.items = [];
             selectedPosts = [];
 
             //todo: temporary
-            _ = currentUtils.getPostsFromSearch("", limit: 40, page: 1, completionHandler: { self.browserController.postsController.items = $0 });
+            _ = currentBooru.utilties!.getPostsFromSearch("", limit: 40, page: 1, completionHandler: { self.browserController.postsController.items = $0 });
         }
     }
 
@@ -84,6 +78,15 @@ class BooruController: NSSplitViewController, IThemeable {
 
         window = NSApp.windows.last!;
         browserController.postsController.onSelect = { self.selectedPosts = $0 };
+        browserController.postsController.onReachedBottom = {
+            if self.browserController.postsController.items.count > 0 {
+                _ = self.currentBooru.utilties!.getPostsFromSearch(self.currentBooru.utilties!.lastSearch,
+                                                                   limit: self.currentBooru.utilties!.lastSearchLimit,
+                                                                   page: self.currentBooru.utilties!.lastSearchPage + 1,
+                                                                   completionHandler: { self.browserController.postsController.items.append(contentsOf: $0) });
+            }
+        };
+
         applyTheme(theme: .light);
     }
 }

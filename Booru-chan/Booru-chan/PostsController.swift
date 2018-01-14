@@ -8,14 +8,20 @@
 import Cocoa
 
 class PostsController: NSViewController {
+
     @IBOutlet private weak var scrollView: BottomActionScrollView!
     @IBOutlet private weak var collectionView: NSCollectionView!
-
-    var onSelect: (([BooruPost]) -> Void)? = nil;
 
     var items: [BooruPost] = [] {
         didSet {
             collectionView.reloadData();
+        }
+    }
+
+    var onSelect: (([BooruPost]) -> Void)? = nil;
+    var onReachedBottom: (() -> Void)? = nil {
+        didSet {
+            scrollView.onReachedBottom = onReachedBottom;
         }
     }
 
