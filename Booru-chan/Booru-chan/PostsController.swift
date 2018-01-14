@@ -18,15 +18,11 @@ class PostsController: NSViewController {
         }
     }
 
-    var onSelect: (([BooruPost]) -> Void)? = nil;
-    var onReachedBottom: (() -> Void)? = nil {
+    var onSelect: (([BooruPost]) -> Void)?
+    var onReachedBottom: (() -> Void)? {
         didSet {
             scrollView.onReachedBottom = onReachedBottom;
         }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad();
     }
 }
 
