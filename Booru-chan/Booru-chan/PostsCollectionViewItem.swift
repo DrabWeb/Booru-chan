@@ -12,7 +12,7 @@ class PostsCollectionViewItem: NSCollectionViewItem {
 
     @IBOutlet private weak var selectionBox: PostsCollectionViewSelectionBox!
 
-    private var request: ImageDownloader?
+    private var downloader: ImageDownloader?
 
     var representedPost: BooruPost? {
         didSet {
@@ -20,8 +20,8 @@ class PostsCollectionViewItem: NSCollectionViewItem {
                 return;
             }
 
-            request = ImageDownloader(url: URL(string: representedPost!.thumbnailUrl)!);
-            request!.download(complete: { image in
+            downloader = ImageDownloader(url: URL(string: representedPost!.thumbnailUrl)!);
+            downloader!.download(complete: { image in
                 self.imageView!.image = image;
             });
         }
@@ -34,12 +34,13 @@ class PostsCollectionViewItem: NSCollectionViewItem {
     }
 
     override func prepareForReuse() {
+        downloader?.cancel();
         self.imageView!.image = nil;
         self.selectionBox.isHidden = true;
     }
 
     deinit {
-        request?.cancel();
+        downloader?.cancel();
     }
 }
 
