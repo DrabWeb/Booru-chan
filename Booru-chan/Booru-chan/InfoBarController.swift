@@ -8,6 +8,7 @@
 import Cocoa
 
 class InfoBarController: NSViewController {
+
     @IBOutlet private weak var label: NSTextField!
 
     var imageSize: NSSize! {
