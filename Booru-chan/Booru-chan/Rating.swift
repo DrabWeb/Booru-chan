@@ -7,14 +7,9 @@
 
 import Foundation
 
-/// The different ratings a post can have
 enum Rating: Int {
-    /// Safe
+    case none
     case safe
-
-    /// Questionable(Red face)
     case questionable
-
-    /// Explicit(L-lewd...)
     case explicit
 }

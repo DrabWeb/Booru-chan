@@ -14,7 +14,7 @@ class BooruUtilities {
     weak var representedBooru : BooruHost? = nil;
 
     /// The type of Booru to use for this Booru Utilities
-    var type : BooruType = .unchosen;
+    var type : BooruType = .none;
 
     /// The base URL of this Booru(Without a trailing slash)
     var baseUrl : String = "";

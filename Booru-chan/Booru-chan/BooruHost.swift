@@ -12,7 +12,7 @@ class BooruHost: NSObject, NSCoding {
     var name : String = "";
 
     /// What type of Booru this is
-    var type : BooruType = .unchosen;
+    var type : BooruType = .none;
 
     /// How many posts to show per page
     var pagePostLimit : Int = 40;

@@ -7,20 +7,10 @@
 
 import Foundation
 
-/// The different types of Booru Booru-chan can use
 enum BooruType: Int {
-    /// Used for placeholders/variable initiation
-    case unchosen
-
-    /// Moebooru
+    case none
     case moebooru
-
-    /// Danbooru 1.x
-    case danbooruLegacy
-
-    /// Danbooru 2.x
-    case danbooru
-
-    /// Gelbooru
+    case danbooruLegacy // 1.x
+    case danbooru // 2.x
     case gelbooru
 }
