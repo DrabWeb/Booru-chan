@@ -8,6 +8,7 @@
 import Cocoa
 
 class BrowserController: NSSplitViewController, IThemeable {
+
     @IBOutlet private weak var postsItem: NSSplitViewItem!
     var postsController: PostsController {
         get {
