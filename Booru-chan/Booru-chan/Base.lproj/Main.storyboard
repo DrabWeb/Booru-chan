@@ -284,9 +284,9 @@
                         <value key="minSize" type="size" width="300" height="200"/>
                         <toolbar key="toolbar" implicitIdentifier="1863C849-E395-4A11-BAAB-8210016ABBF9" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="biy-dr-Aki">
                             <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="41C31CBF-4038-4830-8B94-399409883A83" explicitItemIdentifier="BooruSelector" label="Booru Selector" paletteLabel="Booru Selector" id="RkP-uJ-bfN">
+                                <toolbarItem implicitItemIdentifier="41C31CBF-4038-4830-8B94-399409883A83" label="Booru List" paletteLabel="Booru List" id="RkP-uJ-bfN">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="155" height="28"/>
+                                    <size key="minSize" width="155" height="29"/>
                                     <size key="maxSize" width="160" height="29"/>
                                     <popUpButton key="view" focusRingType="none" verticalHuggingPriority="750" id="cUI-9z-dtm" userLabel="Popup Button">
                                         <rect key="frame" x="0.0" y="14" width="160" height="28"/>
@@ -297,29 +297,26 @@
                                             <menu key="menu" id="F4X-oW-4Ra"/>
                                         </popUpButtonCell>
                                         <connections>
-                                            <action selector="toolbarBooruPopupItemSelected:" target="Oky-zY-oP4" id="acS-sR-meL"/>
+                                            <action selector="booruChanged:" target="Oky-zY-oP4" id="SFC-QF-Bb3"/>
                                         </connections>
                                     </popUpButton>
                                     <connections>
                                         <action selector="booruChanged:" target="Oky-zY-oP4" id="MMQ-vz-XRn"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="4C2BE68C-8DD5-4DAD-9BF1-D6C093A5C706" explicitItemIdentifier="SearchField" label="Search Field" paletteLabel="Search Field" id="ezc-Vb-bD7">
+                                <toolbarItem implicitItemIdentifier="F36C8B07-F8C4-4AA5-BEAF-0234BEABAF5C" label="Search" paletteLabel="Search" id="tdC-sX-mL4">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="96" height="22"/>
                                     <size key="maxSize" width="500" height="22"/>
-                                    <tokenField key="view" focusRingType="none" verticalHuggingPriority="750" id="knT-xx-qni" customClass="BooruSearchTokenField" customModule="Booru_chan" customModuleProvider="target">
+                                    <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" id="bf5-lR-Frv">
                                         <rect key="frame" x="0.0" y="14" width="96" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" alignment="center" placeholderString="Search..." allowsEditingTextAttributes="YES" bezelStyle="round" tokenStyle="rounded" id="r6F-1j-rMB">
+                                        <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="pLr-9t-Hxs">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </tokenFieldCell>
-                                        <connections>
-                                            <action selector="toolbarSearchFieldTextEntered:" target="Oky-zY-oP4" id="b7b-pk-hrN"/>
-                                        </connections>
-                                    </tokenField>
+                                        </searchFieldCell>
+                                    </searchField>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="T4E-n3-xUt"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="JdI-Xo-mgm"/>
@@ -327,7 +324,7 @@
                             <defaultToolbarItems>
                                 <toolbarItem reference="JdI-Xo-mgm"/>
                                 <toolbarItem reference="RkP-uJ-bfN"/>
-                                <toolbarItem reference="ezc-Vb-bD7"/>
+                                <toolbarItem reference="tdC-sX-mL4"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
@@ -335,7 +332,7 @@
                         </connections>
                     </window>
                     <connections>
-                        <outlet property="booruPopUpButton" destination="cUI-9z-dtm" id="v5w-LD-kGz"/>
+                        <outlet property="booruPopUpButton" destination="cUI-9z-dtm" id="yW2-bY-HLe"/>
                         <segue destination="izn-wc-Ddx" kind="relationship" relationship="window.shadowedContentViewController" id="24x-ee-UPS"/>
                     </connections>
                 </windowController>

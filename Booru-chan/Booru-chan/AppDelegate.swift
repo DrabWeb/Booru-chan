@@ -110,23 +110,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     /// Sets up all the menu items
     func setupMenuItems() {
         // Setup the menu items
-        self.menuItemSaveSelectedImages.action = #selector(BooruViewController.saveSelectedImages);
-        self.menuItemOpenSelectedPostsInBrowser.action = #selector(BooruViewController.openSelectedPostsInBrowser);
-        self.menuItemCopyUrlsOfSelectedPosts.action = #selector(BooruViewController.copyUrlsOfSelectedPosts);
-        self.menuItemCopyImageUrlsOfSelectedPosts.action = #selector(BooruViewController.copyImageUrlsOfSelectedPosts);
-        self.menuItemCopyAllPreviouslyCopiedPostUrls.action = #selector(BooruViewController.copyPreviouslyCopiedPostUrls);
-        self.menuItemCopyAllPreviouslyCopiedImageUrls.action = #selector(BooruViewController.copyPreviouslyCopiedImageUrls);
-        self.menuItemToggleTitlebar.action = #selector(BooruViewController.toggleTitlebar);
-        self.menuItemSelectSearchField.action = #selector(BooruViewController.selectSearchField);
-        self.menuItemOpenBooruPopup.action = #selector(BooruViewController.openBooruPopup);
-        self.menuItemSelectPostBrowser.action = #selector(BooruViewController.selectPostBrowser);
-        
-        self.menuItemTogglePostBrowser.action = #selector(BooruViewController.toggleBooruCollectionView);
-        self.menuItemToggleInfoBar.action = #selector(BooruViewController.toggleInfoBar);
-        self.menuItemToggleTagList.action = #selector(BooruViewController.toggleTagList);
-        self.menuItemZoomIn.action = #selector(BooruViewController.zoomIn);
-        self.menuItemZoomOut.action = #selector(BooruViewController.zoomOut);
-        self.menuItemResetZoom.action = #selector(BooruViewController.resetZoomWithAnimation);
+//        self.menuItemSaveSelectedImages.action = #selector(BooruViewController.saveSelectedImages);
+//        self.menuItemOpenSelectedPostsInBrowser.action = #selector(BooruViewController.openSelectedPostsInBrowser);
+//        self.menuItemCopyUrlsOfSelectedPosts.action = #selector(BooruViewController.copyUrlsOfSelectedPosts);
+//        self.menuItemCopyImageUrlsOfSelectedPosts.action = #selector(BooruViewController.copyImageUrlsOfSelectedPosts);
+//        self.menuItemCopyAllPreviouslyCopiedPostUrls.action = #selector(BooruViewController.copyPreviouslyCopiedPostUrls);
+//        self.menuItemCopyAllPreviouslyCopiedImageUrls.action = #selector(BooruViewController.copyPreviouslyCopiedImageUrls);
+//        self.menuItemToggleTitlebar.action = #selector(BooruViewController.toggleTitlebar);
+//        self.menuItemSelectSearchField.action = #selector(BooruViewController.selectSearchField);
+//        self.menuItemOpenBooruPopup.action = #selector(BooruViewController.openBooruPopup);
+//        self.menuItemSelectPostBrowser.action = #selector(BooruViewController.selectPostBrowser);
+//        
+//        self.menuItemTogglePostBrowser.action = #selector(BooruViewController.toggleBooruCollectionView);
+//        self.menuItemToggleInfoBar.action = #selector(BooruViewController.toggleInfoBar);
+//        self.menuItemToggleTagList.action = #selector(BooruViewController.toggleTagList);
+//        self.menuItemZoomIn.action = #selector(BooruViewController.zoomIn);
+//        self.menuItemZoomOut.action = #selector(BooruViewController.zoomOut);
+//        self.menuItemResetZoom.action = #selector(BooruViewController.resetZoomWithAnimation);
     }
     
     /// Saves the preferences
