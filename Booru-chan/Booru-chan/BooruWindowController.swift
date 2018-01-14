@@ -7,7 +7,6 @@
 
 import Cocoa
 
-/// The window controller for booru browsers
 class BooruWindowController: NSWindowController {
 
     private var subwindowController: BooruWindowController?
@@ -15,7 +14,7 @@ class BooruWindowController: NSWindowController {
     @IBOutlet private weak var booruPopUpButton: NSPopUpButton!
 
     @IBAction override func newWindowForTab(_ sender: Any?) {
-        // tabbing is only on 10.12+
+        // tabbing is only available on 10.12+
         if #available(OSX 10.12, *) {
             let windowController = storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "BrowserWindowController")) as! BooruWindowController;
 
