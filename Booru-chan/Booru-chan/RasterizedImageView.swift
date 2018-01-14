@@ -1,5 +1,5 @@
 //
-//  RasterizedViews.swift
+//  RasterizedImageView.swift
 //  Booru-chan
 //
 //  Created by Ushio on 2016-04-24.

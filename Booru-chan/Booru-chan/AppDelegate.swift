@@ -11,7 +11,7 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
 
     /// The global preferences object
-    var preferences : PreferencesObject = PreferencesObject();
+    var preferences : Preferences = Preferences();
     
     /// File/Save Selected Images (⌘S)
     @IBOutlet weak var menuItemSaveSelectedImages: NSMenuItem!
@@ -146,7 +146,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // If we have any data to load...
         if let data = UserDefaults.standard.object(forKey: "preferences") as? Data {
             // Set the preferences object to the loaded object
-            preferences = (NSKeyedUnarchiver.unarchiveObject(with: data) as! PreferencesObject);
+            preferences = (NSKeyedUnarchiver.unarchiveObject(with: data) as! Preferences);
         }
     }
 

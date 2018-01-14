@@ -624,7 +624,7 @@
         <!--Preferences General Tab View Controller-->
         <scene sceneID="Esi-du-D6Q">
             <objects>
-                <viewController title="General" showSeguePresentationStyle="single" id="CzB-5j-0V1" userLabel="Preferences General Tab View Controller" customClass="PreferencesGeneralViewController" customModule="Booru_chan" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="General" showSeguePresentationStyle="single" id="CzB-5j-0V1" userLabel="Preferences General Tab View Controller" customClass="PreferencesGeneralController" customModule="Booru_chan" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="u0y-4J-TJa">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="222"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -741,7 +741,7 @@
         <!--Preferences Boorus Tab View Controller-->
         <scene sceneID="y1P-iM-wmY">
             <objects>
-                <viewController title="Boorus" showSeguePresentationStyle="single" id="lGz-QM-Grz" userLabel="Preferences Boorus Tab View Controller" customClass="PreferencesBoorusViewController" customModule="Booru_chan" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Boorus" showSeguePresentationStyle="single" id="lGz-QM-Grz" userLabel="Preferences Boorus Tab View Controller" customClass="PreferencesBoorusController" customModule="Booru_chan" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="hbr-43-iud">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -896,7 +896,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yg7-U3-0dv" userLabel="Posts Per Page Text Field" customClass="AlwaysActiveTextField" customModule="Booru_chan" customModuleProvider="target">
+                            <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yg7-U3-0dv" userLabel="Posts Per Page Text Field">
                                 <rect key="frame" x="126" y="163" width="130" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" title="40" placeholderString="" bezelStyle="round" id="8OW-tT-7kp" userLabel="Text Field Cell">
                                     <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="URa-04-gdL">

@@ -9,23 +9,21 @@
 /* Begin PBXBuildFile section */
 		13647380ADB5DF7F2E179436 /* Pods_Booru_chanUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C9F1C05F609B24EF821597 /* Pods_Booru_chanUITests.framework */; };
 		5D3288321CCE80D10029A57F /* BottomActionScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3288311CCE80D10029A57F /* BottomActionScrollView.swift */; };
-		5D3288351CCE95710029A57F /* PreferencesObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3288341CCE95710029A57F /* PreferencesObject.swift */; };
+		5D3288351CCE95710029A57F /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3288341CCE95710029A57F /* Preferences.swift */; };
 		5D71B4961CCC06EA0011C281 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4951CCC06EA0011C281 /* AppDelegate.swift */; };
 		5D71B49A1CCC06EA0011C281 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D71B4991CCC06EA0011C281 /* Assets.xcassets */; };
 		5D71B49D1CCC06EA0011C281 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D71B49B1CCC06EA0011C281 /* Main.storyboard */; };
 		5D71B4A81CCC06EA0011C281 /* Booru_chanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4A71CCC06EA0011C281 /* Booru_chanTests.swift */; };
 		5D71B4B31CCC06EA0011C281 /* Booru_chanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4B21CCC06EA0011C281 /* Booru_chanUITests.swift */; };
 		5D7CA38F1CCC0A8500B4A0A5 /* NoDividerSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7CA38E1CCC0A8500B4A0A5 /* NoDividerSplitView.swift */; };
-		5D7CA3911CCC0AFD00B4A0A5 /* AlwaysActiveViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7CA3901CCC0AFD00B4A0A5 /* AlwaysActiveViews.swift */; };
 		5D88CC0F1CCC133B001FF12E /* Booru.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC0E1CCC133B001FF12E /* Booru.swift */; };
 		5D88CC151CCC177B001FF12E /* ColouredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC141CCC177B001FF12E /* ColouredView.swift */; };
-		5DAD293A1CCD68CB00C3C747 /* RasterizedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD29381CCD68CB00C3C747 /* RasterizedViews.swift */; };
-		5DAD293D1CCD6AD400C3C747 /* BooruCollectionViewSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD293C1CCD6AD400C3C747 /* BooruCollectionViewSelectionBox.swift */; };
-		5DAF1A5B1CDD23480090D654 /* ImageUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAF1A5A1CDD23480090D654 /* ImageUtilities.swift */; };
+		5DAD293A1CCD68CB00C3C747 /* RasterizedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD29381CCD68CB00C3C747 /* RasterizedImageView.swift */; };
+		5DAD293D1CCD6AD400C3C747 /* PostsCollectionViewSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD293C1CCD6AD400C3C747 /* PostsCollectionViewSelectionBox.swift */; };
 		5DBDDD121CD910C00086E61D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBDDD111CD910C00086E61D /* Extensions.swift */; };
 		AE23007B2009BFF800D6218D /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE23007A2009BFF800D6218D /* ImageDownloader.swift */; };
-		AE329EC61E44C179003812FB /* PreferencesGeneralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC51E44C179003812FB /* PreferencesGeneralViewController.swift */; };
-		AE329EC81E44C186003812FB /* PreferencesBoorusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC71E44C186003812FB /* PreferencesBoorusViewController.swift */; };
+		AE329EC61E44C179003812FB /* PreferencesGeneralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC51E44C179003812FB /* PreferencesGeneralController.swift */; };
+		AE329EC81E44C186003812FB /* PreferencesBoorusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC71E44C186003812FB /* PreferencesBoorusController.swift */; };
 		AE9A56EE1FD72DFA0099D09E /* BooruWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */; };
 		AEA5A2171E13851400599CC5 /* BooruWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5A2161E13851400599CC5 /* BooruWindowController.swift */; };
 		AED6F58C1FD750D30036EDE8 /* BooruController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F58B1FD750D30036EDE8 /* BooruController.swift */; };
@@ -65,7 +63,7 @@
 		2C4774D88353301D8C0DBEE0 /* Pods-Booru-chan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chan/Pods-Booru-chan.release.xcconfig"; sourceTree = "<group>"; };
 		3C3DA1A4EC1266473AFC7E7A /* Pods-Booru-chanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chanTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chanTests/Pods-Booru-chanTests.release.xcconfig"; sourceTree = "<group>"; };
 		5D3288311CCE80D10029A57F /* BottomActionScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomActionScrollView.swift; sourceTree = "<group>"; };
-		5D3288341CCE95710029A57F /* PreferencesObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesObject.swift; sourceTree = "<group>"; };
+		5D3288341CCE95710029A57F /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		5D71B4921CCC06EA0011C281 /* Booru-chan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Booru-chan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D71B4951CCC06EA0011C281 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D71B4991CCC06EA0011C281 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -78,19 +76,17 @@
 		5D71B4B21CCC06EA0011C281 /* Booru_chanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booru_chanUITests.swift; sourceTree = "<group>"; };
 		5D71B4B41CCC06EA0011C281 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D7CA38E1CCC0A8500B4A0A5 /* NoDividerSplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoDividerSplitView.swift; sourceTree = "<group>"; };
-		5D7CA3901CCC0AFD00B4A0A5 /* AlwaysActiveViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlwaysActiveViews.swift; sourceTree = "<group>"; };
 		5D88CC0E1CCC133B001FF12E /* Booru.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Booru.swift; sourceTree = "<group>"; };
 		5D88CC141CCC177B001FF12E /* ColouredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColouredView.swift; sourceTree = "<group>"; };
-		5DAD29381CCD68CB00C3C747 /* RasterizedViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RasterizedViews.swift; sourceTree = "<group>"; };
-		5DAD293C1CCD6AD400C3C747 /* BooruCollectionViewSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooruCollectionViewSelectionBox.swift; sourceTree = "<group>"; };
-		5DAF1A5A1CDD23480090D654 /* ImageUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtilities.swift; sourceTree = "<group>"; };
+		5DAD29381CCD68CB00C3C747 /* RasterizedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RasterizedImageView.swift; sourceTree = "<group>"; };
+		5DAD293C1CCD6AD400C3C747 /* PostsCollectionViewSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsCollectionViewSelectionBox.swift; sourceTree = "<group>"; };
 		5DBDDD111CD910C00086E61D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		5F4FD8F272DEE171AFE7E6C5 /* Pods-Booru-chanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chanTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chanTests/Pods-Booru-chanTests.debug.xcconfig"; sourceTree = "<group>"; };
 		834CCAD73A440142898C1721 /* Pods_Booru_chan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA72CEBEF391F5FED42B629 /* Pods-Booru-chanUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chanUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chanUITests/Pods-Booru-chanUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AE23007A2009BFF800D6218D /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
-		AE329EC51E44C179003812FB /* PreferencesGeneralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesGeneralViewController.swift; sourceTree = "<group>"; };
-		AE329EC71E44C186003812FB /* PreferencesBoorusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesBoorusViewController.swift; sourceTree = "<group>"; };
+		AE329EC51E44C179003812FB /* PreferencesGeneralController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesGeneralController.swift; sourceTree = "<group>"; };
+		AE329EC71E44C186003812FB /* PreferencesBoorusController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesBoorusController.swift; sourceTree = "<group>"; };
 		AE75E5161DDE678E00937817 /* Booru-chan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Booru-chan-Bridging-Header.h"; sourceTree = "<group>"; };
 		AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruWindow.swift; sourceTree = "<group>"; };
 		AEA5A2161E13851400599CC5 /* BooruWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooruWindowController.swift; sourceTree = "<group>"; };
@@ -152,7 +148,7 @@
 		5D3288331CCE95580029A57F /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				5D3288341CCE95710029A57F /* PreferencesObject.swift */,
+				5D3288341CCE95710029A57F /* Preferences.swift */,
 				AE23007A2009BFF800D6218D /* ImageDownloader.swift */,
 				AEDD7F80200C00CC00AD33DE /* Theme.swift */,
 			);
@@ -221,10 +217,9 @@
 			isa = PBXGroup;
 			children = (
 				5D7CA38E1CCC0A8500B4A0A5 /* NoDividerSplitView.swift */,
-				5D7CA3901CCC0AFD00B4A0A5 /* AlwaysActiveViews.swift */,
 				5D88CC141CCC177B001FF12E /* ColouredView.swift */,
-				5DAD29381CCD68CB00C3C747 /* RasterizedViews.swift */,
-				5DAD293C1CCD6AD400C3C747 /* BooruCollectionViewSelectionBox.swift */,
+				5DAD29381CCD68CB00C3C747 /* RasterizedImageView.swift */,
+				5DAD293C1CCD6AD400C3C747 /* PostsCollectionViewSelectionBox.swift */,
 				5D3288311CCE80D10029A57F /* BottomActionScrollView.swift */,
 			);
 			name = Views;
@@ -243,7 +238,6 @@
 			children = (
 				5D88CC0E1CCC133B001FF12E /* Booru.swift */,
 				5DBDDD111CD910C00086E61D /* Extensions.swift */,
-				5DAF1A5A1CDD23480090D654 /* ImageUtilities.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -260,8 +254,8 @@
 		5D976B271CDA45A400191679 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				AE329EC51E44C179003812FB /* PreferencesGeneralViewController.swift */,
-				AE329EC71E44C186003812FB /* PreferencesBoorusViewController.swift */,
+				AE329EC51E44C179003812FB /* PreferencesGeneralController.swift */,
+				AE329EC71E44C186003812FB /* PreferencesBoorusController.swift */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -599,9 +593,8 @@
 			files = (
 				AEA5A2171E13851400599CC5 /* BooruWindowController.swift in Sources */,
 				AED6F5921FD7514F0036EDE8 /* TagListController.swift in Sources */,
-				5DAF1A5B1CDD23480090D654 /* ImageUtilities.swift in Sources */,
 				AED6F58E1FD751280036EDE8 /* BrowserController.swift in Sources */,
-				5D3288351CCE95710029A57F /* PreferencesObject.swift in Sources */,
+				5D3288351CCE95710029A57F /* Preferences.swift in Sources */,
 				AED6F59D1FD76A620036EDE8 /* PostsCollectionViewItem.swift in Sources */,
 				5D71B4961CCC06EA0011C281 /* AppDelegate.swift in Sources */,
 				AED6F5941FD7515A0036EDE8 /* InfoBarController.swift in Sources */,
@@ -612,16 +605,15 @@
 				AEDD7F81200C00CC00AD33DE /* Theme.swift in Sources */,
 				5D3288321CCE80D10029A57F /* BottomActionScrollView.swift in Sources */,
 				5D88CC151CCC177B001FF12E /* ColouredView.swift in Sources */,
-				5DAD293D1CCD6AD400C3C747 /* BooruCollectionViewSelectionBox.swift in Sources */,
+				5DAD293D1CCD6AD400C3C747 /* PostsCollectionViewSelectionBox.swift in Sources */,
 				5D88CC0F1CCC133B001FF12E /* Booru.swift in Sources */,
-				AE329EC81E44C186003812FB /* PreferencesBoorusViewController.swift in Sources */,
+				AE329EC81E44C186003812FB /* PreferencesBoorusController.swift in Sources */,
 				5DBDDD121CD910C00086E61D /* Extensions.swift in Sources */,
 				5D7CA38F1CCC0A8500B4A0A5 /* NoDividerSplitView.swift in Sources */,
 				AE23007B2009BFF800D6218D /* ImageDownloader.swift in Sources */,
-				5D7CA3911CCC0AFD00B4A0A5 /* AlwaysActiveViews.swift in Sources */,
 				AE9A56EE1FD72DFA0099D09E /* BooruWindow.swift in Sources */,
-				5DAD293A1CCD68CB00C3C747 /* RasterizedViews.swift in Sources */,
-				AE329EC61E44C179003812FB /* PreferencesGeneralViewController.swift in Sources */,
+				5DAD293A1CCD68CB00C3C747 /* RasterizedImageView.swift in Sources */,
+				AE329EC61E44C179003812FB /* PreferencesGeneralController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

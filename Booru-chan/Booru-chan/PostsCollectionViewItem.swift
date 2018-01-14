@@ -10,7 +10,7 @@ import Alamofire
 
 class PostsCollectionViewItem: NSCollectionViewItem {
 
-    @IBOutlet private weak var selectionBox: BooruCollectionViewSelectionBox!
+    @IBOutlet private weak var selectionBox: PostsCollectionViewSelectionBox!
 
     private var request: ImageDownloader?
 

@@ -1,5 +1,5 @@
 //
-//  BooruCollectionViewSelectionBox.swift
+//  PostsCollectionViewSelectionBox.swift
 //  Booru-chan
 //
 //  Created by Ushio on 2016-04-24.
@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class BooruCollectionViewSelectionBox: NSBox {
+class PostsCollectionViewSelectionBox: NSBox {
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect);

@@ -1,5 +1,5 @@
 //
-//  PreferencesBoorusViewController.swift
+//  PreferencesBoorusController.swift
 //  Booru-chan
 //
 //  Created by Ushio on 2/3/17.
@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class PreferencesBoorusViewController: NSViewController {
+class PreferencesBoorusController: NSViewController {
     
     @IBOutlet weak var tableView: NSTableView!
     
@@ -17,8 +17,8 @@ class PreferencesBoorusViewController: NSViewController {
         save();
     }
     
-    @IBOutlet weak var postsPerPageTextField: AlwaysActiveTextField!
-    @IBAction func postsPerPageTextField(_ sender: AlwaysActiveTextField) {
+    @IBOutlet weak var postsPerPageTextField: NSTextField!
+    @IBAction func postsPerPageTextField(_ sender: NSTextField) {
         currentEditingHost.pagePostLimit = sender.integerValue;
         save();
     }
@@ -70,7 +70,7 @@ class PreferencesBoorusViewController: NSViewController {
     
     var currentEditingHost : BooruHost = BooruHost();
     
-    var preferences : PreferencesObject {
+    var preferences : Preferences {
         return (NSApp.delegate as! AppDelegate).preferences;
     }
     
@@ -132,7 +132,7 @@ class PreferencesBoorusViewController: NSViewController {
     }
 }
 
-extension PreferencesBoorusViewController: NSTableViewDataSource {
+extension PreferencesBoorusController: NSTableViewDataSource {
     func numberOfRows(in aTableView: NSTableView) -> Int {
         return preferences.booruHosts.count;
     }
@@ -147,7 +147,7 @@ extension PreferencesBoorusViewController: NSTableViewDataSource {
             cellView.textField?.stringValue = cellData.name;
             
             cellView.textField?.target = self;
-            cellView.textField?.action = #selector(PreferencesBoorusViewController.booruNameTextFieldEdited(_:));
+            cellView.textField?.action = #selector(PreferencesBoorusController.booruNameTextFieldEdited(_:));
             
             return cellView;
         }
@@ -155,7 +155,7 @@ extension PreferencesBoorusViewController: NSTableViewDataSource {
             cellView.textField?.stringValue = cellData.url;
             
             cellView.textField?.target = self;
-            cellView.textField?.action = #selector(PreferencesBoorusViewController.booruUrlTextFieldEdited(_:));
+            cellView.textField?.action = #selector(PreferencesBoorusController.booruUrlTextFieldEdited(_:));
             
             return cellView;
         }
@@ -165,7 +165,7 @@ extension PreferencesBoorusViewController: NSTableViewDataSource {
     }
 }
 
-extension PreferencesBoorusViewController: NSTableViewDelegate {
+extension PreferencesBoorusController: NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
         let selectedRow : Int = (notification.object as! NSTableView).selectedRow;
         currentEditingHost.tagBlacklist = tagBlacklistTokenField.tokens;

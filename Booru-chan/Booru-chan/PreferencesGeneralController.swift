@@ -1,5 +1,5 @@
 //
-//  PreferencesGeneralViewController.swift
+//  PreferencesGeneralController.swift
 //  Booru-chan
 //
 //  Created by Ushio on 2/3/17.
@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class PreferencesGeneralViewController: NSViewController {
+class PreferencesGeneralController: NSViewController {
     
     @IBOutlet weak var imageSavingFormatTextField: NSTextField!
     @IBAction func imageSavingFormatTextField(_ sender: NSTextField) {
@@ -29,7 +29,7 @@ class PreferencesGeneralViewController: NSViewController {
         save();
     }
     
-    private var preferences : PreferencesObject {
+    private var preferences : Preferences {
         return (NSApp.delegate as! AppDelegate).preferences;
     }
     

@@ -1,5 +1,5 @@
 //
-//  PreferencesObject.swift
+//  Preferences.swift
 //  Booru-chan
 //
 //  Created by Ushio on 2016-04-25.
@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class PreferencesObject: NSObject, NSCoding {
+class Preferences: NSObject, NSCoding {
     /// The Booru hosts the user has added
     var booruHosts : [BooruHost] = [
         BooruHost(name: "Yande.re", type: .moebooru, pagePostLimit: 40, url: "http://yande.re/", maximumRating: .explicit),

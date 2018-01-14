@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="glG-56-Rwm" userLabel="Selection Box" customClass="BooruCollectionViewSelectionBox" customModule="Booru_chan" customModuleProvider="target">
+                <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="glG-56-Rwm" userLabel="Selection Box" customClass="PostsCollectionViewSelectionBox" customModule="Booru_chan" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                 </customView>
                 <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Nv-44-gIS" userLabel="Content Container">
