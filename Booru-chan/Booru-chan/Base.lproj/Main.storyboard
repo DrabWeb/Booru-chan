@@ -248,26 +248,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Booru_chan" customModuleProvider="target">
-                    <connections>
-                        <outlet property="menuItemCopyAllPreviouslyCopiedImageUrls" destination="OdP-2K-UCE" id="8nf-FT-Zoz"/>
-                        <outlet property="menuItemCopyAllPreviouslyCopiedPostUrls" destination="5cx-3G-YPN" id="xLr-Ox-CpI"/>
-                        <outlet property="menuItemCopyImageUrlsOfSelectedPosts" destination="N4M-Fe-uaM" id="Upt-zn-bdA"/>
-                        <outlet property="menuItemCopyUrlsOfSelectedPosts" destination="hRr-pn-fLj" id="Pa1-ep-JYT"/>
-                        <outlet property="menuItemOpenBooruPopup" destination="3Ek-uF-hU4" id="FfP-Cj-H6Y"/>
-                        <outlet property="menuItemOpenSelectedPostsInBrowser" destination="fvh-hQ-1hD" id="Db4-4P-env"/>
-                        <outlet property="menuItemResetZoom" destination="f9y-iU-uVu" id="E24-Kl-DLl"/>
-                        <outlet property="menuItemSaveSelectedImages" destination="BHx-14-SHv" id="4c4-Hp-LZr"/>
-                        <outlet property="menuItemSelectPostBrowser" destination="OuU-Ru-VLE" id="3sY-SF-IjS"/>
-                        <outlet property="menuItemSelectSearchField" destination="QhB-jc-3vW" id="Yii-VM-cSn"/>
-                        <outlet property="menuItemToggleInfoBar" destination="Khz-uv-AkP" id="q07-0L-C2b"/>
-                        <outlet property="menuItemTogglePostBrowser" destination="D1L-8u-R3F" id="mJ1-wX-0Vf"/>
-                        <outlet property="menuItemToggleTagList" destination="TgK-Jw-Z48" id="6DJ-xc-IcW"/>
-                        <outlet property="menuItemToggleTitlebar" destination="ZMD-8W-SMq" id="nUf-jP-DBK"/>
-                        <outlet property="menuItemZoomIn" destination="AlW-cq-7t3" id="0I8-lP-X9f"/>
-                        <outlet property="menuItemZoomOut" destination="KUu-XZ-gbj" id="iEP-jp-6sf"/>
-                    </connections>
-                </customObject>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Booru_chan" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="-190"/>
