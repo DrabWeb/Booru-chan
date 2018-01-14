@@ -181,7 +181,6 @@
 			isa = PBXGroup;
 			children = (
 				5D71B4951CCC06EA0011C281 /* AppDelegate.swift */,
-				AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */,
 				5D7CA38D1CCC0A6E00B4A0A5 /* Storyboards */,
 				5D3288331CCE95580029A57F /* Objects */,
 				AED6F5981FD754C10036EDE8 /* Protocols */,
@@ -245,8 +244,8 @@
 		5D88CC101CCC14B2001FF12E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5D976B271CDA45A400191679 /* Preferences */,
 				AED6F58A1FD7507B0036EDE8 /* Booru */,
+				5D976B271CDA45A400191679 /* Preferences */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -273,15 +272,11 @@
 		AED6F58A1FD7507B0036EDE8 /* Booru */ = {
 			isa = PBXGroup;
 			children = (
+				AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */,
 				AEA5A2161E13851400599CC5 /* BooruWindowController.swift */,
 				AED6F58B1FD750D30036EDE8 /* BooruController.swift */,
-				AED6F58D1FD751280036EDE8 /* BrowserController.swift */,
-				AED6F5951FD751680036EDE8 /* PostsController.swift */,
-				AED6F59B1FD76A620036EDE8 /* PostsCollectionViewItem.swift */,
-				AED6F59C1FD76A620036EDE8 /* PostsCollectionViewItem.xib */,
-				AED6F5931FD7515A0036EDE8 /* InfoBarController.swift */,
-				AED6F5911FD7514F0036EDE8 /* TagListController.swift */,
-				AED6F58F1FD7513C0036EDE8 /* ViewerController.swift */,
+				AEDD7F83200C05D100AD33DE /* Browser */,
+				AEDD7F86200C065600AD33DE /* Viewer */,
 			);
 			name = Booru;
 			sourceTree = "<group>";
@@ -292,6 +287,51 @@
 				AED6F5991FD754DF0036EDE8 /* IThemeable.swift */,
 			);
 			name = Protocols;
+			sourceTree = "<group>";
+		};
+		AEDD7F82200C05B800AD33DE /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				AED6F5951FD751680036EDE8 /* PostsController.swift */,
+				AED6F59B1FD76A620036EDE8 /* PostsCollectionViewItem.swift */,
+				AED6F59C1FD76A620036EDE8 /* PostsCollectionViewItem.xib */,
+			);
+			name = Posts;
+			sourceTree = "<group>";
+		};
+		AEDD7F83200C05D100AD33DE /* Browser */ = {
+			isa = PBXGroup;
+			children = (
+				AED6F58D1FD751280036EDE8 /* BrowserController.swift */,
+				AEDD7F82200C05B800AD33DE /* Posts */,
+				AEDD7F84200C05E900AD33DE /* Info */,
+				AEDD7F85200C060800AD33DE /* Tags */,
+			);
+			name = Browser;
+			sourceTree = "<group>";
+		};
+		AEDD7F84200C05E900AD33DE /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				AED6F5931FD7515A0036EDE8 /* InfoBarController.swift */,
+			);
+			name = Info;
+			sourceTree = "<group>";
+		};
+		AEDD7F85200C060800AD33DE /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				AED6F5911FD7514F0036EDE8 /* TagListController.swift */,
+			);
+			name = Tags;
+			sourceTree = "<group>";
+		};
+		AEDD7F86200C065600AD33DE /* Viewer */ = {
+			isa = PBXGroup;
+			children = (
+				AED6F58F1FD7513C0036EDE8 /* ViewerController.swift */,
+			);
+			name = Viewer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
