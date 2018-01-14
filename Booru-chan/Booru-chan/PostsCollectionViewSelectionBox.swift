@@ -14,11 +14,12 @@ class PostsCollectionViewSelectionBox: NSBox {
         
         self.boxType = NSBox.BoxType.custom;
         self.cornerRadius = 5;
-        
-        // Cheaty way to check if the view is light/dark, because NSCompositeAppearance is private
-        var light : Bool = false;
+
+        var light = false;
+
+        // check if this view has a light or dark appearance
         for (_, appearance) in (effectiveAppearance.value(forKey: "appearances") as! [NSAppearance]).enumerated() {
-            if(appearance.name.rawValue == "NSAppearanceNameVibrantLight") {
+            if appearance.name.rawValue == "NSAppearanceNameVibrantLight" {
                 light = true;
             }
         }
