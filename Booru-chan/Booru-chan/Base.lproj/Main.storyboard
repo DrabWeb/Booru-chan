@@ -102,19 +102,9 @@
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save Selected Images" keyEquivalent="s" id="BHx-14-SHv"/>
+                                        <menuItem title="Save As..." keyEquivalent="s" id="BHx-14-SHv"/>
                                         <menuItem isSeparatorItem="YES" id="PiA-mG-5PH"/>
-                                        <menuItem title="Open Selected Posts In Browser" keyEquivalent="o" id="fvh-hQ-1hD"/>
-                                        <menuItem isSeparatorItem="YES" id="eZn-wC-63H"/>
-                                        <menuItem title="Copy URLs of Selected Posts" keyEquivalent="C" id="hRr-pn-fLj"/>
-                                        <menuItem title="Copy Image URLs of Selected Posts" keyEquivalent="c" id="N4M-Fe-uaM"/>
-                                        <menuItem isSeparatorItem="YES" id="kne-ng-rYy"/>
-                                        <menuItem title="Copy All Previously Copied Post URLs" keyEquivalent="C" id="5cx-3G-YPN">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                        </menuItem>
-                                        <menuItem title="Copy All Previously Copied Image URLs" keyEquivalent="c" id="OdP-2K-UCE">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                        </menuItem>
+                                        <menuItem title="Open in Browser" keyEquivalent="o" id="fvh-hQ-1hD"/>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -132,7 +122,7 @@
                                                 <action selector="redo:" target="Ady-hI-5gd" id="oIA-Rs-6OD"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="WRV-NI-Exz"/>
+                                        <menuItem isSeparatorItem="YES" id="whz-ZY-sMF"/>
                                         <menuItem title="Cut" keyEquivalent="x" id="uRl-iY-unG">
                                             <connections>
                                                 <action selector="cut:" target="Ady-hI-5gd" id="YJe-68-I9s"/>
@@ -141,6 +131,11 @@
                                         <menuItem title="Copy" keyEquivalent="c" id="x3v-GG-iWU">
                                             <connections>
                                                 <action selector="copy:" target="Ady-hI-5gd" id="G1f-GL-Joy"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Copy Image" keyEquivalent="C" id="B8L-rc-uhL">
+                                            <connections>
+                                                <action selector="copy:" target="Ady-hI-5gd" id="zgE-4L-wxX"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Paste" keyEquivalent="v" id="gVA-U4-sdL">
@@ -153,16 +148,12 @@
                                                 <action selector="selectAll:" target="Ady-hI-5gd" id="VNm-Mi-diN"/>
                                             </connections>
                                         </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="Image" id="AXS-Ed-5GX" userLabel="Image">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Image" id="9Ce-yT-tbC">
-                                    <items>
-                                        <menuItem title="Zoom In" keyEquivalent="=" id="AlW-cq-7t3"/>
-                                        <menuItem title="Zoom Out" keyEquivalent="-" id="KUu-XZ-gbj"/>
-                                        <menuItem title="Reset Zoom" keyEquivalent="0" id="f9y-iU-uVu"/>
+                                        <menuItem isSeparatorItem="YES" id="WgD-rU-ERe"/>
+                                        <menuItem title="Search…" tag="1" keyEquivalent="f" id="Ugw-j3-nae">
+                                            <connections>
+                                                <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="kMJ-K7-x8d"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -176,6 +167,11 @@
                                                 <action selector="toggleToolbarShown:" target="Ady-hI-5gd" id="1Rr-s7-M2E"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="lvw-YH-qiV"/>
+                                        <menuItem title="Actual Size" keyEquivalent="0" id="ysX-Sc-HC7"/>
+                                        <menuItem title="Zoom to Fit" keyEquivalent="9" id="OzU-2F-fgD"/>
+                                        <menuItem title="Zoom In" keyEquivalent="+" id="xHP-I6-dGV"/>
+                                        <menuItem title="Zoom Out" keyEquivalent="-" id="ESu-tv-qKJ"/>
                                         <menuItem isSeparatorItem="YES" id="Eh7-q2-XXT"/>
                                         <menuItem title="Enter Full Screen" keyEquivalent="f" id="bZX-CF-gvz">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
@@ -201,31 +197,9 @@
                                                 <action selector="performZoom:" target="Ady-hI-5gd" id="DIl-cC-cCs"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="9k1-Jh-E3P"/>
-                                        <menuItem title="Toggle Titlebar" keyEquivalent="T" id="ZMD-8W-SMq">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                        </menuItem>
-                                        <menuItem title="Toggle Post Browser" keyEquivalent="b" id="D1L-8u-R3F">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                        </menuItem>
-                                        <menuItem title="Toggle Info Bar" keyEquivalent="i" id="Khz-uv-AkP">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                        </menuItem>
-                                        <menuItem title="Toggle Tag List" keyEquivalent="l" id="TgK-Jw-Z48">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="frj-Oo-SQm"/>
-                                        <menuItem title="Select Search Field" keyEquivalent="f" id="QhB-jc-3vW"/>
-                                        <menuItem title="Open Booru Popup" keyEquivalent="1" id="3Ek-uF-hU4">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
-                                        </menuItem>
-                                        <menuItem title="Select Post Browser" keyEquivalent="b" id="OuU-Ru-VLE"/>
                                         <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
                                         <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="arrangeInFront:" target="Ady-hI-5gd" id="DRN-fu-gQh"/>
-                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
