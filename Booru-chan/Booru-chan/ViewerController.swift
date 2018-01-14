@@ -10,30 +10,31 @@ import Alamofire
 
 class ViewerController: NSViewController {
 
-    private var thumbnailRequest: ImageDownloader?
-    private var request: ImageDownloader?
+    private var thumbnailDownloader: ImageDownloader?
+    private var imageDownloader: ImageDownloader?
 
     @IBOutlet private weak var imageView: NSImageView!
 
-    func displayPost(post: BooruPost?, progressHandler: ((Double) -> Void)?) {
-        thumbnailRequest?.cancel();
-        request?.cancel();
+    //todo: fix bug where a blank thumbnail is displayed when switching posts while the image is loading
+    func display(post: BooruPost?, progressHandler: ((Double) -> Void)? = nil) {
+        thumbnailDownloader?.cancel();
+        imageDownloader?.cancel();
 
         if post == nil {
             imageView.image = nil;
             return;
         }
 
-        thumbnailRequest = ImageDownloader(url: URL(string: post!.thumbnailUrl)!);
-        thumbnailRequest?.download(complete: { thumbnail in
+        thumbnailDownloader = ImageDownloader(url: URL(string: post!.thumbnailUrl)!);
+        thumbnailDownloader?.download(complete: { thumbnail in
             self.imageView.image = thumbnail;
         });
 
-        request = ImageDownloader(url: URL(string: post!.imageUrl)!);
-        request?.download(progress: { progress in
+        imageDownloader = ImageDownloader(url: URL(string: post!.imageUrl)!);
+        imageDownloader?.download(progress: { progress in
             progressHandler?(progress);
         }, complete: { image in
-            self.thumbnailRequest?.cancel();
+            self.thumbnailDownloader?.cancel();
             self.imageView.image = image;
         });
     }
