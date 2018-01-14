@@ -23,7 +23,6 @@ class PostsCollectionViewItem: NSCollectionViewItem {
             request = ImageDownloader(url: URL(string: representedPost!.thumbnailUrl)!);
             request!.download(complete: { image in
                 self.imageView!.image = image;
-                self.view.layer!.shouldRasterize = true;
             });
         }
     }
@@ -32,6 +31,11 @@ class PostsCollectionViewItem: NSCollectionViewItem {
         didSet {
             selectionBox.isHidden = !isSelected;
         }
+    }
+
+    override func prepareForReuse() {
+        self.imageView!.image = nil;
+        self.selectionBox.isHidden = true;
     }
 
     deinit {

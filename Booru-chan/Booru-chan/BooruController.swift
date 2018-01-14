@@ -8,7 +8,30 @@
 import Cocoa
 
 class BooruController: NSSplitViewController, IThemeable {
+
     private var window: NSWindow!
+
+    private var lastBooru: BooruHost!
+    private var currentBooru: BooruHost! {
+        didSet {
+            if currentBooru == lastBooru {
+                return;
+            }
+
+            lastBooru = currentBooru;
+            currentUtils = BooruUtilities(booru: currentBooru);
+        }
+    }
+
+    private var currentUtils: BooruUtilities! {
+        didSet {
+            browserController.postsController.items = [];
+            selectedPosts = [];
+
+            //todo: temporary
+            _ = currentUtils.getPostsFromSearch("", limit: 40, page: 1, completionHandler: { self.browserController.postsController.items = $0 });
+        }
+    }
 
     @IBOutlet private weak var browserItem: NSSplitViewItem!
     private var browserController: BrowserController {
@@ -22,6 +45,10 @@ class BooruController: NSSplitViewController, IThemeable {
         get {
             return viewerItem.viewController as! ViewerController;
         }
+    }
+
+    @IBAction func booruChanged(_ sender: NSPopUpButton) {
+        currentBooru = (NSApp.delegate as! AppDelegate).preferences.booruHosts[sender.indexOfSelectedItem];
     }
 
     private var selectedPosts: [BooruPost] = [] {
@@ -52,15 +79,11 @@ class BooruController: NSSplitViewController, IThemeable {
         browserController.applyTheme(theme: theme);
     }
 
-    let booru = BooruHost(name: "Danbooru", type: .danbooru, pagePostLimit: 40, url: "http://danbooru.donmai.us/", maximumRating: .explicit);
     override func viewDidLoad() {
         super.viewDidLoad();
 
         window = NSApp.windows.last!;
         browserController.postsController.onSelect = { self.selectedPosts = $0 };
         applyTheme(theme: .light);
-
-        let utils = BooruUtilities(booru: booru);
-        _ = utils.getPostsFromSearch("", limit: 40, page: 1, completionHandler: { self.browserController.postsController.items = $0 });
     }
 }

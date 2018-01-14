@@ -9,26 +9,19 @@ import Cocoa
 
 /// The window controller for booru browsers
 class BooruWindowController: NSWindowController {
+
+    private var subwindowController: BooruWindowController?
     
-    /// The sub-BCWindowController of this `BCWindowController`(if any, used for tabbing)
-    var subwindowController : BooruWindowController?
-    
+    @IBOutlet private weak var booruPopUpButton: NSPopUpButton!
+
     @IBAction override func newWindowForTab(_ sender: Any?) {
-        // Tabbing is only on 10.12+
+        // tabbing is only on 10.12+
         if #available(OSX 10.12, *) {
-            /// The new `BCWindowController`
-            let windowController : BooruWindowController = self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "BrowserWindowController")) as! BooruWindowController;
-            
-            // Add `windowController` as a tab to this window controller
-            self.window?.addTabbedWindow(windowController.window!, ordered: .above);
-            
-            // Set `subwindowController` to `windowController`
-            self.subwindowController = windowController;
-            
-            // Order the tab front
-            windowController.window?.orderFront(self.window);
-            
-            // Make the tab key
+            let windowController = storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "BrowserWindowController")) as! BooruWindowController;
+
+            window?.addTabbedWindow(windowController.window!, ordered: .above);
+            subwindowController = windowController;
+            windowController.window?.orderFront(window);
             windowController.window?.makeKey();
         }
     }
@@ -37,5 +30,29 @@ class BooruWindowController: NSWindowController {
         super.windowDidLoad();
 
         window!.titleVisibility = .hidden;
+        NotificationCenter.default.addObserver(self, selector: #selector(updateBooruPopUpButton), name: NSNotification.Name(rawValue: "Preferences.Updated"), object: nil);
+        updateBooruPopUpButton();
+    }
+
+    @objc func updateBooruPopUpButton() {
+        let boorus = (NSApp.delegate as! AppDelegate).preferences.booruHosts;
+        var selection = booruPopUpButton.indexOfSelectedItem;
+
+        booruPopUpButton.removeAllItems();
+        for (_, b) in boorus.enumerated() {
+            booruPopUpButton.addItem(withTitle: b.name);
+        }
+
+        if selection < 0 {
+            selection = 0;
+        }
+        else if selection > booruPopUpButton.numberOfItems - 1 {
+            selection = booruPopUpButton.numberOfItems - 1;
+        }
+
+        booruPopUpButton.selectItem(at: selection);
+
+        // no proper way to force trigger an nscontrols action
+        (contentViewController as! BooruController).booruChanged(booruPopUpButton);
     }
 }

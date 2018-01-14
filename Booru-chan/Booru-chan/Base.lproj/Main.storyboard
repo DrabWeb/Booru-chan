@@ -286,31 +286,23 @@
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="41C31CBF-4038-4830-8B94-399409883A83" explicitItemIdentifier="BooruSelector" label="Booru Selector" paletteLabel="Booru Selector" id="RkP-uJ-bfN">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="155" height="29"/>
+                                    <size key="minSize" width="155" height="28"/>
                                     <size key="maxSize" width="160" height="29"/>
                                     <popUpButton key="view" focusRingType="none" verticalHuggingPriority="750" id="cUI-9z-dtm" userLabel="Popup Button">
                                         <rect key="frame" x="0.0" y="14" width="160" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <popUpButtonCell key="cell" type="roundTextured" title="Yande.re" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" selectedItem="psD-gq-k1Y" id="0mN-ga-jOg">
+                                        <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="0mN-ga-jOg">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="menu"/>
-                                            <menu key="menu" id="F4X-oW-4Ra">
-                                                <items>
-                                                    <menuItem title="Yande.re" state="on" id="psD-gq-k1Y"/>
-                                                    <menuItem title="Danbooru" id="XBi-3H-dbC"/>
-                                                    <menuItem title="Konachan" id="5AF-In-Ylh">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Gelbooru" id="C23-Mf-XBN">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
+                                            <menu key="menu" id="F4X-oW-4Ra"/>
                                         </popUpButtonCell>
                                         <connections>
                                             <action selector="toolbarBooruPopupItemSelected:" target="Oky-zY-oP4" id="acS-sR-meL"/>
                                         </connections>
                                     </popUpButton>
+                                    <connections>
+                                        <action selector="booruChanged:" target="Oky-zY-oP4" id="MMQ-vz-XRn"/>
+                                    </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="4C2BE68C-8DD5-4DAD-9BF1-D6C093A5C706" explicitItemIdentifier="SearchField" label="Search Field" paletteLabel="Search Field" id="ezc-Vb-bD7">
                                     <nil key="toolTip"/>
@@ -343,6 +335,7 @@
                         </connections>
                     </window>
                     <connections>
+                        <outlet property="booruPopUpButton" destination="cUI-9z-dtm" id="v5w-LD-kGz"/>
                         <segue destination="izn-wc-Ddx" kind="relationship" relationship="window.shadowedContentViewController" id="24x-ee-UPS"/>
                     </connections>
                 </windowController>

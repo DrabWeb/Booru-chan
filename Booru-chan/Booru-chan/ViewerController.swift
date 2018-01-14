@@ -20,6 +20,7 @@ class ViewerController: NSViewController {
         request?.cancel();
 
         if post == nil {
+            imageView.image = nil;
             return;
         }
 

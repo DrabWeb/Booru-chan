@@ -202,7 +202,6 @@
 			children = (
 				5D71B4951CCC06EA0011C281 /* AppDelegate.swift */,
 				5D71B4971CCC06EA0011C281 /* BooruViewController.swift */,
-				AEA5A2161E13851400599CC5 /* BooruWindowController.swift */,
 				AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */,
 				5D7CA38D1CCC0A6E00B4A0A5 /* Storyboards */,
 				5D3288331CCE95580029A57F /* Objects */,
@@ -312,6 +311,7 @@
 		AED6F58A1FD7507B0036EDE8 /* Booru */ = {
 			isa = PBXGroup;
 			children = (
+				AEA5A2161E13851400599CC5 /* BooruWindowController.swift */,
 				AED6F58B1FD750D30036EDE8 /* BooruController.swift */,
 				AED6F58D1FD751280036EDE8 /* BrowserController.swift */,
 				AED6F5951FD751680036EDE8 /* PostsController.swift */,
