@@ -652,7 +652,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <action selector="imageSavingFormatTextField:" target="CzB-5j-0V1" id="ifn-QS-KWb"/>
+                                    <action selector="savePreferences:" target="CzB-5j-0V1" id="fpC-xz-KRj"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hJp-e4-9w5" userLabel="Theme Header">
@@ -678,7 +678,7 @@
                                     </menu>
                                 </popUpButtonCell>
                                 <connections>
-                                    <action selector="themePopUpButton:" target="CzB-5j-0V1" id="bV0-Ig-h1b"/>
+                                    <action selector="savePreferences:" target="CzB-5j-0V1" id="g5c-Jx-WCD"/>
                                 </connections>
                             </popUpButton>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="hzE-MO-939">
@@ -688,7 +688,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="indicateDownloadedPostsCheckbox:" target="CzB-5j-0V1" id="Hub-HW-pjc"/>
+                                    <action selector="savePreferences:" target="CzB-5j-0V1" id="mIH-rD-0h7"/>
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="YRE-jU-9Cu">
@@ -698,7 +698,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="notifyWhenDownloadsFinishCheckbox:" target="CzB-5j-0V1" id="n7i-Ki-kfF"/>
+                                    <action selector="savePreferences:" target="CzB-5j-0V1" id="pLL-wd-vPU"/>
                                 </connections>
                             </button>
                         </subviews>

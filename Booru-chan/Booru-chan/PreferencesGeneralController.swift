@@ -8,29 +8,18 @@
 import Cocoa
 
 class PreferencesGeneralController: NSViewController {
-    
-    @IBOutlet weak var imageSavingFormatTextField: NSTextField!
-    @IBAction func imageSavingFormatTextField(_ sender: NSTextField) {
-        save();
-    }
-    
-    @IBOutlet weak var themePopUpButton: NSPopUpButton!
-    @IBAction func themePopUpButton(_ sender: NSPopUpButton) {
-        save();
-    }
-    
-    @IBOutlet weak var indicateDownloadedPostsCheckbox: NSButton!
-    @IBAction func indicateDownloadedPostsCheckbox(_ sender: NSButton) {
-        save();
-    }
-    
-    @IBOutlet weak var notifyWhenDownloadsFinishCheckbox: NSButton!
-    @IBAction func notifyWhenDownloadsFinishCheckbox(_ sender: NSButton) {
-        save();
-    }
-    
-    private var preferences : Preferences {
+
+    private var preferences: Preferences {
         return (NSApp.delegate as! AppDelegate).preferences;
+    }
+
+    @IBOutlet private weak var imageSavingFormatTextField: NSTextField!
+    @IBOutlet private weak var themePopUpButton: NSPopUpButton!
+    @IBOutlet private weak var indicateDownloadedPostsCheckbox: NSButton!
+    @IBOutlet private weak var notifyWhenDownloadsFinishCheckbox: NSButton!
+
+    @IBAction func savePreferences(_ sender: Any!) {
+        save();
     }
     
     override func viewDidLoad() {
@@ -48,15 +37,15 @@ class PreferencesGeneralController: NSViewController {
     private func load() {
         imageSavingFormatTextField.stringValue = preferences.imageFilenameFormat;
         themePopUpButton.selectItem(withTag: preferences.theme.rawValue);
-        indicateDownloadedPostsCheckbox.state = NSControl.StateValue(rawValue: Int(truncating: preferences.indicateDownloadedPosts as NSNumber));
-        notifyWhenDownloadsFinishCheckbox.state = NSControl.StateValue(rawValue: Int(truncating: preferences.notifyWhenDownloadsFinished as NSNumber));
+        indicateDownloadedPostsCheckbox.state = preferences.indicateDownloadedPosts ? .on : .off;
+        notifyWhenDownloadsFinishCheckbox.state = preferences.notifyWhenDownloadsFinished ? .on : .off;
     }
     
     private func save() {
         preferences.imageFilenameFormat = imageSavingFormatTextField.stringValue;
         preferences.theme = Theme(rawValue: themePopUpButton.selectedTag())!;
-        preferences.indicateDownloadedPosts = indicateDownloadedPostsCheckbox.state.rawValue == 1;
-        preferences.notifyWhenDownloadsFinished = notifyWhenDownloadsFinishCheckbox.state.rawValue == 1;
+        preferences.indicateDownloadedPosts = indicateDownloadedPostsCheckbox.state == .on;
+        preferences.notifyWhenDownloadsFinished = notifyWhenDownloadsFinishCheckbox.state == .on;
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: "Preferences.Updated"), object: nil);
     }
