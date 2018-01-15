@@ -239,7 +239,7 @@
                         <value key="minSize" type="size" width="300" height="200"/>
                         <toolbar key="toolbar" implicitIdentifier="1863C849-E395-4A11-BAAB-8210016ABBF9" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="biy-dr-Aki">
                             <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="41C31CBF-4038-4830-8B94-399409883A83" label="Booru List" paletteLabel="Booru List" id="RkP-uJ-bfN">
+                                <toolbarItem implicitItemIdentifier="1C0B17FD-CD05-47E3-B2AF-66CF7454686C" label="Booru List" paletteLabel="Booru List" id="RkP-uJ-bfN">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="155" height="29"/>
                                     <size key="maxSize" width="160" height="29"/>
@@ -263,7 +263,7 @@
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="96" height="22"/>
                                     <size key="maxSize" width="500" height="22"/>
-                                    <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" id="bf5-lR-Frv">
+                                    <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" id="bf5-lR-Frv" customClass="BooruSearchField" customModule="Booru_chan" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="14" width="96" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="pLr-9t-Hxs">
