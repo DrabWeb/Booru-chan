@@ -48,7 +48,6 @@ extension TagListController: NSTableViewDataSource {
 }
 
 extension TagListController: NSTableViewDelegate {
-
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "TagCell"), owner: nil) as? TagListCellView {
             let t = tags[row];

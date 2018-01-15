@@ -18,7 +18,6 @@ class PostsController: NSViewController {
         }
     }
 
-    //todo: call onSelect when deselecting all items
     var onSelect: (([BooruPost]) -> Void)?
     var onReachedBottom: (() -> Void)? {
         didSet {
