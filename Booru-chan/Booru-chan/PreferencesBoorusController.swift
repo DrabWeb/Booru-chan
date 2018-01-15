@@ -45,7 +45,7 @@ class PreferencesBoorusController: NSViewController {
     }
 
     @IBAction func clearDownloadHistory(_ sender: Any) {
-        currentEditingHost.downloadedPosts = [];
+        //clear download history
         save();
     }
 

@@ -10,6 +10,9 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
 
+    static let appSupportFolder = "\(NSHomeDirectory())/Library/Application Support/Booru-chan";
+    static let cacheFolder = "\(appSupportFolder)/caches";
+
     //todo: make global preferences object a static value in the preferences class
     var preferences: Preferences = Preferences();
     
@@ -25,21 +28,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     }
     
     private func createApplicationSupportFolders() {
-        func createFolder(at path: String) {
-            if !FileManager.default.fileExists(atPath: path) {
-                do {
-                    try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: false, attributes: nil);
-                }
-                catch let error as NSError {
-                    print("AppDelegate: Error creating folder at \(path), \(error.description)");
-                }
-            }
-        }
-
-        let f = "\(NSHomeDirectory())/Library/Application Support/Booru-chan"
-
-        createFolder(at: f);
-        createFolder(at: "\(f)/caches");
+        FileManager.default.createFolder(at: AppDelegate.appSupportFolder);
+        FileManager.default.createFolder(at: AppDelegate.cacheFolder);
     }
 
     private func savePreferences() {

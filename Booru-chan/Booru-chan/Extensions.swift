@@ -30,3 +30,18 @@ extension NSTokenField {
         }
     }
 }
+
+extension FileManager {
+    func createFolder(at path: String) {
+        func createFolder(at path: String) {
+            if !self.fileExists(atPath: path) {
+                do {
+                    try self.createDirectory(atPath: path, withIntermediateDirectories: false, attributes: nil);
+                }
+                catch let error as NSError {
+                    print("FileManager: Error creating folder at \(path), \(error.description)");
+                }
+            }
+        }
+    }
+}
