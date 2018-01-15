@@ -24,6 +24,10 @@ class PostsController: NSViewController {
             scrollView.onReachedBottom = onReachedBottom;
         }
     }
+
+    private func sendOnSelect() {
+        onSelect?(collectionView.selectionIndexes.map { items[$0] });
+    }
 }
 
 extension PostsController: NSCollectionViewDataSource {
@@ -48,6 +52,10 @@ extension PostsController: NSCollectionViewDataSource {
 
 extension PostsController: NSCollectionViewDelegate {
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
-        onSelect?(collectionView.selectionIndexes.map { items[$0] });
+        sendOnSelect();
+    }
+
+    func collectionView(_ collectionView: NSCollectionView, didDeselectItemsAt indexPaths: Set<IndexPath>) {
+        sendOnSelect();
     }
 }

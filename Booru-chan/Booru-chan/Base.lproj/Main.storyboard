@@ -429,6 +429,84 @@
                         <subviews>
                             <visualEffectView blendingMode="behindWindow" material="appearanceBased" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="Dth-iT-dWy">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="160"/>
+                                <subviews>
+                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6F-Iv-KJj">
+                                        <rect key="frame" x="0.0" y="0.0" width="450" height="160"/>
+                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="fUH-A5-neV">
+                                            <rect key="frame" x="0.0" y="0.0" width="450" height="160"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" selectionHighlightStyle="none" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="18" rowSizeStyle="automatic" viewBased="YES" id="Xkc-if-CTI">
+                                                    <rect key="frame" x="0.0" y="0.0" width="450" height="160"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <size key="intercellSpacing" width="3" height="6"/>
+                                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                                                    <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                                    <tableColumns>
+                                                        <tableColumn identifier="" width="447" maxWidth="1000000000" id="SbU-59-80I">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                            </tableHeaderCell>
+                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="fw5-Y2-psK">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                            <prototypeCellViews>
+                                                                <tableCellView identifier="TagCell" id="NWX-7N-BZX" customClass="TagListCellView" customModule="Booru_chan" customModuleProvider="target">
+                                                                    <rect key="frame" x="1" y="3" width="447" height="18"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <subviews>
+                                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r4i-Oi-Xzc" userLabel="Check Box">
+                                                                            <rect key="frame" x="2" y="0.0" width="443" height="18"/>
+                                                                            <buttonCell key="cell" type="check" title="tag" bezelStyle="regularSquare" imagePosition="left" inset="2" id="gD9-ig-kim">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <action selector="tagToggled:" target="hvN-Q7-urI" id="0Zb-pz-sLe"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="r4i-Oi-Xzc" firstAttribute="leading" secondItem="NWX-7N-BZX" secondAttribute="leading" constant="4" id="Jjp-cW-8bY"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="r4i-Oi-Xzc" secondAttribute="bottom" constant="2" id="RzK-d7-Ll3"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="r4i-Oi-Xzc" secondAttribute="trailing" constant="4" id="gZq-wg-Tyw"/>
+                                                                        <constraint firstItem="r4i-Oi-Xzc" firstAttribute="top" secondItem="NWX-7N-BZX" secondAttribute="top" constant="2" id="hYl-hd-AHU"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <outlet property="tagNameCheckbox" destination="r4i-Oi-Xzc" id="8iJ-IT-kou"/>
+                                                                    </connections>
+                                                                </tableCellView>
+                                                            </prototypeCellViews>
+                                                        </tableColumn>
+                                                    </tableColumns>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="hvN-Q7-urI" id="baH-66-dj8"/>
+                                                        <outlet property="delegate" destination="hvN-Q7-urI" id="ANm-mo-ChE"/>
+                                                    </connections>
+                                                </tableView>
+                                            </subviews>
+                                        </clipView>
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="00l-Ux-JpJ">
+                                            <rect key="frame" x="0.0" y="144" width="450" height="16"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="OBC-X8-bWu">
+                                            <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                    </scrollView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="K6F-Iv-KJj" secondAttribute="bottom" id="3R8-xG-G0e"/>
+                                    <constraint firstAttribute="trailing" secondItem="K6F-Iv-KJj" secondAttribute="trailing" id="GtJ-VR-PZa"/>
+                                    <constraint firstItem="K6F-Iv-KJj" firstAttribute="top" secondItem="Dth-iT-dWy" secondAttribute="top" id="hlI-hI-25t"/>
+                                    <constraint firstItem="K6F-Iv-KJj" firstAttribute="leading" secondItem="Dth-iT-dWy" secondAttribute="leading" id="khE-eo-5a3"/>
+                                </constraints>
                             </visualEffectView>
                         </subviews>
                         <constraints>
@@ -438,6 +516,9 @@
                             <constraint firstItem="Dth-iT-dWy" firstAttribute="top" secondItem="Wti-C8-YYQ" secondAttribute="top" id="X3k-hD-7de"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tagsTableView" destination="Xkc-if-CTI" id="VGV-GS-ioa"/>
+                    </connections>
                 </viewController>
                 <customObject id="2fz-W0-iqj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

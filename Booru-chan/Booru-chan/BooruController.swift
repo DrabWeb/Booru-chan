@@ -54,6 +54,7 @@ class BooruController: NSSplitViewController, IThemeable {
 
                 i.imageSize = p.imageSize;
                 i.rating = p.rating;
+                browserController.tagListController.tags = p.tags;
                 viewerController.display(post: p, progressHandler: { progress in
                     i.loadingProgress = progress;
                 });
@@ -62,6 +63,7 @@ class BooruController: NSSplitViewController, IThemeable {
                 i.imageSize = nil;
                 i.rating = nil;
                 i.loadingProgress = nil;
+                browserController.tagListController.tags = [];
                 viewerController.display(post: nil);
             }
         }
