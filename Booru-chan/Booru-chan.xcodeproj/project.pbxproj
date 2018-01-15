@@ -33,6 +33,7 @@
 		AEC3C1FE200C8239009AB087 /* SuggestionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC3C1FD200C8239009AB087 /* SuggestionSection.swift */; };
 		AEC3C200200C82BF009AB087 /* SuggestionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC3C1FF200C82BF009AB087 /* SuggestionItem.swift */; };
 		AEC3C202200C9080009AB087 /* SuggestionDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC3C201200C9080009AB087 /* SuggestionDivider.swift */; };
+		AEC9678C200D3319009CAA32 /* HoverSelectTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC9678B200D3319009CAA32 /* HoverSelectTableView.swift */; };
 		AECAB5DD200C20B800673B46 /* BooruPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAB5DC200C20B800673B46 /* BooruPost.swift */; };
 		AECAB5DF200C20BF00673B46 /* BooruHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAB5DE200C20BF00673B46 /* BooruHost.swift */; };
 		AECAB5E1200C20C900673B46 /* BooruUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAB5E0200C20C900673B46 /* BooruUtilities.swift */; };
@@ -109,6 +110,7 @@
 		AEC3C1FD200C8239009AB087 /* SuggestionSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionSection.swift; sourceTree = "<group>"; };
 		AEC3C1FF200C82BF009AB087 /* SuggestionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionItem.swift; sourceTree = "<group>"; };
 		AEC3C201200C9080009AB087 /* SuggestionDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionDivider.swift; sourceTree = "<group>"; };
+		AEC9678B200D3319009CAA32 /* HoverSelectTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverSelectTableView.swift; sourceTree = "<group>"; };
 		AECAB5DC200C20B800673B46 /* BooruPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruPost.swift; sourceTree = "<group>"; };
 		AECAB5DE200C20BF00673B46 /* BooruHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruHost.swift; sourceTree = "<group>"; };
 		AECAB5E0200C20C900673B46 /* BooruUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruUtilities.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				5DAD29381CCD68CB00C3C747 /* RasterizedImageView.swift */,
 				5DAD293C1CCD6AD400C3C747 /* PostsCollectionViewSelectionBox.swift */,
 				5D3288311CCE80D10029A57F /* BottomActionScrollView.swift */,
+				AEC9678B200D3319009CAA32 /* HoverSelectTableView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -721,6 +724,7 @@
 				AEC3C1FB200C7F2D009AB087 /* SuggestionsController.swift in Sources */,
 				5DBDDD121CD910C00086E61D /* Extensions.swift in Sources */,
 				AECAB5E3200C20DA00673B46 /* BooruType.swift in Sources */,
+				AEC9678C200D3319009CAA32 /* HoverSelectTableView.swift in Sources */,
 				5D7CA38F1CCC0A8500B4A0A5 /* NoDividerSplitView.swift in Sources */,
 				AE23007B2009BFF800D6218D /* ImageDownloader.swift in Sources */,
 				AE9A56EE1FD72DFA0099D09E /* BooruWindow.swift in Sources */,

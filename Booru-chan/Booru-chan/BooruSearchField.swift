@@ -11,10 +11,21 @@ class BooruSearchField: NSSearchField {
 
     private let suggestionsWindowController = NSStoryboard(name: NSStoryboard.Name(rawValue: "SuggestionsWindow"), bundle: nil).instantiateInitialController() as! SuggestionsWindowController;
 
+    private var suggestionsVisible: Bool = false {
+        didSet {
+            if suggestionsVisible {
+                //when the child window is ordered out it is detached from its parent, so add it back again here
+                self.window!.addChildWindow(suggestionsWindowController.window!, ordered: .above);
+                suggestionsWindowController.showWindow(self);
+            }
+            else {
+                suggestionsWindowController.window!.orderOut(self);
+            }
+        }
+    }
+
     override func becomeFirstResponder() -> Bool {
-        //when the child window is ordered out it is detached from its parent, so add it back again here
-        self.window!.addChildWindow(suggestionsWindowController.window!, ordered: .above);
-        suggestionsWindowController.showWindow(self);
+        suggestionsVisible = true;
 
         return super.becomeFirstResponder();
     }
@@ -26,10 +37,22 @@ class BooruSearchField: NSSearchField {
 
         self.postsFrameChangedNotifications = true;
         NotificationCenter.default.addObserver(self, selector: #selector(updateSuggestionsSize), name: NSView.frameDidChangeNotification, object: nil);
+
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown, handler: { event in
+            switch event.keyCode {
+                case 125, 126: //up arrow or down arrow
+                    if self.suggestionsVisible == true {
+                        self.suggestionsWindowController.window!.firstResponder!.keyDown(with: event);
+                    }
+                    return nil;
+                default:
+                    return event;
+            }
+        });
     }
 
     override func textDidEndEditing(_ notification: Notification) {
-        suggestionsWindowController.window!.orderOut(self);
+        suggestionsVisible = false;
         super.textDidEndEditing(notification);
     }
 

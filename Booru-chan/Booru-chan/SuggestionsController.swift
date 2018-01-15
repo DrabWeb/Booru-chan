@@ -8,7 +8,8 @@
 import Cocoa
 
 class SuggestionsController: NSViewController {
-    @IBOutlet weak var suggestionsTableView: NSTableView!
+
+    @IBOutlet weak var suggestionsTableView: HoverSelectTableView!
 
     var items: [SuggestionItem] = [] {
         didSet {
