@@ -8,35 +8,38 @@
 
 /* Begin PBXBuildFile section */
 		13647380ADB5DF7F2E179436 /* Pods_Booru_chanUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C9F1C05F609B24EF821597 /* Pods_Booru_chanUITests.framework */; };
-		5D0202681CD8EE3300A6E5D5 /* BCGridStyleTagListTableViewItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0202671CD8EE3300A6E5D5 /* BCGridStyleTagListTableViewItemData.swift */; };
-		5D02026A1CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0202691CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift */; };
-		5D02026C1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D02026B1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift */; };
-		5D1CC5881DC591C100E3988D /* BCScaleToFitContentTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1CC5871DC591C100E3988D /* BCScaleToFitContentTokenField.swift */; };
-		5D3288321CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3288311CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift */; };
-		5D3288351CCE95710029A57F /* BCPreferencesObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3288341CCE95710029A57F /* BCPreferencesObject.swift */; };
-		5D47F5E31CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D47F5E21CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift */; };
-		5D71B4961CCC06EA0011C281 /* BCAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4951CCC06EA0011C281 /* BCAppDelegate.swift */; };
-		5D71B4981CCC06EA0011C281 /* BCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4971CCC06EA0011C281 /* BCViewController.swift */; };
+		5D3288321CCE80D10029A57F /* BottomActionScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3288311CCE80D10029A57F /* BottomActionScrollView.swift */; };
+		5D3288351CCE95710029A57F /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3288341CCE95710029A57F /* Preferences.swift */; };
+		5D71B4961CCC06EA0011C281 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4951CCC06EA0011C281 /* AppDelegate.swift */; };
 		5D71B49A1CCC06EA0011C281 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D71B4991CCC06EA0011C281 /* Assets.xcassets */; };
 		5D71B49D1CCC06EA0011C281 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D71B49B1CCC06EA0011C281 /* Main.storyboard */; };
 		5D71B4A81CCC06EA0011C281 /* Booru_chanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4A71CCC06EA0011C281 /* Booru_chanTests.swift */; };
 		5D71B4B31CCC06EA0011C281 /* Booru_chanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D71B4B21CCC06EA0011C281 /* Booru_chanUITests.swift */; };
-		5D7CA38F1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7CA38E1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift */; };
-		5D7CA3911CCC0AFD00B4A0A5 /* BCAlwaysActiveViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7CA3901CCC0AFD00B4A0A5 /* BCAlwaysActiveViews.swift */; };
-		5D88CC0F1CCC133B001FF12E /* BCBooru.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC0E1CCC133B001FF12E /* BCBooru.swift */; };
-		5D88CC131CCC14DC001FF12E /* BCGridStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC121CCC14DC001FF12E /* BCGridStyleViewController.swift */; };
-		5D88CC151CCC177B001FF12E /* BCColoredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC141CCC177B001FF12E /* BCColoredView.swift */; };
-		5DAD29371CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD29361CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift */; };
-		5DAD293A1CCD68CB00C3C747 /* BCRasterizedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD29381CCD68CB00C3C747 /* BCRasterizedViews.swift */; };
-		5DAD293D1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD293C1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift */; };
-		5DAF1A5B1CDD23480090D654 /* BCImageUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAF1A5A1CDD23480090D654 /* BCImageUtilities.swift */; };
-		5DBB0A061CDBF427007B383B /* BCBooruCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBB0A051CDBF427007B383B /* BCBooruCollectionView.swift */; };
-		5DBDDD121CD910C00086E61D /* BCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBDDD111CD910C00086E61D /* BCExtensions.swift */; };
-		AE329EC61E44C179003812FB /* BCPreferencesGeneralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC51E44C179003812FB /* BCPreferencesGeneralViewController.swift */; };
-		AE329EC81E44C186003812FB /* BCPreferencesBoorusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC71E44C186003812FB /* BCPreferencesBoorusViewController.swift */; };
-		AE9A56EE1FD72DFA0099D09E /* BCWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9A56ED1FD72DFA0099D09E /* BCWindow.swift */; };
-		AEA5A2171E13851400599CC5 /* BCWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5A2161E13851400599CC5 /* BCWindowController.swift */; };
-		AECAD3191DF4A1DA00E846EB /* BCTitlebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAD3181DF4A1DA00E846EB /* BCTitlebarView.swift */; };
+		5D7CA38F1CCC0A8500B4A0A5 /* NoDividerSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7CA38E1CCC0A8500B4A0A5 /* NoDividerSplitView.swift */; };
+		5D88CC151CCC177B001FF12E /* ColouredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D88CC141CCC177B001FF12E /* ColouredView.swift */; };
+		5DAD293A1CCD68CB00C3C747 /* RasterizedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD29381CCD68CB00C3C747 /* RasterizedImageView.swift */; };
+		5DAD293D1CCD6AD400C3C747 /* PostsCollectionViewSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD293C1CCD6AD400C3C747 /* PostsCollectionViewSelectionBox.swift */; };
+		5DBDDD121CD910C00086E61D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBDDD111CD910C00086E61D /* Extensions.swift */; };
+		AE23007B2009BFF800D6218D /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE23007A2009BFF800D6218D /* ImageDownloader.swift */; };
+		AE329EC61E44C179003812FB /* PreferencesGeneralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC51E44C179003812FB /* PreferencesGeneralController.swift */; };
+		AE329EC81E44C186003812FB /* PreferencesBoorusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC71E44C186003812FB /* PreferencesBoorusController.swift */; };
+		AE9A56EE1FD72DFA0099D09E /* BooruWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */; };
+		AEA5A2171E13851400599CC5 /* BooruWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5A2161E13851400599CC5 /* BooruWindowController.swift */; };
+		AECAB5DD200C20B800673B46 /* BooruPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAB5DC200C20B800673B46 /* BooruPost.swift */; };
+		AECAB5DF200C20BF00673B46 /* BooruHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAB5DE200C20BF00673B46 /* BooruHost.swift */; };
+		AECAB5E1200C20C900673B46 /* BooruUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAB5E0200C20C900673B46 /* BooruUtilities.swift */; };
+		AECAB5E3200C20DA00673B46 /* BooruType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAB5E2200C20DA00673B46 /* BooruType.swift */; };
+		AECAB5E5200C20E400673B46 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAB5E4200C20E400673B46 /* Rating.swift */; };
+		AED6F58C1FD750D30036EDE8 /* BooruController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F58B1FD750D30036EDE8 /* BooruController.swift */; };
+		AED6F58E1FD751280036EDE8 /* BrowserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F58D1FD751280036EDE8 /* BrowserController.swift */; };
+		AED6F5901FD7513C0036EDE8 /* ViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F58F1FD7513C0036EDE8 /* ViewerController.swift */; };
+		AED6F5921FD7514F0036EDE8 /* TagListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F5911FD7514F0036EDE8 /* TagListController.swift */; };
+		AED6F5941FD7515A0036EDE8 /* InfoBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F5931FD7515A0036EDE8 /* InfoBarController.swift */; };
+		AED6F5961FD751680036EDE8 /* PostsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F5951FD751680036EDE8 /* PostsController.swift */; };
+		AED6F59A1FD754DF0036EDE8 /* IThemeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F5991FD754DF0036EDE8 /* IThemeable.swift */; };
+		AED6F59D1FD76A620036EDE8 /* PostsCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F59B1FD76A620036EDE8 /* PostsCollectionViewItem.swift */; };
+		AED6F59E1FD76A620036EDE8 /* PostsCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = AED6F59C1FD76A620036EDE8 /* PostsCollectionViewItem.xib */; };
+		AEDD7F81200C00CC00AD33DE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDD7F80200C00CC00AD33DE /* Theme.swift */; };
 		EEBFB95BB7348EBF996CBBCD /* Pods_Booru_chanTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6B031B9C7B964655AF51EC8 /* Pods_Booru_chanTests.framework */; };
 		FB6C1D77A47309096678320F /* Pods_Booru_chan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834CCAD73A440142898C1721 /* Pods_Booru_chan.framework */; };
 /* End PBXBuildFile section */
@@ -63,16 +66,10 @@
 		1AF0498BBE423DFFA9BA6D23 /* Pods-Booru-chan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chan/Pods-Booru-chan.debug.xcconfig"; sourceTree = "<group>"; };
 		2C4774D88353301D8C0DBEE0 /* Pods-Booru-chan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chan.release.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chan/Pods-Booru-chan.release.xcconfig"; sourceTree = "<group>"; };
 		3C3DA1A4EC1266473AFC7E7A /* Pods-Booru-chanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chanTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chanTests/Pods-Booru-chanTests.release.xcconfig"; sourceTree = "<group>"; };
-		5D0202671CD8EE3300A6E5D5 /* BCGridStyleTagListTableViewItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCGridStyleTagListTableViewItemData.swift; sourceTree = "<group>"; };
-		5D0202691CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCGridStyleTagListTableViewController.swift; sourceTree = "<group>"; };
-		5D02026B1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCGridStyleTagListTableViewCellView.swift; sourceTree = "<group>"; };
-		5D1CC5871DC591C100E3988D /* BCScaleToFitContentTokenField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCScaleToFitContentTokenField.swift; sourceTree = "<group>"; };
-		5D3288311CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCActionOnScrollToBottomScrollView.swift; sourceTree = "<group>"; };
-		5D3288341CCE95710029A57F /* BCPreferencesObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCPreferencesObject.swift; sourceTree = "<group>"; };
-		5D47F5E21CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruSearchTokenField.swift; sourceTree = "<group>"; };
+		5D3288311CCE80D10029A57F /* BottomActionScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomActionScrollView.swift; sourceTree = "<group>"; };
+		5D3288341CCE95710029A57F /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		5D71B4921CCC06EA0011C281 /* Booru-chan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Booru-chan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5D71B4951CCC06EA0011C281 /* BCAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCAppDelegate.swift; sourceTree = "<group>"; };
-		5D71B4971CCC06EA0011C281 /* BCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCViewController.swift; sourceTree = "<group>"; };
+		5D71B4951CCC06EA0011C281 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D71B4991CCC06EA0011C281 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D71B49C1CCC06EA0011C281 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5D71B49E1CCC06EA0011C281 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -82,26 +79,35 @@
 		5D71B4AE1CCC06EA0011C281 /* Booru-chanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Booru-chanUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D71B4B21CCC06EA0011C281 /* Booru_chanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booru_chanUITests.swift; sourceTree = "<group>"; };
 		5D71B4B41CCC06EA0011C281 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5D7CA38E1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCNoDividerSplitView.swift; sourceTree = "<group>"; };
-		5D7CA3901CCC0AFD00B4A0A5 /* BCAlwaysActiveViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCAlwaysActiveViews.swift; sourceTree = "<group>"; };
-		5D88CC0E1CCC133B001FF12E /* BCBooru.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BCBooru.swift; path = Assets.xcassets/BCBooru.swift; sourceTree = "<group>"; };
-		5D88CC121CCC14DC001FF12E /* BCGridStyleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCGridStyleViewController.swift; sourceTree = "<group>"; };
-		5D88CC141CCC177B001FF12E /* BCColoredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCColoredView.swift; sourceTree = "<group>"; };
-		5DAD29361CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruCollectionViewCollectionViewItem.swift; sourceTree = "<group>"; };
-		5DAD29381CCD68CB00C3C747 /* BCRasterizedViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCRasterizedViews.swift; sourceTree = "<group>"; };
-		5DAD293C1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruCollectionViewSelectionBox.swift; sourceTree = "<group>"; };
-		5DAF1A5A1CDD23480090D654 /* BCImageUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCImageUtilities.swift; sourceTree = "<group>"; };
-		5DBB0A051CDBF427007B383B /* BCBooruCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCBooruCollectionView.swift; sourceTree = "<group>"; };
-		5DBDDD111CD910C00086E61D /* BCExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCExtensions.swift; sourceTree = "<group>"; };
+		5D7CA38E1CCC0A8500B4A0A5 /* NoDividerSplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoDividerSplitView.swift; sourceTree = "<group>"; };
+		5D88CC141CCC177B001FF12E /* ColouredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColouredView.swift; sourceTree = "<group>"; };
+		5DAD29381CCD68CB00C3C747 /* RasterizedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RasterizedImageView.swift; sourceTree = "<group>"; };
+		5DAD293C1CCD6AD400C3C747 /* PostsCollectionViewSelectionBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsCollectionViewSelectionBox.swift; sourceTree = "<group>"; };
+		5DBDDD111CD910C00086E61D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		5F4FD8F272DEE171AFE7E6C5 /* Pods-Booru-chanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chanTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chanTests/Pods-Booru-chanTests.debug.xcconfig"; sourceTree = "<group>"; };
 		834CCAD73A440142898C1721 /* Pods_Booru_chan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA72CEBEF391F5FED42B629 /* Pods-Booru-chanUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Booru-chanUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Booru-chanUITests/Pods-Booru-chanUITests.release.xcconfig"; sourceTree = "<group>"; };
-		AE329EC51E44C179003812FB /* BCPreferencesGeneralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCPreferencesGeneralViewController.swift; sourceTree = "<group>"; };
-		AE329EC71E44C186003812FB /* BCPreferencesBoorusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCPreferencesBoorusViewController.swift; sourceTree = "<group>"; };
+		AE23007A2009BFF800D6218D /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		AE329EC51E44C179003812FB /* PreferencesGeneralController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesGeneralController.swift; sourceTree = "<group>"; };
+		AE329EC71E44C186003812FB /* PreferencesBoorusController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesBoorusController.swift; sourceTree = "<group>"; };
 		AE75E5161DDE678E00937817 /* Booru-chan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Booru-chan-Bridging-Header.h"; sourceTree = "<group>"; };
-		AE9A56ED1FD72DFA0099D09E /* BCWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCWindow.swift; sourceTree = "<group>"; };
-		AEA5A2161E13851400599CC5 /* BCWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCWindowController.swift; sourceTree = "<group>"; };
-		AECAD3181DF4A1DA00E846EB /* BCTitlebarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BCTitlebarView.swift; sourceTree = "<group>"; };
+		AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruWindow.swift; sourceTree = "<group>"; };
+		AEA5A2161E13851400599CC5 /* BooruWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooruWindowController.swift; sourceTree = "<group>"; };
+		AECAB5DC200C20B800673B46 /* BooruPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruPost.swift; sourceTree = "<group>"; };
+		AECAB5DE200C20BF00673B46 /* BooruHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruHost.swift; sourceTree = "<group>"; };
+		AECAB5E0200C20C900673B46 /* BooruUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruUtilities.swift; sourceTree = "<group>"; };
+		AECAB5E2200C20DA00673B46 /* BooruType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruType.swift; sourceTree = "<group>"; };
+		AECAB5E4200C20E400673B46 /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
+		AED6F58B1FD750D30036EDE8 /* BooruController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruController.swift; sourceTree = "<group>"; };
+		AED6F58D1FD751280036EDE8 /* BrowserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserController.swift; sourceTree = "<group>"; };
+		AED6F58F1FD7513C0036EDE8 /* ViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerController.swift; sourceTree = "<group>"; };
+		AED6F5911FD7514F0036EDE8 /* TagListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListController.swift; sourceTree = "<group>"; };
+		AED6F5931FD7515A0036EDE8 /* InfoBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBarController.swift; sourceTree = "<group>"; };
+		AED6F5951FD751680036EDE8 /* PostsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsController.swift; sourceTree = "<group>"; };
+		AED6F5991FD754DF0036EDE8 /* IThemeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IThemeable.swift; sourceTree = "<group>"; };
+		AED6F59B1FD76A620036EDE8 /* PostsCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCollectionViewItem.swift; sourceTree = "<group>"; };
+		AED6F59C1FD76A620036EDE8 /* PostsCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostsCollectionViewItem.xib; sourceTree = "<group>"; };
+		AEDD7F80200C00CC00AD33DE /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B6B031B9C7B964655AF51EC8 /* Pods_Booru_chanTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chanTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C9F1C05F609B24EF821597 /* Pods_Booru_chanUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Booru_chanUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -150,8 +156,10 @@
 		5D3288331CCE95580029A57F /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				5D3288341CCE95710029A57F /* BCPreferencesObject.swift */,
-				5D0202671CD8EE3300A6E5D5 /* BCGridStyleTagListTableViewItemData.swift */,
+				AECAB5DB200C20A400673B46 /* Booru */,
+				5D3288341CCE95710029A57F /* Preferences.swift */,
+				AE23007A2009BFF800D6218D /* ImageDownloader.swift */,
+				AEDD7F80200C00CC00AD33DE /* Theme.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -181,12 +189,10 @@
 		5D71B4941CCC06EA0011C281 /* Booru-chan */ = {
 			isa = PBXGroup;
 			children = (
-				5D71B4951CCC06EA0011C281 /* BCAppDelegate.swift */,
-				5D71B4971CCC06EA0011C281 /* BCViewController.swift */,
-				AEA5A2161E13851400599CC5 /* BCWindowController.swift */,
-				AE9A56ED1FD72DFA0099D09E /* BCWindow.swift */,
+				5D71B4951CCC06EA0011C281 /* AppDelegate.swift */,
 				5D7CA38D1CCC0A6E00B4A0A5 /* Storyboards */,
 				5D3288331CCE95580029A57F /* Objects */,
+				AED6F5981FD754C10036EDE8 /* Protocols */,
 				5D7CA38C1CCC0A6800B4A0A5 /* Views */,
 				5D7CA3921CCC128C00B4A0A5 /* Utilities */,
 				5D88CC101CCC14B2001FF12E /* Controllers */,
@@ -218,15 +224,11 @@
 		5D7CA38C1CCC0A6800B4A0A5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5D7CA38E1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift */,
-				5D7CA3901CCC0AFD00B4A0A5 /* BCAlwaysActiveViews.swift */,
-				5D88CC141CCC177B001FF12E /* BCColoredView.swift */,
-				5DAD29381CCD68CB00C3C747 /* BCRasterizedViews.swift */,
-				5DAD293C1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift */,
-				5D3288311CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift */,
-				5D47F5E21CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift */,
-				5D1CC5871DC591C100E3988D /* BCScaleToFitContentTokenField.swift */,
-				AECAD3181DF4A1DA00E846EB /* BCTitlebarView.swift */,
+				5D7CA38E1CCC0A8500B4A0A5 /* NoDividerSplitView.swift */,
+				5D88CC141CCC177B001FF12E /* ColouredView.swift */,
+				5DAD29381CCD68CB00C3C747 /* RasterizedImageView.swift */,
+				5DAD293C1CCD6AD400C3C747 /* PostsCollectionViewSelectionBox.swift */,
+				5D3288311CCE80D10029A57F /* BottomActionScrollView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -242,9 +244,7 @@
 		5D7CA3921CCC128C00B4A0A5 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				5D88CC0E1CCC133B001FF12E /* BCBooru.swift */,
-				5DBDDD111CD910C00086E61D /* BCExtensions.swift */,
-				5DAF1A5A1CDD23480090D654 /* BCImageUtilities.swift */,
+				5DBDDD111CD910C00086E61D /* Extensions.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -252,29 +252,17 @@
 		5D88CC101CCC14B2001FF12E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				AED6F58A1FD7507B0036EDE8 /* Booru */,
 				5D976B271CDA45A400191679 /* Preferences */,
-				5D88CC111CCC14C1001FF12E /* Grid Style Controller */,
 			);
 			name = Controllers;
-			sourceTree = "<group>";
-		};
-		5D88CC111CCC14C1001FF12E /* Grid Style Controller */ = {
-			isa = PBXGroup;
-			children = (
-				5D88CC121CCC14DC001FF12E /* BCGridStyleViewController.swift */,
-				5DAD29361CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift */,
-				5D0202691CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift */,
-				5D02026B1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift */,
-				5DBB0A051CDBF427007B383B /* BCBooruCollectionView.swift */,
-			);
-			name = "Grid Style Controller";
 			sourceTree = "<group>";
 		};
 		5D976B271CDA45A400191679 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				AE329EC51E44C179003812FB /* BCPreferencesGeneralViewController.swift */,
-				AE329EC71E44C186003812FB /* BCPreferencesBoorusViewController.swift */,
+				AE329EC51E44C179003812FB /* PreferencesGeneralController.swift */,
+				AE329EC71E44C186003812FB /* PreferencesBoorusController.swift */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -287,6 +275,83 @@
 				C0C9F1C05F609B24EF821597 /* Pods_Booru_chanUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AECAB5DB200C20A400673B46 /* Booru */ = {
+			isa = PBXGroup;
+			children = (
+				AECAB5DC200C20B800673B46 /* BooruPost.swift */,
+				AECAB5DE200C20BF00673B46 /* BooruHost.swift */,
+				AECAB5E0200C20C900673B46 /* BooruUtilities.swift */,
+				AECAB5E2200C20DA00673B46 /* BooruType.swift */,
+				AECAB5E4200C20E400673B46 /* Rating.swift */,
+			);
+			name = Booru;
+			sourceTree = "<group>";
+		};
+		AED6F58A1FD7507B0036EDE8 /* Booru */ = {
+			isa = PBXGroup;
+			children = (
+				AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */,
+				AEA5A2161E13851400599CC5 /* BooruWindowController.swift */,
+				AED6F58B1FD750D30036EDE8 /* BooruController.swift */,
+				AEDD7F83200C05D100AD33DE /* Browser */,
+				AEDD7F86200C065600AD33DE /* Viewer */,
+			);
+			name = Booru;
+			sourceTree = "<group>";
+		};
+		AED6F5981FD754C10036EDE8 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				AED6F5991FD754DF0036EDE8 /* IThemeable.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		AEDD7F82200C05B800AD33DE /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				AED6F5951FD751680036EDE8 /* PostsController.swift */,
+				AED6F59B1FD76A620036EDE8 /* PostsCollectionViewItem.swift */,
+				AED6F59C1FD76A620036EDE8 /* PostsCollectionViewItem.xib */,
+			);
+			name = Posts;
+			sourceTree = "<group>";
+		};
+		AEDD7F83200C05D100AD33DE /* Browser */ = {
+			isa = PBXGroup;
+			children = (
+				AED6F58D1FD751280036EDE8 /* BrowserController.swift */,
+				AEDD7F82200C05B800AD33DE /* Posts */,
+				AEDD7F84200C05E900AD33DE /* Info */,
+				AEDD7F85200C060800AD33DE /* Tags */,
+			);
+			name = Browser;
+			sourceTree = "<group>";
+		};
+		AEDD7F84200C05E900AD33DE /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				AED6F5931FD7515A0036EDE8 /* InfoBarController.swift */,
+			);
+			name = Info;
+			sourceTree = "<group>";
+		};
+		AEDD7F85200C060800AD33DE /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				AED6F5911FD7514F0036EDE8 /* TagListController.swift */,
+			);
+			name = Tags;
+			sourceTree = "<group>";
+		};
+		AEDD7F86200C065600AD33DE /* Viewer */ = {
+			isa = PBXGroup;
+			children = (
+				AED6F58F1FD7513C0036EDE8 /* ViewerController.swift */,
+			);
+			name = Viewer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -405,6 +470,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AED6F59E1FD76A620036EDE8 /* PostsCollectionViewItem.xib in Resources */,
 				5D71B49A1CCC06EA0011C281 /* Assets.xcassets in Resources */,
 				5D71B49D1CCC06EA0011C281 /* Main.storyboard in Resources */,
 			);
@@ -585,31 +651,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AEA5A2171E13851400599CC5 /* BCWindowController.swift in Sources */,
-				5D71B4981CCC06EA0011C281 /* BCViewController.swift in Sources */,
-				5DAF1A5B1CDD23480090D654 /* BCImageUtilities.swift in Sources */,
-				5DAD29371CCD5EB300C3C747 /* BCBooruCollectionViewCollectionViewItem.swift in Sources */,
-				5D3288351CCE95710029A57F /* BCPreferencesObject.swift in Sources */,
-				5D71B4961CCC06EA0011C281 /* BCAppDelegate.swift in Sources */,
-				5D02026A1CD8EEE000A6E5D5 /* BCGridStyleTagListTableViewController.swift in Sources */,
-				5D47F5E31CCFE54D00FF8AA9 /* BCBooruSearchTokenField.swift in Sources */,
-				5D02026C1CD8F22300A6E5D5 /* BCGridStyleTagListTableViewCellView.swift in Sources */,
-				AECAD3191DF4A1DA00E846EB /* BCTitlebarView.swift in Sources */,
-				5D1CC5881DC591C100E3988D /* BCScaleToFitContentTokenField.swift in Sources */,
-				5D3288321CCE80D10029A57F /* BCActionOnScrollToBottomScrollView.swift in Sources */,
-				5D88CC151CCC177B001FF12E /* BCColoredView.swift in Sources */,
-				5DAD293D1CCD6AD400C3C747 /* BCBooruCollectionViewSelectionBox.swift in Sources */,
-				5D0202681CD8EE3300A6E5D5 /* BCGridStyleTagListTableViewItemData.swift in Sources */,
-				5D88CC0F1CCC133B001FF12E /* BCBooru.swift in Sources */,
-				AE329EC81E44C186003812FB /* BCPreferencesBoorusViewController.swift in Sources */,
-				5D88CC131CCC14DC001FF12E /* BCGridStyleViewController.swift in Sources */,
-				5DBDDD121CD910C00086E61D /* BCExtensions.swift in Sources */,
-				5D7CA38F1CCC0A8500B4A0A5 /* BCNoDividerSplitView.swift in Sources */,
-				5D7CA3911CCC0AFD00B4A0A5 /* BCAlwaysActiveViews.swift in Sources */,
-				AE9A56EE1FD72DFA0099D09E /* BCWindow.swift in Sources */,
-				5DBB0A061CDBF427007B383B /* BCBooruCollectionView.swift in Sources */,
-				5DAD293A1CCD68CB00C3C747 /* BCRasterizedViews.swift in Sources */,
-				AE329EC61E44C179003812FB /* BCPreferencesGeneralViewController.swift in Sources */,
+				AEA5A2171E13851400599CC5 /* BooruWindowController.swift in Sources */,
+				AED6F5921FD7514F0036EDE8 /* TagListController.swift in Sources */,
+				AED6F58E1FD751280036EDE8 /* BrowserController.swift in Sources */,
+				5D3288351CCE95710029A57F /* Preferences.swift in Sources */,
+				AED6F59D1FD76A620036EDE8 /* PostsCollectionViewItem.swift in Sources */,
+				5D71B4961CCC06EA0011C281 /* AppDelegate.swift in Sources */,
+				AED6F5941FD7515A0036EDE8 /* InfoBarController.swift in Sources */,
+				AED6F5901FD7513C0036EDE8 /* ViewerController.swift in Sources */,
+				AED6F5961FD751680036EDE8 /* PostsController.swift in Sources */,
+				AED6F58C1FD750D30036EDE8 /* BooruController.swift in Sources */,
+				AECAB5E1200C20C900673B46 /* BooruUtilities.swift in Sources */,
+				AED6F59A1FD754DF0036EDE8 /* IThemeable.swift in Sources */,
+				AEDD7F81200C00CC00AD33DE /* Theme.swift in Sources */,
+				5D3288321CCE80D10029A57F /* BottomActionScrollView.swift in Sources */,
+				5D88CC151CCC177B001FF12E /* ColouredView.swift in Sources */,
+				AECAB5DF200C20BF00673B46 /* BooruHost.swift in Sources */,
+				5DAD293D1CCD6AD400C3C747 /* PostsCollectionViewSelectionBox.swift in Sources */,
+				AECAB5DD200C20B800673B46 /* BooruPost.swift in Sources */,
+				AE329EC81E44C186003812FB /* PreferencesBoorusController.swift in Sources */,
+				AECAB5E5200C20E400673B46 /* Rating.swift in Sources */,
+				5DBDDD121CD910C00086E61D /* Extensions.swift in Sources */,
+				AECAB5E3200C20DA00673B46 /* BooruType.swift in Sources */,
+				5D7CA38F1CCC0A8500B4A0A5 /* NoDividerSplitView.swift in Sources */,
+				AE23007B2009BFF800D6218D /* ImageDownloader.swift in Sources */,
+				AE9A56EE1FD72DFA0099D09E /* BooruWindow.swift in Sources */,
+				5DAD293A1CCD68CB00C3C747 /* RasterizedImageView.swift in Sources */,
+				AE329EC61E44C179003812FB /* PreferencesGeneralController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -802,7 +870,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Booru-chanTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Booru-chan.app/Contents/MacOS/Booru-chan";
 			};
@@ -818,7 +886,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Booru-chanTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Booru-chan.app/Contents/MacOS/Booru-chan";
 			};
@@ -833,7 +901,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Booru-chanUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = "Booru-chan";
 				USES_XCTRUNNER = YES;
@@ -849,7 +917,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "drabweb.Booru-chanUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = "Booru-chan";
 				USES_XCTRUNNER = YES;
