@@ -18,11 +18,16 @@ class PostsController: NSViewController {
         }
     }
 
+    //todo: call onSelect when deselecting all items
     var onSelect: (([BooruPost]) -> Void)?
     var onReachedBottom: (() -> Void)? {
         didSet {
             scrollView.onReachedBottom = onReachedBottom;
         }
+    }
+
+    private func sendOnSelect() {
+        onSelect?(collectionView.selectionIndexes.map { items[$0] });
     }
 }
 
@@ -48,6 +53,10 @@ extension PostsController: NSCollectionViewDataSource {
 
 extension PostsController: NSCollectionViewDelegate {
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
-        onSelect?(collectionView.selectionIndexes.map { items[$0] });
+        sendOnSelect();
+    }
+
+    func collectionView(_ collectionView: NSCollectionView, didDeselectItemsAt indexPaths: Set<IndexPath>) {
+        sendOnSelect();
     }
 }
