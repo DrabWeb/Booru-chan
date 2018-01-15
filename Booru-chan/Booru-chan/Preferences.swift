@@ -33,11 +33,11 @@ class Preferences: NSObject, NSCoding {
     required convenience init(coder decoder: NSCoder) {
         self.init();
 
-        if((decoder.decodeObject(forKey: "booruHosts") as? [BooruHost]) != nil) {
+        if (decoder.decodeObject(forKey: "booruHosts") as? [BooruHost]) != nil {
             self.booruHosts = decoder.decodeObject(forKey: "booruHosts") as! [BooruHost];
         }
         
-        if((decoder.decodeObject(forKey: "imageSaveFormat") as? String) != nil) {
+        if (decoder.decodeObject(forKey: "imageSaveFormat") as? String) != nil {
             self.imageFilenameFormat = decoder.decodeObject(forKey: "imageSaveFormat") as! String;
         }
         

@@ -5,7 +5,6 @@
 //  Created by Ushio on 2018-01-13.
 //
 
-import Foundation
 import Alamofire
 
 class ImageDownloader {

@@ -9,7 +9,7 @@ import Cocoa
 
 class ColouredView: NSView {
 
-    var colour: NSColor = NSColor.clear;
+    var colour = NSColor.clear;
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)

@@ -11,7 +11,6 @@ class RasterizedImageView: NSImageView {
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-
         self.layer?.shouldRasterize = true;
     }
 }

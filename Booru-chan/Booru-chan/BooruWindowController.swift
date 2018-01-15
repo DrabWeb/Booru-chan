@@ -18,10 +18,10 @@ class BooruWindowController: NSWindowController {
         if #available(OSX 10.12, *) {
             let windowController = storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "BrowserWindowController")) as! BooruWindowController;
 
-            window?.addTabbedWindow(windowController.window!, ordered: .above);
+            window!.addTabbedWindow(windowController.window!, ordered: .above);
             subwindowController = windowController;
-            windowController.window?.orderFront(window);
-            windowController.window?.makeKey();
+            windowController.window!.orderFront(window);
+            windowController.window!.makeKey();
         }
     }
 

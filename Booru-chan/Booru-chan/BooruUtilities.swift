@@ -19,7 +19,7 @@ class BooruUtilities {
 
     // search parameter supports wildcards
     func getTagsFromSearch(_ search: String, completionHandler: @escaping ([String]) -> ()) -> Request? {
-        print("BooruUtilities: Searching for tags matching \"\(search)\" on \"\(representedBooru.url)\"");
+        print("BooruUtilities: Searching for tags matching \"\(search)\" on \(representedBooru.url)");
 
         var request: Request!
         var results: [String] = [];
@@ -27,7 +27,7 @@ class BooruUtilities {
         if representedBooru.type == .moebooru {
             // /tag.json?name=[search]&limit=[limit]
             let url = sanitizeUrl("\(representedBooru.url)/tag.json?name=\(search)&limit=0");
-            print("BooruUtilities: Using URL \(url) to search for tags");
+            print("BooruUtilities: Using \(url) to search for tags");
 
             request = jsonRequest(url: url, completionHandler: { json in
                 for (_, t) in json.enumerated() {
@@ -41,7 +41,7 @@ class BooruUtilities {
             // /tags.json?search[name_matches]=[search]&limit=[limit]
             // note: danbooru does not support getting all tags from a search, and has an upper limit of 1000 and a lower limit of 0
             let url = sanitizeUrl("\(representedBooru.url)/tags.json?search[name_matches]=\(search)&limit=1000");
-            print("BooruUtilities: Using URL \(url) to search for tags");
+            print("BooruUtilities: Using \(url) to search for tags");
 
             request = jsonRequest(url: url, completionHandler: { json in
                 for (_, t) in json.enumerated() {
@@ -59,7 +59,7 @@ class BooruUtilities {
     }
 
     func getPostsFromSearch(_ search: String, limit: Int, page: Int, completionHandler: @escaping ([BooruPost]) -> ()) -> Request? {
-        print("BooruUtilities: Searching for \"\(search)\", limit: \(limit), page: \(page)) on \"\(representedBooru.url)\"");
+        print("BooruUtilities: Searching for \"\(search)\", limit: \(limit), page: \(page) on \(representedBooru.name)");
 
         var results: [BooruPost] = [];
         var request: Request? = nil;
@@ -85,7 +85,7 @@ class BooruUtilities {
         if representedBooru.type == .moebooru {
             // /post.json?tags=[search]&page=[page]&limit=[limit]
             let url = "\(representedBooru.url)/post.json?tags=\(search + ratingLimitString)&page=\(page)&limit=\(limit)";
-            print("BooruUtilities: Using URL \(url) to search");
+            print("BooruUtilities: Using \(url) to search");
 
             request = jsonRequest(url: url, completionHandler: { json in
                 for (_, currentResult) in json.enumerated() {
@@ -98,7 +98,7 @@ class BooruUtilities {
         else if representedBooru.type == .danbooruLegacy {
             // /post/index.xml?page=[page]&limit=[limit]&tags=[tags]
             let url = sanitizeUrl("\(representedBooru.url)/post/index.xml?page=\(page)&limit=\(limit)&tags=\(search + ratingLimitString)");
-            print("BooruUtilities: Using URL \"\(url)\" to search");
+            print("BooruUtilities: Using \(url) to search");
 
             request = xmlRequest(url: url, completionHandler: { xml in
                 for (_, currentResult) in xml["posts"].children.enumerated() {
@@ -111,7 +111,7 @@ class BooruUtilities {
         else if representedBooru.type == .danbooru {
             // /posts.json?tags=[tags]&page=[page]&limit=[limit]
             let url = sanitizeUrl("\(representedBooru.url)/posts.json?tags=\(search + ratingLimitString)&page=\(page)&limit=\(limit)");
-            print("BooruUtilities: Using URL \"\(url)\" to search");
+            print("BooruUtilities: Using \(url) to search");
 
             request = jsonRequest(url: url, completionHandler: { json in
                 for (_, currentResult) in json.enumerated() {
@@ -124,7 +124,7 @@ class BooruUtilities {
         else if representedBooru.type == .gelbooru {
             // /index.php?page=dapi&s=post&q=index&tags=[tags]&pid=[page - 1]&limit=[limit]
             let url = sanitizeUrl("\(representedBooru.url)/index.php?page=dapi&s=post&q=index&tags=\(search + ratingLimitString)&pid=\(page - 1)&limit=\(limit)");
-            print("BooruUtilities: Using URL \"\(url)\" to search");
+            print("BooruUtilities: Using \(url) to search");
 
             request = xmlRequest(url: url, completionHandler: { xml in
                 for (_, currentResult) in xml["posts"].children.enumerated() {

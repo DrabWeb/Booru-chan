@@ -14,7 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     static let cacheFolder = "\(appSupportFolder)/caches";
 
     //todo: make global preferences object a static value in the preferences class
-    var preferences: Preferences = Preferences();
+    private(set) var preferences = Preferences();
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         createApplicationSupportFolders();

@@ -69,7 +69,6 @@ class BooruController: NSSplitViewController, IThemeable {
 
     func applyTheme(theme: Theme) {
         window.appearance = theme.appearance;
-
         browserController.applyTheme(theme: theme);
     }
 
@@ -87,6 +86,7 @@ class BooruController: NSSplitViewController, IThemeable {
             }
         };
 
+        //todo: load theme properly from the preferences
         applyTheme(theme: .light);
     }
 }

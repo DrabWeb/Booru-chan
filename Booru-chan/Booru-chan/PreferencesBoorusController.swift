@@ -34,7 +34,7 @@ class PreferencesBoorusController: NSViewController {
     }
 
     @IBAction func addNewBooru(_ sender: NSButton) {
-        preferences.booruHosts.append(BooruHost(name: "Name", type: BooruType.moebooru, pagePostLimit: 40, url: "http://new.booru/url/", maximumRating: Rating.explicit));
+        preferences.booruHosts.append(BooruHost(name: "Name", type: BooruType.moebooru, pagePostLimit: 40, url: "http://new.booru/url/", maximumRating: .explicit));
         
         booruTableView.reloadData();
         booruTableView.deselectAll(self);
@@ -149,7 +149,6 @@ extension PreferencesBoorusController: NSTableViewDataSource {
 extension PreferencesBoorusController: NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
         let selectedRow = (notification.object as! NSTableView).selectedRow;
-        currentEditingHost.tagBlacklist = tagBlacklistTokenField.tokens;
         edit(host: preferences.booruHosts[selectedRow]);
     }
 }
