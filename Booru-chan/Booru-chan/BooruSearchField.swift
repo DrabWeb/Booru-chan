@@ -51,6 +51,16 @@ class BooruSearchField: NSSearchField {
         });
     }
 
+    override func textDidChange(_ notification: Notification) {
+        var items: [SuggestionItem] = [];
+        for (_, c) in stringValue.enumerated() {
+            items.append(SuggestionItem(title: String(c)));
+        }
+
+        (suggestionsWindowController.contentViewController as! SuggestionsController).items = [SuggestionSection(title: "Search Test", items: items)];
+        super.textDidChange(notification);
+    }
+
     override func textDidEndEditing(_ notification: Notification) {
         suggestionsVisible = false;
         super.textDidEndEditing(notification);
@@ -61,7 +71,7 @@ class BooruSearchField: NSSearchField {
 
         let o = self.window!.frame.origin;
         let s = self.window!.frame.size;
-        let h = CGFloat(139); //w.contentView?.bounds.height ?? 0
+        let h = CGFloat(w.contentView?.bounds.height ?? 0);
         w.setFrameOrigin(NSPoint(x: (o.x + s.width) - bounds.width - 7,
                                  y: (o.y + s.height) - h - 36));
         w.setContentSize(NSSize(width: bounds.width, height: h));

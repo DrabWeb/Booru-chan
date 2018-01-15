@@ -28,7 +28,7 @@ class HoverSelectTableView: NSTableView {
     override func awakeFromNib() {
         super.awakeFromNib();
 
-        trackingArea = NSTrackingArea(rect: self.frame, options: [.activeInActiveApp, .mouseMoved, .mouseEnteredAndExited], owner: self, userInfo: nil);
+        trackingArea = NSTrackingArea(rect: self.frame, options: [.activeInActiveApp, .mouseMoved, .mouseEnteredAndExited, .inVisibleRect], owner: self, userInfo: nil);
         addTrackingArea(trackingArea);
     }
 

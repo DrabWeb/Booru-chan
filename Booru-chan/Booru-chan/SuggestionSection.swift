@@ -8,5 +8,10 @@
 import Foundation
 
 class SuggestionSection: SuggestionItem {
-    
+    let items: [SuggestionItem];
+
+    init(title: String, items: [SuggestionItem]) {
+        self.items = items;
+        super.init(title: title);
+    }
 }

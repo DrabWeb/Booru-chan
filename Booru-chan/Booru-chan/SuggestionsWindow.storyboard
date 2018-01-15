@@ -46,7 +46,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="20" rowSizeStyle="automatic" usesAutomaticRowHeights="YES" viewBased="YES" id="yjH-vz-Onk" customClass="HoverSelectTableView" customModule="Booru_chan" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="480" height="260"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="480" height="262"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -144,7 +144,7 @@
                                                 </tableView>
                                             </subviews>
                                         </clipView>
-                                        <edgeInsets key="contentInsets" left="0.0" right="0.0" top="5" bottom="5"/>
+                                        <edgeInsets key="contentInsets" left="0.0" right="0.0" top="5" bottom="3"/>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="krk-02-4Zt">
                                             <rect key="frame" x="0.0" y="254" width="480" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -171,6 +171,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="suggestionsScrollView" destination="11u-aQ-TAj" id="JrL-1Q-Xj6"/>
                         <outlet property="suggestionsTableView" destination="yjH-vz-Onk" id="Obv-u4-KlH"/>
                     </connections>
                 </viewController>
