@@ -8,8 +8,8 @@
 import Foundation
 
 enum Rating: Int {
-    case none
-    case safe
-    case questionable
-    case explicit
+    case none = -1
+    case safe = 0
+    case questionable = 1
+    case explicit = 2
 }
