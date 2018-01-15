@@ -89,7 +89,7 @@ class BooruUtilities {
 
             request = jsonRequest(url: url, completionHandler: { json in
                 for (_, currentResult) in json.enumerated() {
-                    handlePost(self.getPostFromData(json: currentResult.1)!);
+                    handlePost(self.getPostFromData(json: currentResult.1));
                 }
 
                 completionHandler(results);
@@ -102,7 +102,7 @@ class BooruUtilities {
 
             request = xmlRequest(url: url, completionHandler: { xml in
                 for (_, currentResult) in xml["posts"].children.enumerated() {
-                    handlePost(self.getPostFromData(xml: currentResult)!);
+                    handlePost(self.getPostFromData(xml: currentResult));
                 }
 
                 completionHandler(results);
@@ -115,7 +115,7 @@ class BooruUtilities {
 
             request = jsonRequest(url: url, completionHandler: { json in
                 for (_, currentResult) in json.enumerated() {
-                    handlePost(self.getPostFromData(json: currentResult.1)!);
+                    handlePost(self.getPostFromData(json: currentResult.1));
                 }
 
                 completionHandler(results);
@@ -128,7 +128,7 @@ class BooruUtilities {
 
             request = xmlRequest(url: url, completionHandler: { xml in
                 for (_, currentResult) in xml["posts"].children.enumerated() {
-                    handlePost(self.getPostFromData(xml: currentResult)!);
+                    handlePost(self.getPostFromData(xml: currentResult));
                 }
 
                 completionHandler(results);
@@ -148,13 +148,12 @@ class BooruUtilities {
         });
     }
 
-    func getPostFromData(json: JSON? = nil, xml: XMLIndexer? = nil) -> BooruPost? {
-        //todo: validate and set to nil if invalid
-        let post: BooruPost! = BooruPost();
+    func getPostFromData(json: JSON? = nil, xml: XMLIndexer? = nil) -> BooruPost {
+        let post: BooruPost = BooruPost();
 
         if representedBooru.type == .moebooru {
             post.id = json!["id"].intValue;
-            post.url = "\(representedBooru.url)/post/show/\(post!.id)";
+            post.url = "\(representedBooru.url)/post/show/\(post.id)";
             post.tags = json!["tags"].stringValue.components(separatedBy: " ").filter { !$0.isEmpty };
 
             post.thumbnailUrl = sanitizeUrl(json!["preview_url"].stringValue);
@@ -183,7 +182,7 @@ class BooruUtilities {
         }
         else if representedBooru.type == .danbooruLegacy {
             post.id = NSString(string: xml!.element!.allAttributes["id"]!.text).integerValue;
-            post.url = "\(representedBooru.url)/posts/\(post!.id)";
+            post.url = "\(representedBooru.url)/posts/\(post.id)";
             post.tags = xml!.element!.allAttributes["tags"]!.text.components(separatedBy: " ").filter { !$0.isEmpty };
 
             // danbooru legacy doesnt have thumbnail resolution in the api
@@ -212,7 +211,7 @@ class BooruUtilities {
         }
         else if representedBooru.type == .danbooru {
             post.id = json!["id"].intValue;
-            post.url = "\(representedBooru.url)/posts/\(post!.id)";
+            post.url = "\(representedBooru.url)/posts/\(post.id)";
 
             func addTags(key: String) {
                 post.tags = json![key].stringValue.components(separatedBy: " ");
@@ -223,7 +222,7 @@ class BooruUtilities {
             addTags(key: "tag_string_character");
             addTags(key: "tag_string_copyright");
             addTags(key: "tag_string_general");
-            post.tags = post!.tags.filter { !$0.isEmpty };
+            post.tags = post.tags.filter { !$0.isEmpty };
 
             // danbooru doesnt have thumbnail resolution in the api
             post.thumbnailUrl = sanitizeUrl("\(representedBooru.url)/\(json!["preview_file_url"].stringValue)");
@@ -251,11 +250,11 @@ class BooruUtilities {
         }
         else if representedBooru.type == .gelbooru {
             post.id = NSString(string: xml!.element!.allAttributes["id"]!.text).integerValue;
-            post.url = "\(representedBooru.url)/index.php?page=post&s=view&id=\(post!.id)";
+            post.url = "\(representedBooru.url)/index.php?page=post&s=view&id=\(post.id)";
             post.tags = xml!.element!.allAttributes["tags"]!.text.components(separatedBy: " ").filter { !$0.isEmpty };
 
             post.thumbnailUrl = sanitizeUrl(xml!.element!.allAttributes["preview_url"]!.text);
-            post?.thumbnailSize = NSSize(width: NSString(string: xml!.element!.allAttributes["preview_width"]!.text).integerValue,
+            post.thumbnailSize = NSSize(width: NSString(string: xml!.element!.allAttributes["preview_width"]!.text).integerValue,
                                          height: NSString(string: xml!.element!.allAttributes["preview_height"]!.text).integerValue);
 
             post.imageUrl = sanitizeUrl(xml!.element!.allAttributes["file_url"]!.text);
@@ -279,16 +278,14 @@ class BooruUtilities {
             }
         }
 
-        if post != nil {
-            let booruUrlProtocol = String(self.representedBooru!.url[..<self.representedBooru!.url.range(of: "//")!.lowerBound]);
+        let booruUrlProtocol = String(self.representedBooru!.url[..<self.representedBooru!.url.range(of: "//")!.lowerBound]);
 
-            if post.imageUrl.hasPrefix("//") {
-                post!.imageUrl = booruUrlProtocol + post!.imageUrl;
-            }
+        if post.imageUrl.hasPrefix("//") {
+            post.imageUrl = booruUrlProtocol + post.imageUrl;
+        }
 
-            if post.thumbnailUrl.hasPrefix("//") {
-                post!.thumbnailUrl = booruUrlProtocol + post!.thumbnailUrl;
-            }
+        if post.thumbnailUrl.hasPrefix("//") {
+            post.thumbnailUrl = booruUrlProtocol + post.thumbnailUrl;
         }
 
         return post;
