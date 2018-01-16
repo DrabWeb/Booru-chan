@@ -48,6 +48,9 @@ class BooruSearchField: NSSearchField {
         self.postsFrameChangedNotifications = true;
         NotificationCenter.default.addObserver(self, selector: #selector(updateSuggestionsSize), name: NSView.frameDidChangeNotification, object: nil);
 
+        suggestionsController.favouriteTags = ["fav1", "fav2", "fav3"];
+        suggestionsController.searchHistory = ["his1", "his2", "his3"];
+        suggestionsController.getSuggestions = { query in return ["sug1", "sug2", "sug3"]; };
         suggestionsController.onSelectSuggestion = { suggestion in
             if suggestion != nil {
                 self.showSuggestion(suggestion!);

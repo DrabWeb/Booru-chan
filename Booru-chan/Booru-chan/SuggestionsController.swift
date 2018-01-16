@@ -14,34 +14,18 @@ class SuggestionsController: NSViewController {
 
     private var internalItems: [SuggestionCell] = [];
 
-    //todo: temporary testing stuff
-    private let favourites: [String] = ["onefavourite", "favouritetwo", "threefav", "4etiruovaf", "fithfav", "sixfavourite", "seventhfavour"];
-    private let history: [String] = ["some example tags", "some more tags", "another tags", "history tags", "other tags", "alternate tags"];
-    private let possibleSuggestions: [String] = ["one", "onetwo", "two", "twothree", "four", "fourfive", "six", "sixseven", "eight", "eighteightseven", "nine", "nineten"];
+    var showHistory: Bool = false;
 
+    // passed the current filter, expects the results for that filter
+    var getSuggestions: ((String) -> [String])?
     var onSelectSuggestion: ((String?) -> Void)?
 
-    var showHistory: Bool = false;
+    var favouriteTags: [String] = [];
+    var searchHistory: [String] = [];
+
     var filter: String = "" {
         didSet {
-            var newItems: [SuggestionItem] = [];
-
-            func addMatches(from values: [String], title: String, maximum: Int, hideIfBlank: Bool = false) {
-                let matches = (values.filter { $0.hasPrefix(filter) }).prefix(maximum);
-                if matches.isEmpty || hideIfBlank && filter.isEmpty {
-                    return;
-                }
-
-                newItems.append(SuggestionSection(title: title, items: matches.map { SuggestionItem(title: $0) }));
-            }
-
-            addMatches(from: favourites, title: "Favourites", maximum: 5);
-            if showHistory {
-                addMatches(from: history, title: "History", maximum: 5);
-            }
-            addMatches(from: possibleSuggestions, title: "Suggestions", maximum: 10, hideIfBlank: true);
-
-            items = newItems;
+            updateSuggestions();
         }
     }
 
@@ -49,8 +33,29 @@ class SuggestionsController: NSViewController {
         didSet {
             updateInternalItems();
             suggestionsTableView.reloadData();
-            updateWindowSize();
+            updatePreferredSize();
         }
+    }
+
+    func updateSuggestions() {
+        var newItems: [SuggestionItem] = [];
+
+        func addMatches(from values: [String], title: String, maximum: Int, hideIfBlank: Bool = false, ignoreFilter: Bool = false) {
+            let matches = (values.filter { $0.hasPrefix(filter) || ignoreFilter }).prefix(maximum);
+            if matches.isEmpty || hideIfBlank && filter.isEmpty {
+                return;
+            }
+
+            newItems.append(SuggestionSection(title: title, items: matches.map { SuggestionItem(title: $0) }));
+        }
+
+        addMatches(from: favouriteTags, title: "Favourites", maximum: 5);
+        if showHistory {
+            addMatches(from: searchHistory, title: "History", maximum: 5);
+        }
+        addMatches(from: getSuggestions?(filter) ?? [], title: "Suggestions", maximum: 10, hideIfBlank: true, ignoreFilter: true);
+
+        items = newItems;
     }
 
     private func updateInternalItems() {
@@ -72,7 +77,7 @@ class SuggestionsController: NSViewController {
         }
     }
 
-    private func updateWindowSize() {
+    private func updatePreferredSize() {
         self.preferredContentSize = NSSize(width: self.view.frame.width,
                                            height: NSMaxY(suggestionsTableView.rect(ofRow: suggestionsTableView.numberOfRows - 1)) +
                                                           suggestionsScrollView.contentInsets.top +
