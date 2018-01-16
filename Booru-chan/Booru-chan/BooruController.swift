@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Alamofire
 
 class BooruController: NSSplitViewController, IThemeable {
 
@@ -19,30 +20,8 @@ class BooruController: NSSplitViewController, IThemeable {
             }
 
             lastBooru = currentBooru;
-            browserController.postsController.items = [];
-            selectedPosts = [];
-
-            //todo: temporary
-            _ = currentBooru.utilties!.getPostsFromSearch("", limit: 40, page: 1, completionHandler: { self.browserController.postsController.items = $0 });
+            clear();
         }
-    }
-
-    @IBOutlet private weak var browserItem: NSSplitViewItem!
-    private var browserController: BrowserController {
-        get {
-            return browserItem.viewController as! BrowserController;
-        }
-    }
-
-    @IBOutlet weak var viewerItem: NSSplitViewItem!
-    private var viewerController: ViewerController {
-        get {
-            return viewerItem.viewController as! ViewerController;
-        }
-    }
-
-    @IBAction func booruChanged(_ sender: NSPopUpButton) {
-        currentBooru = (NSApp.delegate as! AppDelegate).preferences.booruHosts[sender.indexOfSelectedItem];
     }
 
     private var selectedPosts: [BooruPost] = [] {
@@ -69,9 +48,47 @@ class BooruController: NSSplitViewController, IThemeable {
         }
     }
 
+    @IBOutlet private weak var browserItem: NSSplitViewItem!
+    private var browserController: BrowserController {
+        get {
+            return browserItem.viewController as! BrowserController;
+        }
+    }
+
+    @IBOutlet weak var viewerItem: NSSplitViewItem!
+    private var viewerController: ViewerController {
+        get {
+            return viewerItem.viewController as! ViewerController;
+        }
+    }
+
+    @IBAction func booruChanged(_ sender: NSPopUpButton) {
+        currentBooru = (NSApp.delegate as! AppDelegate).preferences.booruHosts[sender.indexOfSelectedItem];
+    }
+
+    @IBAction func searchQueryEntered(_ sender: NSSearchField!) {
+        self.window.makeFirstResponder(self);
+        search(for: sender.stringValue);
+    }
+
+    private var lastSearchRequest: Request?
+    func search(for query: String) {
+        lastSearchRequest?.cancel();
+
+        lastSearchRequest = currentBooru.utilties.getPostsFromSearch(query,
+                                                                     limit: currentBooru.pagePostLimit,
+                                                                     page: 1,
+                                                                     completionHandler: { self.browserController.postsController.items = $0 });
+    }
+
     func applyTheme(theme: Theme) {
         window.appearance = theme.appearance;
         browserController.applyTheme(theme: theme);
+    }
+
+    private func clear() {
+        browserController.postsController.items = [];
+        selectedPosts = [];
     }
 
     override func viewDidLoad() {
