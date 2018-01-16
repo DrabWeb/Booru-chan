@@ -93,7 +93,7 @@
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="cKd-Mw-qBD">
                                                                             <rect key="frame" x="19" y="3" width="439" height="17"/>
-                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Tzr-Ck-dVm">
+                                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Table View Cell" id="Tzr-Ck-dVm">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

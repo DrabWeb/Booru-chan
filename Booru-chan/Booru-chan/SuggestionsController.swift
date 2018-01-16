@@ -14,6 +14,37 @@ class SuggestionsController: NSViewController {
 
     private var internalItems: [SuggestionCell] = [];
 
+    //todo: temporary testing stuff
+    private let favourites: [String] = ["onefavourite", "favouritetwo", "threefav", "4etiruovaf", "fithfav", "sixfavourite", "seventhfavour"];
+    private let history: [String] = ["some example tags", "some more tags", "another tags", "history tags", "other tags", "alternate tags"];
+    private let possibleSuggestions: [String] = ["one", "onetwo", "two", "twothree", "four", "fourfive", "six", "sixseven", "eight", "eighteightseven", "nine", "nineten"];
+
+    var onSelectSuggestion: ((String?) -> Void)?
+
+    var showHistory: Bool = false;
+    var filter: String = "" {
+        didSet {
+            var newItems: [SuggestionItem] = [];
+
+            func addMatches(from values: [String], title: String, maximum: Int, hideIfBlank: Bool = false) {
+                let matches = (values.filter { $0.hasPrefix(filter) }).prefix(maximum);
+                if matches.isEmpty || hideIfBlank && filter.isEmpty {
+                    return;
+                }
+
+                newItems.append(SuggestionSection(title: title, items: matches.map { SuggestionItem(title: $0) }));
+            }
+
+            addMatches(from: favourites, title: "Favourites", maximum: 5);
+            if showHistory {
+                addMatches(from: history, title: "History", maximum: 5);
+            }
+            addMatches(from: possibleSuggestions, title: "Suggestions", maximum: 10, hideIfBlank: true);
+
+            items = newItems;
+        }
+    }
+
     var items: [SuggestionItem] = [] {
         didSet {
             updateInternalItems();
@@ -45,7 +76,8 @@ class SuggestionsController: NSViewController {
         self.preferredContentSize = NSSize(width: self.view.frame.width,
                                            height: NSMaxY(suggestionsTableView.rect(ofRow: suggestionsTableView.numberOfRows - 1)) +
                                                           suggestionsScrollView.contentInsets.top +
-                                                          suggestionsScrollView.contentInsets.bottom);
+                                                          suggestionsScrollView.contentInsets.bottom -
+                                                          CGFloat(internalItems.filter { $0 is SuggestionDividerCell }.count * 10)); //dividers arent already accounted for, do it manually
     }
 
     private class SuggestionCell {
@@ -104,5 +136,14 @@ extension SuggestionsController: NSTableViewDelegate {
         }
 
         return nil;
+    }
+
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        if suggestionsTableView.selectedRow > -1 {
+            onSelectSuggestion?(internalItems[suggestionsTableView.selectedRow].item.title);
+        }
+        else {
+            onSelectSuggestion?(nil);
+        }
     }
 }

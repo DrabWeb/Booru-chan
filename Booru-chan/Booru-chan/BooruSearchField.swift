@@ -24,7 +24,12 @@ class BooruSearchField: NSSearchField {
         }
     }
 
+    private var currentTag: String {
+        return stringValue.components(separatedBy: " ").last ?? "";
+    }
+
     override func becomeFirstResponder() -> Bool {
+        updateSuggestions();
         suggestionsVisible = true;
 
         return super.becomeFirstResponder();
@@ -37,6 +42,15 @@ class BooruSearchField: NSSearchField {
 
         self.postsFrameChangedNotifications = true;
         NotificationCenter.default.addObserver(self, selector: #selector(updateSuggestionsSize), name: NSView.frameDidChangeNotification, object: nil);
+
+        (suggestionsWindowController.contentViewController as! SuggestionsController).onSelectSuggestion = { suggestion in
+            if suggestion != nil {
+                self.showSuggestion(suggestion!);
+            }
+            else {
+                self.clearSuggestion();
+            }
+        };
 
         NSEvent.addLocalMonitorForEvents(matching: .keyDown, handler: { event in
             switch event.keyCode {
@@ -52,12 +66,9 @@ class BooruSearchField: NSSearchField {
     }
 
     override func textDidChange(_ notification: Notification) {
-        var items: [SuggestionItem] = [];
-        for (_, c) in stringValue.enumerated() {
-            items.append(SuggestionItem(title: String(c)));
-        }
-
-        (suggestionsWindowController.contentViewController as! SuggestionsController).items = [SuggestionSection(title: "Search Test", items: items)];
+        (suggestionsWindowController.contentViewController as! SuggestionsController).showHistory = stringValue.isEmpty;
+        suggestionRange = nil;
+        updateSuggestions();
         super.textDidChange(notification);
     }
 
@@ -75,5 +86,36 @@ class BooruSearchField: NSSearchField {
         w.setFrameOrigin(NSPoint(x: (o.x + s.width) - bounds.width - 7,
                                  y: (o.y + s.height) - h - 36));
         w.setContentSize(NSSize(width: bounds.width, height: h));
+    }
+
+    private func updateSuggestions() {
+        (suggestionsWindowController.contentViewController as! SuggestionsController).filter = currentTag;
+    }
+
+    private var suggestionRange: Range<String.Index>!
+
+    private func showSuggestion(_ suggestion: String) {
+        clearSuggestion();
+
+        var autocompleteText = suggestion;
+        if let prefixRange = suggestion.range(of: currentTag) {
+            autocompleteText.removeSubrange(suggestion.startIndex..<prefixRange.upperBound);
+        }
+
+        if !autocompleteText.isEmpty {
+
+            stringValue += autocompleteText;
+
+            let tagRange = stringValue.range(of: currentTag, options: .backwards, range: nil, locale: nil)!;
+            suggestionRange = stringValue.index(tagRange.upperBound, offsetBy: -autocompleteText.count)..<tagRange.upperBound;
+            currentEditor()?.selectedRange = NSRange(suggestionRange, in: stringValue);
+        }
+    }
+
+    private func clearSuggestion() {
+        if suggestionRange != nil {
+            stringValue.removeSubrange(suggestionRange);
+            suggestionRange = nil;
+        }
     }
 }
