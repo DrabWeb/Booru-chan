@@ -10,6 +10,11 @@ import Cocoa
 class BooruSearchField: NSSearchField {
 
     private let suggestionsWindowController = NSStoryboard(name: NSStoryboard.Name(rawValue: "SuggestionsWindow"), bundle: nil).instantiateInitialController() as! SuggestionsWindowController;
+    private var suggestionsController: SuggestionsController {
+        get {
+            return (suggestionsWindowController.contentViewController as! SuggestionsController);
+        }
+    }
 
     private var suggestionsVisible: Bool = false {
         didSet {
@@ -43,7 +48,7 @@ class BooruSearchField: NSSearchField {
         self.postsFrameChangedNotifications = true;
         NotificationCenter.default.addObserver(self, selector: #selector(updateSuggestionsSize), name: NSView.frameDidChangeNotification, object: nil);
 
-        (suggestionsWindowController.contentViewController as! SuggestionsController).onSelectSuggestion = { suggestion in
+        suggestionsController.onSelectSuggestion = { suggestion in
             if suggestion != nil {
                 self.showSuggestion(suggestion!);
             }
@@ -66,7 +71,6 @@ class BooruSearchField: NSSearchField {
     }
 
     override func textDidChange(_ notification: Notification) {
-        (suggestionsWindowController.contentViewController as! SuggestionsController).showHistory = stringValue.isEmpty;
         suggestionRange = nil;
         updateSuggestions();
         super.textDidChange(notification);
@@ -89,7 +93,8 @@ class BooruSearchField: NSSearchField {
     }
 
     private func updateSuggestions() {
-        (suggestionsWindowController.contentViewController as! SuggestionsController).filter = currentTag;
+        suggestionsController.showHistory = stringValue.isEmpty;
+        suggestionsController.filter = currentTag;
     }
 
     private var suggestionRange: Range<String.Index>!
