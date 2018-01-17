@@ -10,12 +10,12 @@ import Foundation
 class Tag: Equatable {
     var name: String = "";
     var type: TagType = .general;
-    var hits: Int = 0;
+    var postCount: Int = 0;
 
     static func ==(lhs: Tag, rhs: Tag) -> Bool {
         return lhs.name == rhs.name &&
                lhs.type == rhs.type &&
-               lhs.hits == rhs.hits;
+               lhs.postCount == rhs.postCount;
     }
 
     init(name: String = "",
@@ -23,6 +23,6 @@ class Tag: Equatable {
          hits: Int = 0) {
         self.name = name;
         self.type = type;
-        self.hits = hits;
+        self.postCount = hits;
     }
 }

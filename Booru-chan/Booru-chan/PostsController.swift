@@ -19,7 +19,7 @@ class PostsController: NSViewController {
     }
 
     var onSelect: (([BooruPost]) -> Void)?
-    var onReachedBottom: (() -> Void)? {
+    var onReachedBottom: (() -> Void)? { //todo: fix a bug where onReachedBottom is spammed if the view is resized when the user is at the bottom
         didSet {
             scrollView.onReachedBottom = onReachedBottom;
         }

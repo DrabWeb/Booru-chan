@@ -17,35 +17,68 @@ class BooruUtilities {
     var lastSearchLimit = -1;
     var lastSearchPage = -1;
 
-    // search parameter supports wildcards
-    func getTagsFromSearch(_ search: String, completionHandler: @escaping ([String]) -> ()) -> Request? {
-        print("BooruUtilities: Searching for tags matching \"\(search)\" on \(representedBooru.url)");
+    func getAutocompleteSuggestionsFromSearch(_ search: String, limit: Int, completionHandler: @escaping ([Tag]) -> ()) -> Request? {
+        print("BooruUtilities: Searching for autocomplete suggestions for \"\(search)\" on \(representedBooru.name)");
 
-        var request: Request!
-        var results: [String] = [];
+        var results: [Tag] = [];
+        var request: Request? = nil;
 
         if representedBooru.type == .moebooru {
-            // /tag.json?name=[search]&limit=[limit]
-            let url = sanitizeUrl("\(representedBooru.url)/tag.json?name=\(search)&limit=0");
+            // /tag.json?name=[search]&order=[date|count|name]&limit=[limit]
+            let url = sanitizeUrl("\(representedBooru.url)/tag.json?name=\(search)*&order=count&limit=\(limit)");
             print("BooruUtilities: Using \(url) to search for tags");
 
             request = jsonRequest(url: url, completionHandler: { json in
                 for (_, t) in json.enumerated() {
-                    results.append(t.1["name"].stringValue);
+                    var type = TagType.general;
+
+                    // general: 0, artist: 1, copyright: 3, character: 4
+                    switch t.1["type"].intValue {
+                        case 1:
+                            type = .artist;
+                            break;
+                        case 3:
+                            type = .copyright;
+                            break;
+                        case 4:
+                            type = .character;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    results.append(Tag(name: t.1["name"].stringValue, type: type, hits: t.1["count"].intValue));
                 }
 
                 completionHandler(results);
             });
         }
         else if representedBooru.type == .danbooru || representedBooru.type == .danbooruLegacy {
-            // /tags.json?search[name_matches]=[search]&limit=[limit]
+            // /tags.json?search[name_matches]=[search]&search[order]=[date|count|name]]&limit=[limit]
             // note: danbooru does not support getting all tags from a search, and has an upper limit of 1000 and a lower limit of 0
-            let url = sanitizeUrl("\(representedBooru.url)/tags.json?search[name_matches]=\(search)&limit=1000");
+            let url = sanitizeUrl("\(representedBooru.url)/tags.json?search[name_matches]=\(search)*&search[order]=count&limit=\(limit)");
             print("BooruUtilities: Using \(url) to search for tags");
 
             request = jsonRequest(url: url, completionHandler: { json in
                 for (_, t) in json.enumerated() {
-                    results.append(t.1["name"].stringValue);
+                    var type = TagType.general;
+
+                    // general: 0, artist: 1, copyright: 3, character: 4
+                    switch t.1["type"].intValue {
+                        case 1:
+                            type = .artist;
+                            break;
+                        case 3:
+                            type = .copyright;
+                            break;
+                        case 4:
+                            type = .character;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    results.append(Tag(name: t.1["name"].stringValue, type: type, hits: t.1["post_count"].intValue));
                 }
 
                 completionHandler(results);
@@ -53,6 +86,7 @@ class BooruUtilities {
         }
         else if representedBooru.type == .gelbooru {
             // gelbooru does not support tag searching
+            completionHandler([]);
         }
 
         return request;
@@ -81,6 +115,9 @@ class BooruUtilities {
                 results.append(post);
             }
         }
+
+        //todo: get tag types for all supported boorus
+        // moebooru only seems to have summary.json, a gigantic string with all the tags and their types
 
         if representedBooru.type == .moebooru {
             // /post.json?tags=[search]&page=[page]&limit=[limit]
