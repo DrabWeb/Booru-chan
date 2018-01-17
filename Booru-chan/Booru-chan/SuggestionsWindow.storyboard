@@ -110,8 +110,42 @@
                                                                         <outlet property="textField" destination="cKd-Mw-qBD" id="D4l-V9-sao"/>
                                                                     </connections>
                                                                 </tableCellView>
+                                                                <tableCellView identifier="TagCell" id="sUU-Xp-MNn" userLabel="Tag Cell" customClass="SuggestionsTagCellView" customModule="Booru_chan" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="39" width="477" height="20"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <subviews>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TE3-BN-Ngr">
+                                                                            <rect key="frame" x="19" y="3" width="413" height="17"/>
+                                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Table View Cell" id="Al0-bH-oDm">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                        <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rdI-Ce-4qq" userLabel="Hits">
+                                                                            <rect key="frame" x="438" y="2" width="25" height="14"/>
+                                                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Hits" id="2yD-Hj-eFl">
+                                                                                <font key="font" metaFont="smallSystem"/>
+                                                                                <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="TE3-BN-Ngr" firstAttribute="leading" secondItem="sUU-Xp-MNn" secondAttribute="leading" constant="21" id="ADX-Y5-PfL"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="rdI-Ce-4qq" secondAttribute="bottom" constant="2" id="ETH-S0-IOj"/>
+                                                                        <constraint firstItem="rdI-Ce-4qq" firstAttribute="leading" secondItem="TE3-BN-Ngr" secondAttribute="trailing" constant="10" id="GtJ-7v-hBL"/>
+                                                                        <constraint firstItem="TE3-BN-Ngr" firstAttribute="top" secondItem="sUU-Xp-MNn" secondAttribute="top" id="S8f-DE-5Q2"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="TE3-BN-Ngr" secondAttribute="bottom" constant="3" id="VfG-Lp-Qlt"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="rdI-Ce-4qq" secondAttribute="trailing" constant="16" id="gIE-tW-8Xa"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <outlet property="hitsTextField" destination="rdI-Ce-4qq" id="rKk-bV-7cg"/>
+                                                                        <outlet property="textField" destination="TE3-BN-Ngr" id="gc9-R2-e4N"/>
+                                                                    </connections>
+                                                                </tableCellView>
                                                                 <tableCellView identifier="DividerCell" id="bCh-KA-GYR" userLabel="Divider Cell">
-                                                                    <rect key="frame" x="0.0" y="39" width="477" height="11"/>
+                                                                    <rect key="frame" x="0.0" y="59" width="477" height="11"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <box boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="8gs-FJ-Xv2">

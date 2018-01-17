@@ -85,7 +85,7 @@ extension TagListController: NSTableViewDelegate {
                 let t = cellData.tag;
                 let typeBullet = "● ";
                 let title = NSMutableAttributedString(string: typeBullet + t.name.replacingOccurrences(of: "_", with: " "));
-                title.addAttributes([NSAttributedStringKey.foregroundColor: t.type.representedColour()], range: NSMakeRange(0, typeBullet.count));
+                title.addAttributes([.foregroundColor: t.type.representedColour()], range: NSMakeRange(0, typeBullet.count));
 
                 cell.tagNameCheckbox.attributedTitle = title;
                 cell.tagNameCheckbox.state = getTagState(t) ? .on : .off;

@@ -25,6 +25,8 @@
 		AE329EC81E44C186003812FB /* PreferencesBoorusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC71E44C186003812FB /* PreferencesBoorusController.swift */; };
 		AE4E8A85200D9E0000122621 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4E8A84200D9E0000122621 /* Tag.swift */; };
 		AE4E8A87200D9E1500122621 /* TagType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4E8A86200D9E1500122621 /* TagType.swift */; };
+		AE818F61200EDFA600CC88B9 /* SuggestionTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE818F60200EDFA600CC88B9 /* SuggestionTag.swift */; };
+		AE818F63200EE74D00CC88B9 /* SuggestionsTagCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE818F62200EE74D00CC88B9 /* SuggestionsTagCellView.swift */; };
 		AE9A56EE1FD72DFA0099D09E /* BooruWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */; };
 		AEA5A2171E13851400599CC5 /* BooruWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5A2161E13851400599CC5 /* BooruWindowController.swift */; };
 		AEC3C1EC200C50A2009AB087 /* TagListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC3C1EB200C50A2009AB087 /* TagListCellView.swift */; };
@@ -103,6 +105,8 @@
 		AE4E8A84200D9E0000122621 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		AE4E8A86200D9E1500122621 /* TagType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagType.swift; sourceTree = "<group>"; };
 		AE75E5161DDE678E00937817 /* Booru-chan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Booru-chan-Bridging-Header.h"; sourceTree = "<group>"; };
+		AE818F60200EDFA600CC88B9 /* SuggestionTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTag.swift; sourceTree = "<group>"; };
+		AE818F62200EE74D00CC88B9 /* SuggestionsTagCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsTagCellView.swift; sourceTree = "<group>"; };
 		AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruWindow.swift; sourceTree = "<group>"; };
 		AEA5A2161E13851400599CC5 /* BooruWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooruWindowController.swift; sourceTree = "<group>"; };
 		AEC3C1EB200C50A2009AB087 /* TagListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListCellView.swift; sourceTree = "<group>"; };
@@ -305,6 +309,7 @@
 				AEC3C1EE200C62DB009AB087 /* BooruSearchField.swift */,
 				AEC3C1F6200C70C0009AB087 /* SuggestionsWindowController.swift */,
 				AEC3C1FA200C7F2D009AB087 /* SuggestionsController.swift */,
+				AE818F62200EE74D00CC88B9 /* SuggestionsTagCellView.swift */,
 				AEC3C1F8200C74D3009AB087 /* SuggestionsWindow.storyboard */,
 			);
 			name = Search;
@@ -315,6 +320,7 @@
 			children = (
 				AEC3C1FD200C8239009AB087 /* SuggestionSection.swift */,
 				AEC3C1FF200C82BF009AB087 /* SuggestionItem.swift */,
+				AE818F60200EDFA600CC88B9 /* SuggestionTag.swift */,
 			);
 			name = Suggestions;
 			sourceTree = "<group>";
@@ -718,6 +724,7 @@
 				AE4E8A85200D9E0000122621 /* Tag.swift in Sources */,
 				AE4E8A87200D9E1500122621 /* TagType.swift in Sources */,
 				5D88CC151CCC177B001FF12E /* ColouredView.swift in Sources */,
+				AE818F61200EDFA600CC88B9 /* SuggestionTag.swift in Sources */,
 				AEC3C1EC200C50A2009AB087 /* TagListCellView.swift in Sources */,
 				AECAB5DF200C20BF00673B46 /* BooruHost.swift in Sources */,
 				5DAD293D1CCD6AD400C3C747 /* PostsCollectionViewSelectionBox.swift in Sources */,
@@ -728,6 +735,7 @@
 				AEC3C1FB200C7F2D009AB087 /* SuggestionsController.swift in Sources */,
 				5DBDDD121CD910C00086E61D /* Extensions.swift in Sources */,
 				AECAB5E3200C20DA00673B46 /* BooruType.swift in Sources */,
+				AE818F63200EE74D00CC88B9 /* SuggestionsTagCellView.swift in Sources */,
 				AEC9678C200D3319009CAA32 /* HoverSelectTableView.swift in Sources */,
 				5D7CA38F1CCC0A8500B4A0A5 /* NoDividerSplitView.swift in Sources */,
 				AE23007B2009BFF800D6218D /* ImageDownloader.swift in Sources */,

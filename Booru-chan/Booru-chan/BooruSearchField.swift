@@ -50,7 +50,9 @@ class BooruSearchField: NSSearchField {
 
         suggestionsController.favouriteTags = ["fav1", "fav2", "fav3"];
         suggestionsController.searchHistory = ["his1", "his2", "his3"];
-        suggestionsController.getSuggestions = { query in return ["sug1", "sug2", "sug3"]; };
+        suggestionsController.getSuggestions = { query in return [Tag(name: "copyright_tag", type: .copyright, hits: 1000),
+                                                                  Tag(name: "character_tag", type: .character, hits: 100),
+                                                                  Tag(name: "artist_tag", type: .artist, hits: 10)]; };
         suggestionsController.onSelectSuggestion = { suggestion in
             if suggestion != nil {
                 self.showSuggestion(suggestion!);

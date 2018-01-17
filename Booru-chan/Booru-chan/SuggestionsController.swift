@@ -16,8 +16,8 @@ class SuggestionsController: NSViewController {
 
     var showHistory: Bool = false;
 
-    // passed the current filter, expects the results for that filter
-    var getSuggestions: ((String) -> [String])?
+    // passed the current filter
+    var getSuggestions: ((String) -> [Tag])?
     var onSelectSuggestion: ((String?) -> Void)?
 
     var favouriteTags: [String] = [];
@@ -40,9 +40,9 @@ class SuggestionsController: NSViewController {
     func updateSuggestions() {
         var newItems: [SuggestionItem] = [];
 
-        func addMatches(from values: [String], title: String, maximum: Int, hideIfBlank: Bool = false, ignoreFilter: Bool = false) {
-            let matches = (values.filter { $0.hasPrefix(filter) || ignoreFilter }).prefix(maximum);
-            if matches.isEmpty || hideIfBlank && filter.isEmpty {
+        func addMatches(from values: [String], title: String, maximum: Int) {
+            let matches = (values.filter { $0.hasPrefix(filter) }).prefix(maximum);
+            if matches.isEmpty {
                 return;
             }
 
@@ -50,10 +50,8 @@ class SuggestionsController: NSViewController {
         }
 
         addMatches(from: favouriteTags, title: "Favourites", maximum: 5);
-        if showHistory {
-            addMatches(from: searchHistory, title: "History", maximum: 5);
-        }
-        addMatches(from: getSuggestions?(filter) ?? [], title: "Suggestions", maximum: 10, hideIfBlank: true, ignoreFilter: true);
+        if showHistory { addMatches(from: searchHistory, title: "History", maximum: 5); }
+        if !filter.isEmpty { newItems.append(SuggestionSection(title: "Suggestions", items: (getSuggestions?(filter) ?? []).map { SuggestionTag(tag: $0) })) };
 
         items = newItems;
     }
@@ -133,10 +131,31 @@ extension SuggestionsController: NSTableViewDelegate {
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cellData = internalItems[row];
-        let identifier = cellData is SuggestionHeaderCell ? "HeaderCell" : cellData is SuggestionDividerCell ? "DividerCell" : "ContentCell";
+        var identifier = "ContentCell";
+        if cellData is SuggestionHeaderCell {
+            identifier = "HeaderCell";
+        }
+        else if cellData is SuggestionDividerCell {
+            identifier = "DividerCell";
+        }
+        else if cellData.item is SuggestionTag {
+            identifier = "TagCell";
+        }
 
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: identifier), owner: nil) as? NSTableCellView {
-            cell.textField?.stringValue = cellData.item.title;
+            if let i = cellData.item as? SuggestionTag, let tagCell = cell as? SuggestionsTagCellView {
+                let typeBullet = "● ";
+                let title = NSMutableAttributedString(string: typeBullet + i.tag.name);
+                title.addAttributes([.foregroundColor: i.tag.type.representedColour()], range: NSMakeRange(0, typeBullet.count));
+
+                tagCell.textField?.attributedStringValue = title;
+                tagCell.hitsTextField.stringValue = "10k";
+                return tagCell;
+            }
+            else {
+                cell.textField?.stringValue = cellData.item.title;
+            }
+
             return cell;
         }
 
