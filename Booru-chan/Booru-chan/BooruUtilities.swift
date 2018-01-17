@@ -154,7 +154,7 @@ class BooruUtilities {
         if representedBooru.type == .moebooru {
             post.id = json!["id"].intValue;
             post.url = "\(representedBooru.url)/post/show/\(post.id)";
-            post.tags = json!["tags"].stringValue.components(separatedBy: " ").filter { !$0.isEmpty };
+            post.tags = tagsFrom(string: json!["tags"].stringValue);
 
             post.thumbnailUrl = sanitizeUrl(json!["preview_url"].stringValue);
             post.thumbnailSize = NSSize(width: json!["actual_preview_width"].intValue,
@@ -183,7 +183,7 @@ class BooruUtilities {
         else if representedBooru.type == .danbooruLegacy {
             post.id = NSString(string: xml!.element!.allAttributes["id"]!.text).integerValue;
             post.url = "\(representedBooru.url)/posts/\(post.id)";
-            post.tags = xml!.element!.allAttributes["tags"]!.text.components(separatedBy: " ").filter { !$0.isEmpty };
+            post.tags = tagsFrom(string: xml!.element!.allAttributes["tags"]!.text);
 
             // danbooru legacy doesnt have thumbnail resolution in the api
             post.thumbnailUrl = sanitizeUrl("\(representedBooru.url)/\(xml?.element?.allAttributes["preview_url"]?.text ?? "")");
@@ -213,16 +213,14 @@ class BooruUtilities {
             post.id = json!["id"].intValue;
             post.url = "\(representedBooru.url)/posts/\(post.id)";
 
-            func addTags(key: String) {
-                post.tags = json![key].stringValue.components(separatedBy: " ");
+            func addTags(key: String, type: TagType) {
+                post.tags.append(contentsOf: tagsFrom(string: json![key].stringValue, type: type));
             }
 
-            //todo: properly handle tag types
-            addTags(key: "tag_string_artist");
-            addTags(key: "tag_string_character");
-            addTags(key: "tag_string_copyright");
-            addTags(key: "tag_string_general");
-            post.tags = post.tags.filter { !$0.isEmpty };
+            addTags(key: "tag_string_copyright", type: .copyright);
+            addTags(key: "tag_string_character", type: .character);
+            addTags(key: "tag_string_artist", type: .artist);
+            addTags(key: "tag_string_general", type: .general);
 
             // danbooru doesnt have thumbnail resolution in the api
             post.thumbnailUrl = sanitizeUrl("\(representedBooru.url)/\(json!["preview_file_url"].stringValue)");
@@ -251,7 +249,7 @@ class BooruUtilities {
         else if representedBooru.type == .gelbooru {
             post.id = NSString(string: xml!.element!.allAttributes["id"]!.text).integerValue;
             post.url = "\(representedBooru.url)/index.php?page=post&s=view&id=\(post.id)";
-            post.tags = xml!.element!.allAttributes["tags"]!.text.components(separatedBy: " ").filter { !$0.isEmpty };
+            post.tags = tagsFrom(string: xml!.element!.allAttributes["tags"]!.text);
 
             post.thumbnailUrl = sanitizeUrl(xml!.element!.allAttributes["preview_url"]!.text);
             post.thumbnailSize = NSSize(width: NSString(string: xml!.element!.allAttributes["preview_width"]!.text).integerValue,
@@ -327,6 +325,10 @@ class BooruUtilities {
         }
 
         return containsTagInBlacklist;
+    }
+
+    private func tagsFrom(string: String, type: TagType = .general) -> [Tag] {
+        return string.components(separatedBy: " ").filter { !$0.isEmpty }.map { Tag(name: $0, type: type) };
     }
 
     convenience init(booru: BooruHost) {

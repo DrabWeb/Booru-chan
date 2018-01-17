@@ -23,6 +23,8 @@
 		AE23007B2009BFF800D6218D /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE23007A2009BFF800D6218D /* ImageDownloader.swift */; };
 		AE329EC61E44C179003812FB /* PreferencesGeneralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC51E44C179003812FB /* PreferencesGeneralController.swift */; };
 		AE329EC81E44C186003812FB /* PreferencesBoorusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE329EC71E44C186003812FB /* PreferencesBoorusController.swift */; };
+		AE4E8A85200D9E0000122621 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4E8A84200D9E0000122621 /* Tag.swift */; };
+		AE4E8A87200D9E1500122621 /* TagType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4E8A86200D9E1500122621 /* TagType.swift */; };
 		AE9A56EE1FD72DFA0099D09E /* BooruWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */; };
 		AEA5A2171E13851400599CC5 /* BooruWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5A2161E13851400599CC5 /* BooruWindowController.swift */; };
 		AEC3C1EC200C50A2009AB087 /* TagListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC3C1EB200C50A2009AB087 /* TagListCellView.swift */; };
@@ -98,6 +100,8 @@
 		AE23007A2009BFF800D6218D /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		AE329EC51E44C179003812FB /* PreferencesGeneralController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesGeneralController.swift; sourceTree = "<group>"; };
 		AE329EC71E44C186003812FB /* PreferencesBoorusController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesBoorusController.swift; sourceTree = "<group>"; };
+		AE4E8A84200D9E0000122621 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		AE4E8A86200D9E1500122621 /* TagType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagType.swift; sourceTree = "<group>"; };
 		AE75E5161DDE678E00937817 /* Booru-chan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Booru-chan-Bridging-Header.h"; sourceTree = "<group>"; };
 		AE9A56ED1FD72DFA0099D09E /* BooruWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruWindow.swift; sourceTree = "<group>"; };
 		AEA5A2161E13851400599CC5 /* BooruWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooruWindowController.swift; sourceTree = "<group>"; };
@@ -323,6 +327,8 @@
 				AECAB5E0200C20C900673B46 /* BooruUtilities.swift */,
 				AECAB5E2200C20DA00673B46 /* BooruType.swift */,
 				AECAB5E4200C20E400673B46 /* Rating.swift */,
+				AE4E8A84200D9E0000122621 /* Tag.swift */,
+				AE4E8A86200D9E1500122621 /* TagType.swift */,
 			);
 			name = Booru;
 			sourceTree = "<group>";
@@ -709,6 +715,8 @@
 				AEDD7F81200C00CC00AD33DE /* Theme.swift in Sources */,
 				AEC3C1FE200C8239009AB087 /* SuggestionSection.swift in Sources */,
 				5D3288321CCE80D10029A57F /* BottomActionScrollView.swift in Sources */,
+				AE4E8A85200D9E0000122621 /* Tag.swift in Sources */,
+				AE4E8A87200D9E1500122621 /* TagType.swift in Sources */,
 				5D88CC151CCC177B001FF12E /* ColouredView.swift in Sources */,
 				AEC3C1EC200C50A2009AB087 /* TagListCellView.swift in Sources */,
 				AECAB5DF200C20BF00673B46 /* BooruHost.swift in Sources */,

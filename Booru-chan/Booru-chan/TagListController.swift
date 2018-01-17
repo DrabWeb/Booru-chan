@@ -11,15 +11,15 @@ class TagListController: NSViewController {
 
     @IBOutlet private weak var tagsTableView: NSTableView!
 
-    var onTagChecked: ((String) -> Void)?
-    var onTagUnchecked: ((String) -> Void)?
+    var onTagChecked: ((Tag) -> Void)?
+    var onTagUnchecked: ((Tag) -> Void)?
 
     // called by every tag cell, decides the initial state of the checkbox, true = on, false = off
-    var getTagState: ((String) -> Bool) = { tag in
+    var getTagState: ((Tag) -> Bool) = { tag in
         return false;
     };
 
-    var tags: [String] = [] {
+    var tags: [Tag] = [] {
         didSet {
             tagsTableView.reloadData();
         }
@@ -51,7 +51,7 @@ extension TagListController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "TagCell"), owner: nil) as? TagListCellView {
             let t = tags[row];
-            cell.tagNameCheckbox.title = t;
+            cell.tagNameCheckbox.title = t.name;
             cell.tagNameCheckbox.state = getTagState(t) ? .on : .off;
             cell.tagNameCheckbox.tag = row;
             return cell;

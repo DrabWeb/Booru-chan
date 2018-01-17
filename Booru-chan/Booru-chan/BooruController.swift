@@ -12,6 +12,7 @@ class BooruController: NSSplitViewController, IThemeable {
 
     private var window: NSWindow!
 
+    //todo: fix a bug where the status bar is broken when changing boorus while an image is loading
     private var lastBooru: BooruHost!
     private var currentBooru: BooruHost! {
         didSet {

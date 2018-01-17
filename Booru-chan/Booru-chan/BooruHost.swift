@@ -16,8 +16,8 @@ class BooruHost: NSObject, NSCoding {
     var type: BooruType = .none;
     var pagePostLimit: Int = 40;
     var maximumRating: Rating = .explicit;
-    var tagHistory: [String] = [];
-    var tagBlacklist: [String] = [];
+    var tagHistory: [Tag] = [];
+    var tagBlacklist: [Tag] = [];
 
     //todo: reimplement download history, the old way was gross
 
@@ -68,12 +68,12 @@ class BooruHost: NSObject, NSCoding {
 
         self.maximumRating = Rating(rawValue: decoder.decodeInteger(forKey: "maximumRating"))!;
 
-        if (decoder.decodeObject(forKey: "tagHistory") as? [String]) != nil {
-            self.tagHistory = decoder.decodeObject(forKey: "tagHistory") as! [String]!;
+        if (decoder.decodeObject(forKey: "tagHistory") as? [Tag]) != nil {
+            self.tagHistory = decoder.decodeObject(forKey: "tagHistory") as! [Tag]!;
         }
 
-        if (decoder.decodeObject(forKey: "tagBlacklist") as? [String]) != nil {
-            self.tagBlacklist = decoder.decodeObject(forKey: "tagBlacklist") as! [String]!;
+        if (decoder.decodeObject(forKey: "tagBlacklist") as? [Tag]) != nil {
+            self.tagBlacklist = decoder.decodeObject(forKey: "tagBlacklist") as! [Tag]!;
         }
 
         refreshUtilities();

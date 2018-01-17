@@ -11,7 +11,7 @@ class BooruPost {
 
     var id: Int = -1;
     var url: String = "";
-    var tags: [String] = [];
+    var tags: [Tag] = [];
     var rating: Rating = .none;
 
     var thumbnailUrl: String = "";

@@ -58,7 +58,7 @@ class PreferencesBoorusController: NSViewController {
         currentEditingHost.type = BooruType(rawValue: typePopUpButton.selectedTag())!;
         currentEditingHost.pagePostLimit = postsPerPageTextField.integerValue;
         currentEditingHost.maximumRating = Rating(rawValue: maximumRatingPopUpButton.selectedTag())!;
-        currentEditingHost.tagBlacklist = tagBlacklistTokenField.tokens;
+        currentEditingHost.tagBlacklist = tagBlacklistTokenField.tokens.map { Tag(name: $0) };
 
         save();
     }
@@ -102,7 +102,7 @@ class PreferencesBoorusController: NSViewController {
         
         tagBlacklistTokenField.stringValue = "";
         for (_, currentTag) in host.tagBlacklist.enumerated() {
-            tagBlacklistTokenField.addToken(currentTag);
+            tagBlacklistTokenField.addToken(currentTag.name);
         }
     }
 
