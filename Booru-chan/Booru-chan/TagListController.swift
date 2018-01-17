@@ -11,6 +11,8 @@ class TagListController: NSViewController {
 
     @IBOutlet private weak var tagsTableView: NSTableView!
 
+    private var internalTags: [TagCell] = [];
+
     var onTagChecked: ((Tag) -> Void)?
     var onTagUnchecked: ((Tag) -> Void)?
 
@@ -21,6 +23,15 @@ class TagListController: NSViewController {
 
     var tags: [Tag] = [] {
         didSet {
+            internalTags.removeAll();
+            tags.forEach { tag in
+                if !internalTags.contains(where: { $0.tag.type == tag.type }) {
+                    internalTags.append(TagCellHeader(tag: Tag(type: tag.type)));
+                }
+
+                internalTags.append(TagCell(tag: tag));
+            };
+
             tagsTableView.reloadData();
         }
     }
@@ -39,22 +50,48 @@ class TagListController: NSViewController {
                 break;
         }
     }
+
+    private class TagCell {
+        let tag: Tag;
+
+        init(tag: Tag) {
+            self.tag = tag;
+        }
+    }
+
+    private class TagCellHeader: TagCell {
+
+    }
 }
 
 extension TagListController: NSTableViewDataSource {
     func numberOfRows(in aTableView: NSTableView) -> Int {
-        return tags.count;
+        return internalTags.count;
     }
 }
 
 extension TagListController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "TagCell"), owner: nil) as? TagListCellView {
-            let t = tags[row];
-            cell.tagNameCheckbox.title = t.name;
-            cell.tagNameCheckbox.state = getTagState(t) ? .on : .off;
-            cell.tagNameCheckbox.tag = row;
-            return cell;
+        let cellData = internalTags[row];
+
+        if cellData is TagCellHeader {
+            if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "HeaderCell"), owner: nil) as? NSTableCellView {
+                cell.textField!.stringValue = "\(cellData.tag.type)".capitalized;
+                return cell;
+            }
+        }
+        else {
+            if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "TagCell"), owner: nil) as? TagListCellView {
+                let t = cellData.tag;
+                let typeBullet = "● ";
+                let title = NSMutableAttributedString(string: typeBullet + t.name.replacingOccurrences(of: "_", with: " "));
+                title.addAttributes([NSAttributedStringKey.foregroundColor: t.type.representedColour()], range: NSMakeRange(0, typeBullet.count));
+
+                cell.tagNameCheckbox.attributedTitle = title;
+                cell.tagNameCheckbox.state = getTagState(t) ? .on : .off;
+                cell.tagNameCheckbox.tag = row;
+                return cell;
+            }
         }
 
         return nil;
