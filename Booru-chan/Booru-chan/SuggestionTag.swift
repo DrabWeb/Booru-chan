@@ -13,6 +13,6 @@ class SuggestionTag: SuggestionItem {
 
     init(tag: Tag) {
         self.tag = tag;
-        super.init(title: "");
+        super.init(title: tag.name);
     }
 }

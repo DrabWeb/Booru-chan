@@ -144,12 +144,7 @@ extension SuggestionsController: NSTableViewDelegate {
 
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: identifier), owner: nil) as? NSTableCellView {
             if let i = cellData.item as? SuggestionTag, let tagCell = cell as? SuggestionsTagCellView {
-                let typeBullet = "● ";
-                let title = NSMutableAttributedString(string: typeBullet + i.tag.name);
-                title.addAttributes([.foregroundColor: i.tag.type.representedColour()], range: NSMakeRange(0, typeBullet.count));
-
-                tagCell.textField?.attributedStringValue = title;
-                tagCell.hitsTextField.stringValue = "10k";
+                tagCell.representedTag = i.tag;
                 return tagCell;
             }
             else {

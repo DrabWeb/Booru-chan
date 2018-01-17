@@ -123,7 +123,7 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rdI-Ce-4qq" userLabel="Hits">
-                                                                            <rect key="frame" x="438" y="2" width="25" height="14"/>
+                                                                            <rect key="frame" x="438" y="3" width="25" height="14"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Hits" id="2yD-Hj-eFl">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -133,10 +133,10 @@
                                                                     </subviews>
                                                                     <constraints>
                                                                         <constraint firstItem="TE3-BN-Ngr" firstAttribute="leading" secondItem="sUU-Xp-MNn" secondAttribute="leading" constant="21" id="ADX-Y5-PfL"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="rdI-Ce-4qq" secondAttribute="bottom" constant="2" id="ETH-S0-IOj"/>
                                                                         <constraint firstItem="rdI-Ce-4qq" firstAttribute="leading" secondItem="TE3-BN-Ngr" secondAttribute="trailing" constant="10" id="GtJ-7v-hBL"/>
                                                                         <constraint firstItem="TE3-BN-Ngr" firstAttribute="top" secondItem="sUU-Xp-MNn" secondAttribute="top" id="S8f-DE-5Q2"/>
                                                                         <constraint firstAttribute="bottom" secondItem="TE3-BN-Ngr" secondAttribute="bottom" constant="3" id="VfG-Lp-Qlt"/>
+                                                                        <constraint firstItem="rdI-Ce-4qq" firstAttribute="baseline" secondItem="TE3-BN-Ngr" secondAttribute="baseline" id="f72-uw-Pt8"/>
                                                                         <constraint firstAttribute="trailing" secondItem="rdI-Ce-4qq" secondAttribute="trailing" constant="16" id="gIE-tW-8Xa"/>
                                                                     </constraints>
                                                                     <connections>
