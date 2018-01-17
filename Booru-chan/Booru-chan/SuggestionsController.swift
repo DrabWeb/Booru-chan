@@ -41,7 +41,7 @@ class SuggestionsController: NSViewController {
         var newItems: [SuggestionItem] = [];
 
         func addMatches(from values: [String], title: String, maximum: Int) {
-            let matches = (values.filter { $0.hasPrefix(filter) }).prefix(maximum);
+            let matches = (values.filter { $0.hasPrefix(filter) && $0 != filter }).prefix(maximum);
             if matches.isEmpty {
                 return;
             }

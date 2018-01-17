@@ -84,7 +84,7 @@ class BooruUtilities {
 
         if representedBooru.type == .moebooru {
             // /post.json?tags=[search]&page=[page]&limit=[limit]
-            let url = "\(representedBooru.url)/post.json?tags=\(search + ratingLimitString)&page=\(page)&limit=\(limit)";
+            let url = sanitizeUrl("\(representedBooru.url)/post.json?tags=\(search + ratingLimitString)&page=\(page)&limit=\(limit)");
             print("BooruUtilities: Using \(url) to search");
 
             request = jsonRequest(url: url, completionHandler: { json in
@@ -308,7 +308,7 @@ class BooruUtilities {
     }
 
     private func sanitizeUrl(_ url: String) -> String {
-        return url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!;
+        return url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!.replacingOccurrences(of: " ", with: "%20");
     }
 
     private func postIsBlacklisted(_ post: BooruPost) -> Bool {
