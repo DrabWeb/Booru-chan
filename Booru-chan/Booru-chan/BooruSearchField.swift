@@ -76,7 +76,8 @@ class BooruSearchField: NSSearchField {
         NSEvent.addLocalMonitorForEvents(matching: .keyDown, handler: { event in
             switch event.keyCode {
                 case 125, 126: //up arrow or down arrow
-                    if self.suggestionsVisible == true {
+                    // dont allow the user to press up when there is no selected item
+                    if self.suggestionsVisible == true && !(event.keyCode == 126 && self.suggestionsController.selectedItem == nil) {
                         self.suggestionsWindowController.window!.firstResponder!.keyDown(with: event);
                     }
                     return nil;

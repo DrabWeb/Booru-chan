@@ -39,6 +39,16 @@ class SuggestionsController: NSViewController {
         }
     }
 
+    var selectedItem: SuggestionItem? {
+        get {
+            if suggestionsTableView.selectedRow == -1 {
+                return nil;
+            }
+
+            return internalItems[suggestionsTableView.selectedRow].item;
+        }
+    }
+
     func updateSuggestions() {
         lastSuggestionsRequest?.cancel();
         var newItems: [SuggestionItem] = [];
@@ -130,6 +140,14 @@ extension SuggestionsController: NSTableViewDataSource {
 extension SuggestionsController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, selectionIndexesForProposedSelection proposedSelectionIndexes: IndexSet) -> IndexSet {
         if let i = proposedSelectionIndexes.first {
+            // deselect all if the user tries to select the row above the last selectable row
+            if i >= 0 && i < tableView.selectedRow {
+                if internalItems[0..<i].filter({ !$0.isSelectable }).isEmpty {
+                    tableView.deselectAll(self);
+                    return [];
+                }
+            }
+
             if !internalItems[i].isSelectable {
                 return [];
             }
