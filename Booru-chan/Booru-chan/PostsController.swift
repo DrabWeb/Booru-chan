@@ -25,6 +25,10 @@ class PostsController: NSViewController {
         }
     }
 
+    func scrollToTop() {
+        scrollView.documentView!.scroll(NSPoint(x: 0, y: -scrollView.contentInsets.top));
+    }
+
     private func sendOnSelect() {
         onSelect?(collectionView.selectionIndexes.map { items[$0] });
     }

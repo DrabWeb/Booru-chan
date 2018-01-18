@@ -11,9 +11,10 @@ import Alamofire
 class BooruController: NSSplitViewController, IThemeable {
 
     private var window: NSWindow!
+    private var lastBooru: BooruHost!
+    private var lastSearchRequest: Request?
 
     //todo: fix a bug where the status bar is broken when changing boorus while an image is loading
-    private var lastBooru: BooruHost!
     private var currentBooru: BooruHost! {
         didSet {
             if currentBooru == lastBooru {
@@ -74,14 +75,15 @@ class BooruController: NSSplitViewController, IThemeable {
         search(for: sender.stringValue);
     }
 
-    //todo: scroll to the top of the results when a new search is started
-    private var lastSearchRequest: Request?
     func search(for query: String) {
         lastSearchRequest?.cancel();
         lastSearchRequest = currentBooru.utilties.getPostsFromSearch(query,
                                                                      limit: currentBooru.pagePostLimit,
                                                                      page: 1,
-                                                                     completionHandler: { self.browserController.postsController.items = $0 });
+                                                                     completionHandler: {
+                                                                         self.browserController.postsController.items = $0;
+                                                                         self.browserController.postsController.scrollToTop();
+                                                                     });
     }
 
     func applyTheme(theme: Theme) {
