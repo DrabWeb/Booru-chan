@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Alamofire
 
 class SuggestionsController: NSViewController {
 
@@ -13,11 +14,12 @@ class SuggestionsController: NSViewController {
     @IBOutlet private weak var suggestionsScrollView: NSScrollView!
 
     private var internalItems: [SuggestionCell] = [];
+    private var lastSuggestionsRequest: Request?
 
     var showHistory: Bool = false;
 
     // passed the current filter
-    var getSuggestions: ((String) -> [Tag])?
+    var getSuggestions: ((String, @escaping ([Tag]) -> Void) -> Request?)?
     var onSelectSuggestion: ((String?) -> Void)?
 
     var favouriteTags: [String] = [];
@@ -38,6 +40,7 @@ class SuggestionsController: NSViewController {
     }
 
     func updateSuggestions() {
+        lastSuggestionsRequest?.cancel();
         var newItems: [SuggestionItem] = [];
 
         func addMatches(from values: [String], title: String, maximum: Int) {
@@ -51,7 +54,13 @@ class SuggestionsController: NSViewController {
 
         addMatches(from: favouriteTags, title: "Favourites", maximum: 5);
         if showHistory { addMatches(from: searchHistory, title: "History", maximum: 5); }
-        if !filter.isEmpty { newItems.append(SuggestionSection(title: "Suggestions", items: (getSuggestions?(filter) ?? []).map { SuggestionTag(tag: $0) })) };
+        if !filter.isEmpty {
+            lastSuggestionsRequest = getSuggestions?(filter, { suggestions in
+                if !suggestions.isEmpty {
+                    self.items.append(SuggestionSection(title: "Suggestions", items: suggestions.map { SuggestionTag(tag: $0) }));
+                }
+            });
+        };
 
         items = newItems;
     }

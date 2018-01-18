@@ -9,7 +9,7 @@ import Cocoa
 
 class SuggestionsTagCellView: NSTableCellView {
 
-    @IBOutlet private weak var hitsTextField: NSTextField!
+    @IBOutlet private weak var postCountTextField: NSTextField!
 
     var representedTag: Tag! {
         didSet {
@@ -26,11 +26,16 @@ class SuggestionsTagCellView: NSTableCellView {
     private func updateAttributedString() {
 
         let typeBullet = "● ";
-        let title = NSMutableAttributedString(string: typeBullet + representedTag.name, attributes: [.foregroundColor: backgroundStyle == .light ? NSColor.labelColor : NSColor.white]);
+        let title = NSMutableAttributedString(string: typeBullet + (representedTag.name.replacingOccurrences(of: "_", with: " ")), attributes: [.foregroundColor: backgroundStyle == .light ? NSColor.labelColor : NSColor.white]);
         title.addAttributes([.foregroundColor: representedTag.type.representedColour()], range: NSMakeRange(0, typeBullet.count));
-        hitsTextField.textColor = backgroundStyle == .light ? NSColor.secondaryLabelColor : NSColor.white;
+        postCountTextField.textColor = backgroundStyle == .light ? NSColor.secondaryLabelColor : NSColor.white;
+
+        var postCount = "\(representedTag.postCount)";
+        if representedTag.postCount >= 1000 {
+            postCount = "\(Int(floor(Double(representedTag.postCount / 1000))))k";
+        }
 
         textField!.attributedStringValue = title;
-        hitsTextField.stringValue = "10k";
+        postCountTextField.stringValue = postCount;
     }
 }

@@ -151,7 +151,7 @@
                                         <menuItem isSeparatorItem="YES" id="WgD-rU-ERe"/>
                                         <menuItem title="Search…" tag="1" keyEquivalent="f" id="Ugw-j3-nae">
                                             <connections>
-                                                <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="kMJ-K7-x8d"/>
+                                                <action selector="focusSearchField:" target="Ady-hI-5gd" id="B8p-xv-hg1"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -291,6 +291,7 @@
                     </window>
                     <connections>
                         <outlet property="booruPopUpButton" destination="cUI-9z-dtm" id="yW2-bY-HLe"/>
+                        <outlet property="searchField" destination="bf5-lR-Frv" id="6w0-WS-Bd4"/>
                         <segue destination="izn-wc-Ddx" kind="relationship" relationship="window.shadowedContentViewController" id="24x-ee-UPS"/>
                     </connections>
                 </windowController>

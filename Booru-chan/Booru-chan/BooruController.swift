@@ -21,6 +21,7 @@ class BooruController: NSSplitViewController, IThemeable {
             }
 
             lastBooru = currentBooru;
+            (self.window.windowController as! BooruWindowController).searchField.changeSuggestionsBooru(to: currentBooru);
             clear();
         }
     }
@@ -68,14 +69,15 @@ class BooruController: NSSplitViewController, IThemeable {
     }
 
     @IBAction func searchQueryEntered(_ sender: NSSearchField!) {
+        //todo: find some way to make the action only fire when pressing enter, not when cleared
         self.window.makeFirstResponder(self);
         search(for: sender.stringValue);
     }
 
+    //todo: scroll to the top of the results when a new search is started
     private var lastSearchRequest: Request?
     func search(for query: String) {
         lastSearchRequest?.cancel();
-
         lastSearchRequest = currentBooru.utilties.getPostsFromSearch(query,
                                                                      limit: currentBooru.pagePostLimit,
                                                                      page: 1,
@@ -94,6 +96,9 @@ class BooruController: NSSplitViewController, IThemeable {
 
     override func viewDidLoad() {
         super.viewDidLoad();
+
+        //todo: dont allow more pages to load when there is already one loading
+        //todo: add some way to tell if theres any more results
 
         window = NSApp.windows.last!;
         browserController.postsController.onSelect = { self.selectedPosts = $0 };

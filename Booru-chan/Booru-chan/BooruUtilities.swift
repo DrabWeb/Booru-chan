@@ -47,7 +47,7 @@ class BooruUtilities {
                             break;
                     }
 
-                    results.append(Tag(name: t.1["name"].stringValue, type: type, hits: t.1["count"].intValue));
+                    results.append(Tag(name: t.1["name"].stringValue, type: type, postCount: t.1["count"].intValue));
                 }
 
                 completionHandler(results);
@@ -64,7 +64,7 @@ class BooruUtilities {
                     var type = TagType.general;
 
                     // general: 0, artist: 1, copyright: 3, character: 4
-                    switch t.1["type"].intValue {
+                    switch t.1["category"].intValue {
                         case 1:
                             type = .artist;
                             break;
@@ -78,7 +78,7 @@ class BooruUtilities {
                             break;
                     }
 
-                    results.append(Tag(name: t.1["name"].stringValue, type: type, hits: t.1["post_count"].intValue));
+                    results.append(Tag(name: t.1["name"].stringValue, type: type, postCount: t.1["post_count"].intValue));
                 }
 
                 completionHandler(results);
@@ -330,7 +330,9 @@ class BooruUtilities {
         return Alamofire.request(url).responseJSON { responseData in
             let jsonString = NSString(data: responseData.data!, encoding: String.Encoding.utf8.rawValue)!;
             if let jsonData = jsonString.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false) {
-                completionHandler(try! JSON(data: jsonData));
+                if let json = try? JSON(data: jsonData) {
+                    completionHandler(json);
+                }
             }
         }
     }

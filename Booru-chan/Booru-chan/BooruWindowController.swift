@@ -13,6 +13,12 @@ class BooruWindowController: NSWindowController {
     
     @IBOutlet private weak var booruPopUpButton: NSPopUpButton!
 
+    @IBOutlet weak var searchField: BooruSearchField!
+
+    @IBAction func focusSearchField(_ sender: Any) {
+        self.window!.makeFirstResponder(searchField);
+    }
+
     @IBAction override func newWindowForTab(_ sender: Any?) {
         // tabbing is only available on 10.12+
         if #available(OSX 10.12, *) {

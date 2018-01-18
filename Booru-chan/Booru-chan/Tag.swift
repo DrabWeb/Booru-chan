@@ -20,9 +20,9 @@ class Tag: Equatable {
 
     init(name: String = "",
          type: TagType = .general,
-         hits: Int = 0) {
+         postCount: Int = 0) {
         self.name = name;
         self.type = type;
-        self.postCount = hits;
+        self.postCount = postCount;
     }
 }

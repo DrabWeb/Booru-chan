@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="vd6-bS-YZF">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -43,7 +42,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="l8y-xo-zpc">
                                             <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="20" rowSizeStyle="automatic" usesAutomaticRowHeights="YES" viewBased="YES" id="yjH-vz-Onk" customClass="HoverSelectTableView" customModule="Booru_chan" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="480" height="262"/>
@@ -140,7 +139,7 @@
                                                                         <constraint firstAttribute="trailing" secondItem="rdI-Ce-4qq" secondAttribute="trailing" constant="16" id="gIE-tW-8Xa"/>
                                                                     </constraints>
                                                                     <connections>
-                                                                        <outlet property="hitsTextField" destination="rdI-Ce-4qq" id="rKk-bV-7cg"/>
+                                                                        <outlet property="postCountTextField" destination="rdI-Ce-4qq" id="rKk-bV-7cg"/>
                                                                         <outlet property="textField" destination="TE3-BN-Ngr" id="gc9-R2-e4N"/>
                                                                     </connections>
                                                                 </tableCellView>

@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Alamofire
 
 class BooruSearchField: NSSearchField {
 
@@ -15,6 +16,8 @@ class BooruSearchField: NSSearchField {
             return (suggestionsWindowController.contentViewController as! SuggestionsController);
         }
     }
+
+    private var booru: BooruHost!
 
     private var suggestionsVisible: Bool = false {
         didSet {
@@ -40,6 +43,11 @@ class BooruSearchField: NSSearchField {
         return super.becomeFirstResponder();
     }
 
+    func changeSuggestionsBooru(to booru: BooruHost) {
+        self.booru = booru;
+        clearAndUpdateSuggestions();
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib();
 
@@ -50,9 +58,12 @@ class BooruSearchField: NSSearchField {
 
         suggestionsController.favouriteTags = ["fav1", "fav2", "fav3"];
         suggestionsController.searchHistory = ["his1", "his2", "his3"];
-        suggestionsController.getSuggestions = { query in return [Tag(name: "copyright_tag", type: .copyright, hits: 1000),
-                                                                  Tag(name: "character_tag", type: .character, hits: 100),
-                                                                  Tag(name: "artist_tag", type: .artist, hits: 10)]; };
+        suggestionsController.getSuggestions = { query, completionHandler in
+            return self.booru.utilties.getAutocompleteSuggestionsFromSearch(query, limit: 10, completionHandler: { tags in
+                completionHandler(tags);
+            });
+        };
+
         suggestionsController.onSelectSuggestion = { suggestion in
             if suggestion != nil {
                 self.showSuggestion(suggestion!);
@@ -75,9 +86,11 @@ class BooruSearchField: NSSearchField {
         });
     }
 
+    private var delayedTimer: Timer?
     override func textDidChange(_ notification: Notification) {
-        suggestionRange = nil;
-        updateSuggestions();
+        delayedTimer?.invalidate();
+        delayedTimer  = Timer.scheduledTimer(timeInterval: TimeInterval(0.25), target: self, selector: #selector(clearAndUpdateSuggestions), userInfo: nil, repeats: false);
+
         super.textDidChange(notification);
     }
 
@@ -95,6 +108,11 @@ class BooruSearchField: NSSearchField {
         w.setFrameOrigin(NSPoint(x: (o.x + s.width) - bounds.width - 7,
                                  y: (o.y + s.height) - h - 36));
         w.setContentSize(NSSize(width: bounds.width, height: h));
+    }
+
+    @objc private func clearAndUpdateSuggestions() {
+        self.suggestionRange = nil;
+        self.updateSuggestions();
     }
 
     private func updateSuggestions() {
