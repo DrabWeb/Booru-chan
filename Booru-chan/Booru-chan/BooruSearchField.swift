@@ -72,7 +72,8 @@ class BooruSearchField: NSSearchField, NSSearchFieldDelegate {
         suggestionsWindowController.loadWindow();
 
         self.postsFrameChangedNotifications = true;
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSuggestionsSize), name: NSView.frameDidChangeNotification, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSuggestionsSize(_:)), name: NSView.frameDidChangeNotification, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSuggestionsSize(_:)), name: NSWindow.didResizeNotification, object: nil);
 
         suggestionsController.favouriteTags = ["fav1", "fav2", "fav3"];
         suggestionsController.searchHistory = ["his1", "his2", "his3"];
@@ -126,24 +127,22 @@ class BooruSearchField: NSSearchField, NSSearchFieldDelegate {
         super.textDidEndEditing(notification);
     }
 
-    @objc func updateSuggestionsSize() {
+    @objc private func updateSuggestionsSize(_ notification: NSNotification) {
+        // only listen for notifications from stuff that we care about
+        if !(notification.object is BooruSearchField || notification.object is SuggestionsTableView || notification.object is BooruWindow) {
+            return;
+        }
+
         let w = suggestionsWindowController.window!;
 
         let o = self.window!.frame.origin;
         let s = self.window!.frame.size;
-        let h = CGFloat(w.contentView?.bounds.height ?? 0);
+        let h = CGFloat(w.contentViewController?.preferredContentSize.height ?? 0);
+        suggestionsController.preferredContentSize = NSSize(width: bounds.width, height: h);
 
-        let newOrigin = NSPoint(x: (o.x + s.width) - bounds.width - 7,
-                                y: (o.y + s.height) - h - 36);
-        let newSize = NSSize(width: bounds.width, height: h);
-
-        if w.frame.origin != newOrigin {
-            w.setFrameOrigin(newOrigin);
-        }
-
-        if (w.contentView?.frame.size ?? NSSize.zero) != newSize {
-            w.setContentSize(newSize);
-        }
+        w.setFrameOrigin(NSPoint(x: (o.x + s.width) - bounds.width - 7,
+                                 y: (o.y + s.height) - h - 36));
+        w.setContentSize(NSSize(width: bounds.width, height: h));
     }
 
     @objc private func clearAndUpdateSuggestions() {
