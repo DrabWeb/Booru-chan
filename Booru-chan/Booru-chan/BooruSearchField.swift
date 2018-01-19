@@ -132,9 +132,18 @@ class BooruSearchField: NSSearchField, NSSearchFieldDelegate {
         let o = self.window!.frame.origin;
         let s = self.window!.frame.size;
         let h = CGFloat(w.contentView?.bounds.height ?? 0);
-        w.setFrameOrigin(NSPoint(x: (o.x + s.width) - bounds.width - 7,
-                                 y: (o.y + s.height) - h - 36));
-        w.setContentSize(NSSize(width: bounds.width, height: h));
+
+        let newOrigin = NSPoint(x: (o.x + s.width) - bounds.width - 7,
+                                y: (o.y + s.height) - h - 36);
+        let newSize = NSSize(width: bounds.width, height: h);
+
+        if w.frame.origin != newOrigin {
+            w.setFrameOrigin(newOrigin);
+        }
+
+        if (w.contentView?.frame.size ?? NSSize.zero) != newSize {
+            w.setContentSize(newSize);
+        }
     }
 
     @objc private func clearAndUpdateSuggestions() {
