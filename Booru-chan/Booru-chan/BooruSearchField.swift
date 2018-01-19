@@ -65,9 +65,18 @@ class BooruSearchField: NSSearchField, NSSearchFieldDelegate {
         clearAndUpdateSuggestions();
     }
 
+    @objc private func cancelButtonPressed() {
+        self.stringValue = "";
+        updateSuggestions();
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib();
         self.delegate = self;
+        if let b = (self.cell as? NSSearchFieldCell)?.cancelButtonCell {
+            b.target = self;
+            b.action = #selector(cancelButtonPressed);
+        }
 
         suggestionsWindowController.loadWindow();
 
