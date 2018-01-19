@@ -98,6 +98,12 @@ class BooruSearchField: NSSearchField, NSSearchFieldDelegate {
             self.clearAndUpdateSuggestions();
         };
 
+        suggestionsController.onItemsChange = { hasResults in
+            if self.suggestionsVisible != hasResults {
+                self.suggestionsVisible = hasResults;
+            }
+        };
+
         NSEvent.addLocalMonitorForEvents(matching: .keyDown, handler: { event in
             switch event.keyCode {
                 case 125, 126: //up arrow or down arrow

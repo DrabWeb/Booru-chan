@@ -22,6 +22,7 @@ class SuggestionsController: NSViewController {
     var getSuggestions: ((String, @escaping ([Tag]) -> Void) -> Request?)?
     var onSelectSuggestion: ((String?) -> Void)?
     var onClickSuggestion: ((SuggestionItem) -> Void)?
+    var onItemsChange: ((Bool) -> Void)?
 
     var favouriteTags: [String] = [];
     var searchHistory: [String] = [];
@@ -47,6 +48,12 @@ class SuggestionsController: NSViewController {
             }
 
             return internalItems[suggestionsTableView.selectedRow].item;
+        }
+    }
+
+    var hasResults: Bool {
+        get {
+            return !internalItems.isEmpty;
         }
     }
 
@@ -101,6 +108,8 @@ class SuggestionsController: NSViewController {
         if internalItems.last is SuggestionDividerCell {
             internalItems.removeLast();
         }
+
+        onItemsChange?(hasResults);
     }
 
     private func updatePreferredSize() {
