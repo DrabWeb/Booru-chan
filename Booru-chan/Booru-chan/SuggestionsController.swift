@@ -10,7 +10,7 @@ import Alamofire
 
 class SuggestionsController: NSViewController {
 
-    @IBOutlet private weak var suggestionsTableView: HoverSelectTableView!
+    @IBOutlet private weak var suggestionsTableView: SuggestionsTableView!
     @IBOutlet private weak var suggestionsScrollView: NSScrollView!
 
     private var internalItems: [SuggestionCell] = [];
@@ -21,6 +21,7 @@ class SuggestionsController: NSViewController {
     // passed the current filter
     var getSuggestions: ((String, @escaping ([Tag]) -> Void) -> Request?)?
     var onSelectSuggestion: ((String?) -> Void)?
+    var onClickSuggestion: ((SuggestionItem) -> Void)?
 
     var favouriteTags: [String] = [];
     var searchHistory: [String] = [];
@@ -47,6 +48,14 @@ class SuggestionsController: NSViewController {
 
             return internalItems[suggestionsTableView.selectedRow].item;
         }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad();
+
+        suggestionsTableView.onClick = { row in
+            self.onClickSuggestion?(self.internalItems[row].item);
+        };
     }
 
     func updateSuggestions() {

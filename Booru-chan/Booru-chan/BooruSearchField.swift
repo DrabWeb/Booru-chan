@@ -8,7 +8,7 @@
 import Cocoa
 import Alamofire
 
-class BooruSearchField: NSSearchField {
+class BooruSearchField: NSSearchField, NSSearchFieldDelegate {
 
     private let suggestionsWindowController = NSStoryboard(name: NSStoryboard.Name(rawValue: "SuggestionsWindow"), bundle: nil).instantiateInitialController() as! SuggestionsWindowController;
     private var suggestionsController: SuggestionsController {
@@ -43,6 +43,23 @@ class BooruSearchField: NSSearchField {
         return super.becomeFirstResponder();
     }
 
+    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        // keep the selected suggestion if the user selects one and presses enter
+        if commandSelector == #selector(insertNewline) {
+            suggestionRange = nil;
+        }
+        // dont send the action if the user is clearing out the field
+        else if commandSelector == #selector(deleteBackward) || commandSelector == #selector(deleteForward) {
+            if stringValue.count == 1 || currentEditor()!.selectedRange == NSRange(stringValue.startIndex..<stringValue.endIndex, in: stringValue) {
+                stringValue = "";
+                updateSuggestions();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     func changeSuggestionsBooru(to booru: BooruHost) {
         self.booru = booru;
         clearAndUpdateSuggestions();
@@ -50,6 +67,7 @@ class BooruSearchField: NSSearchField {
 
     override func awakeFromNib() {
         super.awakeFromNib();
+        self.delegate = self;
 
         suggestionsWindowController.loadWindow();
 
@@ -73,6 +91,12 @@ class BooruSearchField: NSSearchField {
             }
         };
 
+        suggestionsController.onClickSuggestion = { suggestion in
+            self.stringValue += " ";
+            self.currentEditor()!.selectedRange = NSRange(self.stringValue.endIndex..<self.stringValue.endIndex, in: self.stringValue);
+            self.clearAndUpdateSuggestions();
+        };
+
         NSEvent.addLocalMonitorForEvents(matching: .keyDown, handler: { event in
             switch event.keyCode {
                 case 125, 126: //up arrow or down arrow
@@ -90,13 +114,15 @@ class BooruSearchField: NSSearchField {
     private var delayedTimer: Timer?
     override func textDidChange(_ notification: Notification) {
         delayedTimer?.invalidate();
-        delayedTimer  = Timer.scheduledTimer(timeInterval: TimeInterval(0.25), target: self, selector: #selector(clearAndUpdateSuggestions), userInfo: nil, repeats: false);
+        delayedTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.25), target: self, selector: #selector(clearAndUpdateSuggestions), userInfo: nil, repeats: false);
 
         super.textDidChange(notification);
     }
 
     override func textDidEndEditing(_ notification: Notification) {
         suggestionsVisible = false;
+        stringValue = stringValue.trimmingCharacters(in: .whitespaces);
+
         super.textDidEndEditing(notification);
     }
 

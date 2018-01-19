@@ -42,6 +42,7 @@
 		AECAB5E1200C20C900673B46 /* BooruUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAB5E0200C20C900673B46 /* BooruUtilities.swift */; };
 		AECAB5E3200C20DA00673B46 /* BooruType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAB5E2200C20DA00673B46 /* BooruType.swift */; };
 		AECAB5E5200C20E400673B46 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECAB5E4200C20E400673B46 /* Rating.swift */; };
+		AECE9B0920106B150084DF93 /* SuggestionsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECE9B0820106B150084DF93 /* SuggestionsTableView.swift */; };
 		AED6F58C1FD750D30036EDE8 /* BooruController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F58B1FD750D30036EDE8 /* BooruController.swift */; };
 		AED6F58E1FD751280036EDE8 /* BrowserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F58D1FD751280036EDE8 /* BrowserController.swift */; };
 		AED6F5901FD7513C0036EDE8 /* ViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED6F58F1FD7513C0036EDE8 /* ViewerController.swift */; };
@@ -122,6 +123,7 @@
 		AECAB5E0200C20C900673B46 /* BooruUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruUtilities.swift; sourceTree = "<group>"; };
 		AECAB5E2200C20DA00673B46 /* BooruType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruType.swift; sourceTree = "<group>"; };
 		AECAB5E4200C20E400673B46 /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
+		AECE9B0820106B150084DF93 /* SuggestionsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsTableView.swift; sourceTree = "<group>"; };
 		AED6F58B1FD750D30036EDE8 /* BooruController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruController.swift; sourceTree = "<group>"; };
 		AED6F58D1FD751280036EDE8 /* BrowserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserController.swift; sourceTree = "<group>"; };
 		AED6F58F1FD7513C0036EDE8 /* ViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerController.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 				AEC3C1EE200C62DB009AB087 /* BooruSearchField.swift */,
 				AEC3C1F6200C70C0009AB087 /* SuggestionsWindowController.swift */,
 				AEC3C1FA200C7F2D009AB087 /* SuggestionsController.swift */,
+				AECE9B0820106B150084DF93 /* SuggestionsTableView.swift */,
 				AE818F62200EE74D00CC88B9 /* SuggestionsTagCellView.swift */,
 				AEC3C1F8200C74D3009AB087 /* SuggestionsWindow.storyboard */,
 			);
@@ -706,6 +709,7 @@
 			files = (
 				AEA5A2171E13851400599CC5 /* BooruWindowController.swift in Sources */,
 				AED6F5921FD7514F0036EDE8 /* TagListController.swift in Sources */,
+				AECE9B0920106B150084DF93 /* SuggestionsTableView.swift in Sources */,
 				AED6F58E1FD751280036EDE8 /* BrowserController.swift in Sources */,
 				5D3288351CCE95710029A57F /* Preferences.swift in Sources */,
 				AED6F59D1FD76A620036EDE8 /* PostsCollectionViewItem.swift in Sources */,
