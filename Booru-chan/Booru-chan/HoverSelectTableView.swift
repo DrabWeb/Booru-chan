@@ -10,14 +10,18 @@ import Cocoa
 class HoverSelectTableView: NSTableView {
 
     private var trackingArea: NSTrackingArea!
+    private var lastSelected: Int = -1;
 
     override func mouseMoved(with event: NSEvent) {
         let r = row(at: convert(event.locationInWindow, to: nil));
-        if r > -1 {
-            self.selectRowIndexes(delegate?.tableView?(self, selectionIndexesForProposedSelection: [r]) ?? [], byExtendingSelection: false);
-        }
-        else {
-            clearSelection();
+        if r != lastSelected {
+            lastSelected = r;
+            if r > -1 {
+                self.selectRowIndexes(delegate?.tableView?(self, selectionIndexesForProposedSelection: [r]) ?? [], byExtendingSelection: false);
+            }
+            else {
+                clearSelection();
+            }
         }
     }
 
@@ -37,6 +41,6 @@ class HoverSelectTableView: NSTableView {
     }
 
     deinit {
-        removeTrackingArea(trackingArea)
+        removeTrackingArea(trackingArea);
     }
 }
