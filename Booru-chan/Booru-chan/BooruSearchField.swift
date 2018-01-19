@@ -22,7 +22,7 @@ class BooruSearchField: NSSearchField, NSSearchFieldDelegate {
     private var suggestionsVisible: Bool = false {
         didSet {
             if suggestionsVisible {
-                //when the child window is ordered out it is detached from its parent, so add it back again here
+                // when the child window is ordered out it is detached from its parent, so add it back again here
                 self.window!.addChildWindow(suggestionsWindowController.window!, ordered: .above);
                 suggestionsWindowController.showWindow(self);
             }
@@ -76,7 +76,6 @@ class BooruSearchField: NSSearchField, NSSearchFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(updateSuggestionsSize(_:)), name: NSWindow.didResizeNotification, object: nil);
 
         suggestionsController.favouriteTags = ["fav1", "fav2", "fav3"];
-        suggestionsController.searchHistory = ["his1", "his2", "his3"];
         suggestionsController.getSuggestions = { query, completionHandler in
             return self.booru.utilties.getAutocompleteSuggestionsFromSearch(query, limit: 10, completionHandler: { tags in
                 completionHandler(tags);
@@ -159,6 +158,7 @@ class BooruSearchField: NSSearchField, NSSearchFieldDelegate {
     }
 
     private func updateSuggestions() {
+        suggestionsController.searchHistory = Array(Set(booru.searchHistory.reversed()));
         suggestionsController.showHistory = stringValue.isEmpty;
         suggestionsController.filter = currentTag;
     }

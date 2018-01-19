@@ -175,6 +175,7 @@ class BooruUtilities {
         lastSearch = search;
         lastSearchLimit = limit;
         lastSearchPage = page;
+        representedBooru.searchHistory.append(search);
 
         return request;
     }

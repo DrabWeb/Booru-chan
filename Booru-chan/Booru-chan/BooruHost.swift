@@ -16,6 +16,7 @@ class BooruHost: NSObject, NSCoding {
     var type: BooruType = .none;
     var pagePostLimit: Int = 40;
     var maximumRating: Rating = .explicit;
+    var searchHistory: [String] = [];
     var tagHistory: [Tag] = [];
     var tagBlacklist: [Tag] = [];
 
@@ -48,6 +49,7 @@ class BooruHost: NSObject, NSCoding {
         coder.encode(self.pagePostLimit, forKey: "pagePostLimit");
         coder.encode(self.url, forKey: "url");
         coder.encode(self.maximumRating.rawValue, forKey: "maximumRating");
+        coder.encode(self.searchHistory, forKey: "searchHistory");
         coder.encode(self.tagHistory, forKey: "tagHistory");
         coder.encode(self.tagBlacklist, forKey: "tagBlacklist");
     }
@@ -67,6 +69,10 @@ class BooruHost: NSObject, NSCoding {
         }
 
         self.maximumRating = Rating(rawValue: decoder.decodeInteger(forKey: "maximumRating"))!;
+
+        if (decoder.decodeObject(forKey: "searchHistory") as? [String]) != nil {
+            self.searchHistory = decoder.decodeObject(forKey: "searchHistory") as! [String]!;
+        }
 
         if (decoder.decodeObject(forKey: "tagHistory") as? [Tag]) != nil {
             self.tagHistory = decoder.decodeObject(forKey: "tagHistory") as! [Tag]!;
