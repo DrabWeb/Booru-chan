@@ -99,8 +99,10 @@ class BooruSearchField: NSSearchField, NSSearchFieldDelegate {
         };
 
         suggestionsController.onItemsChange = { hasResults in
-            if self.suggestionsVisible != hasResults {
-                self.suggestionsVisible = hasResults;
+            if self.window?.firstResponder == self {
+                if self.suggestionsVisible != hasResults {
+                    self.suggestionsVisible = hasResults;
+                }
             }
         };
 
